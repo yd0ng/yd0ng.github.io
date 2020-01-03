@@ -8,12 +8,12 @@
   <link rel="dns-prefetch" href="https://yd0ng.github.io">
   <title>DVWA | Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今天发上以前很早对于DVWA靶场的渗透，基本是可以作为web安全入门的参考资料了，大家一起分享~">
+  <meta name="description" content="今天发一下硬盘格式化抢救回来的对于DVWA靶场的渗透记录，基本是可以作为web安全入门的参考资料了，大家一起分享~">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DVWA">
 <meta property="og:url" content="https://yd0ng.github.io/2020/01/04/DVWA/index.html">
 <meta property="og:site_name" content="Blog">
-<meta property="og:description" content="今天发上以前很早对于DVWA靶场的渗透，基本是可以作为web安全入门的参考资料了，大家一起分享~">
+<meta property="og:description" content="今天发一下硬盘格式化抢救回来的对于DVWA靶场的渗透记录，基本是可以作为web安全入门的参考资料了，大家一起分享~">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://yd0ng.github.io/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/Bruteforce/assets/1554121537488.png">
 <meta property="og:image" content="https://yd0ng.github.io/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/Bruteforce/assets/1554121291426.png">
@@ -59,9 +59,9 @@
 <meta property="og:image" content="https://yd0ng.github.io/2020/01/04/DVWA/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/SQL%20Injection/assets/1554447818263.png">
 <meta property="og:image" content="https://yd0ng.github.io/2020/01/04/DVWA/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/SQL%20Injection/assets/1554447921169.png">
 <meta property="article:published_time" content="2020-01-03T16:03:34.000Z">
-<meta property="article:modified_time" content="2020-01-03T16:04:59.724Z">
+<meta property="article:modified_time" content="2020-01-03T16:12:27.343Z">
 <meta property="article:author" content="yd0ng">
-<meta property="article:tag" content="安全技术">
+<meta property="article:tag" content="Web安全">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://yd0ng.github.io/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/Bruteforce/assets/1554121537488.png">
   
@@ -199,7 +199,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>今天发上以前很早对于DVWA靶场的渗透，基本是可以作为web安全入门的参考资料了，大家一起分享~</p>
+        <p>今天发一下硬盘格式化抢救回来的对于DVWA靶场的渗透记录，基本是可以作为web安全入门的参考资料了，大家一起分享~</p>
 <a id="more"></a>
 <h1 id="Bruteforce"><a href="#Bruteforce" class="headerlink" title="Bruteforce"></a>Bruteforce</h1><h2 id="Low"><a href="#Low" class="headerlink" title="Low"></a>Low</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">if( isset( $_GET[ &#39;Login&#39; ] ) ) &#123;</span><br><span class="line">    &#x2F;&#x2F; Get username</span><br><span class="line">    $user &#x3D; $_GET[ &#39;username&#39; ];</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Get password</span><br><span class="line">    $pass &#x3D; $_GET[ &#39;password&#39; ];</span><br><span class="line">    $pass &#x3D; md5( $pass );</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Check the database</span><br><span class="line">    $query  &#x3D; &quot;SELECT * FROM &#96;users&#96; WHERE user &#x3D; &#39;$user&#39; AND password &#x3D; &#39;$pass&#39;;&quot;;</span><br><span class="line">    $result &#x3D; mysqli_query($GLOBALS[&quot;___mysqli_ston&quot;],  $query ) or die( &#39;&lt;pre&gt;&#39; . ((is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_error($GLOBALS[&quot;___mysqli_ston&quot;]) : (($___mysqli_res &#x3D; mysqli_connect_error()) ? $___mysqli_res : false)) . &#39;&lt;&#x2F;pre&gt;&#39; );</span><br><span class="line"></span><br><span class="line">    if( $result &amp;&amp; mysqli_num_rows( $result ) &#x3D;&#x3D; 1 ) &#123;</span><br><span class="line">        &#x2F;&#x2F; Get users details</span><br><span class="line">        $row    &#x3D; mysqli_fetch_assoc( $result );</span><br><span class="line">        $avatar &#x3D; $row[&quot;avatar&quot;];</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; Login successful</span><br><span class="line">        echo &quot;&lt;p&gt;Welcome to the password protected area &#123;$user&#125;&lt;&#x2F;p&gt;&quot;;</span><br><span class="line">        echo &quot;&lt;img src&#x3D;\&quot;&#123;$avatar&#125;\&quot; &#x2F;&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        &#x2F;&#x2F; Login failed</span><br><span class="line">        echo &quot;&lt;pre&gt;&lt;br &#x2F;&gt;Username and&#x2F;or password incorrect.&lt;&#x2F;pre&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ((is_null($___mysqli_res &#x3D; mysqli_close($GLOBALS[&quot;___mysqli_ston&quot;]))) ? false : $___mysqli_res);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
 
@@ -648,7 +648,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">安全技术</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Web安全</a>
         		</li>
       		
 		</ul>
@@ -908,7 +908,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">安全技术</a>
+                <a href="javascript:void(0)" class="js-tag color1">Web安全</a>
               </li>
             
             <div class="clearfix"></div>
