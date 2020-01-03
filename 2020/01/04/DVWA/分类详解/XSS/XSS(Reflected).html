@@ -1,0 +1,58 @@
+<h2 id="Low"><a href="#Low" class="headerlink" title="Low"></a>Low</h2><pre><code>&lt;?php
+
+header (&quot;X-XSS-Protection: 0&quot;);
+
+// Is there any input?
+if( array_key_exists( &quot;name&quot;, $_GET ) &amp;&amp; $_GET[ &apos;name&apos; ] != NULL ) {
+    // Feedback for end user
+    echo &apos;&lt;pre&gt;Hello &apos; . $_GET[ &apos;name&apos; ] . &apos;&lt;/pre&gt;&apos;;
+}
+
+?&gt; </code></pre><p>对输入没有任何过滤，可以直接注入</p>
+<pre><code>&lt;script&gt;alert(1)&lt;/script&gt;</code></pre><h2 id="Medium"><a href="#Medium" class="headerlink" title="Medium"></a>Medium</h2><pre><code>&lt;?php
+
+header (&quot;X-XSS-Protection: 0&quot;);
+
+// Is there any input?
+if( array_key_exists( &quot;name&quot;, $_GET ) &amp;&amp; $_GET[ &apos;name&apos; ] != NULL ) {
+    // Get input
+    $name = str_replace( &apos;&lt;script&gt;&apos;, &apos;&apos;, $_GET[ &apos;name&apos; ] );
+
+    // Feedback for end user
+    echo &quot;&lt;pre&gt;Hello ${name}&lt;/pre&gt;&quot;;
+}
+
+?&gt; </code></pre><p>meidum利用str_replace进行替换，但可以双写或者大小写绕过</p>
+<pre><code>&lt;scr&lt;script&gt;ipt&gt;alert(1)&lt;/script&gt;
+&lt;Script&gt;alert(1)&lt;/script&gt;</code></pre><h2 id="High"><a href="#High" class="headerlink" title="High"></a>High</h2><pre><code>&lt;?php
+
+header (&quot;X-XSS-Protection: 0&quot;);
+
+// Is there any input?
+if( array_key_exists( &quot;name&quot;, $_GET ) &amp;&amp; $_GET[ &apos;name&apos; ] != NULL ) {
+    // Get input
+    $name = preg_replace( &apos;/&lt;(.*)s(.*)c(.*)r(.*)i(.*)p(.*)t/i&apos;, &apos;&apos;, $_GET[ &apos;name&apos; ] );
+
+    // Feedback for end user
+    echo &quot;&lt;pre&gt;Hello ${name}&lt;/pre&gt;&quot;;
+}
+
+?&gt; </code></pre><p>经过正则过滤，多少<script>都会被过滤掉，但可以利用标签属性来</p>
+<pre><code>&lt;img src=1 onerror=alert(1)&gt;</code></pre><h2 id="Impossible"><a href="#Impossible" class="headerlink" title="Impossible"></a>Impossible</h2><pre><code>&lt;?php
+
+// Is there any input?
+if( array_key_exists( &quot;name&quot;, $_GET ) &amp;&amp; $_GET[ &apos;name&apos; ] != NULL ) {
+    // Check Anti-CSRF token
+    checkToken( $_REQUEST[ &apos;user_token&apos; ], $_SESSION[ &apos;session_token&apos; ], &apos;index.php&apos; );
+
+    // Get input
+    $name = htmlspecialchars( $_GET[ &apos;name&apos; ] );
+
+    // Feedback for end user
+    echo &quot;&lt;pre&gt;Hello ${name}&lt;/pre&gt;&quot;;
+}
+
+// Generate Anti-CSRF token
+generateSessionToken();
+
+?&gt; </code></pre><p>Impossible使用htmlspecialchars函数把预定义的字符&、”、 ’、<、>转换为HTML，无法执行xss</p>

