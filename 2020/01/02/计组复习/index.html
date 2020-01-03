@@ -21,8 +21,10 @@
 <meta property="og:image" content="https://yd0ng.github.io/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/%E5%8A%A0%E6%B3%95%E5%99%A8%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF.png">
 <meta property="og:image" content="https://yd0ng.github.io/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/%E5%B8%A6%E6%A0%87%E5%BF%97%E5%8A%A0%E6%B3%95%E5%99%A8%E7%AC%A6%E5%8F%B7.png">
 <meta property="og:image" content="https://yd0ng.github.io/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/%E5%B8%A6%E6%A0%87%E5%BF%97%E5%8A%A0%E6%B3%95%E5%99%A8%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/ALU%E7%AC%A6%E5%8F%B7.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/32%E4%BD%8DRISC-V%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F.png">
 <meta property="article:published_time" content="2020-01-02T13:07:27.000Z">
-<meta property="article:modified_time" content="2020-01-02T16:04:09.505Z">
+<meta property="article:modified_time" content="2020-01-03T13:22:09.018Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="计算机核心课程">
 <meta name="twitter:card" content="summary">
@@ -261,8 +263,134 @@
 
 </li>
 </ul>
-<h3 id="算术逻辑部件"><a href="#算术逻辑部件" class="headerlink" title="算术逻辑部件"></a>算术逻辑部件</h3><p>#未完待续……</p>
+<h3 id="算术逻辑部件"><a href="#算术逻辑部件" class="headerlink" title="算术逻辑部件"></a>算术逻辑部件</h3><p>算数逻辑部件ALU是一种能进行多种算数运算与逻辑运算的组合逻辑电路，其核心部件是带标志加法器，多采用先行进位方式实现。</p>
+<ul>
+<li>A和B是两个n位操作数输入端</li>
+<li>cin是进位输入端</li>
+<li>ALUop是操作控制端，决定CPU所执行的操作<div align="center">
+<img src="/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/ALU符号.png" height="300" width="400">&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+</div>
 
+</li>
+</ul>
+<h2 id="定点运算机器运算部件"><a href="#定点运算机器运算部件" class="headerlink" title="定点运算机器运算部件"></a>定点运算机器运算部件</h2><h3 id="补码加减运算"><a href="#补码加减运算" class="headerlink" title="补码加减运算"></a>补码加减运算</h3><ul>
+<li>[x+y]<sub>补</sub>=[x]<sub>补</sub>+[y]<sub>补</sub>(mod 2<sup>n</sup>)</li>
+<li>[x-y]<sub>补</sub>=[x]<sub>补</sub>+[-y]<sub>补</sub>(mod 2<sup>n</sup>)<h4 id="溢出判断"><a href="#溢出判断" class="headerlink" title="溢出判断"></a>溢出判断</h4></li>
+<li>符号位产生的进位Cn与最高数值位向符号位的进位Cn-1不同</li>
+<li>两个加数的符号位Xn-1与Yn-1相同，且与和的符号位Fn-1不同</li>
+</ul>
+<h3 id="原码加减运算"><a href="#原码加减运算" class="headerlink" title="原码加减运算"></a>原码加减运算</h3><ul>
+<li>加法实行”同号求和，异号求差”，减法实行”同号求差，异号求和”</li>
+</ul>
+<h3 id="原码乘法运算"><a href="#原码乘法运算" class="headerlink" title="原码乘法运算"></a>原码乘法运算</h3><ul>
+<li>先确定乘积的符号位，再计算乘积的数值位</li>
+<li>掌握原码一位乘法</li>
+</ul>
+<h3 id="补码乘法运算"><a href="#补码乘法运算" class="headerlink" title="补码乘法运算"></a>补码乘法运算</h3><ul>
+<li>原理与原码乘法相似</li>
+<li>掌握布斯乘法</li>
+</ul>
+<p>其他如补码除法运算等其他内容自行了解即可</p>
+<h2 id="浮点数运算部件"><a href="#浮点数运算部件" class="headerlink" title="浮点数运算部件"></a>浮点数运算部件</h2><h3 id="浮点数加减运算"><a href="#浮点数加减运算" class="headerlink" title="浮点数加减运算"></a>浮点数加减运算</h3><ul>
+<li>对阶：小阶向大阶看齐，阶小的那个数的尾数右移，右移的尾数等于两个阶的差的绝对值</li>
+<li>尾数加减：将IEEE754的隐藏位”1”，还原到尾数部分后进行加减运算</li>
+<li>尾数规格化：对尾数进行右规或者左规</li>
+<li>尾数的舍入处理：保证IEEE754格式，对小数点右边第23位后的数字进行舍入</li>
+</ul>
+<h3 id="浮点数乘除运算"><a href="#浮点数乘除运算" class="headerlink" title="浮点数乘除运算"></a>浮点数乘除运算</h3><h4 id="浮点数乘法运算"><a href="#浮点数乘法运算" class="headerlink" title="浮点数乘法运算"></a>浮点数乘法运算</h4><ul>
+<li>尾数相乘、阶码相加</li>
+<li>尾数规格化</li>
+<li>尾数舍入处理<h4 id="浮点数除法运算"><a href="#浮点数除法运算" class="headerlink" title="浮点数除法运算"></a>浮点数除法运算</h4></li>
+<li>尾数相除、阶码相减</li>
+<li>尾数规格化</li>
+<li>尾数舍入处理</li>
+</ul>
+<h1 id="第四章-指令系统及程序的机器级表示"><a href="#第四章-指令系统及程序的机器级表示" class="headerlink" title="第四章 指令系统及程序的机器级表示"></a>第四章 指令系统及程序的机器级表示</h1><h2 id="指令格式设计"><a href="#指令格式设计" class="headerlink" title="指令格式设计"></a>指令格式设计</h2><h3 id="指令地址码的个数"><a href="#指令地址码的个数" class="headerlink" title="指令地址码的个数"></a>指令地址码的个数</h3><ul>
+<li>一条指令中必须包含操作码、源操作数或其地址、结果的地址、下条指令地址。</li>
+<li>根据指令给出的地址码个数分为三地址指令、二地址指令、单地址指令和零地址指令。<h3 id="指令格式设计原则"><a href="#指令格式设计原则" class="headerlink" title="指令格式设计原则"></a>指令格式设计原则</h3></li>
+<li>指令应尽量短</li>
+<li>要有足够的操作码位数</li>
+<li>操作码的编码必须有唯一的解释</li>
+<li>指令长度应是字节的整数倍</li>
+<li>合理选择地址字段的个数</li>
+<li>指令应尽量规整<h2 id="指令系统设计"><a href="#指令系统设计" class="headerlink" title="指令系统设计"></a>指令系统设计</h2>设计指令系统需要遵循完备性或完整性、兼容性、均匀性和可扩充性。<h3 id="指令系统设计的基本问题"><a href="#指令系统设计的基本问题" class="headerlink" title="指令系统设计的基本问题"></a>指令系统设计的基本问题</h3></li>
+<li>操作码的个数、种类、复杂度如何选择？</li>
+<li>运算指令能对哪几种数据类型进行操作？</li>
+<li>采用什么样的指令格式？</li>
+<li>通用寄存器的个数、功能、长度等如何规定？</li>
+<li>如何设计寻址方式的种类和编码以及各种寻址方式下有效地址如何计算？</li>
+<li>下条指令的地址如何确定？<h3 id="操作数类型"><a href="#操作数类型" class="headerlink" title="操作数类型"></a>操作数类型</h3></li>
+<li>指针或地址</li>
+<li>带符号数数值数据</li>
+<li>位、位串、字符和字符串</li>
+<li>逻辑(布尔)数据<h3 id="寻址方式"><a href="#寻址方式" class="headerlink" title="寻址方式"></a>寻址方式</h3></li>
+<li>立即寻址</li>
+<li>直接寻址</li>
+<li>间接寻址</li>
+<li>寄存器寻址</li>
+<li>寄存器间接寻址</li>
+<li>变址寻址</li>
+<li>相对寻址</li>
+<li>基址寻址</li>
+<li>其他寻址<h3 id="操作类型"><a href="#操作类型" class="headerlink" title="操作类型"></a>操作类型</h3></li>
+<li>算术和逻辑运算指令</li>
+<li>移位指令</li>
+<li>传送指令</li>
+<li>串指令</li>
+<li>顺序控制指令</li>
+<li>CPU控制指令</li>
+<li>输入输出指令<h3 id="操作码编码"><a href="#操作码编码" class="headerlink" title="操作码编码"></a>操作码编码</h3></li>
+<li>定长操作码编码</li>
+<li>扩展操作码编码<h3 id="标志信息的生成和使用"><a href="#标志信息的生成和使用" class="headerlink" title="标志信息的生成和使用"></a>标志信息的生成和使用</h3></li>
+<li>零标志ZF</li>
+<li>溢出标志OF</li>
+<li>符号标志SF</li>
+<li>进位/借位标志CF<h3 id="指令系统设计风格"><a href="#指令系统设计风格" class="headerlink" title="指令系统设计风格"></a>指令系统设计风格</h3><h4 id="按操作数位置指令风格分类"><a href="#按操作数位置指令风格分类" class="headerlink" title="按操作数位置指令风格分类"></a>按操作数位置指令风格分类</h4></li>
+<li>累加器型指令系统</li>
+<li>栈型指令系统</li>
+<li>通用寄存器型指令系统</li>
+<li>Load/Store型指令系统<h4 id="按指令格式的复杂度来分"><a href="#按指令格式的复杂度来分" class="headerlink" title="按指令格式的复杂度来分"></a>按指令格式的复杂度来分</h4></li>
+<li>CISC风格指令系统</li>
+<li>RISC风格指令系统</li>
+</ul>
+<p>RISC指令系统相对于CISC指令系统的主要特点有：</p>
+<ul>
+<li>指令数目少</li>
+<li>指令格式规整</li>
+<li>采用Load/Store 型指令设计风格</li>
+<li>采用流水线方式执行指令</li>
+<li>采用大量通用寄存器</li>
+<li>采用组合逻辑电路控制</li>
+<li>采用优化的编译系统<h3 id="异常和中断处理机制"><a href="#异常和中断处理机制" class="headerlink" title="异常和中断处理机制"></a>异常和中断处理机制</h3></li>
+<li>CPU内部产生的意外事件为内中断，称为”异常”</li>
+<li>CPU外部通过中断请求引脚INTR和NMI向CPU发出的中断请求为外中断，称为”中断”<h4 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h4></li>
+<li>故障</li>
+<li>自陷</li>
+<li>终止<h4 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h4></li>
+<li>由CPU外部的I/O部件发出，称为I/O中断<h2 id="指令系统"><a href="#指令系统" class="headerlink" title="指令系统"></a>指令系统</h2></li>
+<li>MIPS指令系统</li>
+<li>ARM指令系统</li>
+<li>IA-32指令系统</li>
+</ul>
+<p>因为教材基于RISC-V架构，因为上面三种不详细展开</p>
+<h2 id="RISC-V架构中的机器级表示"><a href="#RISC-V架构中的机器级表示" class="headerlink" title="RISC-V架构中的机器级表示"></a>RISC-V架构中的机器级表示</h2><h3 id="RISC-V指令系统概述"><a href="#RISC-V指令系统概述" class="headerlink" title="RISC-V指令系统概述"></a>RISC-V指令系统概述</h3><ul>
+<li>RISC-V介绍 <a href="https://baike.baidu.com/item/RISC-V" target="_blank" rel="noopener">点击查看</a><h3 id="RISC-V-指令参考卡和指令格式"><a href="#RISC-V-指令参考卡和指令格式" class="headerlink" title="RISC-V 指令参考卡和指令格式"></a>RISC-V 指令参考卡和指令格式</h3></li>
+</ul>
+<p>RISC-V采用32位定长指令字格式，如下图所示，共有6种指令格式</p>
+<div align="center">
+<img src="/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/32位RISC-V指令格式.png">
+</div>
+
+<ul>
+<li>R-型为寄存器操作数指令</li>
+<li>I-型为短立即数操作或装入(Load)指令</li>
+<li>S-型为存储(Store)指令</li>
+<li>U-型为长立即数操作指令</li>
+<li>B-型为控制转移类指令</li>
+<li>J-型为无条件跳转指令</li>
+</ul>
+<p>所有指令格式的低7位都是操作码字段opcode；字段rd、rs1和rs2给出的是通用寄存器编号，32位RISC-V架构共有32个32位通用寄存器x0-x31,因而通用寄存器编号占5位，imm字段给出的是一个立即数，位数在[]中给出，字段funct3和funct7分别表示3位功能码和7位功能码，它们和opcode字段一起定义指令的操作功能。</p>
+<h1 id="未完待续……"><a href="#未完待续……" class="headerlink" title="未完待续……"></a>未完待续……</h1>
       
       
     
@@ -417,7 +545,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第1章-计算机系统概述"><span class="toc-number">2.</span> <span class="toc-text">第1章 计算机系统概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#冯诺依曼基本思想"><span class="toc-number">2.1.</span> <span class="toc-text">冯诺依曼基本思想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算机性能评价-主要考虑CPU性能"><span class="toc-number">2.2.</span> <span class="toc-text">计算机性能评价(主要考虑CPU性能)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常用公式"><span class="toc-number">2.2.1.</span> <span class="toc-text">常用公式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#阿姆达尔定律"><span class="toc-number">2.3.</span> <span class="toc-text">阿姆达尔定律</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第二章-数据的类型及机器级表示"><span class="toc-number">3.</span> <span class="toc-text">第二章 数据的类型及机器级表示</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#32位浮点数表示方法"><span class="toc-number">3.1.</span> <span class="toc-text">32位浮点数表示方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#32位IEEE754浮点数标准"><span class="toc-number">3.2.</span> <span class="toc-text">32位IEEE754浮点数标准</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#格式"><span class="toc-number">3.2.1.</span> <span class="toc-text">格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分类"><span class="toc-number">3.2.2.</span> <span class="toc-text">分类</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第三章-数据的运算及运算部件"><span class="toc-number">4.</span> <span class="toc-text">第三章 数据的运算及运算部件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#高级语言运算类型"><span class="toc-number">4.1.</span> <span class="toc-text">高级语言运算类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本运算部件"><span class="toc-number">4.2.</span> <span class="toc-text">基本运算部件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#全加器"><span class="toc-number">4.2.1.</span> <span class="toc-text">全加器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#加法器"><span class="toc-number">4.2.2.</span> <span class="toc-text">加法器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#带标志加法器"><span class="toc-number">4.2.3.</span> <span class="toc-text">带标志加法器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#算术逻辑部件"><span class="toc-number">4.2.4.</span> <span class="toc-text">算术逻辑部件</span></a></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第1章-计算机系统概述"><span class="toc-number">2.</span> <span class="toc-text">第1章 计算机系统概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#冯诺依曼基本思想"><span class="toc-number">2.1.</span> <span class="toc-text">冯诺依曼基本思想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算机性能评价-主要考虑CPU性能"><span class="toc-number">2.2.</span> <span class="toc-text">计算机性能评价(主要考虑CPU性能)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常用公式"><span class="toc-number">2.2.1.</span> <span class="toc-text">常用公式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#阿姆达尔定律"><span class="toc-number">2.3.</span> <span class="toc-text">阿姆达尔定律</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第二章-数据的类型及机器级表示"><span class="toc-number">3.</span> <span class="toc-text">第二章 数据的类型及机器级表示</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#32位浮点数表示方法"><span class="toc-number">3.1.</span> <span class="toc-text">32位浮点数表示方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#32位IEEE754浮点数标准"><span class="toc-number">3.2.</span> <span class="toc-text">32位IEEE754浮点数标准</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#格式"><span class="toc-number">3.2.1.</span> <span class="toc-text">格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分类"><span class="toc-number">3.2.2.</span> <span class="toc-text">分类</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第三章-数据的运算及运算部件"><span class="toc-number">4.</span> <span class="toc-text">第三章 数据的运算及运算部件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#高级语言运算类型"><span class="toc-number">4.1.</span> <span class="toc-text">高级语言运算类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本运算部件"><span class="toc-number">4.2.</span> <span class="toc-text">基本运算部件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#全加器"><span class="toc-number">4.2.1.</span> <span class="toc-text">全加器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#加法器"><span class="toc-number">4.2.2.</span> <span class="toc-text">加法器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#带标志加法器"><span class="toc-number">4.2.3.</span> <span class="toc-text">带标志加法器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#算术逻辑部件"><span class="toc-number">4.2.4.</span> <span class="toc-text">算术逻辑部件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定点运算机器运算部件"><span class="toc-number">4.3.</span> <span class="toc-text">定点运算机器运算部件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#补码加减运算"><span class="toc-number">4.3.1.</span> <span class="toc-text">补码加减运算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#溢出判断"><span class="toc-number">4.3.1.1.</span> <span class="toc-text">溢出判断</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原码加减运算"><span class="toc-number">4.3.2.</span> <span class="toc-text">原码加减运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原码乘法运算"><span class="toc-number">4.3.3.</span> <span class="toc-text">原码乘法运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#补码乘法运算"><span class="toc-number">4.3.4.</span> <span class="toc-text">补码乘法运算</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#浮点数运算部件"><span class="toc-number">4.4.</span> <span class="toc-text">浮点数运算部件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#浮点数加减运算"><span class="toc-number">4.4.1.</span> <span class="toc-text">浮点数加减运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#浮点数乘除运算"><span class="toc-number">4.4.2.</span> <span class="toc-text">浮点数乘除运算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#浮点数乘法运算"><span class="toc-number">4.4.2.1.</span> <span class="toc-text">浮点数乘法运算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#浮点数除法运算"><span class="toc-number">4.4.2.2.</span> <span class="toc-text">浮点数除法运算</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第四章-指令系统及程序的机器级表示"><span class="toc-number">5.</span> <span class="toc-text">第四章 指令系统及程序的机器级表示</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#指令格式设计"><span class="toc-number">5.1.</span> <span class="toc-text">指令格式设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#指令地址码的个数"><span class="toc-number">5.1.1.</span> <span class="toc-text">指令地址码的个数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指令格式设计原则"><span class="toc-number">5.1.2.</span> <span class="toc-text">指令格式设计原则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指令系统设计"><span class="toc-number">5.2.</span> <span class="toc-text">指令系统设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#指令系统设计的基本问题"><span class="toc-number">5.2.1.</span> <span class="toc-text">指令系统设计的基本问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#操作数类型"><span class="toc-number">5.2.2.</span> <span class="toc-text">操作数类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#寻址方式"><span class="toc-number">5.2.3.</span> <span class="toc-text">寻址方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#操作类型"><span class="toc-number">5.2.4.</span> <span class="toc-text">操作类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#操作码编码"><span class="toc-number">5.2.5.</span> <span class="toc-text">操作码编码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#标志信息的生成和使用"><span class="toc-number">5.2.6.</span> <span class="toc-text">标志信息的生成和使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指令系统设计风格"><span class="toc-number">5.2.7.</span> <span class="toc-text">指令系统设计风格</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#按操作数位置指令风格分类"><span class="toc-number">5.2.7.1.</span> <span class="toc-text">按操作数位置指令风格分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#按指令格式的复杂度来分"><span class="toc-number">5.2.7.2.</span> <span class="toc-text">按指令格式的复杂度来分</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#异常和中断处理机制"><span class="toc-number">5.2.8.</span> <span class="toc-text">异常和中断处理机制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#异常"><span class="toc-number">5.2.8.1.</span> <span class="toc-text">异常</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#中断"><span class="toc-number">5.2.8.2.</span> <span class="toc-text">中断</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指令系统"><span class="toc-number">5.3.</span> <span class="toc-text">指令系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RISC-V架构中的机器级表示"><span class="toc-number">5.4.</span> <span class="toc-text">RISC-V架构中的机器级表示</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RISC-V指令系统概述"><span class="toc-number">5.4.1.</span> <span class="toc-text">RISC-V指令系统概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RISC-V-指令参考卡和指令格式"><span class="toc-number">5.4.2.</span> <span class="toc-text">RISC-V 指令参考卡和指令格式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#未完待续……"><span class="toc-number">6.</span> <span class="toc-text">未完待续……</span></a></li></ol>
                     </div>
                 </span>
             </div>
