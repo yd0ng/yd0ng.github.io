@@ -25,7 +25,7 @@
 <meta property="og:image" content="https://yd0ng.github.io/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/32%E4%BD%8DRISC-V%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F.png">
 <meta property="og:image" content="https://yd0ng.github.io/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/32%E4%BD%8DRISC-V%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F.png">
 <meta property="article:published_time" content="2020-01-02T13:07:27.000Z">
-<meta property="article:modified_time" content="2020-01-05T14:20:03.346Z">
+<meta property="article:modified_time" content="2020-01-05T14:24:53.796Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="计算机核心课程">
 <meta name="twitter:card" content="summary">
@@ -274,12 +274,12 @@
 <ul>
 <li>A和B是两个n位操作数输入端</li>
 <li>cin是进位输入端</li>
-<li>ALUop是操作控制端，决定CPU所执行的操作<div align="center">
+<li>ALUop是操作控制端，决定CPU所执行的操作</li>
+</ul>
+<div align="center">
 <img src="/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/ALU符号.png" height="300" width="400">&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
 </div>
 
-</li>
-</ul>
 <h2 id="定点运算机器运算部件"><a href="#定点运算机器运算部件" class="headerlink" title="定点运算机器运算部件"></a>定点运算机器运算部件</h2><h3 id="补码加减运算"><a href="#补码加减运算" class="headerlink" title="补码加减运算"></a>补码加减运算</h3><ul>
 <li><p>[x+y]<sub>补</sub>=[x]<sub>补</sub>+[y]<sub>补</sub>(mod 2<sup>n</sup>)</p>
 </li>
@@ -345,24 +345,34 @@
 <li>变址寻址</li>
 <li>相对寻址</li>
 <li>基址寻址</li>
-<li>其他寻址<h3 id="操作类型"><a href="#操作类型" class="headerlink" title="操作类型"></a>操作类型</h3></li>
+<li>其他寻址</li>
+</ul>
+<h3 id="操作类型"><a href="#操作类型" class="headerlink" title="操作类型"></a>操作类型</h3><ul>
 <li>算术和逻辑运算指令</li>
 <li>移位指令</li>
 <li>传送指令</li>
 <li>串指令</li>
 <li>顺序控制指令</li>
 <li>CPU控制指令</li>
-<li>输入输出指令<h3 id="操作码编码"><a href="#操作码编码" class="headerlink" title="操作码编码"></a>操作码编码</h3></li>
+<li>输入输出指令</li>
+</ul>
+<h3 id="操作码编码"><a href="#操作码编码" class="headerlink" title="操作码编码"></a>操作码编码</h3><ul>
 <li>定长操作码编码</li>
-<li>扩展操作码编码<h3 id="标志信息的生成和使用"><a href="#标志信息的生成和使用" class="headerlink" title="标志信息的生成和使用"></a>标志信息的生成和使用</h3></li>
+<li>扩展操作码编码</li>
+</ul>
+<h3 id="标志信息的生成和使用"><a href="#标志信息的生成和使用" class="headerlink" title="标志信息的生成和使用"></a>标志信息的生成和使用</h3><ul>
 <li>零标志ZF</li>
 <li>溢出标志OF</li>
 <li>符号标志SF</li>
-<li>进位/借位标志CF<h3 id="指令系统设计风格"><a href="#指令系统设计风格" class="headerlink" title="指令系统设计风格"></a>指令系统设计风格</h3><h4 id="按操作数位置指令风格分类"><a href="#按操作数位置指令风格分类" class="headerlink" title="按操作数位置指令风格分类"></a>按操作数位置指令风格分类</h4></li>
+<li>进位/借位标志CF</li>
+</ul>
+<h3 id="指令系统设计风格"><a href="#指令系统设计风格" class="headerlink" title="指令系统设计风格"></a>指令系统设计风格</h3><h4 id="按操作数位置指令风格分类"><a href="#按操作数位置指令风格分类" class="headerlink" title="按操作数位置指令风格分类"></a>按操作数位置指令风格分类</h4><ul>
 <li>累加器型指令系统</li>
 <li>栈型指令系统</li>
 <li>通用寄存器型指令系统</li>
-<li>Load/Store型指令系统<h4 id="按指令格式的复杂度来分"><a href="#按指令格式的复杂度来分" class="headerlink" title="按指令格式的复杂度来分"></a>按指令格式的复杂度来分</h4></li>
+<li>Load/Store型指令系统</li>
+</ul>
+<h4 id="按指令格式的复杂度来分"><a href="#按指令格式的复杂度来分" class="headerlink" title="按指令格式的复杂度来分"></a>按指令格式的复杂度来分</h4><ul>
 <li>CISC风格指令系统</li>
 <li>RISC风格指令系统</li>
 </ul>
@@ -374,22 +384,30 @@
 <li>采用流水线方式执行指令</li>
 <li>采用大量通用寄存器</li>
 <li>采用组合逻辑电路控制</li>
-<li>采用优化的编译系统<h3 id="异常和中断处理机制"><a href="#异常和中断处理机制" class="headerlink" title="异常和中断处理机制"></a>异常和中断处理机制</h3></li>
+<li>采用优化的编译系统</li>
+</ul>
+<h3 id="异常和中断处理机制"><a href="#异常和中断处理机制" class="headerlink" title="异常和中断处理机制"></a>异常和中断处理机制</h3><ul>
 <li>CPU内部产生的意外事件为内中断，称为”异常”</li>
-<li>CPU外部通过中断请求引脚INTR和NMI向CPU发出的中断请求为外中断，称为”中断”<h4 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h4></li>
+<li>CPU外部通过中断请求引脚INTR和NMI向CPU发出的中断请求为外中断，称为”中断”</li>
+</ul>
+<h4 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h4><ul>
 <li>故障</li>
 <li>自陷</li>
-<li>终止<h4 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h4></li>
-<li>由CPU外部的I/O部件发出，称为I/O中断<h2 id="指令系统"><a href="#指令系统" class="headerlink" title="指令系统"></a>指令系统</h2></li>
+<li>终止</li>
+</ul>
+<h4 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h4><ul>
+<li>由CPU外部的I/O部件发出，称为I/O中断</li>
+</ul>
+<h2 id="指令系统"><a href="#指令系统" class="headerlink" title="指令系统"></a>指令系统</h2><ul>
 <li>MIPS指令系统</li>
 <li>ARM指令系统</li>
 <li>IA-32指令系统</li>
 </ul>
 <p>因为教材基于RISC-V架构，因为上面三种不详细展开</p>
 <h2 id="RISC-V架构中的机器级表示"><a href="#RISC-V架构中的机器级表示" class="headerlink" title="RISC-V架构中的机器级表示"></a>RISC-V架构中的机器级表示</h2><h3 id="RISC-V指令系统概述"><a href="#RISC-V指令系统概述" class="headerlink" title="RISC-V指令系统概述"></a>RISC-V指令系统概述</h3><ul>
-<li>RISC-V介绍 <a href="https://baike.baidu.com/item/RISC-V" target="_blank" rel="noopener">点击查看</a><h3 id="RISC-V-指令参考卡和指令格式"><a href="#RISC-V-指令参考卡和指令格式" class="headerlink" title="RISC-V 指令参考卡和指令格式"></a>RISC-V 指令参考卡和指令格式</h3></li>
+<li>RISC-V介绍 <a href="https://baike.baidu.com/item/RISC-V" target="_blank" rel="noopener">点击查看</a></li>
 </ul>
-<p>RISC-V采用32位定长指令字格式，如下图所示，共有6种指令格式</p>
+<h3 id="RISC-V-指令参考卡和指令格式"><a href="#RISC-V-指令参考卡和指令格式" class="headerlink" title="RISC-V 指令参考卡和指令格式"></a>RISC-V 指令参考卡和指令格式</h3><p>RISC-V采用32位定长指令字格式，如下图所示，共有6种指令格式</p>
 <div align="center">
 <img src="/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/32位RISC-V指令格式.png">
 </div>
@@ -407,28 +425,29 @@
 <li>整数运算类指令</li>
 <li>控制转移类指令</li>
 <li>存储器访问类指令</li>
-<li>系统控制类指令<h3 id="RISC-V过程调用约定"><a href="#RISC-V过程调用约定" class="headerlink" title="RISC-V过程调用约定"></a>RISC-V过程调用约定</h3></li>
+<li>系统控制类指令</li>
+</ul>
+<h3 id="RISC-V过程调用约定"><a href="#RISC-V过程调用约定" class="headerlink" title="RISC-V过程调用约定"></a>RISC-V过程调用约定</h3><ul>
 <li>过程调用的执行步骤</li>
 <li>RISC-V中用于过程调用的指令</li>
 <li>RISC-V寄存器使用约定</li>
 <li>RISC-V中的栈和栈帧</li>
-<li>RISC-V的过程调用<h3 id="RISC-V程序的转换、链接与加载"><a href="#RISC-V程序的转换、链接与加载" class="headerlink" title="RISC-V程序的转换、链接与加载"></a>RISC-V程序的转换、链接与加载</h3></li>
+<li>RISC-V的过程调用</li>
+</ul>
+<h3 id="RISC-V程序的转换、链接与加载"><a href="#RISC-V程序的转换、链接与加载" class="headerlink" title="RISC-V程序的转换、链接与加载"></a>RISC-V程序的转换、链接与加载</h3><ul>
 <li>可执行文件生成概述</li>
 <li>RISC-V汇编器</li>
 <li>RISC-V链接器</li>
 </ul>
 <h1 id="第五章-中央处理器设计"><a href="#第五章-中央处理器设计" class="headerlink" title="第五章 中央处理器设计"></a>第五章 中央处理器设计</h1><h2 id="CPU指令概述"><a href="#CPU指令概述" class="headerlink" title="CPU指令概述"></a>CPU指令概述</h2><h3 id="指令执行过程"><a href="#指令执行过程" class="headerlink" title="指令执行过程"></a>指令执行过程</h3><p>CPU执行一条指令的大致过程如下：</p>
 <ul>
-<li><p>取指令</p>
-</li>
-<li><p>对IR中的指令操作数译码并计算下条指令地址</p>
-</li>
-<li><p>计算源操作数地址并取源操作数</p>
-</li>
-<li><p>数据操作</p>
-</li>
-<li><p>目的操作数地址计算并存结果</p>
-<h3 id="CPU的基本功能和基本组成"><a href="#CPU的基本功能和基本组成" class="headerlink" title="CPU的基本功能和基本组成"></a>CPU的基本功能和基本组成</h3></li>
+<li>取指令</li>
+<li>对IR中的指令操作数译码并计算下条指令地址</li>
+<li>计算源操作数地址并取源操作数</li>
+<li>数据操作</li>
+<li>目的操作数地址计算并存结果</li>
+</ul>
+<h3 id="CPU的基本功能和基本组成"><a href="#CPU的基本功能和基本组成" class="headerlink" title="CPU的基本功能和基本组成"></a>CPU的基本功能和基本组成</h3><ul>
 <li><p>CPU由数据通路和控制部件两大基本部分组成</p>
 </li>
 <li><p>数据通路包括ALU、通用寄存器、状态寄存器、cache、MMU、福点运算逻辑、异常和中断处理逻辑等。</p>
@@ -443,7 +462,9 @@
 <p>暂存寄存器和通用寄存器组。</p>
 <h4 id="数据通路和时序控制"><a href="#数据通路和时序控制" class="headerlink" title="数据通路和时序控制"></a>数据通路和时序控制</h4><ul>
 <li>早期计算机的三级时序系统</li>
-<li>现代计算机的时钟信号<h4 id="单总线数据通路"><a href="#单总线数据通路" class="headerlink" title="单总线数据通路"></a>单总线数据通路</h4></li>
+<li>现代计算机的时钟信号</li>
+</ul>
+<h4 id="单总线数据通路"><a href="#单总线数据通路" class="headerlink" title="单总线数据通路"></a>单总线数据通路</h4><ul>
 <li>在通用寄存器之间传送数据</li>
 <li>完成算术、逻辑运算</li>
 <li>从内存读取一个字(指令或数据或数据的地址)</li>
@@ -459,9 +480,10 @@
 <div align="center">
 <img src="/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/32位RISC-V指令格式.png">
 </div>
-以9条RV32I指令作为实现目标
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">add  rd,rs1,rs2             #3条R-型指令</span><br><span class="line">slt  rd,rs1,rs2</span><br><span class="line">sltu rd,rs1,rs2</span><br><span class="line"></span><br><span class="line">ori rd,rs1,imm12            #2条I-型指令</span><br><span class="line">lw  rd,rs1,imm12</span><br><span class="line"></span><br><span class="line">lui rd,imm20                #1条U-型指令</span><br><span class="line"></span><br><span class="line">sw rs1,rs2,imm12            #1条S-型指令</span><br><span class="line"></span><br><span class="line">beq rs1,rs2,imm12           #1条B-型指令</span><br><span class="line"></span><br><span class="line">jal rd,imm20                #1条J-型指令</span><br></pre></td></tr></table></figure>
+<p>以9条RV32I指令作为实现目标</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">add  rd,rs1,rs2             #3条R-型指令</span><br><span class="line">slt  rd,rs1,rs2</span><br><span class="line">sltu rd,rs1,rs2</span><br><span class="line"></span><br><span class="line">ori rd,rs1,imm12            #2条I-型指令</span><br><span class="line">lw  rd,rs1,imm12</span><br><span class="line"></span><br><span class="line">lui rd,imm20                #1条U-型指令</span><br><span class="line"></span><br><span class="line">sw rs1,rs2,imm12            #1条S-型指令</span><br><span class="line"></span><br><span class="line">beq rs1,rs2,imm12           #1条B-型指令</span><br><span class="line"></span><br><span class="line">jal rd,imm20                #1条J-型指令</span><br></pre></td></tr></table></figure>
+
       
       
     
