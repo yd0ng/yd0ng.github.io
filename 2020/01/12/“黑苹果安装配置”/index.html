@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://yd0ng.github.io">
-  <title>“黑苹果安装配置” | Blog</title>
+  <title>黑苹果安装配置 | Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="折腾了几天黑苹果，先挖个坑，醒了填">
+  <meta name="description" content="折腾了几天黑苹果，简单记录一下思路~">
 <meta property="og:type" content="article">
-<meta property="og:title" content="“黑苹果安装配置”">
+<meta property="og:title" content="黑苹果安装配置">
 <meta property="og:url" content="https://yd0ng.github.io/2020/01/12/%E2%80%9C%E9%BB%91%E8%8B%B9%E6%9E%9C%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E2%80%9D/index.html">
 <meta property="og:site_name" content="Blog">
-<meta property="og:description" content="折腾了几天黑苹果，先挖个坑，醒了填">
+<meta property="og:description" content="折腾了几天黑苹果，简单记录一下思路~">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-01-11T16:16:47.000Z">
-<meta property="article:modified_time" content="2020-01-11T16:17:50.251Z">
+<meta property="article:modified_time" content="2020-01-12T15:19:17.684Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="技术闲谈">
 <meta name="twitter:card" content="summary">
@@ -142,7 +142,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      “黑苹果安装配置”
+      黑苹果安装配置
     </h1>
   
 
@@ -155,7 +155,28 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>折腾了几天黑苹果，先挖个坑，醒了填</p>
+        <p>折腾了几天黑苹果，简单记录一下思路~</p>
+<a id="more"></a>
+
+<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><ul>
+<li>数据备份及重要信息记录（ssh秘钥，服务器ip等)</li>
+<li>下载MacOS镜像、transmac、diskgenius</li>
+</ul>
+<h1 id="基本步骤"><a href="#基本步骤" class="headerlink" title="基本步骤"></a>基本步骤</h1><h2 id="镜像写入"><a href="#镜像写入" class="headerlink" title="镜像写入"></a>镜像写入</h2><ul>
+<li>transmac将镜像写入U盘</li>
+</ul>
+<h2 id="硬盘分区"><a href="#硬盘分区" class="headerlink" title="硬盘分区"></a>硬盘分区</h2><ul>
+<li>将要写入的硬盘前部分出220M的ESP分区，格式为EFI格式</li>
+<li>将对于机型的EFI拷贝至ESP分区</li>
+</ul>
+<h2 id="BIOS配置"><a href="#BIOS配置" class="headerlink" title="BIOS配置"></a>BIOS配置</h2><ul>
+<li>关闭security boot</li>
+<li>调整SATA Operation为AHCI</li>
+</ul>
+<h2 id="安装系统"><a href="#安装系统" class="headerlink" title="安装系统"></a>安装系统</h2><ul>
+<li>电脑从U盘进行，先利用磁盘工具抹盘，然后开始安装系统</li>
+<li>后续对于安好的系统进行完善即可</li>
+</ul>
 
       
       
@@ -273,6 +294,15 @@
   
 <nav id="article-nav">
   
+    <a href="/2020/01/12/Mac%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Mac使用笔记
+        
+      </div>
+    </a>
+  
   
     <a href="/2020/01/11/Hexo-%E4%BB%93%E5%BA%93%E8%BF%81%E7%A7%BB/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">Hexo 仓库迁移</div>
@@ -302,7 +332,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    目录，不存在的…
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#准备工作"><span class="toc-number">1.</span> <span class="toc-text">准备工作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#基本步骤"><span class="toc-number">2.</span> <span class="toc-text">基本步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#镜像写入"><span class="toc-number">2.1.</span> <span class="toc-text">镜像写入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#硬盘分区"><span class="toc-number">2.2.</span> <span class="toc-text">硬盘分区</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BIOS配置"><span class="toc-number">2.3.</span> <span class="toc-text">BIOS配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装系统"><span class="toc-number">2.4.</span> <span class="toc-text">安装系统</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
