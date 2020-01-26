@@ -6,15 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://yd0ng.github.io">
-  <title>Blog</title>
+  <title>JISCTF靶机渗透 | Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Blog">
-<meta property="og:url" content="https://yd0ng.github.io/page/2/index.html">
+  <meta name="description" content="记录一下JISCTF靶机渗透的过程，一共有5个flag~">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JISCTF靶机渗透">
+<meta property="og:url" content="https://yd0ng.github.io/2020/01/26/JISCTF%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/index.html">
 <meta property="og:site_name" content="Blog">
+<meta property="og:description" content="记录一下JISCTF靶机渗透的过程，一共有5个flag~">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://yd0ng.github.io/2020/01/26/JISCTF%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/1.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/01/26/JISCTF%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/2.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/01/26/JISCTF%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/4.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/01/26/JISCTF%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/5.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/01/26/JISCTF%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/6.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/01/26/JISCTF%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/7.png">
+<meta property="article:published_time" content="2020-01-26T11:38:23.000Z">
+<meta property="article:modified_time" content="2020-01-26T14:43:11.360Z">
 <meta property="article:author" content="yd0ng">
+<meta property="article:tag" content="靶机渗透">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yd0ng.github.io/2020/01/26/JISCTF%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/1.png">
   
   
     <link rel="icon" href="/themes/yilia/source/">
@@ -130,37 +142,121 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-makedown基本语法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-JISCTF靶机渗透" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/03/makedown%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/">makedown基本语法</a>
+    <h1 class="article-title" itemprop="name">
+      JISCTF靶机渗透
     </h1>
   
 
         
-        <a href="/2020/01/03/makedown%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" class="archive-article-date">
-  	<time datetime="2020-01-02T16:11:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-03</time>
+        <a href="/2020/01/26/JISCTF%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/" class="archive-article-date">
+  	<time datetime="2020-01-26T11:38:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-26</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>makedown用的会比较多，记一波最常用的makedown语法，随时补充~</p>
-        
-          <a class="article-more-a" href="/2020/01/03/makedown%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/#more">more >></a>
-        
+        <p>记录一下JISCTF靶机渗透的过程，一共有5个flag~</p>
+<a id="more"></a>
+
+<h1 id="靶场下载链接"><a href="#靶场下载链接" class="headerlink" title="靶场下载链接"></a>靶场下载链接</h1><p><a href="https://www.vulnub.com/entry/jis-ctf-vulnupload,228/" target="_blank" rel="noopener">https://www.vulnub.com/entry/jis-ctf-vulnupload,228/</a> </p>
+<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><p>将下好的.ova文件导入VirtualBox即可。</p>
+<p>这里有个坑的地方，如果用VM，是无法在开机的时候通过dhcp来自动获取ip的</p>
+<p>解决方法，用账号密码登录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo ifconfig ens33 up &#x2F;&#x2F;启用网卡</span><br><span class="line">dhclient ens33  &#x2F;&#x2F; 分配IP</span><br></pre></td></tr></table></figure>
+<p>所以最好用VirtualBox</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">虚拟机网络为桥接模式</span><br><span class="line">物理机:192.168.2.107(kali linux)</span><br><span class="line">靶  机:192.168.2.111(JISCTF)</span><br></pre></td></tr></table></figure>
+
+<h1 id="渗透过程"><a href="#渗透过程" class="headerlink" title="渗透过程"></a>渗透过程</h1><h2 id="存活主机探测"><a href="#存活主机探测" class="headerlink" title="存活主机探测"></a>存活主机探测</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netdiscover</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/01/26/JISCTF%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/1.png" alt></p>
+<ul>
+<li>169.254.<em>.</em>之前在windows的机器经常见，没成功获取ip好像就显示这个</li>
+<li>192.168.2.100是我物理机ip</li>
+<li>192.168.2.105/136/215没记错的话是连着网的三个监控 </li>
+<li>192.168.2.1是路由器</li>
+<li>所以192.168.2.111为靶机ip</li>
+</ul>
+<h2 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap 192.168.2.111</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/01/26/JISCTF%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/2.png" alt></p>
+<p>开放着22、80端口，针对于22端口常常采用ssh暴力破解方式，动静会比较大，这里给出攻击方式，但暂时不进行ssh弱密码攻击(因为一般不会是弱密码，但是要是真爆破开了就赚大发了）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hydra -l root -P .&#x2F;dic.txt -t 6 ssh:&#x2F;&#x2F;192.168.2.111</span><br></pre></td></tr></table></figure>
+<p>因为只开放两个端口，那就只能从80端口开始入手</p>
+<p>访问<a href="http://192.168.2.111,是一个登录界面，，这里wappalyzer自动识别出了网站的指纹信息，如下图所示" target="_blank" rel="noopener">http://192.168.2.111,是一个登录界面，，这里wappalyzer自动识别出了网站的指纹信息，如下图所示</a><br><img src="/2020/01/26/JISCTF%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/4.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">admin&#39;#</span><br></pre></td></tr></table></figure>
+<p>万能密码尝试，失败</p>
+<h1 id="目录枚举"><a href="#目录枚举" class="headerlink" title="目录枚举"></a>目录枚举</h1><p>这里使用kali自带的Dirbuster,win下推荐御剑扫描(关键看字典)</p>
+<p><img src="/2020/01/26/JISCTF%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/5.png" alt></p>
+<p>还是扫不了不少东西的</p>
+<p><img src="/2020/01/26/JISCTF%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/6.png" alt><br>发现有个文件叫flag，访问得到第一个flag</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The 1st flag is : &#123;8734509128730458630012095&#125;</span><br></pre></td></tr></table></figure>
+
+<p>发现存在robots.txt,访问，在admin_area的源码中发现第二个flag</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The 2nd flag is : &#123;7412574125871236547895214&#125;</span><br></pre></td></tr></table></figure>
+<p>同时发现一对用户名和密码备用,猜测为80端口login.php的登录名和密码，尝试登陆</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">username : admin</span><br><span class="line">password : 3v1l_H@ck3r</span><br></pre></td></tr></table></figure>
+<h2 id="getshell"><a href="#getshell" class="headerlink" title="getshell"></a>getshell</h2><p>登陆成功，进入一个上传文件的界面，验证一下路径，传正常图不行竟然，但是传php可以，路径在<a href="http://192.168.2.111/uploaded_files/下，上传一句话木马，post参数可以使phpinfo()生效，尝试菜刀连接，成功getshell，在/var/www/html目录下发现flag.txt,但是没有权限查看，发现hint.txt，得到第三个flag和提示" target="_blank" rel="noopener">http://192.168.2.111/uploaded_files/下，上传一句话木马，post参数可以使phpinfo()生效，尝试菜刀连接，成功getshell，在/var/www/html目录下发现flag.txt,但是没有权限查看，发现hint.txt，得到第三个flag和提示</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">try to find user technawi password to read the flag.txt file, you can find it in a hidden file ;)</span><br><span class="line">The 3rd flag is : &#123;7645110034526579012345670&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="文件查找"><a href="#文件查找" class="headerlink" title="文件查找"></a>文件查找</h2><p>提示说尝试找technawi的密码来读flag.txt,在一个隐藏文件中<br>查看含有名字为technawi的文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find &#x2F;etc -name &quot;technawi&quot;</span><br></pre></td></tr></table></figure>
+<p>无收获</p>
+<p>查找文件内容含有technawi的文件(/etc/常用来存放配置文件)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -rn technawi &#x2F;etc&#x2F;</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/01/26/JISCTF%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/7.png" alt></p>
+<p>发现文件和第四个flag</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">The 4th flag is : &#123;7845658974123568974185412&#125;</span><br><span class="line">username : technawi</span><br><span class="line">password : 3vilH@ksor</span><br></pre></td></tr></table></figure>
+<p>同时得到了账号密码，猜测为靶机ssh密码，尝试登陆</p>
+<p>登陆成功,读取flag.txt，得到第五个flag</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">The 5th flag is : &#123;5473215946785213456975249&#125;</span><br><span class="line"></span><br><span class="line">Good job :)</span><br><span class="line"></span><br><span class="line">You find 5 flags and got their points and finish the first scenario....</span><br></pre></td></tr></table></figure>
+<h2 id="权限提升"><a href="#权限提升" class="headerlink" title="权限提升"></a>权限提升</h2><p>这样已经拿到了所有的flag，但是追求root才应该是我们的目标<br>尝试technawi是否能够切换到root</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -i</span><br></pre></td></tr></table></figure>
+<p>输入technawi的密码,切换成功，得到root权限，渗透过程到此结束</p>
+<h1 id="体会感悟"><a href="#体会感悟" class="headerlink" title="体会感悟"></a>体会感悟</h1><p>完整的走完一套攻击收获还是挺多的，要更注意细节，每个点可以有那些思路，这样拓展出来才是一套体系，对于一些基本命令的操作还不是很熟悉，还需要好好加强</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://blog.csdn.net/qq_27446553/article/details/80773385" target="_blank" rel="noopener">https://blog.csdn.net/qq_27446553/article/details/80773385</a></p>
+<p><a href="https://www.jianshu.com/p/6b8d654f39b0" target="_blank" rel="noopener">https://www.jianshu.com/p/6b8d654f39b0</a></p>
+
       
       
     
       <div class="declare" hidden="hidden"></div>
     
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢您的打赏，大家一起加油喔~<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/asserts/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/asserts/weixin.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -171,7 +267,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术文档</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">靶机渗透</a>
         		</li>
       		
 		</ul>
@@ -180,16 +276,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/03/makedown%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://yd0ng.github.io/2020/01/26/JISCTF%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2020/01/26/ssh%E5%AF%86%E7%A0%81%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ssh密码暴力破解</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -204,344 +359,43 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-<!--显示阅读次数-->
-
-
-  
-    <article id="post-计组复习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/">计组复习</a>
-    </h1>
-  
-
-        
-        <a href="/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2020-01-02T13:07:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>大三上计组上课也没好好听课，老师给划的重点也和没划差不太多，只能硬着头皮来看书理解。这学期用的是还没出版的新教材，用的RISCV指令集。简单记录一下自己复习计组觉得重要的知识点。</p>
-        
-          <a class="article-more-a" href="/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/#more">more >></a>
-        
-      
-      
-    
-      <div class="declare" hidden="hidden"></div>
-    
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">计算机核心课程</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#靶场下载链接"><span class="toc-number">1.</span> <span class="toc-text">靶场下载链接</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#环境搭建"><span class="toc-number">2.</span> <span class="toc-text">环境搭建</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#渗透过程"><span class="toc-number">3.</span> <span class="toc-text">渗透过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#存活主机探测"><span class="toc-number">3.1.</span> <span class="toc-text">存活主机探测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#端口扫描"><span class="toc-number">3.2.</span> <span class="toc-text">端口扫描</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#目录枚举"><span class="toc-number">4.</span> <span class="toc-text">目录枚举</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#getshell"><span class="toc-number">4.1.</span> <span class="toc-text">getshell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件查找"><span class="toc-number">4.2.</span> <span class="toc-text">文件查找</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#权限提升"><span class="toc-number">4.3.</span> <span class="toc-text">权限提升</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#体会感悟"><span class="toc-number">5.</span> <span class="toc-text">体会感悟</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考文章"><span class="toc-number">6.</span> <span class="toc-text">参考文章</span></a></li></ol>
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
-<!--显示阅读次数-->
-
-
   
-    <article id="post-2020日记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/01/2020%E6%97%A5%E8%AE%B0/">2020日记</a>
-    </h1>
   
 
-        
-        <a href="/2020/01/01/2020%E6%97%A5%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2020-01-01T14:24:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        记录2020年的点点滴滴~
-        
-          <a class="article-more-a" href="/2020/01/01/2020%E6%97%A5%E8%AE%B0/#more">more >></a>
-        
-      
-      
-    
-      <div class="declare" hidden="hidden"></div>
-    
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">随手小记</a>
-        		</li>
-      		
-		</ul>
-	</div>
+  
 
-      
+  
 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/01/2020%E6%97%A5%E8%AE%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
+  
 
 <!--显示阅读次数-->
 
-
-  
-    <article id="post-Flag-for-2020" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/01/Flag-for-2020/">Flag-for-2020</a>
-    </h1>
-  
-
-        
-        <a href="/2020/01/01/Flag-for-2020/" class="archive-article-date">
-  	<time datetime="2019-12-31T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="记录一下2020年的flag，以此自勉"><a href="#记录一下2020年的flag，以此自勉" class="headerlink" title="记录一下2020年的flag，以此自勉"></a>记录一下2020年的flag，以此自勉</h1><p>接受自我，做真实的自己，“人生如逆途，我亦是行人”。</p>
-        
-          <a class="article-more-a" href="/2020/01/01/Flag-for-2020/#more">more >></a>
-        
-      
-      
-    
-      <div class="declare" hidden="hidden"></div>
-    
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">随手小记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/01/Flag-for-2020/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-<!--显示阅读次数-->
-
-
-  
-    <article id="post-2019年度总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/31/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/">2019年度总结</a>
-    </h1>
-  
-
-        
-        <a href="/2019/12/31/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2019-12-31T15:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        2019年终于过去，进入了大三也已经半年，今天结束了编译原理的期末考试，距离下一场计组还有六天的时间，停下来转眼看看这一年，并简单记录一下这一年的自我感受。
-        
-          <a class="article-more-a" href="/2019/12/31/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/#more">more >></a>
-        
-      
-      
-    
-      <div class="declare" hidden="hidden"></div>
-    
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">随手小记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/12/31/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-<!--显示阅读次数-->
-
-
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-    </nav>
-  
+  <br/>
+  <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+  <span class="icon-sort"></span>
+  <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+            阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+  </span>
+  </a>
 
 
           </div>
@@ -580,8 +434,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
