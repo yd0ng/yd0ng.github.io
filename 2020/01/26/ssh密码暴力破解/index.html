@@ -17,7 +17,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://yd0ng.github.io/2020/01/26/ssh%E5%AF%86%E7%A0%81%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3/1.png">
 <meta property="article:published_time" content="2020-01-26T09:48:13.000Z">
-<meta property="article:modified_time" content="2020-01-26T10:23:03.415Z">
+<meta property="article:modified_time" content="2020-01-26T10:26:15.024Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="Web安全">
 <meta name="twitter:card" content="summary">
@@ -160,10 +160,11 @@
         <p>被疫情封锁在家里动弹不得，就顺便学习一下针对于22端口的攻击~</p>
 <a id="more"></a>
 
-<h1 id="环境介绍"><a href="#环境介绍" class="headerlink" title="环境介绍"></a>环境介绍</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">攻击机 192.168.2.107(kali linux)</span><br><span class="line">靶机   192.168.2.110（Ubuntu16.04)</span><br></pre></td></tr></table></figure>
+<h1 id="环境介绍"><a href="#环境介绍" class="headerlink" title="环境介绍"></a>环境介绍</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">攻击机:192.168.2.107  (kali linux)</span><br><span class="line">靶  机:192.168.2.110  (Ubuntu16.04)</span><br></pre></td></tr></table></figure>
 
 <h1 id="工具介绍"><a href="#工具介绍" class="headerlink" title="工具介绍"></a>工具介绍</h1><p>Hydra对应的英文意思是九头蛇，它是一款爆破神器，可以对多种服务的账号和密码进行爆破，包括Web登录、数据库、SSH、FTP等服务，支持Linux、Windows、Mac平台安装，其中Kali Linux中自带Hydra。</p>
-<h1 id="渗透过程"><a href="#渗透过程" class="headerlink" title="渗透过程"></a>渗透过程</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hydra -l yd0ng -P .&#x2F;dic.txt -t 6 ssh:&#x2F;&#x2F;192.168.2.110</span><br></pre></td></tr></table></figure>
+<h1 id="渗透过程"><a href="#渗透过程" class="headerlink" title="渗透过程"></a>渗透过程</h1><p>以ssh为例，介绍攻击过程，详细参数可通过-h查询</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hydra -l yd0ng -P .&#x2F;dic.txt -t 6 ssh:&#x2F;&#x2F;192.168.2.110</span><br></pre></td></tr></table></figure>
 <p>如下图，破解成功</p>
 <p><img src="/2020/01/26/ssh%E5%AF%86%E7%A0%81%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3/1.png" alt></p>
 <h1 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h1><p>破解密码现在的绝大多数方法还是枚举法，因为密码强度大一点还是好的，虽然动静可能会有点大，但是渗透上不妨尝试一下ssh破解，万一有效不是赚大发了？</p>
