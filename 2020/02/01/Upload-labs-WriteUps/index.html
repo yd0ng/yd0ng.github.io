@@ -16,7 +16,7 @@
 <meta property="og:description" content="开坑upload-labs，一天已更新~">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-02-01T14:42:04.000Z">
-<meta property="article:modified_time" content="2020-02-01T15:32:24.416Z">
+<meta property="article:modified_time" content="2020-02-02T03:23:02.561Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="Web安全">
 <meta name="twitter:card" content="summary">
@@ -158,13 +158,17 @@
         <p>开坑upload-labs，一天已更新~</p>
 <a id="more"></a>
 
-<h1 id="Less-01"><a href="#Less-01" class="headerlink" title="Less-01"></a>Less-01</h1><ol>
-<li>上传shell.php，显示该文件不允许上传</li>
+<h1 id="Less-01-JS检查后缀"><a href="#Less-01-JS检查后缀" class="headerlink" title="Less-01 JS检查后缀"></a>Less-01 JS检查后缀</h1><ol>
+<li>上传1.php，显示该文件不允许上传</li>
 <li>抓包尝试改后缀但没有包就提示了禁止上传,怀疑是js控制后缀检查</li>
 <li>禁用js，重复尝试一直显示上传失败，很不科学，最后发现是Windows defender开着防火墙……，可以用免杀马或者关了防火墙，于是关掉防火墙</li>
-<li>上传成功并getshell </li>
+<li>上传成功并getshell <h1 id="Less-02-Content-Type检测"><a href="#Less-02-Content-Type检测" class="headerlink" title="Less-02 Content-Type检测"></a>Less-02 Content-Type检测</h1></li>
+<li>上传2.php，显示文件类型不正确</li>
+<li>改名2.jpg，抓包改成2.php,上传成功并getshell</li>
+<li>猜测为js检测，禁用js直接传php，但是上传失败</li>
+<li>猜测为后端检测Content-Type: image/jpeg，上传php,抓包改http请求头,上传成功，证明猜测正确<h1 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续~"></a>未完待续~</h1></li>
 </ol>
-<h1 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续~"></a>未完待续~</h1>
+
       
       
     
@@ -319,7 +323,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-01"><span class="toc-number">1.</span> <span class="toc-text">Less-01</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#未完待续"><span class="toc-number">2.</span> <span class="toc-text">未完待续~</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-01-JS检查后缀"><span class="toc-number">1.</span> <span class="toc-text">Less-01 JS检查后缀</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-02-Content-Type检测"><span class="toc-number">2.</span> <span class="toc-text">Less-02 Content-Type检测</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#未完待续"><span class="toc-number">3.</span> <span class="toc-text">未完待续~</span></a></li></ol>
                     </div>
                 </span>
             </div>
