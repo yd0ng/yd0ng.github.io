@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://yd0ng.github.io">
-  <title>Tag: CTF | Blog</title>
+  <title>CTF从入门到提高 | Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Blog">
-<meta property="og:url" content="https://yd0ng.github.io/tags/CTF/index.html">
+  <meta name="description" content="记录CTF从入门到提高的学习过程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CTF从入门到提高">
+<meta property="og:url" content="https://yd0ng.github.io/2020/02/02/CTF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%8F%90%E9%AB%98/index.html">
 <meta property="og:site_name" content="Blog">
+<meta property="og:description" content="记录CTF从入门到提高的学习过程">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-02-02T14:43:22.000Z">
+<meta property="article:modified_time" content="2020-02-02T15:18:41.045Z">
 <meta property="article:author" content="yd0ng">
+<meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary">
   
   
@@ -130,36 +135,106 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-CTF从入门到提高" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      CTF从入门到提高
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/02/CTF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%8F%90%E9%AB%98/" class="archive-article-date">
+
+        
+        <a href="/2020/02/02/CTF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%8F%90%E9%AB%98/" class="archive-article-date">
   	<time datetime="2020-02-02T14:43:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-02</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/02/CTF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%8F%90%E9%AB%98/">CTF从入门到提高</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>记录CTF从入门到提高的学习过程</p>
+<a id="more"></a>
 
-        <div class="article-info info-on-right">
-          
+<h1 id="CTF练手平台"><a href="#CTF练手平台" class="headerlink" title="CTF练手平台"></a>CTF练手平台</h1><ul>
+<li>合天：<a href="http://www.hetianlab.com/" target="_blank" rel="noopener">http://www.hetianlab.com/</a></li>
+<li>实验吧：<a href="http://www.shiyanbar.com/ctf/" target="_blank" rel="noopener">http://www.shiyanbar.com/ctf/</a></li>
+<li>i春秋：<a href="https://www.ichunqiu.com/" target="_blank" rel="noopener">https://www.ichunqiu.com/</a></li>
+<li>Bugku: <a href="http://ctf.bugku.com/" target="_blank" rel="noopener">http://ctf.bugku.com/</a></li>
+<li>攻防世界: <a href="https://adworld.xctf.org.cn" target="_blank" rel="noopener">https://adworld.xctf.org.cn</a></li>
+<li>蓝鲸安全 <a href="http://whalectf.xin/" target="_blank" rel="noopener">http://whalectf.xin/</a></li>
+<li>Jarvis OJ <a href="https://www.jarvisoj.com" target="_blank" rel="noopener">https://www.jarvisoj.com</a><h1 id="Tricks"><a href="#Tricks" class="headerlink" title="Tricks"></a>Tricks</h1></li>
+<li>‘ctf’ -&gt;0xhex(ctf)</li>
+<li>#-&gt;%23 或者使用 –+</li>
+<li>=被过滤，like/regexp/!!=/!&lt;&gt;<h1 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h1><h2 id="编码介绍"><a href="#编码介绍" class="headerlink" title="编码介绍"></a>编码介绍</h2></li>
+<li>ASCII编码的范围是0-127</li>
+<li>国际通用UTF-8编码</li>
+<li>中文常用GBK编码</li>
+<li>URL编码(常见的如%20、%27、%23、%5C)<h2 id="成因"><a href="#成因" class="headerlink" title="成因"></a>成因</h2>当MySQL使用gbk编码时，会认为两个字符是一个汉字，产生宽字节注入，第一个字节要大于128<h2 id="addslashes"><a href="#addslashes" class="headerlink" title="addslashes()"></a>addslashes()</h2>addslashes常用来加\来转义特殊字符,绕过有以下两种思路</li>
+</ul>
+<ol>
+<li>\前加一个\，形成\\‘,单引号就可以生效</li>
+<li>弄没转义的\ -&gt; 宽字节注入，原理如下<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">\&#39; -&gt; \\&#39; -&gt;\%27</span><br><span class="line">%df&#39; -&gt; %df\&#39; -&gt; $df%5C%27</span><br></pre></td></tr></table></figure>
+<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><a href="http://chinalover.sinaapp.com/SQL-GBK/index.php" target="_blank" rel="noopener">http://chinalover.sinaapp.com/SQL-GBK/index.php</a></li>
+</ol>
+<h1 id="SQL约束攻击"><a href="#SQL约束攻击" class="headerlink" title="SQL约束攻击"></a>SQL约束攻击</h1><h2 id="成因-1"><a href="#成因-1" class="headerlink" title="成因"></a>成因</h2><ul>
+<li>mysql在进行查询时会自动忽略空格</li>
+<li>长度有限制，大于长度会自动截断</li>
+<li>借助截断和自动忽略实现再注册</li>
+</ul>
+<h2 id="例题-1"><a href="#例题-1" class="headerlink" title="例题"></a>例题</h2><p><a href="http://123.206.31.85:49163/" target="_blank" rel="noopener">http://123.206.31.85:49163/</a></p>
+<h1 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h1><h2 id="成因-2"><a href="#成因-2" class="headerlink" title="成因"></a>成因</h2><ul>
+<li>利用sql函数的错误用法使其报错<h2 id="常用报错函数"><a href="#常用报错函数" class="headerlink" title="常用报错函数"></a>常用报错函数</h2><h3 id="floor"><a href="#floor" class="headerlink" title="floor()"></a>floor()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)a);</span><br></pre></td></tr></table></figure>
+<h3 id="updatexml"><a href="#updatexml" class="headerlink" title="updatexml()"></a>updatexml()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">or updatexml(1,concat(0x7e,(version())),0)</span><br></pre></td></tr></table></figure>
+<h3 id="extractvalue"><a href="#extractvalue" class="headerlink" title="extractvalue()"></a>extractvalue()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and extractvalue(1,concat(0x7e,(select database())))</span><br></pre></td></tr></table></figure>
+<h3 id="exp"><a href="#exp" class="headerlink" title="exp()"></a>exp()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and exp(~(select * from(select user())a))</span><br></pre></td></tr></table></figure>
+<h3 id="NAME-CONST"><a href="#NAME-CONST" class="headerlink" title="NAME_CONST()"></a>NAME_CONST()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from(select NAME_CONST(version(),1),NAME_CONST(version(),1))a;</span><br></pre></td></tr></table></figure>
+<h2 id="例题-2"><a href="#例题-2" class="headerlink" title="例题"></a>例题</h2><a href="http://ctf5.shiyanbar.com/web/baocuo/index.php" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/web/baocuo/index.php</a><br>,</li>
+</ul>
+
+      
+      
+    
+      <div class="declare" hidden="hidden"></div>
+    
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢您的打赏，大家一起加油喔~<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/asserts/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/asserts/weixin.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -171,57 +246,129 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://yd0ng.github.io/2020/02/02/CTF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%8F%90%E9%AB%98/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/02/CTF%E9%A2%98%E7%9B%AE%E9%9D%B6%E6%9C%BA%E7%BB%83%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2020-02-02T05:13:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-02</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/02/02/CTF%E9%A2%98%E7%9B%AE%E9%9D%B6%E6%9C%BA%E7%BB%83%E4%B9%A0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">CTF题目靶机练习</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/02/CTF%E9%A2%98%E7%9B%AE%E9%9D%B6%E6%9C%BA%E7%BB%83%E4%B9%A0/">CTF题目靶机练习</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CTF</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CTF练手平台"><span class="toc-number">1.</span> <span class="toc-text">CTF练手平台</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Tricks"><span class="toc-number">2.</span> <span class="toc-text">Tricks</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#宽字节注入"><span class="toc-number">3.</span> <span class="toc-text">宽字节注入</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#编码介绍"><span class="toc-number">3.1.</span> <span class="toc-text">编码介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#成因"><span class="toc-number">3.2.</span> <span class="toc-text">成因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#addslashes"><span class="toc-number">3.3.</span> <span class="toc-text">addslashes()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例题"><span class="toc-number">3.4.</span> <span class="toc-text">例题</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SQL约束攻击"><span class="toc-number">4.</span> <span class="toc-text">SQL约束攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#成因-1"><span class="toc-number">4.1.</span> <span class="toc-text">成因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例题-1"><span class="toc-number">4.2.</span> <span class="toc-text">例题</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#报错注入"><span class="toc-number">5.</span> <span class="toc-text">报错注入</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#成因-2"><span class="toc-number">5.1.</span> <span class="toc-text">成因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常用报错函数"><span class="toc-number">5.2.</span> <span class="toc-text">常用报错函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#floor"><span class="toc-number">5.2.1.</span> <span class="toc-text">floor()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#updatexml"><span class="toc-number">5.2.2.</span> <span class="toc-text">updatexml()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#extractvalue"><span class="toc-number">5.2.3.</span> <span class="toc-text">extractvalue()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#exp"><span class="toc-number">5.2.4.</span> <span class="toc-text">exp()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NAME-CONST"><span class="toc-number">5.2.5.</span> <span class="toc-text">NAME_CONST()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例题-2"><span class="toc-number">5.3.</span> <span class="toc-text">例题</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
   
-    </div></section>
   
 
-    
+  
+
+  
+
+  
+
+<!--显示阅读次数-->
+
+  <br/>
+  <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+  <span class="icon-sort"></span>
+  <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+            阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+  </span>
+  </a>
 
 
           </div>
@@ -261,9 +408,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
