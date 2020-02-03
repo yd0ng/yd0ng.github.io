@@ -16,7 +16,7 @@
 <meta property="og:description" content="记录CTF从入门到提高的学习过程">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-02-02T14:43:22.000Z">
-<meta property="article:modified_time" content="2020-02-02T16:03:32.456Z">
+<meta property="article:modified_time" content="2020-02-03T03:51:00.221Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary">
@@ -165,10 +165,17 @@
 <li>Bugku: <a href="http://ctf.bugku.com/" target="_blank" rel="noopener">http://ctf.bugku.com/</a></li>
 <li>攻防世界: <a href="https://adworld.xctf.org.cn" target="_blank" rel="noopener">https://adworld.xctf.org.cn</a></li>
 <li>蓝鲸安全 <a href="http://whalectf.xin/" target="_blank" rel="noopener">http://whalectf.xin/</a></li>
-<li>Jarvis OJ <a href="https://www.jarvisoj.com" target="_blank" rel="noopener">https://www.jarvisoj.com</a><h1 id="Tricks"><a href="#Tricks" class="headerlink" title="Tricks"></a>Tricks</h1></li>
+<li>Jarvis OJ <a href="https://www.jarvisoj.com" target="_blank" rel="noopener">https://www.jarvisoj.com</a></li>
+</ul>
+<h1 id="Tricks"><a href="#Tricks" class="headerlink" title="Tricks"></a>Tricks</h1><ul>
 <li>‘ctf’ -&gt;0xhex(ctf)</li>
 <li>#-&gt;%23 或者使用 –+</li>
 <li>=被过滤，like/regexp/!!=/!&lt;&gt;</li>
+<li>盲注引号waf,ascii()变数字</li>
+<li>substring(str from pos for len) 绕过逗号waf</li>
+<li>rlike/regexp ‘正则’ 爆破数据</li>
+<li>or 被waf用||</li>
+<li>空格被waf用/**/</li>
 </ul>
 <h1 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h1><h2 id="编码介绍"><a href="#编码介绍" class="headerlink" title="编码介绍"></a>编码介绍</h2><ul>
 <li>ASCII编码的范围是0-127</li>
@@ -201,8 +208,71 @@
 <h3 id="exp"><a href="#exp" class="headerlink" title="exp()"></a>exp()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and exp(~(select * from(select user())a))</span><br></pre></td></tr></table></figure>
 <h3 id="NAME-CONST"><a href="#NAME-CONST" class="headerlink" title="NAME_CONST()"></a>NAME_CONST()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from(select NAME_CONST(version(),1),NAME_CONST(version(),1))a;</span><br></pre></td></tr></table></figure>
 
-<h2 id="例题-2"><a href="#例题-2" class="headerlink" title="例题"></a>例题</h2><p><a href="http://ctf5.shiyanbar.com/web/baocuo/index.php" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/web/baocuo/index.php</a><br>,</p>
+<h2 id="例题-2"><a href="#例题-2" class="headerlink" title="例题"></a>例题</h2><p><a href="http://ctf5.shiyanbar.com/web/baocuo/index.php" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/web/baocuo/index.php</a></p>
+<h1 id="时间盲注"><a href="#时间盲注" class="headerlink" title="时间盲注"></a>时间盲注</h1><h2 id="常用的时间盲注函数"><a href="#常用的时间盲注函数" class="headerlink" title="常用的时间盲注函数"></a>常用的时间盲注函数</h2><ul>
+<li>sleep(time)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sleep(3);</span><br></pre></td></tr></table></figure>
 
+<ul>
+<li>if(param1,param2,param3)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 类似于三元表达式</span><br><span class="line">if(1,2,3);</span><br><span class="line">if(0,2,3);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>substr(str,pos=1,len)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">substr(&quot;admin&quot;,1,1);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>substring(str,pos,[len])</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">substring(&quot;admin&quot;,2,1);</span><br><span class="line">substring(&quot;admin&quot;,2);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>substring(str from pos [for len])</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">substring(&quot;admin&quot; from 2 for 1);</span><br><span class="line">substring(&quot;admin&quot; from 2);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>mid(str,pos,len)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mid(&quot;admin&quot;,2,1);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>substring(str,delim,count)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">substring(&#39;aaabbb&#39;,&#39;a&#39;,2);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>select case when condition then result [when] [else result] end from tables</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select case when username&#x3D;&#39;admin&#39; THEN &#39;aaa&#39; ELSE (sleep(3)) end from user;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>ascii(char)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ascii(&#39;a&#39;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>benchmark(count,expr)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">重复计算count次expr()函数，实现延时效果</span><br><span class="line"></span><br><span class="line">select benchmark(10000000,sha(1);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>笛卡尔积延时</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select count(*) from information_schema.columns A,</span><br><span class="line">information_schema.columns B,</span><br><span class="line">information_schema.tables C;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>GET_LOCK(str,timeout)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">只适用于长连接</span><br><span class="line"></span><br><span class="line">select GET_LOCK(&#39;a&#39;,1)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>rpad()/repeat +  RLIKE </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">原理类似ddos</span><br><span class="line"></span><br><span class="line">select concat(rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;)) RLIKE &#39;(a.*)+(a.*)+(a.*)+(a.*)+(a.*)+(a.*)+(a.*)+b&#39;</span><br></pre></td></tr></table></figure>
       
       
     
@@ -348,7 +418,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CTF练手平台"><span class="toc-number">1.</span> <span class="toc-text">CTF练手平台</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Tricks"><span class="toc-number">2.</span> <span class="toc-text">Tricks</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#宽字节注入"><span class="toc-number">3.</span> <span class="toc-text">宽字节注入</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#编码介绍"><span class="toc-number">3.1.</span> <span class="toc-text">编码介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#成因"><span class="toc-number">3.2.</span> <span class="toc-text">成因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#addslashes"><span class="toc-number">3.3.</span> <span class="toc-text">addslashes()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例题"><span class="toc-number">3.4.</span> <span class="toc-text">例题</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SQL约束攻击"><span class="toc-number">4.</span> <span class="toc-text">SQL约束攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#成因-1"><span class="toc-number">4.1.</span> <span class="toc-text">成因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例题-1"><span class="toc-number">4.2.</span> <span class="toc-text">例题</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#报错注入"><span class="toc-number">5.</span> <span class="toc-text">报错注入</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#成因-2"><span class="toc-number">5.1.</span> <span class="toc-text">成因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常用报错函数"><span class="toc-number">5.2.</span> <span class="toc-text">常用报错函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#floor"><span class="toc-number">5.2.1.</span> <span class="toc-text">floor()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#updatexml"><span class="toc-number">5.2.2.</span> <span class="toc-text">updatexml()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#extractvalue"><span class="toc-number">5.2.3.</span> <span class="toc-text">extractvalue()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#exp"><span class="toc-number">5.2.4.</span> <span class="toc-text">exp()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NAME-CONST"><span class="toc-number">5.2.5.</span> <span class="toc-text">NAME_CONST()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例题-2"><span class="toc-number">5.3.</span> <span class="toc-text">例题</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CTF练手平台"><span class="toc-number">1.</span> <span class="toc-text">CTF练手平台</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Tricks"><span class="toc-number">2.</span> <span class="toc-text">Tricks</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#宽字节注入"><span class="toc-number">3.</span> <span class="toc-text">宽字节注入</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#编码介绍"><span class="toc-number">3.1.</span> <span class="toc-text">编码介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#成因"><span class="toc-number">3.2.</span> <span class="toc-text">成因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#addslashes"><span class="toc-number">3.3.</span> <span class="toc-text">addslashes()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例题"><span class="toc-number">3.4.</span> <span class="toc-text">例题</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SQL约束攻击"><span class="toc-number">4.</span> <span class="toc-text">SQL约束攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#成因-1"><span class="toc-number">4.1.</span> <span class="toc-text">成因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例题-1"><span class="toc-number">4.2.</span> <span class="toc-text">例题</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#报错注入"><span class="toc-number">5.</span> <span class="toc-text">报错注入</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#成因-2"><span class="toc-number">5.1.</span> <span class="toc-text">成因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常用报错函数"><span class="toc-number">5.2.</span> <span class="toc-text">常用报错函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#floor"><span class="toc-number">5.2.1.</span> <span class="toc-text">floor()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#updatexml"><span class="toc-number">5.2.2.</span> <span class="toc-text">updatexml()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#extractvalue"><span class="toc-number">5.2.3.</span> <span class="toc-text">extractvalue()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#exp"><span class="toc-number">5.2.4.</span> <span class="toc-text">exp()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NAME-CONST"><span class="toc-number">5.2.5.</span> <span class="toc-text">NAME_CONST()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例题-2"><span class="toc-number">5.3.</span> <span class="toc-text">例题</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#时间盲注"><span class="toc-number">6.</span> <span class="toc-text">时间盲注</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#常用的时间盲注函数"><span class="toc-number">6.1.</span> <span class="toc-text">常用的时间盲注函数</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
