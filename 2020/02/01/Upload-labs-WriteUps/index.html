@@ -16,7 +16,7 @@
 <meta property="og:description" content="开坑upload-labs，一天已更新~">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-02-01T14:42:04.000Z">
-<meta property="article:modified_time" content="2020-02-04T16:19:29.351Z">
+<meta property="article:modified_time" content="2020-02-06T08:44:22.892Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="Web安全">
 <meta name="twitter:card" content="summary">
@@ -190,6 +190,27 @@
 <li>抓包上传.htaccess文件，内容如下<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;FilesMatch &quot;4.php6&quot;&gt;</span><br><span class="line">SetHandler application&#x2F;x-httpd-php</span><br><span class="line">&lt;&#x2F;FilesMatch&gt;</span><br></pre></td></tr></table></figure></li>
 <li>成功getshell</li>
 </ol>
+<h1 id="Less-05-user-ini利用"><a href="#Less-05-user-ini利用" class="headerlink" title="Less-05 .user.ini利用"></a>Less-05 .user.ini利用</h1><p>注：需使用php-nts格式</p>
+<ol>
+<li>上传测试图片成功</li>
+<li>禁用js,传php,提示该类型不允许上传</li>
+<li>传php，抓包更改content-type，失败</li>
+<li>传php3、php5、phtml、.phP都失败</li>
+<li>.htaccess上传失败</li>
+<li>5.php空格上传失败</li>
+<li>5.php.上传失败</li>
+<li>查看源代码，也没发现啥突破点</li>
+<li>查看提示存在upload目录readme.php，想到了SUCTF2019提到的.user.ini利用，于是上传.user.ini，内容为<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auto_prepend_file&#x3D;5.pass</span><br></pre></td></tr></table></figure></li>
+<li>上传5.pass内容为一句话木马，成功getshell</li>
+</ol>
+<h1 id="Less-06-大小写绕过黑名单"><a href="#Less-06-大小写绕过黑名单" class="headerlink" title="Less-06 大小写绕过黑名单"></a>Less-06 大小写绕过黑名单</h1><ol>
+<li>上传测试图片成功</li>
+<li>禁用js,传php,提示该类型不允许上传</li>
+<li>传php，抓包更改content-type，失败</li>
+<li>传php3、php5、phtml、.phP都失败</li>
+<li>.htaccess上传失败</li>
+<li>上传6.phP上传成功,查看回显文件名并getshell</li>
+</ol>
 <h1 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续~"></a>未完待续~</h1>
       
       
@@ -345,7 +366,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#环境配置"><span class="toc-number">1.</span> <span class="toc-text">环境配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-01-JS检查后缀"><span class="toc-number">2.</span> <span class="toc-text">Less-01 JS检查后缀</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-02-Content-Type检测"><span class="toc-number">3.</span> <span class="toc-text">Less-02 Content-Type检测</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-03-黑名单绕过"><span class="toc-number">4.</span> <span class="toc-text">Less-03 黑名单绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-04-htaccess文件解析"><span class="toc-number">5.</span> <span class="toc-text">Less-04 .htaccess文件解析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#未完待续"><span class="toc-number">6.</span> <span class="toc-text">未完待续~</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#环境配置"><span class="toc-number">1.</span> <span class="toc-text">环境配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-01-JS检查后缀"><span class="toc-number">2.</span> <span class="toc-text">Less-01 JS检查后缀</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-02-Content-Type检测"><span class="toc-number">3.</span> <span class="toc-text">Less-02 Content-Type检测</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-03-黑名单绕过"><span class="toc-number">4.</span> <span class="toc-text">Less-03 黑名单绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-04-htaccess文件解析"><span class="toc-number">5.</span> <span class="toc-text">Less-04 .htaccess文件解析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-05-user-ini利用"><span class="toc-number">6.</span> <span class="toc-text">Less-05 .user.ini利用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-06-大小写绕过黑名单"><span class="toc-number">7.</span> <span class="toc-text">Less-06 大小写绕过黑名单</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#未完待续"><span class="toc-number">8.</span> <span class="toc-text">未完待续~</span></a></li></ol>
                     </div>
                 </span>
             </div>
