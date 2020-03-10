@@ -20,8 +20,10 @@
 <meta property="og:image" content="https://yd0ng.github.io/2020/02/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/3.1.png">
 <meta property="og:image" content="https://yd0ng.github.io/2020/02/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/3.2.png">
 <meta property="og:image" content="https://yd0ng.github.io/2020/02/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/3.3.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/02/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/4.1.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/02/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/5.2.png">
 <meta property="article:published_time" content="2020-02-25T01:03:00.000Z">
-<meta property="article:modified_time" content="2020-03-10T03:54:17.485Z">
+<meta property="article:modified_time" content="2020-03-10T15:14:42.553Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="计算机核心课程">
 <meta name="twitter:card" content="summary">
@@ -596,7 +598,139 @@
 <li>静态MAC地址绑定</li>
 </ul>
 <h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p>CISCO建网三层模型：接入层、汇聚层、核心层</p>
-<h1 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h1><h1 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h1><h1 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h1><h1 id="网络安全"><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h1><h1 id="无限网络"><a href="#无限网络" class="headerlink" title="无限网络"></a>无限网络</h1>
+<h1 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h1><h2 id="指引"><a href="#指引" class="headerlink" title="指引"></a>指引</h2><ul>
+<li>网络层关注的是如何将分组从源端沿着网络路径送达目的端</li>
+<li>两种服务、IP、ICMP、路由选择协议、IP多播、虚拟专用网VPN和网络地址转换NAT</li>
+<li>一大争论：网络层应该向运输层提供怎样的服务？(本质：可靠交付是由谁负责，不是网络层，而是端系统)</li>
+</ul>
+<h2 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h2><p>两种服务</p>
+<ul>
+<li>虚电报服务：逻辑上的连接、不是真正的连接，h1到h2的所有分组沿一条虚电路发送</li>
+<li>数据包服务：数据包写入地址，由路由选择传送地址，现在多用此服务，特点为简单灵活、无连接、尽最大努力交付</li>
+</ul>
+<p>虚拟互联网：中间设备称为中间系统或中继系统</p>
+<p>中继系统</p>
+<ul>
+<li>物理层：转发器</li>
+<li>数据链路层：网桥或桥接器</li>
+<li>网络层：路由器</li>
+<li>网络层以上的中继系统：网关</li>
+</ul>
+<p>网络层协议:IP、ARP、RARP、ICMP、IGMP</p>
+<h2 id="IP协议"><a href="#IP协议" class="headerlink" title="IP协议"></a>IP协议</h2><p>层次化IP地址将32位的IP地址分为网络号和主机号(不全为1、不全为0)</p>
+<p>类别</p>
+<ul>
+<li>A类：8+24，固定为0，1~126</li>
+<li>B类：16+16，固定为10，128.1~191.255</li>
+<li>C类：24+8，固定为110，192.0.1~223.255.255</li>
+<li>D类：组播，固定为1110</li>
+<li>E类：研究用，固定为1111</li>
+</ul>
+<p>补充</p>
+<ul>
+<li>127.0.0.1：本地环回地址</li>
+<li>169.254.0.0：windows DHCP自动生成的错误地址，临时使用</li>
+<li>保留地址</li>
+<li><ul>
+<li>10.0.0.0 (A)</li>
+</ul>
+</li>
+<li><ul>
+<li>172.16.0.0~172.31.0.0 (B)</li>
+</ul>
+</li>
+<li><ul>
+<li>192.168.0.0~192.168.255.0 (C)</li>
+</ul>
+</li>
+</ul>
+<p>子网掩码：将IP地址划分为网络地址和主机地址</p>
+<p>子网划分：CIDR(无类型域间选路)</p>
+<ul>
+<li>网络号+主机号按需改变，需要改变子网掩码</li>
+<li>每个子网是原来的1/2，子网掩码往后移动一位</li>
+<li>点到点的子网掩码为255.255.255.252</li>
+<li>划分子网要遵循除2的规律(等分)</li>
+<li>变长子网划分(不等分)</li>
+</ul>
+<p>超网：合并网段(子网掩码左移)</p>
+<p>IP地址决定数据包最终到哪(不变)</p>
+<p>MAC地址决定了路由转发的下一跳是谁(变)</p>
+<p>ARP协议：通过广播，将IP地址转换为MAC地址<br>RARP协议：通过广播，将MAC地址转换为IP地址</p>
+<p>IP数据报由首部和数据两部分组成，首部固定长度为20字节</p>
+<p><img src="/2020/02/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/4.1.png" alt></p>
+<ul>
+<li>TTL:首部生存时间，可判断操作系统类型</li>
+</ul>
+<p>数据路由：路由器在不同网段转发数据包</p>
+<p>网络畅通：数据包能去能回</p>
+<p>静态路由：按照预先配置的静态路由表走，windows 网关就是默认路由</p>
+<p>负载均衡的实现</p>
+<p>ICMP协议不是高层协议，是IP层的协议，主要负责报告差错和故障</p>
+<p><img src="/2020/02/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/5.2.png" alt></p>
+<p>ICMP报文类型</p>
+<ul>
+<li>差错报告报文</li>
+<li><ul>
+<li>终点不可达</li>
+</ul>
+</li>
+<li><ul>
+<li>源点抑制</li>
+</ul>
+</li>
+<li><ul>
+<li>时间超过</li>
+</ul>
+</li>
+<li><ul>
+<li>参数问题</li>
+</ul>
+</li>
+<li><ul>
+<li>改变路由(重定向)</li>
+</ul>
+</li>
+<li>询问报文</li>
+<li><ul>
+<li>回送请求和回答报文</li>
+</ul>
+</li>
+<li><ul>
+<li>时间戳请求和回答报文</li>
+</ul>
+</li>
+</ul>
+<p>IGMP协议</p>
+<ul>
+<li>主要管理组播成员</li>
+<li>组播管理协议(组播=多播)</li>
+</ul>
+<p>RIP协议</p>
+<ul>
+<li>最早的动态路由协议</li>
+<li>特点：周期性(30s)广播、根据跳数判断距离(不准确)</li>
+</ul>
+<p>OSPF协议</p>
+<ul>
+<li>内部网关协议，也属于动态路由协议</li>
+<li>度量值为带宽，比较准确</li>
+<li>支持多区域、二级结构</li>
+<li>触发式更新</li>
+<li>三个表(邻居表、链路状态表、计算路由表)</li>
+</ul>
+<p>BGP协议</p>
+<ul>
+<li>外部网关协议</li>
+<li>连接各个自制系统</li>
+<li>发言人交换路径向量</li>
+</ul>
+<p>VPN</p>
+<ul>
+<li>虚拟专用网络，在互联网上传输私有数据</li>
+</ul>
+<p>NAT:网络地址转换<br>PAT:端口地址转换</p>
+<h1 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h1><h1 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h1><h1 id="网络安全"><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h1><h1 id="无限网络"><a href="#无限网络" class="headerlink" title="无限网络"></a>无限网络</h1>
       
       
     
@@ -751,7 +885,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#计算机网络概述"><span class="toc-number">1.</span> <span class="toc-text">计算机网络概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#计算机在信息时代的作用"><span class="toc-number">1.1.</span> <span class="toc-text">计算机在信息时代的作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#因特网概述"><span class="toc-number">1.2.</span> <span class="toc-text">因特网概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#因特网的组成"><span class="toc-number">1.3.</span> <span class="toc-text">因特网的组成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算机网络在我国的发展"><span class="toc-number">1.4.</span> <span class="toc-text">计算机网络在我国的发展</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算机网络的类别"><span class="toc-number">1.5.</span> <span class="toc-text">计算机网络的类别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算机网络的性能"><span class="toc-number">1.6.</span> <span class="toc-text">计算机网络的性能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#性能指标主要包括"><span class="toc-number">1.6.1.</span> <span class="toc-text">性能指标主要包括</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计算机网络的非性能指标"><span class="toc-number">1.6.2.</span> <span class="toc-text">计算机网络的非性能指标</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算机网络的体系结构"><span class="toc-number">1.7.</span> <span class="toc-text">计算机网络的体系结构</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#物理层"><span class="toc-number">2.</span> <span class="toc-text">物理层</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#物理层的基本概念"><span class="toc-number">2.1.</span> <span class="toc-text">物理层的基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据通信的基础知识"><span class="toc-number">2.2.</span> <span class="toc-text">数据通信的基础知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#物理层下的传输媒体"><span class="toc-number">2.3.</span> <span class="toc-text">物理层下的传输媒体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#信道复用技术"><span class="toc-number">2.4.</span> <span class="toc-text">信道复用技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数字传输系统"><span class="toc-number">2.5.</span> <span class="toc-text">数字传输系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#宽带接入技术"><span class="toc-number">2.6.</span> <span class="toc-text">宽带接入技术</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据链路层"><span class="toc-number">3.</span> <span class="toc-text">数据链路层</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本概念及基本问题"><span class="toc-number">3.1.</span> <span class="toc-text">基本概念及基本问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用点对点的数据链路层-PPP协议"><span class="toc-number">3.2.</span> <span class="toc-text">使用点对点的数据链路层(PPP协议)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用广播的数据链路层-CSMA-CD协议"><span class="toc-number">3.3.</span> <span class="toc-text">使用广播的数据链路层(CSMA&#x2F;CD协议)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#以太局域网"><span class="toc-number">3.4.</span> <span class="toc-text">以太局域网</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#扩展以太网"><span class="toc-number">3.5.</span> <span class="toc-text">扩展以太网</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#虚拟局域网"><span class="toc-number">3.6.</span> <span class="toc-text">虚拟局域网</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#高速以太网-V-gt-100Mb-s"><span class="toc-number">3.7.</span> <span class="toc-text">高速以太网(V&gt;100Mb&#x2F;s)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#补充"><span class="toc-number">3.8.</span> <span class="toc-text">补充</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#网络层"><span class="toc-number">4.</span> <span class="toc-text">网络层</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#传输层"><span class="toc-number">5.</span> <span class="toc-text">传输层</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#应用层"><span class="toc-number">6.</span> <span class="toc-text">应用层</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#网络安全"><span class="toc-number">7.</span> <span class="toc-text">网络安全</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#无限网络"><span class="toc-number">8.</span> <span class="toc-text">无限网络</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#计算机网络概述"><span class="toc-number">1.</span> <span class="toc-text">计算机网络概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#计算机在信息时代的作用"><span class="toc-number">1.1.</span> <span class="toc-text">计算机在信息时代的作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#因特网概述"><span class="toc-number">1.2.</span> <span class="toc-text">因特网概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#因特网的组成"><span class="toc-number">1.3.</span> <span class="toc-text">因特网的组成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算机网络在我国的发展"><span class="toc-number">1.4.</span> <span class="toc-text">计算机网络在我国的发展</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算机网络的类别"><span class="toc-number">1.5.</span> <span class="toc-text">计算机网络的类别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算机网络的性能"><span class="toc-number">1.6.</span> <span class="toc-text">计算机网络的性能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#性能指标主要包括"><span class="toc-number">1.6.1.</span> <span class="toc-text">性能指标主要包括</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计算机网络的非性能指标"><span class="toc-number">1.6.2.</span> <span class="toc-text">计算机网络的非性能指标</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算机网络的体系结构"><span class="toc-number">1.7.</span> <span class="toc-text">计算机网络的体系结构</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#物理层"><span class="toc-number">2.</span> <span class="toc-text">物理层</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#物理层的基本概念"><span class="toc-number">2.1.</span> <span class="toc-text">物理层的基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据通信的基础知识"><span class="toc-number">2.2.</span> <span class="toc-text">数据通信的基础知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#物理层下的传输媒体"><span class="toc-number">2.3.</span> <span class="toc-text">物理层下的传输媒体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#信道复用技术"><span class="toc-number">2.4.</span> <span class="toc-text">信道复用技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数字传输系统"><span class="toc-number">2.5.</span> <span class="toc-text">数字传输系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#宽带接入技术"><span class="toc-number">2.6.</span> <span class="toc-text">宽带接入技术</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据链路层"><span class="toc-number">3.</span> <span class="toc-text">数据链路层</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本概念及基本问题"><span class="toc-number">3.1.</span> <span class="toc-text">基本概念及基本问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用点对点的数据链路层-PPP协议"><span class="toc-number">3.2.</span> <span class="toc-text">使用点对点的数据链路层(PPP协议)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用广播的数据链路层-CSMA-CD协议"><span class="toc-number">3.3.</span> <span class="toc-text">使用广播的数据链路层(CSMA&#x2F;CD协议)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#以太局域网"><span class="toc-number">3.4.</span> <span class="toc-text">以太局域网</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#扩展以太网"><span class="toc-number">3.5.</span> <span class="toc-text">扩展以太网</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#虚拟局域网"><span class="toc-number">3.6.</span> <span class="toc-text">虚拟局域网</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#高速以太网-V-gt-100Mb-s"><span class="toc-number">3.7.</span> <span class="toc-text">高速以太网(V&gt;100Mb&#x2F;s)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#补充"><span class="toc-number">3.8.</span> <span class="toc-text">补充</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#网络层"><span class="toc-number">4.</span> <span class="toc-text">网络层</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#指引"><span class="toc-number">4.1.</span> <span class="toc-text">指引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内容"><span class="toc-number">4.2.</span> <span class="toc-text">内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IP协议"><span class="toc-number">4.3.</span> <span class="toc-text">IP协议</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#传输层"><span class="toc-number">5.</span> <span class="toc-text">传输层</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#应用层"><span class="toc-number">6.</span> <span class="toc-text">应用层</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#网络安全"><span class="toc-number">7.</span> <span class="toc-text">网络安全</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#无限网络"><span class="toc-number">8.</span> <span class="toc-text">无限网络</span></a></li></ol>
                     </div>
                 </span>
             </div>
