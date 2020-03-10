@@ -8,17 +8,20 @@
   <link rel="dns-prefetch" href="https://yd0ng.github.io">
   <title>计算机网络基础 | Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="计网学习记录">
+  <meta name="description" content="计算机网络学习笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计算机网络基础">
 <meta property="og:url" content="https://yd0ng.github.io/2020/02/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="Blog">
-<meta property="og:description" content="计网学习记录">
+<meta property="og:description" content="计算机网络学习笔记">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://yd0ng.github.io/2020/02/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/1.1.png">
 <meta property="og:image" content="https://yd0ng.github.io/2020/02/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/1.2.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/02/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/3.1.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/02/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/3.2.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/02/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/3.3.png">
 <meta property="article:published_time" content="2020-02-25T01:03:00.000Z">
-<meta property="article:modified_time" content="2020-02-27T07:07:21.776Z">
+<meta property="article:modified_time" content="2020-03-10T03:54:17.485Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="计算机核心课程">
 <meta name="twitter:card" content="summary">
@@ -158,79 +161,442 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>计网学习记录</p>
+        <p>计算机网络学习笔记</p>
 <a id="more"></a>
 
-<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="计算机网络的定义及其特点"><a href="#计算机网络的定义及其特点" class="headerlink" title="计算机网络的定义及其特点"></a>计算机网络的定义及其特点</h2><h3 id="计算机网络的定义"><a href="#计算机网络的定义" class="headerlink" title="计算机网络的定义"></a>计算机网络的定义</h3><ul>
+<h1 id="计算机网络概述"><a href="#计算机网络概述" class="headerlink" title="计算机网络概述"></a>计算机网络概述</h1><h2 id="计算机在信息时代的作用"><a href="#计算机在信息时代的作用" class="headerlink" title="计算机在信息时代的作用"></a>计算机在信息时代的作用</h2><ul>
+<li>21世纪：数字化、网络化、信息化</li>
 <li>“网络”是一个统称，泛指把人或物互连在一起而形成的系统。</li>
 <li>三大类网络：电信网络、有线电视网络、计算机网络</li>
-</ul>
-<h3 id="计算机网络的特点"><a href="#计算机网络的特点" class="headerlink" title="计算机网络的特点"></a>计算机网络的特点</h3><ul>
 <li>两大特点：连通性和共享</li>
 </ul>
-<h2 id="互联网概述"><a href="#互联网概述" class="headerlink" title="互联网概述"></a>互联网概述</h2><ul>
-<li><p>Internet是因特网或者互联网，internet是互连网</p>
+<h2 id="因特网概述"><a href="#因特网概述" class="headerlink" title="因特网概述"></a>因特网概述</h2><ul>
+<li>网络：节点+链路（&lt;100m）+（交换机）&lt;—计算机连在一起</li>
+<li>互联网：网络+路由器（internet)  &lt;—网络连在一起</li>
+<li>因特网：全球最大的一个互联网（Internet）</li>
+<li>三大阶段：从单个网络 ARPANET 向互联网发展的过程、建成了三级结构的互联网(主干网，地区网、校园网)、逐渐形成了多层次 ISP(互联网服务提供者) 结构的互联网<br><img src="/2020/02/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/1.1.png" alt></li>
+<li>万维网：www，指World Wide Web</li>
+<li>主机和主机的通信实际上是主机上的进程和另一主机的进程通信</li>
+</ul>
+<h2 id="因特网的组成"><a href="#因特网的组成" class="headerlink" title="因特网的组成"></a>因特网的组成</h2><ul>
+<li><p>因特网分为边缘部分和核心部分</p>
 </li>
-<li><p>三大阶段：从单个网络 ARPANET 向互联网发展的过程、建成了三级结构的互联网(主干网，地区网、校园网)、逐渐形成了多层次 ISP(互联网服务提供者) 结构的互联网<br><img src="/2020/02/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/1.1.png" alt></p>
+<li><p>边缘部分的通信方式通常可分为C/S方式和P2P方式</p>
 </li>
-<li><p>万维网：www，指World Wide Web</p>
-</li>
-<li><p>互联网分为边缘部分和核心部分</p>
-</li>
-<li><p>主机和主机的通信实际上是主机上的进程和另一主机的进程通信</p>
-</li>
-<li><p>端系统的通信方式通常可分为C/S方式和P2P方式</p>
-</li>
-<li><p>路由器是实现分组交换的关键构件、任务是转发分组</p>
-</li>
-<li><p>分组转发是网络核心部分最重要的功能</p>
-</li>
-<li><p>交换技术包括电路交换、分组交换和报文交换等</p>
+<li><p>核心部分的交换技术包括电路交换、分组交换和报文交换等</p>
 </li>
 <li><p>互联网的核心部分采用了分组交换技术</p>
 </li>
 <li><p>电路交换线路独占、面向连接的，需要经过建立连接、通信、释放连接三个阶段，但数据具有突发性、线路利用率很低</p>
 </li>
+<li><p>存储转发是网络核心部分最重要的功能&lt;–分组交换</p>
+</li>
 <li><p>分组交换采用存储转发技术、把较长的报文划分为较短的、固定长度的数据段，需要在数据段前加上首部构成分组，分组交换独立选择传输路径</p>
 </li>
 <li><p>路由器处理分组：将分组放入缓存，查找路由转发表，把分组送到适当端口转发出去</p>
 </li>
-<li><p>分组在节点存储转发时需要排队，会造成时延，首页携带信息，会造成开销<br><img src="/2020/02/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/1.2.png" alt></p>
+<li><p>分组在节点存储转发时需要排队，会造成时延，首页携带信息，会造成开销</p>
 </li>
-<li><p>1994年我国用64kbit/s专线接入互联网</p>
+<li><p>路由器是实现分组交换的关键构件、任务是转发分组</p>
 </li>
+</ul>
+<p><img src="/2020/02/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/1.2.png" alt></p>
+<h2 id="计算机网络在我国的发展"><a href="#计算机网络在我国的发展" class="headerlink" title="计算机网络在我国的发展"></a>计算机网络在我国的发展</h2><ul>
+<li>1994年我国用64kbit/s专线接入互联网</li>
+</ul>
+<h2 id="计算机网络的类别"><a href="#计算机网络的类别" class="headerlink" title="计算机网络的类别"></a>计算机网络的类别</h2><ul>
 <li><p>网络按照作用范围分为广域网、城域网和局域网</p>
 </li>
-<li><p>网络按照使用者分类分为公用网和专用网</p>
+<li><p>网络按照使用类型分为公用网和专用网</p>
+</li>
+<li><p>网络按照拓扑结构分为总线型、环型、星型、树型、网状</p>
+</li>
+<li><p>网络按照交换方式分为电路交换网、报文交换网、分组交换网</p>
+</li>
+<li><p>网络按照工作方式分为资源子网、接入网、通信子网</p>
 </li>
 </ul>
-<p>计算机网络的性能指标主要包括</p>
-<ol>
-<li>速率=数据的传送速率，单位是 bit/s或kbit/s等</li>
-<li>带宽=网络中某通道传送数据的能力，单位是 bit/s</li>
-<li>吞吐量=单位时间内通过某个网络的数据量</li>
-<li>时延=发送时延+传播时延+处理时延+排队时延</li>
-<li>时延带宽积=传播时延*带宽</li>
-<li>往返时间RTT：从发送方发送数据开始，到发送方收到来自接收方的确认，总共经历的时间</li>
-<li>利用率：信道利用率和网络利用率</li>
+<h2 id="计算机网络的性能"><a href="#计算机网络的性能" class="headerlink" title="计算机网络的性能"></a>计算机网络的性能</h2><h3 id="性能指标主要包括"><a href="#性能指标主要包括" class="headerlink" title="性能指标主要包括"></a>性能指标主要包括</h3><ol>
+<li><p>速率：主机在数字信道上传送数据位数的速率，单位是 bit/s或kb/s等</p>
+</li>
+<li><p>带宽：数字信息所能传送的最高数据率，单位是 bit/s、kb/s等</p>
+</li>
+<li><p>吞吐量：单位时间内通过某个网络的数据量</p>
+</li>
+<li><p>时延=发送时延(数据块长度/带宽)+传播时延(s/v)+处理时延+排队时延</p>
+</li>
+<li><p>时延带宽积=传播时延*带宽</p>
+</li>
+<li><p>往返时间RTT：从发送方发送数据开始，到发送方收到来自接收方的确认，总共经历的时间</p>
+</li>
+<li><p>利用率：信道利用率(计算)和网络利用率</p>
+</li>
 </ol>
-<h2 id="计算机网络的体系结构"><a href="#计算机网络的体系结构" class="headerlink" title="计算机网络的体系结构"></a>计算机网络的体系结构</h2><h3 id="计算机网络体系结构的形成"><a href="#计算机网络体系结构的形成" class="headerlink" title="计算机网络体系结构的形成"></a>计算机网络体系结构的形成</h3><ul>
-<li>开放系统互连基本参考模型 OSI/RM</li>
-<li>OSI/RM是理论上的模型，事实上使用的是TCP/IP</li>
+<h3 id="计算机网络的非性能指标"><a href="#计算机网络的非性能指标" class="headerlink" title="计算机网络的非性能指标"></a>计算机网络的非性能指标</h3><ul>
+<li>费用、质量、标准化、可靠性、可拓展性、可升级性、管理与维护等</li>
 </ul>
-<h3 id="协议与划分层次"><a href="#协议与划分层次" class="headerlink" title="协议与划分层次"></a>协议与划分层次</h3><ul>
-<li>计算机网络的数据交换必须遵循事先约定好的规则</li>
+<h2 id="计算机网络的体系结构"><a href="#计算机网络的体系结构" class="headerlink" title="计算机网络的体系结构"></a>计算机网络的体系结构</h2><ul>
+<li><p>计算机网络的体系结构：层次+协议</p>
+</li>
+<li><p>对于非常复杂的计算机网络协议，结构应该是层次式的</p>
+</li>
+<li><p>各层完成的功能：差错控制、流量控制、分段和重装、复用和分用、连接建立和释放</p>
+</li>
+<li><p>ISO：国际标准化组织</p>
+</li>
+<li><p>OSI/RM：开放系统互连基本参考模型(法律上的国际标准)</p>
+</li>
+<li><p>TCP/IP Suite：因特网事实上的国际标准</p>
+</li>
+<li><p>网络协议：数据交换遵守的规则、标准或约定</p>
+</li>
+<li><ul>
 <li>网络协议三要素：语法、语义、同步</li>
-<li>对于非常复杂的计算机网络协议，结构应该是层次式的</li>
-<li>各层完成的功能：差错控制、流量控制、分段和重装、复用和分用、连接建立和释放</li>
-<li>计算机网络的体系结构：层次+协议</li>
-<li>OSI七层协议体系结构：物理层、数据链路层、网络层、传输层、会话层、表示层、应用层</li>
-<li>TCP/IP的四层模型：网络接口层、网际层、运输层、应用层</li>
-<li>五层协议：物理层、数据链路层、网络层、传输层、应用层</li>
-<li>协议是水平的，服务是垂直的</li>
-<li>整个传送过程是一个U型</li>
 </ul>
-
+</li>
+<li><p>OSI七层协议体系结构：物理层、数据链路层、网络层、传输层、会话层、表示层、应用层</p>
+</li>
+<li><ul>
+<li>物理层：规定电压、接口等标准</li>
+</ul>
+</li>
+<li><ul>
+<li>数据链路层：输入如何封装、添加物理层地址MAC</li>
+</ul>
+</li>
+<li><ul>
+<li>网络层：IP地址编址、选择最佳路径(动态路由协议)</li>
+</ul>
+</li>
+<li><ul>
+<li>运输层：可靠传输(建立会话)、不可靠传输(不建立会话)、流量控制</li>
+</ul>
+</li>
+<li><ul>
+<li>会话层：服务端和客户端建立的会话</li>
+</ul>
+</li>
+<li><ul>
+<li>表示层：加密、压缩(开发人员)、编码等</li>
+</ul>
+</li>
+<li><ul>
+<li>应用层：产生网络流量、能够和用户交互的应用程序</li>
+</ul>
+</li>
+<li><p>TCP/IP的四层模型：网络接口层、网际层、运输层、应用层</p>
+</li>
+<li><p>五层协议：物理层、数据链路层、网络层、传输层、应用层</p>
+</li>
+<li><p>协议是水平的，服务是垂直的</p>
+</li>
+<li><p>整个传送过程是一个U型</p>
+</li>
+</ul>
+<h1 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h1><h2 id="物理层的基本概念"><a href="#物理层的基本概念" class="headerlink" title="物理层的基本概念"></a>物理层的基本概念</h2><p>主要任务：确定与传输媒体的接口相关的一些特性</p>
+<ul>
+<li>机械特性：接口形状、大小、引线数目</li>
+<li>电气特性：电压范围为-5v~5v</li>
+<li>功能特性：规定-5v为0，5v为1</li>
+<li>过程特性：规定建立连接时各个相关部件的工作步骤</li>
+</ul>
+<h2 id="数据通信的基础知识"><a href="#数据通信的基础知识" class="headerlink" title="数据通信的基础知识"></a>数据通信的基础知识</h2><p>数据：运送消息的实体、通信的目的是传送消息</p>
+<p>信号：数据的电气的或电磁的表现</p>
+<p>模拟信号：代表消息的参数的取值是连续的</p>
+<p>数字信号：代表消息的参数的取值是离散的</p>
+<p>码元：在使用时间域的波形表示数字信号时，代表不同离散数值的基本波形，1码元可以携带nbit的信息量</p>
+<p>信道概念：单工通信、半双工通信、全双工通信</p>
+<p>基带信号：来自信源的信号</p>
+<p>带通信号：把基带信号经过调制解调后的信号</p>
+<p>最基本的调制方法：调幅、调频、调相</p>
+<p>常用的编码</p>
+<ul>
+<li>单极性不归零码：高电平为1、没电压为0</li>
+<li>双极性不归零码：正电平表示1、负电平表示0，正负幅值相等</li>
+<li>双极性归零码：正负零三个电平，信号本身携带同步信息</li>
+<li>曼彻斯特编码：由低到高为0、由高到低为1</li>
+<li>差分曼彻斯特编码：bit与bit之间有变为0，无变为1（抗干扰）</li>
+</ul>
+<p>信道的极限容量</p>
+<ul>
+<li><p>奈氏准则(理想)：在任何信道中，码元传输速率有上限，超出上限会出现码间串扰。 V=2WBaud,Baud为波特</p>
+</li>
+<li><p>香农公式(实际)：C=W*log<sub>2</sub>(1+S/N)，W为带宽、S为所传信号的平均功率、N为信道内的高斯噪声功率</p>
+</li>
+</ul>
+<h2 id="物理层下的传输媒体"><a href="#物理层下的传输媒体" class="headerlink" title="物理层下的传输媒体"></a>物理层下的传输媒体</h2><p>波长越长、频率越低，数据通信的范围为10<sup>4</sup>~10<sup>16</sup></p>
+<p>导向传输媒体</p>
+<ul>
+<li>双绞线</li>
+<li><ul>
+<li>屏蔽双绞线(STP)</li>
+</ul>
+</li>
+<li><ul>
+<li>非屏蔽双绞线(UTP)</li>
+</ul>
+</li>
+<li>同轴电缆</li>
+<li><ul>
+<li>50Ω同轴电缆</li>
+</ul>
+</li>
+<li><ul>
+<li>75Ω同轴电缆</li>
+</ul>
+</li>
+<li>光纤</li>
+<li><ul>
+<li>单模光纤(传播特性好)</li>
+</ul>
+</li>
+<li><ul>
+<li>多模光纤</li>
+</ul>
+</li>
+</ul>
+<p>非导向传输媒体</p>
+<ul>
+<li>无限传输</li>
+<li>短波通信(电离层)</li>
+<li>微波通信(直线、卫星)</li>
+</ul>
+<p>物理层设备：集线器(已淘汰、不安全、无法定向发送)</p>
+<ul>
+<li>放大信号与重发</li>
+<li>扩大网络传播范围</li>
+<li>冲突域(半双工)</li>
+</ul>
+<h2 id="信道复用技术"><a href="#信道复用技术" class="headerlink" title="信道复用技术"></a>信道复用技术</h2><ul>
+<li>频分复用技术FDM：分配频带并固定使用，比如打电话</li>
+<li>时分复用技术TDM：容易造成线路资源浪费</li>
+<li>统计时分复用技术STDM</li>
+<li>波分复用CDM：C=λ*f，本质还是频分复用</li>
+<li>码分复用CDM</li>
+<li><ul>
+<li>码分多址CMDA</li>
+</ul>
+</li>
+<li><ul>
+<li>将每个比特时间划分为m个短的时间间隔，称为码片</li>
+</ul>
+</li>
+<li><ul>
+<li>S<em>S=1、S</em>T=0、S*S的共轭=1</li>
+</ul>
+</li>
+<li>缺点：1bit–&gt;m码片(需要更多的频率)</li>
+</ul>
+<h2 id="数字传输系统"><a href="#数字传输系统" class="headerlink" title="数字传输系统"></a>数字传输系统</h2><ul>
+<li>北美24路PCM(T1)，V<sub>T1</sub>=1.544Mb/s</li>
+<li>欧洲30路PCM(E1)，V<sub>E1</sub>=2.048Mb/s</li>
+<li>我国使用E1</li>
+</ul>
+<h2 id="宽带接入技术"><a href="#宽带接入技术" class="headerlink" title="宽带接入技术"></a>宽带接入技术</h2><ul>
+<li>ADSL(电话线)：低端频端留给传统电话使用，高端频段留给上网用户使用</li>
+<li>HFC(光纤同轴混合网)：有线电视接入</li>
+<li>FTTx技术(光纤到x技术)</li>
+</ul>
+<h1 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h1><h2 id="基本概念及基本问题"><a href="#基本概念及基本问题" class="headerlink" title="基本概念及基本问题"></a>基本概念及基本问题</h2><p>基本概念</p>
+<ul>
+<li>信道类型：点对点信道(一对一)、广播信道(一对多)</li>
+<li>链路：一条点对点的数据线路线</li>
+<li>数据链路：物理线路+实现通信协议的软硬件(网卡)</li>
+<li>数据链路层的传送单位是帧</li>
+</ul>
+<p>基本问题</p>
+<ul>
+<li>封装成帧</li>
+<li><ul>
+<li>在一段数据前后添加首部和尾部、就构成了一个帧</li>
+</ul>
+</li>
+<li><ul>
+<li>首部尾部的一个重要作用是进定帧定界</li>
+</ul>
+</li>
+<li>透明传输</li>
+<li><ul>
+<li>传输数据为可打印的ASCII字符(95个)</li>
+</ul>
+</li>
+<li><ul>
+<li>传输数据中出现不可打印字符时，使用字节填充法</li>
+</ul>
+</li>
+<li>差错控制</li>
+<li><ul>
+<li>误码率=错误比特数/总比特数</li>
+</ul>
+</li>
+<li><ul>
+<li>CRC(循环冗余校验)、数据+余数(FCS)、FCS为帧校验序列</li>
+</ul>
+</li>
+<li><ul>
+<li>CRC查错但不丢错</li>
+</ul>
+</li>
+<li><ul>
+<li>要做到可靠传输，需要加上确认和重传机制</li>
+</ul>
+</li>
+</ul>
+<h2 id="使用点对点的数据链路层-PPP协议"><a href="#使用点对点的数据链路层-PPP协议" class="headerlink" title="使用点对点的数据链路层(PPP协议)"></a>使用点对点的数据链路层(PPP协议)</h2><ul>
+<li><p>PPP协议(点对点协议)，是全世界使用最多的数据链路层协议，常用于拨号电话上网</p>
+</li>
+<li><p>满足的要求：简单、封装成帧、透明性、多种网络层协议、多种类型链路、差错检测、检测连接状态、最大传输单元、数据压缩协商</p>
+</li>
+<li><p>不满足的要求：纠错、流量控制、序号、多点线路、半双工或单工线路</p>
+</li>
+<li><p>PPP协议组成：</p>
+</li>
+<li><ul>
+<li>高级数据链路控制协议(HDLC)</li>
+</ul>
+</li>
+<li><ul>
+<li>链路控制协议(LCP)：控制身份验证</li>
+</ul>
+</li>
+<li><ul>
+<li>网络控制协议(NCP)：分配ip</li>
+</ul>
+</li>
+<li><p>PPP协议帧格式</p>
+</li>
+<li><ul>
+<li><img src="/2020/02/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/3.1.png" alt></li>
+</ul>
+</li>
+<li><p>填充方式：字节填充和零填充</p>
+</li>
+<li><p>字节填充</p>
+</li>
+<li><ul>
+<li>0x7E-&gt;(0x7D,0x5E)</li>
+</ul>
+</li>
+<li><ul>
+<li>0x7D-&gt;(0x7D,0x5D)</li>
+</ul>
+</li>
+<li><ul>
+<li>0x20-&gt;(0x7D,0x20)</li>
+</ul>
+</li>
+<li><p>零填充</p>
+</li>
+<li><ul>
+<li>发送方每五个1便加0</li>
+</ul>
+</li>
+<li><ul>
+<li>接收方每五个1便减0</li>
+</ul>
+</li>
+</ul>
+<h2 id="使用广播的数据链路层-CSMA-CD协议"><a href="#使用广播的数据链路层-CSMA-CD协议" class="headerlink" title="使用广播的数据链路层(CSMA/CD协议)"></a>使用广播的数据链路层(CSMA/CD协议)</h2><p>局域网的特点与优点</p>
+<ul>
+<li>特点：网络为一个单位所有，地理范围和站点数目有限</li>
+<li>优点：具有广播功能、设备位置改变灵活、提高了系统的可靠性、可用性和生存性</li>
+</ul>
+<p>共享通信媒体分为静态划分信道动态媒体划分接入控制</p>
+<ul>
+<li>静态划分信道：频分复用、时分复用、波分复用、码分复用</li>
+<li>动态媒体划分接入控制(多点接入)：随机接入(主要)、受控接入,受控接入又分为多线路探询(polling)和轮询(已弃用)</li>
+</ul>
+<p>CSMA/CD协议：载波监听多点接入/碰撞检测</p>
+<ul>
+<li><p>载波监听：发送数据前先检测总线上是否有其他计算机在发送数据，有就先不发送数据</p>
+</li>
+<li><p>多点接入：多点接入在一根总线上</p>
+</li>
+<li><p>碰撞检测：检测信道上的电压摆动</p>
+</li>
+<li><p>CSMA/CD只能支持半双工通信、不支持全双工通信</p>
+</li>
+<li><p>以太网的的争用期：端到端往返时延2τ、通常取51.2μs</p>
+</li>
+<li><p>对于10Mb/s的以太网，争用期内可发送512bit，即64字节(最短有效帧长)</p>
+</li>
+<li><p>使用二进制指数类型退避算法</p>
+</li>
+<li><ol>
+<li>基本退避时间，取2τ</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>k=min[重传次数，10]</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>r=rand.choice[0,1,……,2<sup>k-1</sup>]</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>重传时延=r倍的基本退避时间</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>重传16次后丢弃该帧、并向高层报告</li>
+</ol>
+</li>
+</ul>
+<h2 id="以太局域网"><a href="#以太局域网" class="headerlink" title="以太局域网"></a>以太局域网</h2><ul>
+<li>标准：DIX Ethernet v2/IEEE 802.3</li>
+<li>子层：LLC(逻辑链路控制)和MAC(媒体接入控制)</li>
+<li>星型拓扑一般借助于集线器(hub),hub工作于物理层</li>
+<li>帧的发送时间 T<sub>0</sub>=L/C，要求长度不能太短、速度不能太快</li>
+<li>信道利用率 α=τ/T<sub>0</sub></li>
+<li>理想情况最大值=T<sub>0</sub>/(T<sub>0</sub>+τ)=1/1+α</li>
+<li>MAC地址/硬件地址/物理地址：48位，前24位为厂家，MAC地址不能冲突</li>
+</ul>
+<p>发往本站的帧</p>
+<ul>
+<li>单播(一对一)</li>
+<li>广播(一对全体)：全为1</li>
+<li>多播(一对多)</li>
+</ul>
+<p>以太网帧格式</p>
+<ul>
+<li><img src="/2020/02/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/3.2.png" alt></li>
+</ul>
+<p>无效的MAC帧</p>
+<ul>
+<li>非整数字节</li>
+<li>FCS有误</li>
+<li>data不在46~1500</li>
+<li>有效帧长度不在64~1518</li>
+</ul>
+<p>对于无效的数据帧，直接丢弃，不重传</p>
+<h2 id="扩展以太网"><a href="#扩展以太网" class="headerlink" title="扩展以太网"></a>扩展以太网</h2><ul>
+<li>物理层扩展：光纤+调制解调器</li>
+<li>数量拓展：</li>
+<li><ul>
+<li>集线器：效率不高</li>
+</ul>
+</li>
+<li><ul>
+<li>网桥(会学习MAC地址表)，使用最多的是透明网桥，透明网桥使用的是生成树算法：避免产生转发的帧在网络中不断的兜圈子</li>
+</ul>
+</li>
+<li><ul>
+<li>交换机(足够多的高速网桥)：比较安全、效率高</li>
+</ul>
+</li>
+</ul>
+<h2 id="虚拟局域网"><a href="#虚拟局域网" class="headerlink" title="虚拟局域网"></a>虚拟局域网</h2><p>LAN：局域网<br>VLAN：虚拟局域网:1VLAN=1个广播域=逻辑网段</p>
+<ul>
+<li><img src="/2020/02/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/3.3.png" alt></li>
+</ul>
+<h2 id="高速以太网-V-gt-100Mb-s"><a href="#高速以太网-V-gt-100Mb-s" class="headerlink" title="高速以太网(V&gt;100Mb/s)"></a>高速以太网(V&gt;100Mb/s)</h2><p>数据链路层安全问题</p>
+<ul>
+<li>MAC&gt;2，会产生宕机现象</li>
+<li>静态MAC地址绑定</li>
+</ul>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p>CISCO建网三层模型：接入层、汇聚层、核心层</p>
+<h1 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h1><h1 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h1><h1 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h1><h1 id="网络安全"><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h1><h1 id="无限网络"><a href="#无限网络" class="headerlink" title="无限网络"></a>无限网络</h1>
       
       
     
@@ -385,7 +751,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#概述"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#计算机网络的定义及其特点"><span class="toc-number">1.1.</span> <span class="toc-text">计算机网络的定义及其特点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#计算机网络的定义"><span class="toc-number">1.1.1.</span> <span class="toc-text">计算机网络的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计算机网络的特点"><span class="toc-number">1.1.2.</span> <span class="toc-text">计算机网络的特点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#互联网概述"><span class="toc-number">1.2.</span> <span class="toc-text">互联网概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算机网络的体系结构"><span class="toc-number">1.3.</span> <span class="toc-text">计算机网络的体系结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#计算机网络体系结构的形成"><span class="toc-number">1.3.1.</span> <span class="toc-text">计算机网络体系结构的形成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#协议与划分层次"><span class="toc-number">1.3.2.</span> <span class="toc-text">协议与划分层次</span></a></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#计算机网络概述"><span class="toc-number">1.</span> <span class="toc-text">计算机网络概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#计算机在信息时代的作用"><span class="toc-number">1.1.</span> <span class="toc-text">计算机在信息时代的作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#因特网概述"><span class="toc-number">1.2.</span> <span class="toc-text">因特网概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#因特网的组成"><span class="toc-number">1.3.</span> <span class="toc-text">因特网的组成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算机网络在我国的发展"><span class="toc-number">1.4.</span> <span class="toc-text">计算机网络在我国的发展</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算机网络的类别"><span class="toc-number">1.5.</span> <span class="toc-text">计算机网络的类别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算机网络的性能"><span class="toc-number">1.6.</span> <span class="toc-text">计算机网络的性能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#性能指标主要包括"><span class="toc-number">1.6.1.</span> <span class="toc-text">性能指标主要包括</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计算机网络的非性能指标"><span class="toc-number">1.6.2.</span> <span class="toc-text">计算机网络的非性能指标</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算机网络的体系结构"><span class="toc-number">1.7.</span> <span class="toc-text">计算机网络的体系结构</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#物理层"><span class="toc-number">2.</span> <span class="toc-text">物理层</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#物理层的基本概念"><span class="toc-number">2.1.</span> <span class="toc-text">物理层的基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据通信的基础知识"><span class="toc-number">2.2.</span> <span class="toc-text">数据通信的基础知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#物理层下的传输媒体"><span class="toc-number">2.3.</span> <span class="toc-text">物理层下的传输媒体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#信道复用技术"><span class="toc-number">2.4.</span> <span class="toc-text">信道复用技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数字传输系统"><span class="toc-number">2.5.</span> <span class="toc-text">数字传输系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#宽带接入技术"><span class="toc-number">2.6.</span> <span class="toc-text">宽带接入技术</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据链路层"><span class="toc-number">3.</span> <span class="toc-text">数据链路层</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本概念及基本问题"><span class="toc-number">3.1.</span> <span class="toc-text">基本概念及基本问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用点对点的数据链路层-PPP协议"><span class="toc-number">3.2.</span> <span class="toc-text">使用点对点的数据链路层(PPP协议)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用广播的数据链路层-CSMA-CD协议"><span class="toc-number">3.3.</span> <span class="toc-text">使用广播的数据链路层(CSMA&#x2F;CD协议)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#以太局域网"><span class="toc-number">3.4.</span> <span class="toc-text">以太局域网</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#扩展以太网"><span class="toc-number">3.5.</span> <span class="toc-text">扩展以太网</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#虚拟局域网"><span class="toc-number">3.6.</span> <span class="toc-text">虚拟局域网</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#高速以太网-V-gt-100Mb-s"><span class="toc-number">3.7.</span> <span class="toc-text">高速以太网(V&gt;100Mb&#x2F;s)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#补充"><span class="toc-number">3.8.</span> <span class="toc-text">补充</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#网络层"><span class="toc-number">4.</span> <span class="toc-text">网络层</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#传输层"><span class="toc-number">5.</span> <span class="toc-text">传输层</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#应用层"><span class="toc-number">6.</span> <span class="toc-text">应用层</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#网络安全"><span class="toc-number">7.</span> <span class="toc-text">网络安全</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#无限网络"><span class="toc-number">8.</span> <span class="toc-text">无限网络</span></a></li></ol>
                     </div>
                 </span>
             </div>
