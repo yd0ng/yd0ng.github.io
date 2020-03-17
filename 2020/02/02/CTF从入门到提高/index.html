@@ -15,11 +15,13 @@
 <meta property="og:site_name" content="Blog">
 <meta property="og:description" content="记录CTF从入门到提高的学习过程">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://yd0ng.github.io/2020/02/02/CTF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%8F%90%E9%AB%98/%E4%BC%AA%E5%8D%8F%E8%AE%AE.png">
 <meta property="article:published_time" content="2020-02-02T14:43:22.000Z">
-<meta property="article:modified_time" content="2020-02-14T02:27:36.344Z">
+<meta property="article:modified_time" content="2020-03-17T13:54:11.217Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yd0ng.github.io/2020/02/02/CTF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%8F%90%E9%AB%98/%E4%BC%AA%E5%8D%8F%E8%AE%AE.png">
   
   
     <link rel="icon" href="/themes/yilia/source/">
@@ -167,7 +169,8 @@
 <li>蓝鲸安全 <a href="http://whalectf.xin/" target="_blank" rel="noopener">http://whalectf.xin/</a></li>
 <li>Jarvis OJ <a href="https://www.jarvisoj.com" target="_blank" rel="noopener">https://www.jarvisoj.com</a></li>
 </ul>
-<h1 id="Tricks"><a href="#Tricks" class="headerlink" title="Tricks"></a>Tricks</h1><ul>
+<h1 id="SQL注入系列"><a href="#SQL注入系列" class="headerlink" title="SQL注入系列"></a>SQL注入系列</h1><h2 id="Tricks"><a href="#Tricks" class="headerlink" title="Tricks"></a>Tricks</h2><ul>
+<li>十六进制</li>
 <li>‘ctf’ -&gt;0xhex(ctf)</li>
 <li>#-&gt;%23 或者使用 –+</li>
 <li>=被过滤，like/regexp/!!=/!&lt;&gt;</li>
@@ -175,41 +178,43 @@
 <li>substring(str from pos for len) 绕过逗号waf</li>
 <li>rlike/regexp ‘正则’ 爆破数据</li>
 <li>or 被waf用||</li>
-<li>空格被waf用/**/</li>
+<li>空格被waf用/**/、反引号</li>
+<li>\N=NULL，可忽略空格</li>
 </ul>
-<h1 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h1><h2 id="编码介绍"><a href="#编码介绍" class="headerlink" title="编码介绍"></a>编码介绍</h2><ul>
+<h2 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h2><h3 id="编码介绍"><a href="#编码介绍" class="headerlink" title="编码介绍"></a>编码介绍</h3><ul>
 <li>ASCII编码的范围是0-127</li>
 <li>国际通用UTF-8编码</li>
 <li>中文常用GBK编码</li>
 <li>URL编码(常见的如%20、%27、%23、%5C)</li>
 </ul>
-<h2 id="成因"><a href="#成因" class="headerlink" title="成因"></a>成因</h2><p>当MySQL使用gbk编码时，会认为两个字符是一个汉字，产生宽字节注入，第一个字节要大于128</p>
-<h2 id="addslashes"><a href="#addslashes" class="headerlink" title="addslashes()"></a>addslashes()</h2><p>addslashes常用来加\来转义特殊字符,绕过有以下两种思路</p>
+<h3 id="成因"><a href="#成因" class="headerlink" title="成因"></a>成因</h3><p>当MySQL使用gbk编码时，会认为两个字符是一个汉字，产生宽字节注入，第一个字节要大于128</p>
+<h3 id="addslashes"><a href="#addslashes" class="headerlink" title="addslashes()"></a>addslashes()</h3><p>addslashes常用来加\来转义特殊字符,绕过有以下两种思路</p>
 <ol>
 <li>\前加一个\，形成\\‘,单引号就可以生效</li>
 <li>弄没转义的\ -&gt; 宽字节注入，原理如下<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">\&#39; -&gt; \\&#39; -&gt;\%27</span><br><span class="line">%df&#39; -&gt; %df\&#39; -&gt; $df%5C%27</span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
-<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><p><a href="http://chinalover.sinaapp.com/SQL-GBK/index.php" target="_blank" rel="noopener">http://chinalover.sinaapp.com/SQL-GBK/index.php</a></p>
-<h1 id="SQL约束攻击"><a href="#SQL约束攻击" class="headerlink" title="SQL约束攻击"></a>SQL约束攻击</h1><h2 id="成因-1"><a href="#成因-1" class="headerlink" title="成因"></a>成因</h2><ul>
+<h3 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h3><p><a href="http://chinalover.sinaapp.com/SQL-GBK/index.php" target="_blank" rel="noopener">http://chinalover.sinaapp.com/SQL-GBK/index.php</a></p>
+<h2 id="SQL约束攻击"><a href="#SQL约束攻击" class="headerlink" title="SQL约束攻击"></a>SQL约束攻击</h2><h3 id="成因-1"><a href="#成因-1" class="headerlink" title="成因"></a>成因</h3><ul>
 <li>mysql在进行查询时会自动忽略空格</li>
 <li>长度有限制，大于长度会自动截断</li>
 <li>借助截断和自动忽略实现再注册</li>
 </ul>
-<h2 id="例题-1"><a href="#例题-1" class="headerlink" title="例题"></a>例题</h2><p><a href="http://123.206.31.85:49163/" target="_blank" rel="noopener">http://123.206.31.85:49163/</a></p>
-<h1 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h1><h2 id="成因-2"><a href="#成因-2" class="headerlink" title="成因"></a>成因</h2><ul>
+<h3 id="例题-1"><a href="#例题-1" class="headerlink" title="例题"></a>例题</h3><p><a href="http://123.206.31.85:49163/" target="_blank" rel="noopener">http://123.206.31.85:49163/</a></p>
+<h2 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h2><h3 id="成因-2"><a href="#成因-2" class="headerlink" title="成因"></a>成因</h3><ul>
 <li>利用sql函数的错误用法使其报错</li>
 </ul>
-<h2 id="常用报错函数"><a href="#常用报错函数" class="headerlink" title="常用报错函数"></a>常用报错函数</h2><h3 id="floor"><a href="#floor" class="headerlink" title="floor()"></a>floor()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)a);</span><br></pre></td></tr></table></figure>
+<h3 id="常用报错函数"><a href="#常用报错函数" class="headerlink" title="常用报错函数"></a>常用报错函数</h3><h4 id="floor"><a href="#floor" class="headerlink" title="floor()"></a>floor()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)a);</span><br></pre></td></tr></table></figure>
 
-<h3 id="updatexml"><a href="#updatexml" class="headerlink" title="updatexml()"></a>updatexml()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">or updatexml(1,concat(0x7e,(version()),0x7e),0)</span><br></pre></td></tr></table></figure>
-<h3 id="extractvalue"><a href="#extractvalue" class="headerlink" title="extractvalue()"></a>extractvalue()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and extractvalue(1,concat(0x7e,(select database())))</span><br></pre></td></tr></table></figure>
-<h3 id="exp"><a href="#exp" class="headerlink" title="exp()"></a>exp()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and exp(~(select * from(select user())a))</span><br></pre></td></tr></table></figure>
-<h3 id="NAME-CONST"><a href="#NAME-CONST" class="headerlink" title="NAME_CONST()"></a>NAME_CONST()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from(select NAME_CONST(version(),1),NAME_CONST(version(),1))a;</span><br></pre></td></tr></table></figure>
+<h4 id="updatexml"><a href="#updatexml" class="headerlink" title="updatexml()"></a>updatexml()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">or updatexml(1,concat(0x7e,(version()),0x7e),0)</span><br></pre></td></tr></table></figure>
+<h4 id="extractvalue"><a href="#extractvalue" class="headerlink" title="extractvalue()"></a>extractvalue()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and extractvalue(1,concat(0x7e,(select database())))</span><br></pre></td></tr></table></figure>
+<h4 id="exp"><a href="#exp" class="headerlink" title="exp()"></a>exp()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and exp(~(select * from(select user())a))</span><br></pre></td></tr></table></figure>
+<h4 id="NAME-CONST"><a href="#NAME-CONST" class="headerlink" title="NAME_CONST()"></a>NAME_CONST()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from(select NAME_CONST(version(),1),NAME_CONST(version(),1))a;</span><br></pre></td></tr></table></figure>
 
-<h2 id="例题-2"><a href="#例题-2" class="headerlink" title="例题"></a>例题</h2><p><a href="http://ctf5.shiyanbar.com/web/baocuo/index.php" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/web/baocuo/index.php</a></p>
-<h1 id="时间盲注"><a href="#时间盲注" class="headerlink" title="时间盲注"></a>时间盲注</h1><h2 id="常用的时间盲注函数"><a href="#常用的时间盲注函数" class="headerlink" title="常用的时间盲注函数"></a>常用的时间盲注函数</h2><ul>
+<h3 id="例题-2"><a href="#例题-2" class="headerlink" title="例题"></a>例题</h3><p><a href="http://ctf5.shiyanbar.com/web/baocuo/index.php" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/web/baocuo/index.php</a></p>
+<h2 id="分割注入"><a href="#分割注入" class="headerlink" title="分割注入"></a>分割注入</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from users where username&#x3D;&#39;admin&#39; and password&#x3D;&#39;password&#39;;</span><br></pre></td></tr></table></figure>
+<h2 id="时间盲注"><a href="#时间盲注" class="headerlink" title="时间盲注"></a>时间盲注</h2><h3 id="常用的时间盲注函数"><a href="#常用的时间盲注函数" class="headerlink" title="常用的时间盲注函数"></a>常用的时间盲注函数</h3><ul>
 <li>sleep(time)</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sleep(3);</span><br></pre></td></tr></table></figure>
@@ -273,6 +278,273 @@
 <li>rpad()/repeat +  RLIKE </li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">原理类似ddos</span><br><span class="line"></span><br><span class="line">select concat(rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;)) RLIKE &#39;(a.*)+(a.*)+(a.*)+(a.*)+(a.*)+(a.*)+(a.*)+b&#39;</span><br></pre></td></tr></table></figure>
+
+<h2 id="布尔盲注"><a href="#布尔盲注" class="headerlink" title="布尔盲注"></a>布尔盲注</h2><p>根据输入不同来对比输出的差异来进行判断</p>
+<h3 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h3><ul>
+<li>mid()</li>
+<li>substr()</li>
+<li>substring()</li>
+<li>left()</li>
+<li>right()</li>
+<li>ascii()</li>
+<li>ord()</li>
+</ul>
+<h2 id="order-by-相关注入"><a href="#order-by-相关注入" class="headerlink" title="order by 相关注入"></a>order by 相关注入</h2><h3 id="位运算符"><a href="#位运算符" class="headerlink" title="位运算符"></a>位运算符</h3><ul>
+<li>&amp;、|、 ~、^、&lt;&lt;、&gt;&gt;</li>
+</ul>
+<h3 id="借助报错"><a href="#借助报错" class="headerlink" title="借助报错"></a>借助报错</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">order by updatexml(1,concat(0x7e,database()),0)</span><br></pre></td></tr></table></figure>
+
+<h3 id="借助时间-布尔盲注"><a href="#借助时间-布尔盲注" class="headerlink" title="借助时间/布尔盲注"></a>借助时间/布尔盲注</h3><p>此处需要结合位运算 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">order by if(condition,true,false)</span><br></pre></td></tr></table></figure>
+
+<h3 id="括号包括可直接读数据"><a href="#括号包括可直接读数据" class="headerlink" title="括号包括可直接读数据"></a>括号包括可直接读数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(select flag from users order by 1,2,3) union (select *******)</span><br></pre></td></tr></table></figure>
+
+<h3 id="例题-3"><a href="#例题-3" class="headerlink" title="例题"></a>例题</h3><p><a href="http://chall.tasteless.eu/level1" target="_blank" rel="noopener">http://chall.tasteless.eu/level1</a></p>
+<h2 id="desc相关注入"><a href="#desc相关注入" class="headerlink" title="desc相关注入"></a>desc相关注入</h2><p>desc/describe:提供有关一个表/列的信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">desc table_name column_name</span><br></pre></td></tr></table></figure>
+
+<h2 id="万能密码"><a href="#万能密码" class="headerlink" title="万能密码"></a>万能密码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">admin&#39;#</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#39;+&#39; #字符串---&gt;0</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aaa&#39;&#x3D;&#39;</span><br></pre></td></tr></table></figure>
+
+<h1 id="文件上传系列"><a href="#文件上传系列" class="headerlink" title="文件上传系列"></a>文件上传系列</h1><h2 id="客户端校验"><a href="#客户端校验" class="headerlink" title="客户端校验"></a>客户端校验</h2><h3 id="JS校验"><a href="#JS校验" class="headerlink" title="JS校验"></a>JS校验</h3><ul>
+<li><p>检查方式：检查包的后缀是否为合法后缀，前端验证</p>
+</li>
+<li><p>突破方式：禁用js/抓包改包</p>
+</li>
+</ul>
+<h2 id="服务端校验"><a href="#服务端校验" class="headerlink" title="服务端校验"></a>服务端校验</h2><h3 id="MIME类型检测"><a href="#MIME类型检测" class="headerlink" title="MIME类型检测"></a>MIME类型检测</h3><ul>
+<li>检查方式：检查content-type字段是否合法</li>
+<li>突破方式：抓包修改content-type字段为合法字段</li>
+</ul>
+<h3 id="黑名单"><a href="#黑名单" class="headerlink" title="黑名单"></a>黑名单</h3><ul>
+<li>检查方式：检查文件后缀是否位于黑名单，黑名单不允许上传</li>
+<li>绕过方式：</li>
+<li><ul>
+<li>大小写：Php、PHP</li>
+</ul>
+</li>
+<li><ul>
+<li>特殊后缀：php3、php5、phtml、pht、phtml、phps</li>
+</ul>
+</li>
+<li><ul>
+<li>.htaccess绕过(需要AllowOverride=ALL)</li>
+</ul>
+</li>
+<li><ul>
+<li>.user.ini绕过(需要当前目录存在至少一个php文件)</li>
+</ul>
+</li>
+<li><ul>
+<li>00截断(需要php&lt;5.3.4,magic_quotes_gpc=off)</li>
+</ul>
+</li>
+<li><ul>
+<li>超长文件名截断：windows为256byte，Linux为4096byte</li>
+</ul>
+</li>
+</ul>
+<h3 id="白名单"><a href="#白名单" class="headerlink" title="白名单"></a>白名单</h3><ul>
+<li>检测方式：检测文件后缀是否为白名单，允许白名单文件上传</li>
+<li>绕过方式：配合解析漏洞</li>
+</ul>
+<h3 id="文件头检测"><a href="#文件头检测" class="headerlink" title="文件头检测"></a>文件头检测</h3><ul>
+<li>检查方式：getimagesize()</li>
+<li>绕过方式：GIF89a绕过检测</li>
+</ul>
+<h2 id="竞争上传"><a href="#竞争上传" class="headerlink" title="竞争上传"></a>竞争上传</h2><ul>
+<li>检测方式：先上传，检测文件不合法就删除</li>
+<li>绕过方式：不断上传，赶紧访问，触发写入shell</li>
+</ul>
+<h2 id="phpinfo-getshell"><a href="#phpinfo-getshell" class="headerlink" title="phpinfo getshell"></a>phpinfo getshell</h2><p>以post向任意php文件上传文件时会先产生一个临时文件，可以借助文件包含漏洞和自包含使其getshell</p>
+<h1 id="文件包含漏洞"><a href="#文件包含漏洞" class="headerlink" title="文件包含漏洞"></a>文件包含漏洞</h1><h2 id="常见函数"><a href="#常见函数" class="headerlink" title="常见函数"></a>常见函数</h2><ul>
+<li>include()     多次包含，有错继续</li>
+<li>require()     多次包含，有错停止</li>
+<li>include_once()    单次包含，有错继续</li>
+<li>require_once()    单次包含，有错停止</li>
+</ul>
+<h2 id="类别"><a href="#类别" class="headerlink" title="类别"></a>类别</h2><h3 id="远程文件包含"><a href="#远程文件包含" class="headerlink" title="远程文件包含"></a>远程文件包含</h3><p>远程文件包含需要开启allow_url_fopen、allow_url_include两个参数</p>
+<h3 id="本地文件包含"><a href="#本地文件包含" class="headerlink" title="本地文件包含"></a>本地文件包含</h3><p>可以借助本地文件包含，直接读取文件</p>
+<h2 id="伪协议"><a href="#伪协议" class="headerlink" title="伪协议"></a>伪协议</h2><p>file、http、ftp、php、bzip2/zip/zlib、data、glob、phar 、ssh2、rar、ogg、expect</p>
+<p>详细如下：</p>
+<p><img src="/2020/02/02/CTF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%8F%90%E9%AB%98/%E4%BC%AA%E5%8D%8F%E8%AE%AE.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php:&#x2F;&#x2F;filter&#x2F;convert.base64-encode&#x2F;resource&#x3D;index.php</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 要求allow_url_include&#x3D;On</span><br><span class="line">php:&#x2F;&#x2F;input</span><br></pre></td></tr></table></figure>
+
+<h2 id="session文件包含"><a href="#session文件包含" class="headerlink" title="session文件包含"></a>session文件包含</h2><ul>
+<li>要求session.upload_progress.enabled=On</li>
+<li>session文件默认存储于/var/lib/php/session_{your_php_session_id}</li>
+</ul>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ul>
+<li>图片马+文件包含</li>
+<li>白名单+伪协议</li>
+<li>可以借助参数绕过后缀，比如a.php?abcd</li>
+<li>包含apache日志文件：/var/log/apache2</li>
+<li>系统环境变量：/proc/self/environ，要求php运行于CGI、可以尝试修改user-agent字段</li>
+<li>Session文件默认为tmp，可以通过phpinfo查看位置</li>
+<li>php自包含-&gt;递归爆栈</li>
+<li>php://filter/string.strip_tags/resource=/etc/passwd 造成php崩溃</li>
+</ul>
+<h1 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h1><h2 id="代码执行"><a href="#代码执行" class="headerlink" title="代码执行"></a>代码执行</h2><ul>
+<li>eval()</li>
+<li>assert()</li>
+<li>call_user_user_func()  &lt;–  iscallable()</li>
+<li>call_user_func_array()</li>
+<li>create_function()</li>
+<li>preg_replace(“”/e)</li>
+<li>array_map()</li>
+<li>usort()</li>
+<li>uasort()</li>
+<li>${php_code}</li>
+</ul>
+<h2 id="命令执行-1"><a href="#命令执行-1" class="headerlink" title="命令执行"></a>命令执行</h2><ul>
+<li>system()</li>
+<li>exec()</li>
+<li>passthru()</li>
+<li>shell_exec()</li>
+<li><code>反引号</code></li>
+<li>ob_start()、ob_end_flush()</li>
+</ul>
+<h2 id="绕过"><a href="#绕过" class="headerlink" title="绕过"></a>绕过</h2><ul>
+<li>分隔符：%0a、%0d、;、&amp;、|、||、&amp;&amp;</li>
+<li>空格： $IFS、${IFS}、$IFS$9、%09、&lt;</li>
+<li>关键词：拼接($a=l;$b=s;$a$b)、单引号、双引号</li>
+<li>编码绕过：’echo xxxx|base64 -d’</li>
+<li>利用特殊函数，如substr()绕过过滤</li>
+</ul>
+<h2 id="无回显"><a href="#无回显" class="headerlink" title="无回显"></a>无回显</h2><ul>
+<li>延时</li>
+<li>HTTP请求</li>
+<li>DNS外带</li>
+<li>写shell</li>
+</ul>
+<h2 id="极限利用"><a href="#极限利用" class="headerlink" title="极限利用"></a>极限利用</h2><ul>
+<li>15个字符的RCE</li>
+<li>7个字符的RCE</li>
+<li>5个字符的RCE</li>
+<li>4个字符的RCE</li>
+<li>无字母数字RCE(异或、取反、自增)</li>
+</ul>
+<h1 id="反序列化"><a href="#反序列化" class="headerlink" title="反序列化"></a>反序列化</h1><p>序列化：数据持久化 serialize()</p>
+<p>反序列化：数据内存化 unserialize()/phar</p>
+<h2 id="变量类型"><a href="#变量类型" class="headerlink" title="变量类型"></a>变量类型</h2><ul>
+<li>public</li>
+<li>protected</li>
+<li>private</li>
+</ul>
+<h2 id="魔法函数"><a href="#魔法函数" class="headerlink" title="魔法函数"></a>魔法函数</h2><ul>
+<li>__construct()</li>
+<li>__toString()</li>
+<li>__destruct()</li>
+<li>__wakeup()</li>
+<li>__sleep()</li>
+<li>__call()</li>
+</ul>
+<h2 id="waf绕过"><a href="#waf绕过" class="headerlink" title="waf绕过"></a>waf绕过</h2><ul>
+<li>O:+4</li>
+<li>php bug 72663绕wakeup()</li>
+<li>php bug 71101Session反序列化</li>
+</ul>
+<h1 id="SSRF"><a href="#SSRF" class="headerlink" title="SSRF"></a>SSRF</h1><p>可用于探测内网</p>
+<h2 id="判断"><a href="#判断" class="headerlink" title="判断"></a>判断</h2><ul>
+<li>回显</li>
+<li>延时</li>
+<li>DNS请求</li>
+</ul>
+<h2 id="相关函数"><a href="#相关函数" class="headerlink" title="相关函数"></a>相关函数</h2><ul>
+<li>file_get_contents()</li>
+<li>fsockopen()</li>
+<li>curl_exec()+协议</li>
+</ul>
+<h2 id="IP限制绕过"><a href="#IP限制绕过" class="headerlink" title="IP限制绕过"></a>IP限制绕过</h2><ul>
+<li>加端口号</li>
+<li>短网址</li>
+<li>指向任意IP的域名 xip.io</li>
+<li>进制绕过(八进制、十进制、十六进制、不同进制的组合)</li>
+<li>302跳转</li>
+<li>结合dict://、file://、gopher://</li>
+<li><a href="http://www.baidu.com@192.168.0.1/" target="_blank" rel="noopener">http://www.baidu.com@192.168.0.1/</a></li>
+<li>加参数 index.php?a=12345</li>
+</ul>
+<h2 id="gopher协议"><a href="#gopher协议" class="headerlink" title="gopher协议"></a>gopher协议</h2><ul>
+<li>gopher攻击redis</li>
+<li><ul>
+<li>未授权访问</li>
+</ul>
+</li>
+<li><ul>
+<li>定时任务反弹shell</li>
+</ul>
+</li>
+<li><ul>
+<li>写webshell</li>
+</ul>
+</li>
+<li><ul>
+<li>写密钥</li>
+</ul>
+</li>
+<li>gopher攻击mysql</li>
+</ul>
+<p>辅助工具：<a href="https://github.com/tarunkant/Gopherus" target="_blank" rel="noopener">https://github.com/tarunkant/Gopherus</a></p>
+<h1 id="XXE"><a href="#XXE" class="headerlink" title="XXE"></a>XXE</h1><h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><p>文件读取、命令执行、内网端口扫描、攻击内网、Dos攻击</p>
+<h2 id="XML实体注入"><a href="#XML实体注入" class="headerlink" title="XML实体注入"></a>XML实体注入</h2><ul>
+<li>实体引用</li>
+<li>DTD:文档类型定义</li>
+<li><ul>
+<li>内部引用：&lt;!DOCTYPE 根元素 [元素声明]&gt;</li>
+</ul>
+</li>
+<li><ul>
+<li>外部引用: &lt;!DOCTYPE 根元素 SYSTEM “文件或协议”&gt;<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!ENTITY %name &quot;&lt;!ENTITY &quot;key&quot; value&gt;&quot;&gt;</span><br><span class="line">%name</span><br><span class="line"></span><br><span class="line">用&amp;来引用</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="协议利用"><a href="#协议利用" class="headerlink" title="协议利用"></a>协议利用</h2><ul>
+<li>file协议</li>
+<li>filter协议</li>
+<li>http协议外带</li>
+</ul>
+<h2 id="盲XXE"><a href="#盲XXE" class="headerlink" title="盲XXE"></a>盲XXE</h2><p>利用协议外带</p>
+<h1 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a>代码审计</h1><h2 id="弱类型"><a href="#弱类型" class="headerlink" title="弱类型"></a>弱类型</h2><ul>
+<li>：==：数字与字符串比较，会把字符串转换为数字</li>
+<li>md5强碰撞：===</li>
+<li>strcmp()</li>
+<li>in_array()</li>
+<li>md5()、sha1()</li>
+<li>array_search()</li>
+<li>strpos()</li>
+</ul>
+<h2 id="变量覆盖"><a href="#变量覆盖" class="headerlink" title="变量覆盖"></a>变量覆盖</h2><ul>
+<li>extract()</li>
+<li>$$</li>
+<li>parse_str()</li>
+<li>import_request_variables()</li>
+</ul>
+<h2 id="参数解析"><a href="#参数解析" class="headerlink" title="参数解析"></a>参数解析</h2><ul>
+<li>parse_url()：//会引起解析问题</li>
+</ul>
+<h2 id="空白符问题"><a href="#空白符问题" class="headerlink" title="空白符问题"></a>空白符问题</h2><ul>
+<li>is_numeric()：忽略%20、\t、\n、\r、\v、\f</li>
+<li>trim()：忽略：\t、\n、\r、\0、\v</li>
+</ul>
+<h2 id="伪随机数"><a href="#伪随机数" class="headerlink" title="伪随机数"></a>伪随机数</h2><ul>
+<li>mt_srand()</li>
+<li>mt_rand()</li>
+</ul>
+<h2 id="命令执行逃逸"><a href="#命令执行逃逸" class="headerlink" title="命令执行逃逸"></a>命令执行逃逸</h2><ul>
+<li>escapeshellarg()</li>
+<li>escapeshellcmd()</li>
+</ul>
+<h2 id="Tricks-1"><a href="#Tricks-1" class="headerlink" title="Tricks"></a>Tricks</h2><ul>
+<li>运算优先级绕过</li>
+</ul>
+
       
       
     
@@ -427,7 +699,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CTF练手平台"><span class="toc-number">1.</span> <span class="toc-text">CTF练手平台</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Tricks"><span class="toc-number">2.</span> <span class="toc-text">Tricks</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#宽字节注入"><span class="toc-number">3.</span> <span class="toc-text">宽字节注入</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#编码介绍"><span class="toc-number">3.1.</span> <span class="toc-text">编码介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#成因"><span class="toc-number">3.2.</span> <span class="toc-text">成因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#addslashes"><span class="toc-number">3.3.</span> <span class="toc-text">addslashes()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例题"><span class="toc-number">3.4.</span> <span class="toc-text">例题</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SQL约束攻击"><span class="toc-number">4.</span> <span class="toc-text">SQL约束攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#成因-1"><span class="toc-number">4.1.</span> <span class="toc-text">成因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例题-1"><span class="toc-number">4.2.</span> <span class="toc-text">例题</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#报错注入"><span class="toc-number">5.</span> <span class="toc-text">报错注入</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#成因-2"><span class="toc-number">5.1.</span> <span class="toc-text">成因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常用报错函数"><span class="toc-number">5.2.</span> <span class="toc-text">常用报错函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#floor"><span class="toc-number">5.2.1.</span> <span class="toc-text">floor()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#updatexml"><span class="toc-number">5.2.2.</span> <span class="toc-text">updatexml()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#extractvalue"><span class="toc-number">5.2.3.</span> <span class="toc-text">extractvalue()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#exp"><span class="toc-number">5.2.4.</span> <span class="toc-text">exp()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NAME-CONST"><span class="toc-number">5.2.5.</span> <span class="toc-text">NAME_CONST()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例题-2"><span class="toc-number">5.3.</span> <span class="toc-text">例题</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#时间盲注"><span class="toc-number">6.</span> <span class="toc-text">时间盲注</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#常用的时间盲注函数"><span class="toc-number">6.1.</span> <span class="toc-text">常用的时间盲注函数</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CTF练手平台"><span class="toc-number">1.</span> <span class="toc-text">CTF练手平台</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SQL注入系列"><span class="toc-number">2.</span> <span class="toc-text">SQL注入系列</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Tricks"><span class="toc-number">2.1.</span> <span class="toc-text">Tricks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#宽字节注入"><span class="toc-number">2.2.</span> <span class="toc-text">宽字节注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#编码介绍"><span class="toc-number">2.2.1.</span> <span class="toc-text">编码介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#成因"><span class="toc-number">2.2.2.</span> <span class="toc-text">成因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#addslashes"><span class="toc-number">2.2.3.</span> <span class="toc-text">addslashes()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#例题"><span class="toc-number">2.2.4.</span> <span class="toc-text">例题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL约束攻击"><span class="toc-number">2.3.</span> <span class="toc-text">SQL约束攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#成因-1"><span class="toc-number">2.3.1.</span> <span class="toc-text">成因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#例题-1"><span class="toc-number">2.3.2.</span> <span class="toc-text">例题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#报错注入"><span class="toc-number">2.4.</span> <span class="toc-text">报错注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#成因-2"><span class="toc-number">2.4.1.</span> <span class="toc-text">成因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常用报错函数"><span class="toc-number">2.4.2.</span> <span class="toc-text">常用报错函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#floor"><span class="toc-number">2.4.2.1.</span> <span class="toc-text">floor()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#updatexml"><span class="toc-number">2.4.2.2.</span> <span class="toc-text">updatexml()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#extractvalue"><span class="toc-number">2.4.2.3.</span> <span class="toc-text">extractvalue()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#exp"><span class="toc-number">2.4.2.4.</span> <span class="toc-text">exp()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NAME-CONST"><span class="toc-number">2.4.2.5.</span> <span class="toc-text">NAME_CONST()</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#例题-2"><span class="toc-number">2.4.3.</span> <span class="toc-text">例题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分割注入"><span class="toc-number">2.5.</span> <span class="toc-text">分割注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#时间盲注"><span class="toc-number">2.6.</span> <span class="toc-text">时间盲注</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常用的时间盲注函数"><span class="toc-number">2.6.1.</span> <span class="toc-text">常用的时间盲注函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#布尔盲注"><span class="toc-number">2.7.</span> <span class="toc-text">布尔盲注</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常用函数"><span class="toc-number">2.7.1.</span> <span class="toc-text">常用函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#order-by-相关注入"><span class="toc-number">2.8.</span> <span class="toc-text">order by 相关注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#位运算符"><span class="toc-number">2.8.1.</span> <span class="toc-text">位运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#借助报错"><span class="toc-number">2.8.2.</span> <span class="toc-text">借助报错</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#借助时间-布尔盲注"><span class="toc-number">2.8.3.</span> <span class="toc-text">借助时间&#x2F;布尔盲注</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#括号包括可直接读数据"><span class="toc-number">2.8.4.</span> <span class="toc-text">括号包括可直接读数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#例题-3"><span class="toc-number">2.8.5.</span> <span class="toc-text">例题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#desc相关注入"><span class="toc-number">2.9.</span> <span class="toc-text">desc相关注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#万能密码"><span class="toc-number">2.10.</span> <span class="toc-text">万能密码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#文件上传系列"><span class="toc-number">3.</span> <span class="toc-text">文件上传系列</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#客户端校验"><span class="toc-number">3.1.</span> <span class="toc-text">客户端校验</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JS校验"><span class="toc-number">3.1.1.</span> <span class="toc-text">JS校验</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务端校验"><span class="toc-number">3.2.</span> <span class="toc-text">服务端校验</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MIME类型检测"><span class="toc-number">3.2.1.</span> <span class="toc-text">MIME类型检测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#黑名单"><span class="toc-number">3.2.2.</span> <span class="toc-text">黑名单</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#白名单"><span class="toc-number">3.2.3.</span> <span class="toc-text">白名单</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件头检测"><span class="toc-number">3.2.4.</span> <span class="toc-text">文件头检测</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#竞争上传"><span class="toc-number">3.3.</span> <span class="toc-text">竞争上传</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#phpinfo-getshell"><span class="toc-number">3.4.</span> <span class="toc-text">phpinfo getshell</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#文件包含漏洞"><span class="toc-number">4.</span> <span class="toc-text">文件包含漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#常见函数"><span class="toc-number">4.1.</span> <span class="toc-text">常见函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类别"><span class="toc-number">4.2.</span> <span class="toc-text">类别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#远程文件包含"><span class="toc-number">4.2.1.</span> <span class="toc-text">远程文件包含</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#本地文件包含"><span class="toc-number">4.2.2.</span> <span class="toc-text">本地文件包含</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#伪协议"><span class="toc-number">4.3.</span> <span class="toc-text">伪协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#session文件包含"><span class="toc-number">4.4.</span> <span class="toc-text">session文件包含</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路"><span class="toc-number">4.5.</span> <span class="toc-text">思路</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#命令执行"><span class="toc-number">5.</span> <span class="toc-text">命令执行</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#代码执行"><span class="toc-number">5.1.</span> <span class="toc-text">代码执行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#命令执行-1"><span class="toc-number">5.2.</span> <span class="toc-text">命令执行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#绕过"><span class="toc-number">5.3.</span> <span class="toc-text">绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#无回显"><span class="toc-number">5.4.</span> <span class="toc-text">无回显</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#极限利用"><span class="toc-number">5.5.</span> <span class="toc-text">极限利用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#反序列化"><span class="toc-number">6.</span> <span class="toc-text">反序列化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#变量类型"><span class="toc-number">6.1.</span> <span class="toc-text">变量类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#魔法函数"><span class="toc-number">6.2.</span> <span class="toc-text">魔法函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#waf绕过"><span class="toc-number">6.3.</span> <span class="toc-text">waf绕过</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SSRF"><span class="toc-number">7.</span> <span class="toc-text">SSRF</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#判断"><span class="toc-number">7.1.</span> <span class="toc-text">判断</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相关函数"><span class="toc-number">7.2.</span> <span class="toc-text">相关函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IP限制绕过"><span class="toc-number">7.3.</span> <span class="toc-text">IP限制绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gopher协议"><span class="toc-number">7.4.</span> <span class="toc-text">gopher协议</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#XXE"><span class="toc-number">8.</span> <span class="toc-text">XXE</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#用途"><span class="toc-number">8.1.</span> <span class="toc-text">用途</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XML实体注入"><span class="toc-number">8.2.</span> <span class="toc-text">XML实体注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#协议利用"><span class="toc-number">8.3.</span> <span class="toc-text">协议利用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#盲XXE"><span class="toc-number">8.4.</span> <span class="toc-text">盲XXE</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#代码审计"><span class="toc-number">9.</span> <span class="toc-text">代码审计</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#弱类型"><span class="toc-number">9.1.</span> <span class="toc-text">弱类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#变量覆盖"><span class="toc-number">9.2.</span> <span class="toc-text">变量覆盖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参数解析"><span class="toc-number">9.3.</span> <span class="toc-text">参数解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#空白符问题"><span class="toc-number">9.4.</span> <span class="toc-text">空白符问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#伪随机数"><span class="toc-number">9.5.</span> <span class="toc-text">伪随机数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#命令执行逃逸"><span class="toc-number">9.6.</span> <span class="toc-text">命令执行逃逸</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tricks-1"><span class="toc-number">9.7.</span> <span class="toc-text">Tricks</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
