@@ -16,7 +16,7 @@
 <meta property="og:description" content="今天终于学完了Linux，先挖个坑，接下来会整理一下笔记。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-03-31T15:07:35.000Z">
-<meta property="article:modified_time" content="2020-03-31T15:08:38.743Z">
+<meta property="article:modified_time" content="2020-04-02T16:53:55.997Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="技术文档">
 <meta name="twitter:card" content="summary">
@@ -158,7 +158,202 @@
         <p>今天终于学完了Linux，先挖个坑，接下来会整理一下笔记。</p>
 <a id="more"></a>
 
-<h1 id="Linux学习笔记"><a href="#Linux学习笔记" class="headerlink" title="Linux学习笔记"></a>Linux学习笔记</h1><p>未完待续</p>
+<h1 id="Linux介绍"><a href="#Linux介绍" class="headerlink" title="Linux介绍"></a>Linux介绍</h1><p>内核网站：<a href="https://www.kernel.org" target="_blank" rel="noopener">https://www.kernel.org</a></p>
+<p>版本号：主版本号+次版本号+末版本号</p>
+<ul>
+<li>次版本号为奇数：开发版</li>
+<li>次版本号为偶数：稳定版</li>
+</ul>
+<p>发行版：RedHat、Fedora、CentOS、Ubuntu、Debian</p>
+<h1 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h1><h2 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h2><ul>
+<li>/：根目录</li>
+<li>/root：root用户的家目录</li>
+<li>/home/user：user用户的家目录</li>
+<li>/etc：配置文件目录</li>
+<li>/bin：命令目录</li>
+<li>/sbin：管理命令目录</li>
+<li>/usr/bin和/usr/sbin：系统预装的命令</li>
+</ul>
+<h2 id="帮助命令"><a href="#帮助命令" class="headerlink" title="帮助命令"></a>帮助命令</h2><h3 id="man"><a href="#man" class="headerlink" title="man"></a>man</h3><ul>
+<li>man 命令名称</li>
+<li>man 区段号 命令/文件</li>
+<li>man -a 命令</li>
+</ul>
+<h3 id="help"><a href="#help" class="headerlink" title="help"></a>help</h3><ul>
+<li>查看命令类似：type 命令</li>
+<li>内部命令：help 命令名称</li>
+<li>外部命令：命令名称 –help</li>
+</ul>
+<h3 id="info"><a href="#info" class="headerlink" title="info"></a>info</h3><ul>
+<li>info 命令</li>
+</ul>
+<h2 id="文件管理-1"><a href="#文件管理-1" class="headerlink" title="文件管理"></a>文件管理</h2><h3 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h3><ul>
+<li>一切皆文件</li>
+</ul>
+<h3 id="查看当前路径"><a href="#查看当前路径" class="headerlink" title="查看当前路径"></a>查看当前路径</h3><p>pwd</p>
+<h3 id="查看当前文件路径"><a href="#查看当前文件路径" class="headerlink" title="查看当前文件路径"></a>查看当前文件路径</h3><p>ls</p>
+<ul>
+<li>-a：列举详细文件，包括隐藏文件</li>
+<li>-l：以长列表的形式显示目录</li>
+<li>-h：显示文件大小</li>
+<li>-r：逆序展示文件</li>
+<li>-t：按时间顺序展示文件</li>
+<li>-R：递归显示文件</li>
+</ul>
+<h3 id="查看文件"><a href="#查看文件" class="headerlink" title="查看文件"></a>查看文件</h3><ul>
+<li>cat filename</li>
+<li>head -n filename</li>
+<li>tail -f -n filename</li>
+<li>more filename</li>
+<li>less filename</li>
+</ul>
+<h3 id="统计文件"><a href="#统计文件" class="headerlink" title="统计文件"></a>统计文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wc filename</span><br></pre></td></tr></table></figure>
+
+<h3 id="目录操作"><a href="#目录操作" class="headerlink" title="目录操作"></a>目录操作</h3><h4 id="切换文件目录：cd"><a href="#切换文件目录：cd" class="headerlink" title="切换文件目录：cd"></a>切换文件目录：cd</h4><ul>
+<li>相对路径与绝对路径的概念</li>
+<li>上下级路径：./和../</li>
+<li>-：切换至上次路径</li>
+</ul>
+<h4 id="删除目录：rmdir"><a href="#删除目录：rmdir" class="headerlink" title="删除目录：rmdir"></a>删除目录：rmdir</h4><h4 id="创建目录：mkdir"><a href="#创建目录：mkdir" class="headerlink" title="创建目录：mkdir"></a>创建目录：mkdir</h4><ul>
+<li>-p：创建多级目录</li>
+</ul>
+<h4 id="拷贝文件或目录：cp"><a href="#拷贝文件或目录：cp" class="headerlink" title="拷贝文件或目录：cp"></a>拷贝文件或目录：cp</h4><ul>
+<li>-r：拷贝目录</li>
+<li>-v：显示进度</li>
+<li>-P：保留原有属性</li>
+<li>-a：保留权限</li>
+</ul>
+<h3 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h3><h4 id="创建文件：touch"><a href="#创建文件：touch" class="headerlink" title="创建文件：touch"></a>创建文件：touch</h4><h4 id="删除文件：rm"><a href="#删除文件：rm" class="headerlink" title="删除文件：rm"></a>删除文件：rm</h4><ul>
+<li>-r：递归删除</li>
+<li>-f：强制删除</li>
+</ul>
+<h4 id="移动文件或重命名：mv"><a href="#移动文件或重命名：mv" class="headerlink" title="移动文件或重命名：mv"></a>移动文件或重命名：mv</h4><ul>
+<li>mv old_file new_file</li>
+</ul>
+<h4 id="通配符"><a href="#通配符" class="headerlink" title="通配符"></a>通配符</h4><ul>
+<li>*：任意字符</li>
+<li>?：一个字符</li>
+<li>[xyz]：x或y或z</li>
+<li>[a-z]：a到z</li>
+<li>[!xyz]或[^xyz]或[xyz$]</li>
+</ul>
+<h3 id="打包与压缩"><a href="#打包与压缩" class="headerlink" title="打包与压缩"></a>打包与压缩</h3><h4 id="压缩"><a href="#压缩" class="headerlink" title="压缩"></a>压缩</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zcf&#x2F;jcf filename 被打包的目录</span><br></pre></td></tr></table></figure>
+
+<h4 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxf&#x2F;jxf 文件名 -C path</span><br></pre></td></tr></table></figure>
+<h2 id="Vim"><a href="#Vim" class="headerlink" title="Vim"></a>Vim</h2><p>四种模式：正常模式、插入模式、命令模式、可视模式</p>
+<h3 id="正常模式"><a href="#正常模式" class="headerlink" title="正常模式"></a>正常模式</h3><ul>
+<li>vim + filename：从终端进入vim的正常模式</li>
+<li>i：从正常模式切换至插入模式</li>
+<li>I：从正常模式切换至插入模式并将光标移动至本行开头</li>
+<li>a：从正常模式切换至插入模式并将光标移动至下一格</li>
+<li>A：从正常模式切换至插入模式并将光标移动至本行结束</li>
+<li>o：从正常模式切换至插入模式并将光标移动至下一行</li>
+<li>O：从正常模式切换至插入模式并将光标移动至上一行</li>
+<li>v：从正常模式切换至可视模式</li>
+<li>:：从正常模式切换至命令模式</li>
+<li>h：光标向左移动</li>
+<li>j：光标向下移动</li>
+<li>k：光标向上移动</li>
+<li>l：光标向右移动</li>
+<li>nyy：复制n行</li>
+<li>y$：复制光标至本行结尾的内容</li>
+<li>p：粘贴</li>
+<li>ndd：剪切n行</li>
+<li>d$：剪切光标至本行结尾的内容</li>
+<li>nu：撤销最近的n次操作</li>
+<li>ctrl+r：反撤销</li>
+<li>x：剪切单个字符</li>
+<li>r：替换当前字符</li>
+<li>n shift+g：移动至第n行</li>
+<li>G：移动至最后一行</li>
+<li>^：移动至本行开头</li>
+<li>$：移动至本行结尾<h3 id="插入模式"><a href="#插入模式" class="headerlink" title="插入模式"></a>插入模式</h3></li>
+<li>输入或删除即可<h3 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h3></li>
+<li>Esc+:：进入命令模式</li>
+<li>w (路径+文件名)：保存</li>
+<li>q：退出</li>
+<li>/s：查找字符串s</li>
+<li>n：下一个</li>
+<li>shift+n：上一个</li>
+<li>%s/old/new/g：替换全文的old为new，单行无%，第n个将g改为n，g为全局替换</li>
+<li>start,stops/old/new/：替换start到第stop的old为new</li>
+<li>set nu：显示行号</li>
+<li>set nonu：不显示行号</li>
+<li>配置文件：/etc/vimrc</li>
+</ul>
+<h3 id="可视模式"><a href="#可视模式" class="headerlink" title="可视模式"></a>可视模式</h3><ul>
+<li>v：字符可视模式</li>
+<li>V：行可视模式</li>
+<li>ctrl+v：块可视模式</li>
+<li>b：删除<h1 id="权限管理"><a href="#权限管理" class="headerlink" title="权限管理"></a>权限管理</h1></li>
+</ul>
+<h2 id="用户权限管理"><a href="#用户权限管理" class="headerlink" title="用户权限管理"></a>用户权限管理</h2><h3 id="添加用户"><a href="#添加用户" class="headerlink" title="添加用户"></a>添加用户</h3><ul>
+<li>useradd add username</li>
+</ul>
+<h3 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h3><ul>
+<li>userdel -r username</li>
+</ul>
+<h3 id="更改密码"><a href="#更改密码" class="headerlink" title="更改密码"></a>更改密码</h3><ul>
+<li>passwd username</li>
+</ul>
+<h3 id="修改用户权限"><a href="#修改用户权限" class="headerlink" title="修改用户权限"></a>修改用户权限</h3><ul>
+<li>usermod -d 文件目录 username</li>
+<li>usermod -g 用户组名 username</li>
+</ul>
+<h3 id="修改用户属性"><a href="#修改用户属性" class="headerlink" title="修改用户属性"></a>修改用户属性</h3><ul>
+<li>chage</li>
+</ul>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><ul>
+<li>/etc/passwd：存储用户名</li>
+<li>/etc/shadow：存储密码</li>
+<li>/etc/group：存储用户组</li>
+</ul>
+<h3 id="用户切换"><a href="#用户切换" class="headerlink" title="用户切换"></a>用户切换</h3><ul>
+<li>su - username</li>
+</ul>
+<h2 id="文件权限管理"><a href="#文件权限管理" class="headerlink" title="文件权限管理"></a>文件权限管理</h2><h3 id="查看文件权限"><a href="#查看文件权限" class="headerlink" title="查看文件权限"></a>查看文件权限</h3><p>ls -al filename</p>
+<p>权限组成：文件类型+所属用户权限+同一用户组权限+其他用户权限+特殊权限+用户+用户组</p>
+<h3 id="文件类型"><a href="#文件类型" class="headerlink" title="文件类型"></a>文件类型</h3><ul>
+<li>-：普通文件</li>
+<li>d：目录文件</li>
+<li>b：特殊块文件</li>
+<li>c：特殊字符文件</li>
+<li>l：符号链接</li>
+<li>f：命名管道</li>
+<li>s：套接字文件</li>
+</ul>
+<h3 id="权限表示"><a href="#权限表示" class="headerlink" title="权限表示"></a>权限表示</h3><h4 id="字符权限表示"><a href="#字符权限表示" class="headerlink" title="字符权限表示"></a>字符权限表示</h4><ul>
+<li>r：读</li>
+<li>w：写</li>
+<li>x：执行</li>
+</ul>
+<h4 id="数字权限表示"><a href="#数字权限表示" class="headerlink" title="数字权限表示"></a>数字权限表示</h4><ul>
+<li>4：读</li>
+<li>2：写</li>
+<li>1：执行</li>
+</ul>
+<h2 id="目录权限管理"><a href="#目录权限管理" class="headerlink" title="目录权限管理"></a>目录权限管理</h2><ul>
+<li>x：有权进入目录</li>
+<li>rx：有权显示目录内的文件名</li>
+<li>wx：有权修改目录内的文件名</li>
+</ul>
+<h2 id="修改权限"><a href="#修改权限" class="headerlink" title="修改权限"></a>修改权限</h2><h3 id="文件目录权限修改"><a href="#文件目录权限修改" class="headerlink" title="文件目录权限修改"></a>文件目录权限修改</h3><ul>
+<li>chmod 字符/数字 filename/dirname</li>
+</ul>
+<h3 id="所属用户及组权限修改"><a href="#所属用户及组权限修改" class="headerlink" title="所属用户及组权限修改"></a>所属用户及组权限修改</h3><ul>
+<li>chown 用户组：用户组 filename/dirname</li>
+</ul>
+<h3 id="用户组权限修改"><a href="#用户组权限修改" class="headerlink" title="用户组权限修改"></a>用户组权限修改</h3><ul>
+<li>chgrp 用户组 filename/dirname</li>
+</ul>
+<h3 id="初始化文件权限"><a href="#初始化文件权限" class="headerlink" title="初始化文件权限"></a>初始化文件权限</h3><ul>
+<li>初始权限=666-umask</li>
+</ul>
+<h2 id="特殊权限"><a href="#特殊权限" class="headerlink" title="特殊权限"></a>特殊权限</h2><ul>
+<li>SUID：用于二进制可执行文件，执行命令时取得文件属主权限</li>
+<li>SGID：用于目录，在该目录下创建新的文件和目录，权限自动更改为该目录的属组</li>
+<li>SBIT：用于目录，该目录下新建的文件和目录，仅root和自己可以删除<h1 id="网络管理"><a href="#网络管理" class="headerlink" title="网络管理"></a>网络管理</h1></li>
+</ul>
 
       
       
@@ -305,7 +500,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux学习笔记"><span class="toc-number">1.</span> <span class="toc-text">Linux学习笔记</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux介绍"><span class="toc-number">1.</span> <span class="toc-text">Linux介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#文件管理"><span class="toc-number">2.</span> <span class="toc-text">文件管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#文件结构"><span class="toc-number">2.1.</span> <span class="toc-text">文件结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#帮助命令"><span class="toc-number">2.2.</span> <span class="toc-text">帮助命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#man"><span class="toc-number">2.2.1.</span> <span class="toc-text">man</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#help"><span class="toc-number">2.2.2.</span> <span class="toc-text">help</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#info"><span class="toc-number">2.2.3.</span> <span class="toc-text">info</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件管理-1"><span class="toc-number">2.3.</span> <span class="toc-text">文件管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#核心思想"><span class="toc-number">2.3.1.</span> <span class="toc-text">核心思想</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看当前路径"><span class="toc-number">2.3.2.</span> <span class="toc-text">查看当前路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看当前文件路径"><span class="toc-number">2.3.3.</span> <span class="toc-text">查看当前文件路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看文件"><span class="toc-number">2.3.4.</span> <span class="toc-text">查看文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#统计文件"><span class="toc-number">2.3.5.</span> <span class="toc-text">统计文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#目录操作"><span class="toc-number">2.3.6.</span> <span class="toc-text">目录操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#切换文件目录：cd"><span class="toc-number">2.3.6.1.</span> <span class="toc-text">切换文件目录：cd</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#删除目录：rmdir"><span class="toc-number">2.3.6.2.</span> <span class="toc-text">删除目录：rmdir</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建目录：mkdir"><span class="toc-number">2.3.6.3.</span> <span class="toc-text">创建目录：mkdir</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#拷贝文件或目录：cp"><span class="toc-number">2.3.6.4.</span> <span class="toc-text">拷贝文件或目录：cp</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件操作"><span class="toc-number">2.3.7.</span> <span class="toc-text">文件操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建文件：touch"><span class="toc-number">2.3.7.1.</span> <span class="toc-text">创建文件：touch</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#删除文件：rm"><span class="toc-number">2.3.7.2.</span> <span class="toc-text">删除文件：rm</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#移动文件或重命名：mv"><span class="toc-number">2.3.7.3.</span> <span class="toc-text">移动文件或重命名：mv</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#通配符"><span class="toc-number">2.3.7.4.</span> <span class="toc-text">通配符</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#打包与压缩"><span class="toc-number">2.3.8.</span> <span class="toc-text">打包与压缩</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#压缩"><span class="toc-number">2.3.8.1.</span> <span class="toc-text">压缩</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#解压"><span class="toc-number">2.3.8.2.</span> <span class="toc-text">解压</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vim"><span class="toc-number">2.4.</span> <span class="toc-text">Vim</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#正常模式"><span class="toc-number">2.4.1.</span> <span class="toc-text">正常模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#插入模式"><span class="toc-number">2.4.2.</span> <span class="toc-text">插入模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令模式"><span class="toc-number">2.4.3.</span> <span class="toc-text">命令模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#可视模式"><span class="toc-number">2.4.4.</span> <span class="toc-text">可视模式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#权限管理"><span class="toc-number">3.</span> <span class="toc-text">权限管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#用户权限管理"><span class="toc-number">3.1.</span> <span class="toc-text">用户权限管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加用户"><span class="toc-number">3.1.1.</span> <span class="toc-text">添加用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除用户"><span class="toc-number">3.1.2.</span> <span class="toc-text">删除用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更改密码"><span class="toc-number">3.1.3.</span> <span class="toc-text">更改密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改用户权限"><span class="toc-number">3.1.4.</span> <span class="toc-text">修改用户权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改用户属性"><span class="toc-number">3.1.5.</span> <span class="toc-text">修改用户属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置文件"><span class="toc-number">3.1.6.</span> <span class="toc-text">配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用户切换"><span class="toc-number">3.1.7.</span> <span class="toc-text">用户切换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件权限管理"><span class="toc-number">3.2.</span> <span class="toc-text">文件权限管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#查看文件权限"><span class="toc-number">3.2.1.</span> <span class="toc-text">查看文件权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件类型"><span class="toc-number">3.2.2.</span> <span class="toc-text">文件类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#权限表示"><span class="toc-number">3.2.3.</span> <span class="toc-text">权限表示</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#字符权限表示"><span class="toc-number">3.2.3.1.</span> <span class="toc-text">字符权限表示</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数字权限表示"><span class="toc-number">3.2.3.2.</span> <span class="toc-text">数字权限表示</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#目录权限管理"><span class="toc-number">3.3.</span> <span class="toc-text">目录权限管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改权限"><span class="toc-number">3.4.</span> <span class="toc-text">修改权限</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#文件目录权限修改"><span class="toc-number">3.4.1.</span> <span class="toc-text">文件目录权限修改</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#所属用户及组权限修改"><span class="toc-number">3.4.2.</span> <span class="toc-text">所属用户及组权限修改</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用户组权限修改"><span class="toc-number">3.4.3.</span> <span class="toc-text">用户组权限修改</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#初始化文件权限"><span class="toc-number">3.4.4.</span> <span class="toc-text">初始化文件权限</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特殊权限"><span class="toc-number">3.5.</span> <span class="toc-text">特殊权限</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#网络管理"><span class="toc-number">4.</span> <span class="toc-text">网络管理</span></a></li></ol>
                     </div>
                 </span>
             </div>
