@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://yd0ng.github.io">
-  <title>Tag: 计算机核心课程 | Blog</title>
+  <title>DNS信息收集 | Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Blog">
-<meta property="og:url" content="https://yd0ng.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A0%B8%E5%BF%83%E8%AF%BE%E7%A8%8B/index.html">
+  <meta name="description" content="学习如何借助于DNS收集信息~">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DNS信息收集">
+<meta property="og:url" content="https://yd0ng.github.io/2020/07/16/DNS%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/index.html">
 <meta property="og:site_name" content="Blog">
+<meta property="og:description" content="学习如何借助于DNS收集信息~">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-16T07:30:26.000Z">
+<meta property="article:modified_time" content="2020-07-16T08:40:17.635Z">
 <meta property="article:author" content="yd0ng">
+<meta property="article:tag" content="信息收集">
 <meta name="twitter:card" content="summary">
   
   
@@ -130,98 +135,257 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-DNS信息收集" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" class="archive-article-date">
-  	<time datetime="2020-02-25T01:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-25</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">计算机网络基础</a>
+    <h1 class="article-title" itemprop="name">
+      DNS信息收集
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2020/07/16/DNS%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" class="archive-article-date">
+  	<time datetime="2020-07-16T07:30:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>学习如何借助于DNS收集信息~</p>
+<a id="more"></a>
+
+<h1 id="DNS介绍"><a href="#DNS介绍" class="headerlink" title="DNS介绍"></a>DNS介绍</h1><p>DNS(Domain Name System),域名系统，用于将域名与IP对应起来，因为记IP很难，但是记域名就比较容易</p>
+<h2 id="DNS查询过程"><a href="#DNS查询过程" class="headerlink" title="DNS查询过程"></a>DNS查询过程</h2><ol>
+<li>本地请求host记录</li>
+<li>递归查询DNS服务器</li>
+</ol>
+<h2 id="DNS记录类型"><a href="#DNS记录类型" class="headerlink" title="DNS记录类型"></a>DNS记录类型</h2><ul>
+<li>A记录：指定用户名对应的IP地址</li>
+<li>CNAME：规范名字，允许将多个名字映射到同一台计算机</li>
+<li>MX记录：邮件路由记录</li>
+<li>NS：域名服务器记录，指定域名由哪个DNS服务器解析</li>
+<li>TXT：为记录设置说明</li>
+<li>AAAA：指定主机或域名的IPv6地址记录</li>
+</ul>
+<h2 id="查询dns"><a href="#查询dns" class="headerlink" title="查询dns"></a>查询dns</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dig 域名</span><br></pre></td></tr></table></figure>
+
+<h1 id="借助DNS进行信息收集"><a href="#借助DNS进行信息收集" class="headerlink" title="借助DNS进行信息收集"></a>借助DNS进行信息收集</h1><h2 id="fierce主动收集"><a href="#fierce主动收集" class="headerlink" title="fierce主动收集"></a>fierce主动收集</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fierce -dns 域名</span><br><span class="line">fierce -dns baidu.com -wordlist &#x2F;usr&#x2F;share&#x2F;fierce&#x2F;hosts.txt</span><br></pre></td></tr></table></figure>
+
+<h2 id="dnsenum主动收集"><a href="#dnsenum主动收集" class="headerlink" title="dnsenum主动收集"></a>dnsenum主动收集</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dnsenum --enum 域名</span><br><span class="line">dnsenum --enum -f &#x2F;usr&#x2F;share&#x2F;dnsenum&#x2F;dns.txt 域名</span><br></pre></td></tr></table></figure>
+
+<h2 id="Amass被动收集"><a href="#Amass被动收集" class="headerlink" title="Amass被动收集"></a>Amass被动收集</h2><h3 id="默认收集"><a href="#默认收集" class="headerlink" title="默认收集"></a>默认收集</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">amass enum -src -ip -d baidu.com</span><br></pre></td></tr></table></figure>
+<h3 id="定制收集"><a href="#定制收集" class="headerlink" title="定制收集"></a>定制收集</h3><ol>
+<li>切换至amass的路径/usr/share/amass/config下</li>
+<li>下载配置文件config.ini：<a href="https://github.com/OWASP/Amass/blob/master/examples/config.ini" target="_blank" rel="noopener">https://github.com/OWASP/Amass/blob/master/examples/config.ini</a></li>
+<li>被动收集<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">amss enmu -src -ip -config config文件路径 -d 域名</span><br></pre></td></tr></table></figure>
+<h2 id="证书信息搜集"><a href="#证书信息搜集" class="headerlink" title="证书信息搜集"></a>证书信息搜集</h2></li>
+</ol>
+<h3 id="amass证书信息收集"><a href="#amass证书信息收集" class="headerlink" title="amass证书信息收集"></a>amass证书信息收集</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">amass enum -active -ip -src -d baidu.com</span><br></pre></td></tr></table></figure>
+<h3 id="在线证书查询"><a href="#在线证书查询" class="headerlink" title="在线证书查询"></a>在线证书查询</h3><p><a href="https://crt.sh" target="_blank" rel="noopener">https://crt.sh</a></p>
+<h3 id="Sublist3查询证书"><a href="#Sublist3查询证书" class="headerlink" title="Sublist3查询证书"></a>Sublist3查询证书</h3><p>地址：<a href="https://github.com/aboul3la/Sublist3r" target="_blank" rel="noopener">https://github.com/aboul3la/Sublist3r</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sublist3r.py -d baidu.com -b -t 50 -p 80</span><br></pre></td></tr></table></figure>
+
+<h2 id="其他在线查询网站"><a href="#其他在线查询网站" class="headerlink" title="其他在线查询网站"></a>其他在线查询网站</h2><ul>
+<li>站长工具：<a href="https://tool.chinaz.com/subdomain/" target="_blank" rel="noopener">https://tool.chinaz.com/subdomain/</a></li>
+<li>DNS Inspect：<a href="https://dnsinspect.com/" target="_blank" rel="noopener">https://dnsinspect.com/</a></li>
+<li>Riskiq：<a href="https://community.riskiq.com/" target="_blank" rel="noopener">https://community.riskiq.com/</a></li>
+<li>DNSDB：<a href="https://dnsdb.io/" target="_blank" rel="noopener">https://dnsdb.io/</a></li>
+<li>INLINKS：<a href="http://i.links.cn/subdomain/" target="_blank" rel="noopener">http://i.links.cn/subdomain/</a></li>
+<li>CRT：<a href="https://crt.sh/" target="_blank" rel="noopener">https://crt.sh/</a></li>
+</ul>
+<h1 id="dns域传送漏洞"><a href="#dns域传送漏洞" class="headerlink" title="dns域传送漏洞"></a>dns域传送漏洞</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>后备服务器与主服务器通过DNS域传送技术同步和更新数据库，若未进行身份验证，则客户端可以获取所有DNS服务器的记录</p>
+<h2 id="检测"><a href="#检测" class="headerlink" title="检测"></a>检测</h2><h3 id="自动检测"><a href="#自动检测" class="headerlink" title="自动检测"></a>自动检测</h3><p>Linux下可用dnsenum自动检测</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dnsenum -u z 域名</span><br></pre></td></tr></table></figure>
+
+<h3 id="手动检测"><a href="#手动检测" class="headerlink" title="手动检测"></a>手动检测</h3><p>Linux下使用dig手动检测</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dig @NS服务器 根域名 axfr</span><br></pre></td></tr></table></figure>
+<p>Windows下使用nslookup手动检测</p>
+<h1 id="绕CDN寻找真实IP"><a href="#绕CDN寻找真实IP" class="headerlink" title="绕CDN寻找真实IP"></a>绕CDN寻找真实IP</h1><h2 id="DNS历史记录"><a href="#DNS历史记录" class="headerlink" title="DNS历史记录"></a>DNS历史记录</h2><p>可以查找DNS历史记录来获取真实IP</p>
+<h2 id="多点ping检测"><a href="#多点ping检测" class="headerlink" title="多点ping检测"></a>多点ping检测</h2><p><a href="https://ping.chinaz.com" target="_blank" rel="noopener">https://ping.chinaz.com</a></p>
+<h1 id="DNS妙用"><a href="#DNS妙用" class="headerlink" title="DNS妙用"></a>DNS妙用</h1><ul>
+<li>无回显时DNS外带数据</li>
+<li>TCP信道不同时，搭建DNS隧道进行通信</li>
+</ul>
+
+      
+      
+    
+      <div class="declare" hidden="hidden"></div>
+    
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢您的打赏，大家一起加油喔~<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/asserts/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/asserts/weixin.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">计算机核心课程</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">信息收集</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://yd0ng.github.io/2020/07/16/DNS%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2020-01-02T13:07:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-02</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/07/16/nmap%E4%B8%8Emasscan%E7%9A%84%E4%BD%BF%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">nmap与masscan的使用</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/">计组复习</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">计算机核心课程</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#DNS介绍"><span class="toc-number">1.</span> <span class="toc-text">DNS介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#DNS查询过程"><span class="toc-number">1.1.</span> <span class="toc-text">DNS查询过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DNS记录类型"><span class="toc-number">1.2.</span> <span class="toc-text">DNS记录类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查询dns"><span class="toc-number">1.3.</span> <span class="toc-text">查询dns</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#借助DNS进行信息收集"><span class="toc-number">2.</span> <span class="toc-text">借助DNS进行信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#fierce主动收集"><span class="toc-number">2.1.</span> <span class="toc-text">fierce主动收集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dnsenum主动收集"><span class="toc-number">2.2.</span> <span class="toc-text">dnsenum主动收集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Amass被动收集"><span class="toc-number">2.3.</span> <span class="toc-text">Amass被动收集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#默认收集"><span class="toc-number">2.3.1.</span> <span class="toc-text">默认收集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#定制收集"><span class="toc-number">2.3.2.</span> <span class="toc-text">定制收集</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#证书信息搜集"><span class="toc-number">2.4.</span> <span class="toc-text">证书信息搜集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#amass证书信息收集"><span class="toc-number">2.4.1.</span> <span class="toc-text">amass证书信息收集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在线证书查询"><span class="toc-number">2.4.2.</span> <span class="toc-text">在线证书查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sublist3查询证书"><span class="toc-number">2.4.3.</span> <span class="toc-text">Sublist3查询证书</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他在线查询网站"><span class="toc-number">2.5.</span> <span class="toc-text">其他在线查询网站</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#dns域传送漏洞"><span class="toc-number">3.</span> <span class="toc-text">dns域传送漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#介绍"><span class="toc-number">3.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#检测"><span class="toc-number">3.2.</span> <span class="toc-text">检测</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#自动检测"><span class="toc-number">3.2.1.</span> <span class="toc-text">自动检测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#手动检测"><span class="toc-number">3.2.2.</span> <span class="toc-text">手动检测</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#绕CDN寻找真实IP"><span class="toc-number">4.</span> <span class="toc-text">绕CDN寻找真实IP</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#DNS历史记录"><span class="toc-number">4.1.</span> <span class="toc-text">DNS历史记录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多点ping检测"><span class="toc-number">4.2.</span> <span class="toc-text">多点ping检测</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DNS妙用"><span class="toc-number">5.</span> <span class="toc-text">DNS妙用</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
   
-    </div></section>
   
 
-    
+  
+
+  
+
+  
+
+<!--显示阅读次数-->
+
+  <br/>
+  <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+  <span class="icon-sort"></span>
+  <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+            阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+  </span>
+  </a>
 
 
           </div>
@@ -261,9 +425,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
