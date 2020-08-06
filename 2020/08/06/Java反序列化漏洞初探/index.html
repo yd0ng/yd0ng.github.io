@@ -11,19 +11,19 @@
   <meta name="description" content="Java反序列化漏洞学习初探">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java反序列化漏洞初探">
-<meta property="og:url" content="https://yd0ng.github.io/2020/08/06/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%9D%E6%8E%A2/index.html">
+<meta property="og:url" content="https://yd0ng.github.io/2020/08/06/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%9D%E6%8E%A2/index.html">
 <meta property="og:site_name" content="不知名网络安全选手的博客">
 <meta property="og:description" content="Java反序列化漏洞学习初探">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://yd0ng.github.io/2020/08/06/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%9D%E6%8E%A2/1.png">
-<meta property="og:image" content="https://yd0ng.github.io/2020/08/06/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%9D%E6%8E%A2/2.png">
-<meta property="og:image" content="https://yd0ng.github.io/2020/08/06/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%9D%E6%8E%A2/3.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/08/06/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%9D%E6%8E%A2/1.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/08/06/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%9D%E6%8E%A2/2.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/08/06/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%9D%E6%8E%A2/3.png">
 <meta property="article:published_time" content="2020-08-06T07:29:10.000Z">
-<meta property="article:modified_time" content="2020-08-06T08:18:32.159Z">
+<meta property="article:modified_time" content="2020-08-06T08:22:36.933Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="Web安全">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://yd0ng.github.io/2020/08/06/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%9D%E6%8E%A2/1.png">
+<meta name="twitter:image" content="https://yd0ng.github.io/2020/08/06/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%9D%E6%8E%A2/1.png">
   
   
     <link rel="icon" href="/themes/yilia/source/">
@@ -139,7 +139,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Java反序列化初探" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Java反序列化漏洞初探" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -151,7 +151,7 @@
   
 
         
-        <a href="/2020/08/06/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%9D%E6%8E%A2/" class="archive-article-date">
+        <a href="/2020/08/06/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%9D%E6%8E%A2/" class="archive-article-date">
   	<time datetime="2020-08-06T07:29:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-06</time>
 </a>
         
@@ -174,7 +174,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class User implements Serializable &#123;</span><br><span class="line">    public String name;</span><br><span class="line">    public int age;</span><br><span class="line">    public User(String name,int age)&#123;</span><br><span class="line">        this.name&#x3D;name;</span><br><span class="line">        this.age&#x3D;age;</span><br><span class="line">    &#125;</span><br><span class="line">    public void ShowInfo()&#123;</span><br><span class="line">        System.out.println(&quot;Name:&quot;+name+&quot; age:&quot;+age);</span><br><span class="line">    &#125;</span><br><span class="line">    private void readObjecy(ObjectInputStream in) throws IOException, ClassNotFoundException &#123;</span><br><span class="line">        in.defaultReadObject();</span><br><span class="line">        Runtime.getRuntime().exec(&quot;touch hacked&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h2><p>实例化User类并进行序列化,生成yd0ng.ser文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import java.io.*;</span><br><span class="line"></span><br><span class="line">public class Serialtest &#123;</span><br><span class="line">    public static void main(String[] args) throws FileNotFoundException &#123;</span><br><span class="line">        User a &#x3D; new User(&quot;yd0ng&quot;,18);</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line">            ObjectOutputStream out &#x3D; new ObjectOutputStream(new FileOutputStream(&quot;yd0ng.ser&quot;));</span><br><span class="line">            &#x2F;&#x2F;输出反序列化对象</span><br><span class="line">            out.writeObject(a);</span><br><span class="line">            out.close();</span><br><span class="line">            System.out.printf(&quot;Serialized finished&quot;);</span><br><span class="line">        &#125;catch(IOException i)</span><br><span class="line">        &#123;</span><br><span class="line">            i.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>运行代码,成功生成yd0ng.ser文件<br><img src="/2020/08/06/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%9D%E6%8E%A2/1.png" alt><br>查看该文件，发现存储的是序列化后的文件<br><img src="/2020/08/06/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%9D%E6%8E%A2/2.png" alt></p>
+<p>运行代码,成功生成yd0ng.ser文件<br><img src="/2020/08/06/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%9D%E6%8E%A2/1.png" alt><br>查看该文件，发现存储的是序列化后的文件<br><img src="/2020/08/06/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%9D%E6%8E%A2/2.png" alt></p>
 <ul>
 <li>aced 0005 73是序列化文件头，</li>
 <li>72 0004 5573 6572 f631 8ae6 6af0 dc50 0200 02是类的描述</li>
@@ -184,7 +184,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import java.io.*;</span><br><span class="line">public class UnSerialtest &#123;</span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        Object b&#x3D;null;</span><br><span class="line">        try&#123;</span><br><span class="line">            ObjectInputStream in &#x3D; new ObjectInputStream(new FileInputStream(&quot;yd0ng.ser&quot;));</span><br><span class="line">            b &#x3D; (User)in.readObject();</span><br><span class="line">            in.close();</span><br><span class="line">        &#125;</span><br><span class="line">        catch (IOException | ClassNotFoundException i)</span><br><span class="line">        &#123;</span><br><span class="line">            i.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>运行代码，会执行我们重写的readObject,创建hacked文件</p>
-<p><img src="/2020/08/06/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%9D%E6%8E%A2/3.png" alt></p>
+<p><img src="/2020/08/06/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%9D%E6%8E%A2/3.png" alt></p>
 <h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>只是用了一个简单的反序列化的demo来演示了一下反序列化的触发过程，其实与其他语言的反序列化应该是大同小异的，真正出现在应用场景中的反序列化也肯定要比这个复杂n倍，有空可以拜读一下佬们的反序列化漏洞调试文章，Java这个语言有点奇怪，不做异常处理还不能运行QAQ。刚开始学Java安全，哪里写的不太对，哥哥姐姐弟弟妹妹们记得直接指出,万分感谢。</p>
 
       
@@ -289,7 +289,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://yd0ng.github.io/2020/08/06/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%9D%E6%8E%A2/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://yd0ng.github.io/2020/08/06/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%9D%E6%8E%A2/" alt="微信分享二维码">
     </div>
 </div>
 
