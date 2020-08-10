@@ -153,61 +153,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>JNCTF平台搭建指南</p>
-<h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><p>JNCTF平台及docker仓库搭建，平台只用于江南大学网络空间安全俱乐部内部训练、举办比赛使用，不做其他用途。本文仅供俱乐部内部人员参考，不可外传。</p>
-<h1 id="CTF平台搭建"><a href="#CTF平台搭建" class="headerlink" title="CTF平台搭建"></a>CTF平台搭建</h1><h2 id="说明-1"><a href="#说明-1" class="headerlink" title="说明"></a>说明</h2><p>Python2停用，原有的平台代码依赖问题无法解决，无法直接部署，此处给出构建已经构建好的docker镜像并进行部署。</p>
-<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ol>
-<li>连入内网,下载源码<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone git@202.195.145.17:Don&#x2F;JNCTF-platformbuild.git</span><br></pre></td></tr></table></figure></li>
-<li>将文件上传至服务器<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp -r JNCTF-platformbuild root@服务器IP:&#x2F;root&#x2F;JNCTF-platformbuild</span><br></pre></td></tr></table></figure></li>
-<li>将JNCTF-platformbuild/JNCTF内的Dockerfile和docker-compose.yml中的ip替换为docker仓库的IP<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed -i  &quot;s&#x2F;34.97.157.26&#x2F;docker_host&#x2F;g&quot; Dockerfile</span><br><span class="line">sed -i  &quot;s&#x2F;34.97.157.26&#x2F;docker_host&#x2F;g&quot; docker-compose.yml</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<h2 id="仓库tls配置"><a href="#仓库tls配置" class="headerlink" title="仓库tls配置"></a>仓库tls配置</h2><p>ssh 登录服务器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;etc&#x2F;docker&#x2F;</span><br><span class="line">mkdir keys</span><br><span class="line">cd keys</span><br><span class="line">vim build.sh</span><br></pre></td></tr></table></figure>
-<p>build.sh内容如下,其中的IP地址更换为仓库服务器IP即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">openssl genrsa -aes256 -out ca-key.pem 4096</span><br><span class="line">openssl req -new -x509 -days 365 -key ca-key.pem -sha256 -out ca.pem</span><br><span class="line">openssl genrsa -out server-key.pem 4096</span><br><span class="line">openssl req -subj &quot;&#x2F;CN&#x3D;34.97.157.26&quot; -sha256 -new -key server-key.pem -out server.csr</span><br><span class="line">echo subjectAltName &#x3D; DNS:34.97.157.26,IP:34.97.157.26,IP:127.0.0.1 &gt;&gt; extfile.cnf</span><br><span class="line">echo extendedKeyUsage &#x3D; serverAuth &gt;&gt; extfile.cnf</span><br><span class="line">openssl x509 -req -days 365 -sha256 -in server.csr -CA ca.pem -CAkey ca-key.pem \</span><br><span class="line">  -CAcreateserial -out server-cert.pem -extfile extfile.cnf</span><br><span class="line">openssl genrsa -out key.pem 4096</span><br><span class="line">openssl req -subj &#39;&#x2F;CN&#x3D;client&#39; -new -key key.pem -out client.csr</span><br><span class="line">echo extendedKeyUsage &#x3D; clientAuth &gt; extfile-client.cnf</span><br><span class="line">openssl x509 -req -days 365 -sha256 -in client.csr -CA ca.pem -CAkey ca-key.pem \</span><br><span class="line">  -CAcreateserial -out cert.pem -extfile extfile-client.cnf</span><br><span class="line">rm -v client.csr server.csr extfile.cnf extfile-client.cnf</span><br><span class="line">chmod -v 0400 ca-key.pem key.pem server-key.pem</span><br><span class="line">chmod -v 0444 ca.pem server-cert.pem cert.pem</span><br></pre></td></tr></table></figure>
-<p>为build.sh增加x权限并执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x build.sh</span><br><span class="line">.&#x2F;build.sh</span><br></pre></td></tr></table></figure>
-<p>Common Name (e.g. server FQDN or YOUR name)输入服务器IP地址<br>其他的需要输密码都是随便输同一个加密密码就好，其他的不用输</p>
-<p>创建/etc/docker/daemon.json文件，里面的IP换成仓库的IP</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;  </span><br><span class="line">    &quot;tls&quot;: true,</span><br><span class="line">    &quot;tlsverify&quot;: true,</span><br><span class="line">    &quot;tlscacert&quot;: &quot;&#x2F;etc&#x2F;docker&#x2F;keys&#x2F;ca.pem&quot;,</span><br><span class="line">    &quot;tlscert&quot;: &quot;&#x2F;etc&#x2F;docker&#x2F;keys&#x2F;server-cert.pem&quot;,</span><br><span class="line">    &quot;tlskey&quot;: &quot;&#x2F;etc&#x2F;docker&#x2F;keys&#x2F;server-key.pem&quot;,</span><br><span class="line">    &quot;insecure-registries&quot;: [</span><br><span class="line">            &quot;34.97.157.26:5000&quot;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>修改/lib/systemd/system/docker.service</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;bin&#x2F;dockerd -H&#x3D;0.0.0.0:2376 -H&#x3D;unix:&#x2F;&#x2F;&#x2F;var&#x2F;run&#x2F;docker.sock --containerd&#x3D;&#x2F;run&#x2F;containerd&#x2F;containerd.sock</span><br></pre></td></tr></table></figure>
-<p>重载配置文件并重启docker</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
-
-<p>至此，tls认证配置完成</p>
-<h2 id="CTF平台启动"><a href="#CTF平台启动" class="headerlink" title="CTF平台启动"></a>CTF平台启动</h2><h3 id="载入docker镜像"><a href="#载入docker镜像" class="headerlink" title="载入docker镜像"></a>载入docker镜像</h3><p>切换至JNCTF-platformbuild目录下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker load -i ctfd2020</span><br></pre></td></tr></table></figure>
-<p>等待docker镜像导入完成</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
-<p>确定一下是否有以下镜像，有则继续，没有则检查问题所在</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">REPOSITORY                       TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">ctfd                             lts                 f4b4228fdb8e        12 hours ago        3.91GB</span><br></pre></td></tr></table></figure>
-<h3 id="启动平台"><a href="#启动平台" class="headerlink" title="启动平台"></a>启动平台</h3><p>切换至JNCTF-platformbuild/JNCTF目录下，先检查一下docker-compose.yml和Dockerfile中的IP是否为docker仓库IP，若不是请替换为仓库IP</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
-<p>平台应该是瞬间启动，若非瞬间启动，则前面步骤存在问题，立刻中断程序并检查</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure>
-<p>应该可以看类似的以下容器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                                       NAMES</span><br><span class="line">58fc10a94105        ctfd:lts            &quot;docker-entrypoint.s…&quot;   12 hours ago        Up 9 hours          3306&#x2F;tcp, 33060&#x2F;tcp, 0.0.0.0:80-&gt;8000&#x2F;tcp   jnctf2020_ctfd_1</span><br></pre></td></tr></table></figure>
-<p>进行容器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it 容器id bash</span><br></pre></td></tr></table></figure>
-<p>重命名原有的keys</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv keys keys_old2019</span><br></pre></td></tr></table></figure>
-<p>启动CTFD服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gunicorn  &#39;CTFd:create_app()&#39; --bind &#39;0.0.0.0:8000&#39; --workers 4 --worker-class &#39;gevent&#39; --access-logfile &quot;$&#123;LOG_FOLDER:-&#x2F;opt&#x2F;CTFd&#x2F;CTFd&#x2F;logs&#125;&#x2F;access.log&quot; --error-logfile &quot;$&#123;LOG_FOLDER:-opt&#x2F;CTFd&#x2F;CTFd&#x2F;logs&#125;&#x2F;error.log&quot; --timeout 60</span><br></pre></td></tr></table></figure>
-<p>退出容器，千万不要ctrl+c中断</p>
-<p>访问IP，应该可以看到平台已成功启动，注册管理员账号并登录平台</p>
-<h3 id="替换keys"><a href="#替换keys" class="headerlink" title="替换keys"></a>替换keys</h3><p>用/etc/docker/keys文件夹替换掉JNCTF-platformbuild/JNCTF中的keys</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mv keys keys_old2019</span><br><span class="line">mkdir keys</span><br><span class="line">cd keys</span><br><span class="line">cp &#x2F;etc&#x2F;docker&#x2F;keys&#x2F;* .</span><br><span class="line">docker exec -it 容器id bash</span><br><span class="line">cp keys&#x2F;* &#x2F;etc&#x2F;docker&#x2F;keys&#x2F;*</span><br></pre></td></tr></table></figure>
-<p>至此，keys替换完成</p>
-<h1 id="题目测试"><a href="#题目测试" class="headerlink" title="题目测试"></a>题目测试</h1><p>进入容器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it 容器id bash</span><br></pre></td></tr></table></figure>
-
-<p>创建比赛</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python import2chal.py homework2019&#x2F;data.yml</span><br></pre></td></tr></table></figure>
-
-<p>等待镜像构建及推送仓库，此时登录CTF平台可以看到创建的homework2019比赛，<br>可开启Pwn题并尝试nc连接，若连接无误，则平台搭建完成。</p>
-
+        
+          <a class="article-more-a" href="/2020/08/10/JNCTF%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/#more">more >></a>
+        
       
       
     
