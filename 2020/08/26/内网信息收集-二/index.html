@@ -16,7 +16,7 @@
 <meta property="og:description" content="内网渗透信息收集方法第二篇文章">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-08-26T09:32:14.000Z">
-<meta property="article:modified_time" content="2020-08-28T09:25:54.962Z">
+<meta property="article:modified_time" content="2020-08-28T09:29:10.532Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="内网渗透">
 <meta name="twitter:card" content="summary">
@@ -267,26 +267,28 @@
 <p>FOR /F %i in (ips.txt) do @echo [+] Checking %i &amp;&amp; nbtstat -A %i 2&gt;null &gt;nbsessions.txt &amp;&amp; FOR /F %n in (admins.txt) DO @type nbsessions.txt | @findstr /I %n &gt; NUL &amp;&amp; echo [!] %n was found logged into %i</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 10. 域管理员模拟</span><br><span class="line">使用Incognito来模拟域管理员或者添加域管理员，思路在接下来的文章中介绍</span><br><span class="line"># 11. 利用powershell收集域内信息</span><br><span class="line">Powerview是集成了powershell和WMI对内网渗透的测试脚本，集成于powersploit中</span><br></pre></td></tr></table></figure>
 <p>Import-Module PowerView.ps1</p>
-<pre><code>* Get—NetDomain：获取当前用户所在域的名称
-* Get-NetUser：获取所有用户的详细信息
-* Get-NetDomainController：获取所有域控制器的信息
-* Get-NetComputer：获取域内所有机器的详细信息
-* Get-NetOU：获取域中的OU信息
-* Get-NetGroup：获取所有域内组和组成员的信息
-* Get-NetFileServer：获取当前域使用的文件服务器信息
-* Get-NetShare：获取当前域内的网络共享信息
-* Get-NetSession：获取指定服务器的会话
-* Get-NetRDPSession：获取指定服务器的远程连接
-* Get-NetProcess：获取远程主机的进程
-* Get-UserEvent：获取指定用户的日志
-* Get-ADObject：获取活动目录的对象
-* Get-NetGPO：获取域内所有的组策略信息
-* Get-DomainPolicy：获取域默认控制策略或域控制器策略
-* Invoke-UserHunter：获取域用户登录的计算机信息及该用户是否有本地管理员权限
-* Invoke-ProcessHunter：通过查询域内的机器进程找到特定用户
-* Invoke-UserEventHunter：根据用户日志查询某域用户登陆过哪些域机器
+<p>```</p>
+<ul>
+<li>Get—NetDomain：获取当前用户所在域的名称</li>
+<li>Get-NetUser：获取所有用户的详细信息</li>
+<li>Get-NetDomainController：获取所有域控制器的信息</li>
+<li>Get-NetComputer：获取域内所有机器的详细信息</li>
+<li>Get-NetOU：获取域中的OU信息</li>
+<li>Get-NetGroup：获取所有域内组和组成员的信息</li>
+<li>Get-NetFileServer：获取当前域使用的文件服务器信息</li>
+<li>Get-NetShare：获取当前域内的网络共享信息</li>
+<li>Get-NetSession：获取指定服务器的会话</li>
+<li>Get-NetRDPSession：获取指定服务器的远程连接</li>
+<li>Get-NetProcess：获取远程主机的进程</li>
+<li>Get-UserEvent：获取指定用户的日志</li>
+<li>Get-ADObject：获取活动目录的对象</li>
+<li>Get-NetGPO：获取域内所有的组策略信息</li>
+<li>Get-DomainPolicy：获取域默认控制策略或域控制器策略</li>
+<li>Invoke-UserHunter：获取域用户登录的计算机信息及该用户是否有本地管理员权限</li>
+<li>Invoke-ProcessHunter：通过查询域内的机器进程找到特定用户</li>
+<li>Invoke-UserEventHunter：根据用户日志查询某域用户登陆过哪些域机器</li>
+</ul>
 
-</code></pre>
       
       
     
@@ -402,6 +404,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2020/08/31/%E9%9A%90%E8%97%8F%E9%80%9A%E4%BF%A1%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          隐藏通信隧道技术
+        
+      </div>
+    </a>
   
   
     <a href="/2020/08/26/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E4%B8%80/" id="article-nav-older" class="article-nav-link-wrap">
