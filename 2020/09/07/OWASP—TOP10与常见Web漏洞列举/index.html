@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://yd0ng.github.io">
-  <title>Archives | 不知名网络安全选手的博客</title>
+  <title>OWASP—TOP10与常见Web漏洞列举 | 不知名网络安全选手的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="不知名网络安全选手的博客">
-<meta property="og:url" content="https://yd0ng.github.io/archives/page/6/index.html">
+  <meta name="description" content="秋招简历复习法，OWASP TOP10与常见漏洞介绍">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OWASP—TOP10与常见Web漏洞列举">
+<meta property="og:url" content="https://yd0ng.github.io/2020/09/07/OWASP%E2%80%94TOP10%E4%B8%8E%E5%B8%B8%E8%A7%81Web%E6%BC%8F%E6%B4%9E%E5%88%97%E4%B8%BE/index.html">
 <meta property="og:site_name" content="不知名网络安全选手的博客">
+<meta property="og:description" content="秋招简历复习法，OWASP TOP10与常见漏洞介绍">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-09-07T11:28:53.000Z">
+<meta property="article:modified_time" content="2020-09-07T12:14:25.859Z">
 <meta property="article:author" content="yd0ng">
+<meta property="article:tag" content="Web安全">
 <meta name="twitter:card" content="summary">
   
   
@@ -130,150 +135,94 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-OWASP—TOP10与常见Web漏洞列举" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      OWASP—TOP10与常见Web漏洞列举
+    </h1>
+  
+
+        
+        <a href="/2020/09/07/OWASP%E2%80%94TOP10%E4%B8%8E%E5%B8%B8%E8%A7%81Web%E6%BC%8F%E6%B4%9E%E5%88%97%E4%B8%BE/" class="archive-article-date">
+  	<time datetime="2020-09-07T11:28:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-07</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>秋招简历复习法，OWASP TOP10与常见漏洞介绍</p>
+<a id="more"></a>
+
+<h1 id="OWASP-TOP10"><a href="#OWASP-TOP10" class="headerlink" title="OWASP TOP10"></a>OWASP TOP10</h1><p>最新的OWASP TOP10应该是2017年版的，但我觉得其中的一部分还是有所重合，以此列举并稍微描述一下我的理解吧。</p>
+<h2 id="1-注入"><a href="#1-注入" class="headerlink" title="1. 注入"></a>1. 注入</h2><p>注入我认为应该是一系列的漏洞，注入的共同点是将恶意输入的数据当做相应的代码来执行，比如SQL注入是恶意sql代码注入、命令执行是Shell代码注入，XSS的本质是JavaScript代码注入，XXE是XML代码注入。</p>
+<h2 id="2-失效的身份认证"><a href="#2-失效的身份认证" class="headerlink" title="2. 失效的身份认证"></a>2. 失效的身份认证</h2><p>失效的身份认证，可以理解为在登录等情况身份认证出现了问题，比如任意密码修改、经典的Webapp认证绕过漏洞等漏洞，都属于这种类型。</p>
+<h2 id="3-敏感信息泄露"><a href="#3-敏感信息泄露" class="headerlink" title="3. 敏感信息泄露"></a>3. 敏感信息泄露</h2><p>这个漏洞的关键点在于敏感信息，诸如我们的后台暴露了，源码文件泄露，账户密码泄露等，都算是敏感信息，其实不仅如此，反是与系统相关的都是信息，反是有利于攻击者造成进一步攻击的、或者是系统内的重要数据信息，都可以称为敏感信息泄露。</p>
+<h2 id="4-XML外部实体（XXE）"><a href="#4-XML外部实体（XXE）" class="headerlink" title="4. XML外部实体（XXE）"></a>4. XML外部实体（XXE）</h2><p>XML实体攻击，传输信息时经常会以json格式或xml格式进行传输，而在XML格式传输信息时就会经常性的造成XXE攻击。</p>
+<h2 id="5-失效的访问控制"><a href="#5-失效的访问控制" class="headerlink" title="5. 失效的访问控制"></a>5. 失效的访问控制</h2><p>ACL，访问控制列表，用于控制哪些允许访问哪些不允许访问，比如各种非常经典的未授权访问，但是访问控制没有做好，使得攻击者利用原本不应该使用的功能进行攻击。</p>
+<h2 id="6-安全配置错误"><a href="#6-安全配置错误" class="headerlink" title="6. 安全配置错误"></a>6. 安全配置错误</h2><p>配置不规范，安全两行泪，大部分的解析漏洞都是如此造成的，比如nginx解析漏洞、asp解析漏洞，HTTP危险方法getshell等。</p>
+<h2 id="7-跨站脚本（XSS"><a href="#7-跨站脚本（XSS" class="headerlink" title="7. 跨站脚本（XSS)"></a>7. 跨站脚本（XSS)</h2><p>XSS的本质是跨站脚本攻击，通过注入javascript代码来造成cookie窃取等危害，攻击性较大的甚至可以发起蠕虫攻击。</p>
+<h2 id="8-不安全的反序列化"><a href="#8-不安全的反序列化" class="headerlink" title="8. 不安全的反序列化"></a>8. 不安全的反序列化</h2><p>为了便于数据的保存与恢复，序列化与反序列化机制是一个经常被使用的方式，序列化的过程是将对象存储为字符串或二进制文件，而反序列化是将字符串或二进制文件恢复成对象的过程，但因为反序列化过程中重写的函数会被攻击者利用，造成任意文件读写或任意代码执行等，因此造成了反序列化漏洞。</p>
+<h2 id="9-使用含有已知漏洞的组件"><a href="#9-使用含有已知漏洞的组件" class="headerlink" title="9. 使用含有已知漏洞的组件"></a>9. 使用含有已知漏洞的组件</h2><p>有些漏洞组件是本身就存在问题，比如低版本的editor编辑器或wordpress插件等，那么使用这些含有已知漏洞的组件本身也就是不安全的，会给系统带来极大的安全问题及危害。</p>
+<h2 id="10-不足的日志记录和监控"><a href="#10-不足的日志记录和监控" class="headerlink" title="10. 不足的日志记录和监控"></a>10. 不足的日志记录和监控</h2><p>日志和监控在入侵检测和溯源追踪中起着很好的作用，但绝大多数的网站等都未部署相应的设备和日志监控功能。</p>
+<h1 id="常见漏洞"><a href="#常见漏洞" class="headerlink" title="常见漏洞"></a>常见漏洞</h1><p>详细的漏洞会有相应的文章去进行介绍，这里大概只取列举一个大纲，随时补充。</p>
+<ul>
+<li>SQL注入漏洞</li>
+<li>命令执行漏洞</li>
+<li>文件上传漏洞</li>
+<li>文件包含漏洞</li>
+<li>XXE漏洞</li>
+<li>SSRF漏洞</li>
+<li>XSS漏洞</li>
+<li>反序列化漏洞</li>
+<li>未授权访问漏洞 </li>
+</ul>
+
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/31/%E5%88%A9%E7%94%A8docker%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2%E7%8E%AF%E5%A2%83/" class="archive-article-date">
-  	<time datetime="2020-01-31T10:47:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-31</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/31/%E5%88%A9%E7%94%A8docker%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2%E7%8E%AF%E5%A2%83/">利用docker快速部署环境</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术文档</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
+      <div class="declare" hidden="hidden"></div>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/29/CVE-2018-8715%E5%A4%8D%E7%8E%B0/" class="archive-article-date">
-  	<time datetime="2020-01-29T13:45:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-29</time>
-</a>
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢您的打赏，大家一起加油喔~<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/asserts/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/asserts/weixin.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/29/CVE-2018-8715%E5%A4%8D%E7%8E%B0/">CVE-2018-8715复现</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">漏洞复现</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/26/JISCTF%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/" class="archive-article-date">
-  	<time datetime="2020-01-26T11:38:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/26/JISCTF%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/">JISCTF靶机渗透</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CTF</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/26/ssh%E5%AF%86%E7%A0%81%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2020-01-26T09:48:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/26/ssh%E5%AF%86%E7%A0%81%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3/">ssh密码暴力破解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -285,251 +234,138 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://yd0ng.github.io/2020/09/07/OWASP%E2%80%94TOP10%E4%B8%8E%E5%B8%B8%E8%A7%81Web%E6%BC%8F%E6%B4%9E%E5%88%97%E4%B8%BE/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/14/CVE-2016-3088%E5%A4%8D%E7%8E%B0/" class="archive-article-date">
-  	<time datetime="2020-01-14T12:48:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-14</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2020/09/07/SQLMAP%E9%AB%98%E7%BA%A7%E4%BD%BF%E7%94%A8%E5%8F%8Atamper%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          SQLMAP高级使用及tamper脚本编写
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/08/31/netcat%E4%BD%BF%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">netcat使用</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/14/CVE-2016-3088%E5%A4%8D%E7%8E%B0/">CVE-2016-3088复现</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">漏洞复现</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#OWASP-TOP10"><span class="toc-number">1.</span> <span class="toc-text">OWASP TOP10</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-注入"><span class="toc-number">1.1.</span> <span class="toc-text">1. 注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-失效的身份认证"><span class="toc-number">1.2.</span> <span class="toc-text">2. 失效的身份认证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-敏感信息泄露"><span class="toc-number">1.3.</span> <span class="toc-text">3. 敏感信息泄露</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-XML外部实体（XXE）"><span class="toc-number">1.4.</span> <span class="toc-text">4. XML外部实体（XXE）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-失效的访问控制"><span class="toc-number">1.5.</span> <span class="toc-text">5. 失效的访问控制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-安全配置错误"><span class="toc-number">1.6.</span> <span class="toc-text">6. 安全配置错误</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-跨站脚本（XSS"><span class="toc-number">1.7.</span> <span class="toc-text">7. 跨站脚本（XSS)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-不安全的反序列化"><span class="toc-number">1.8.</span> <span class="toc-text">8. 不安全的反序列化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-使用含有已知漏洞的组件"><span class="toc-number">1.9.</span> <span class="toc-text">9. 使用含有已知漏洞的组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-不足的日志记录和监控"><span class="toc-number">1.10.</span> <span class="toc-text">10. 不足的日志记录和监控</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常见漏洞"><span class="toc-number">2.</span> <span class="toc-text">常见漏洞</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/13/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2020-01-13T15:29:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-13</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/13/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Git学习笔记</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术文档</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/12/Mac%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2020-01-12T05:51:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/12/Mac%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">Mac使用笔记</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术文档</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/12/%E9%BB%91%E8%8B%B9%E6%9E%9C%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/" class="archive-article-date">
-  	<time datetime="2020-01-11T16:16:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/12/%E9%BB%91%E8%8B%B9%E6%9E%9C%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/">黑苹果安装配置</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">随手小记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/11/Hexo-%E4%BB%93%E5%BA%93%E8%BF%81%E7%A7%BB/" class="archive-article-date">
-  	<time datetime="2020-01-11T15:59:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/11/Hexo-%E4%BB%93%E5%BA%93%E8%BF%81%E7%A7%BB/">Hexo 仓库迁移</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">随手小记</a>
-        		</li>
-      		
-		</ul>
-	</div>
+<!--显示阅读次数-->
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/07/%E6%A0%BC%E5%BC%8F%E5%8C%96%E7%A1%AC%E7%9B%98%E6%81%A2%E5%A4%8D/" class="archive-article-date">
-  	<time datetime="2020-01-07T10:50:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/07/%E6%A0%BC%E5%BC%8F%E5%8C%96%E7%A1%AC%E7%9B%98%E6%81%A2%E5%A4%8D/">格式化硬盘恢复</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">随手小记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/5/">&amp;laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/4/">4</a><a class="page-number" href="/archives/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/archives/page/7/">7</a><a class="extend next" rel="next" href="/archives/page/7/">Next &amp;raquo;</a>
-    </nav>
-  
+  <br/>
+  <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+  <span class="icon-sort"></span>
+  <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+            阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+  </span>
+  </a>
 
 
           </div>
@@ -569,8 +405,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

@@ -6,15 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://yd0ng.github.io">
-  <title>Archives | 不知名网络安全选手的博客</title>
+  <title>SQLMAP高级使用及tamper脚本编写 | 不知名网络安全选手的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="不知名网络安全选手的博客">
-<meta property="og:url" content="https://yd0ng.github.io/archives/page/6/index.html">
+  <meta name="description" content="SQLMAP高级使用及编写tamper脚本">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQLMAP高级使用及tamper脚本编写">
+<meta property="og:url" content="https://yd0ng.github.io/2020/09/07/SQLMAP%E9%AB%98%E7%BA%A7%E4%BD%BF%E7%94%A8%E5%8F%8Atamper%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99/index.html">
 <meta property="og:site_name" content="不知名网络安全选手的博客">
+<meta property="og:description" content="SQLMAP高级使用及编写tamper脚本">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://yd0ng.github.io/2020/09/07/SQLMAP%E9%AB%98%E7%BA%A7%E4%BD%BF%E7%94%A8%E5%8F%8Atamper%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99/1.png">
+<meta property="og:image" content="https://yd0ng.github.io/2020/09/07/SQLMAP%E9%AB%98%E7%BA%A7%E4%BD%BF%E7%94%A8%E5%8F%8Atamper%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99/2.png">
+<meta property="article:published_time" content="2020-09-07T13:08:19.000Z">
+<meta property="article:modified_time" content="2020-09-07T14:25:59.295Z">
 <meta property="article:author" content="yd0ng">
+<meta property="article:tag" content="Web安全">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yd0ng.github.io/2020/09/07/SQLMAP%E9%AB%98%E7%BA%A7%E4%BD%BF%E7%94%A8%E5%8F%8Atamper%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99/1.png">
   
   
     <link rel="icon" href="/themes/yilia/source/">
@@ -130,150 +138,113 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-SQLMAP高级使用及tamper脚本编写" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SQLMAP高级使用及tamper脚本编写
+    </h1>
+  
+
+        
+        <a href="/2020/09/07/SQLMAP%E9%AB%98%E7%BA%A7%E4%BD%BF%E7%94%A8%E5%8F%8Atamper%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99/" class="archive-article-date">
+  	<time datetime="2020-09-07T13:08:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-07</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>SQLMAP高级使用及编写tamper脚本</p>
+<a id="more"></a>
+
+<h1 id="SQLMAP高级使用"><a href="#SQLMAP高级使用" class="headerlink" title="SQLMAP高级使用"></a>SQLMAP高级使用</h1><h2 id="GET型注入"><a href="#GET型注入" class="headerlink" title="GET型注入"></a>GET型注入</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u URL --dbs</span><br></pre></td></tr></table></figure>
+
+<h2 id="POST注入"><a href="#POST注入" class="headerlink" title="POST注入"></a>POST注入</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -r post.txt --dbs</span><br></pre></td></tr></table></figure>
+
+<h2 id="常用参数指定"><a href="#常用参数指定" class="headerlink" title="常用参数指定"></a>常用参数指定</h2><ul>
+<li>–batch：自动选择Y/N</li>
+<li>–dbs：枚举数据库 </li>
+<li>-D DATABASE：指定数据库</li>
+<li>–tables：枚举表名</li>
+<li>-T TABLE：指定表名</li>
+<li>–columns：枚举列名</li>
+<li>-D COLUMN：指定字段</li>
+<li>–dump：脱取指定字段</li>
+<li>–dump-all：脱取数据库全部字段</li>
+<li>-a/–all：获取所有信息</li>
+<li>-b/–banner：获取banner信息</li>
+<li>–current-user：获取当前数据库用户</li>
+<li>–is-dba：判断当前用户是否为DBA权限</li>
+<li>–users：枚举用户列表</li>
+<li>–sql-shell：返回交互式sql的shell</li>
+<li>–os-shell：返回交互式的操作系统shell</li>
+<li>–os-cmd：执行OS命令CMD<h2 id="其他参数设定"><a href="#其他参数设定" class="headerlink" title="其他参数设定"></a>其他参数设定</h2></li>
+<li>–cookie=COOKIE：伪造cookie</li>
+<li>–User-agent=AGENT：伪造浏览器</li>
+<li>–timeout=TIMEOUT：设置超时</li>
+<li>–dbms=DBMS：指定后端的DBMS值</li>
+<li>–os=OS：指定后端操作系统</li>
+<li>–tamper=TAMPER：使用指定的tamper修改payload</li>
+<li>–level=LEVEL：执行测试的等级(1-5，默认为1)</li>
+<li>–risk=RISK：执行测试的风险(0-3，默认为1)</li>
+<li>–string=STRING：匹配字符串</li>
+</ul>
+<h1 id="tamper编写"><a href="#tamper编写" class="headerlink" title="tamper编写"></a>tamper编写</h1><p>给定tamper的一个<strong>init</strong>.py</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;env python</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">Copyright (c) 2006-2020 sqlmap developers (http:&#x2F;&#x2F;sqlmap.org&#x2F;)</span><br><span class="line">See the file &#39;LICENSE&#39; for copying permission</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">pass</span><br></pre></td></tr></table></figure>
+<p>根据waf探测情况，来定制tamper进行修改，如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;env python</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">Copyright (c) 2006-2020 sqlmap developers (http:&#x2F;&#x2F;sqlmap.org&#x2F;)</span><br><span class="line">See the file &#39;LICENSE&#39; for copying permission</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">def tamper(payload, **kwargs):</span><br><span class="line">	return payload.replace(&quot; &quot;,&quot;&#x2F;**&#x2F;&quot;).replace(&quot;select&quot;,&quot;Select&quot;).replace(&quot;SLEEP&quot;,&quot;Sleep&quot;)</span><br></pre></td></tr></table></figure>
+<p>进行测试，未使用tamper前</p>
+<p><img src="/2020/09/07/SQLMAP%E9%AB%98%E7%BA%A7%E4%BD%BF%E7%94%A8%E5%8F%8Atamper%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99/1.png" alt></p>
+<p>探测waf并使用tamper<br><img src="/2020/09/07/SQLMAP%E9%AB%98%E7%BA%A7%E4%BD%BF%E7%94%A8%E5%8F%8Atamper%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99/2.png" alt></p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a href="https://www.freebuf.com/sectool/164608.html" target="_blank" rel="noopener">https://www.freebuf.com/sectool/164608.html</a></li>
+</ul>
+
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/31/%E5%88%A9%E7%94%A8docker%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2%E7%8E%AF%E5%A2%83/" class="archive-article-date">
-  	<time datetime="2020-01-31T10:47:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-31</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/31/%E5%88%A9%E7%94%A8docker%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2%E7%8E%AF%E5%A2%83/">利用docker快速部署环境</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术文档</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
+      <div class="declare" hidden="hidden"></div>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/29/CVE-2018-8715%E5%A4%8D%E7%8E%B0/" class="archive-article-date">
-  	<time datetime="2020-01-29T13:45:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-29</time>
-</a>
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢您的打赏，大家一起加油喔~<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/asserts/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/asserts/weixin.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/29/CVE-2018-8715%E5%A4%8D%E7%8E%B0/">CVE-2018-8715复现</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">漏洞复现</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/26/JISCTF%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/" class="archive-article-date">
-  	<time datetime="2020-01-26T11:38:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/26/JISCTF%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/">JISCTF靶机渗透</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CTF</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/26/ssh%E5%AF%86%E7%A0%81%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2020-01-26T09:48:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/26/ssh%E5%AF%86%E7%A0%81%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3/">ssh密码暴力破解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -285,251 +256,129 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://yd0ng.github.io/2020/09/07/SQLMAP%E9%AB%98%E7%BA%A7%E4%BD%BF%E7%94%A8%E5%8F%8Atamper%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/14/CVE-2016-3088%E5%A4%8D%E7%8E%B0/" class="archive-article-date">
-  	<time datetime="2020-01-14T12:48:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-14</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/09/07/OWASP%E2%80%94TOP10%E4%B8%8E%E5%B8%B8%E8%A7%81Web%E6%BC%8F%E6%B4%9E%E5%88%97%E4%B8%BE/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">OWASP—TOP10与常见Web漏洞列举</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/14/CVE-2016-3088%E5%A4%8D%E7%8E%B0/">CVE-2016-3088复现</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">漏洞复现</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SQLMAP高级使用"><span class="toc-number">1.</span> <span class="toc-text">SQLMAP高级使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#GET型注入"><span class="toc-number">1.1.</span> <span class="toc-text">GET型注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#POST注入"><span class="toc-number">1.2.</span> <span class="toc-text">POST注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常用参数指定"><span class="toc-number">1.3.</span> <span class="toc-text">常用参数指定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他参数设定"><span class="toc-number">1.4.</span> <span class="toc-text">其他参数设定</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tamper编写"><span class="toc-number">2.</span> <span class="toc-text">tamper编写</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考资料"><span class="toc-number">3.</span> <span class="toc-text">参考资料</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/13/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2020-01-13T15:29:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-13</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/13/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Git学习笔记</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术文档</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/12/Mac%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2020-01-12T05:51:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/12/Mac%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">Mac使用笔记</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术文档</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/12/%E9%BB%91%E8%8B%B9%E6%9E%9C%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/" class="archive-article-date">
-  	<time datetime="2020-01-11T16:16:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/12/%E9%BB%91%E8%8B%B9%E6%9E%9C%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/">黑苹果安装配置</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">随手小记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/11/Hexo-%E4%BB%93%E5%BA%93%E8%BF%81%E7%A7%BB/" class="archive-article-date">
-  	<time datetime="2020-01-11T15:59:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/11/Hexo-%E4%BB%93%E5%BA%93%E8%BF%81%E7%A7%BB/">Hexo 仓库迁移</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">随手小记</a>
-        		</li>
-      		
-		</ul>
-	</div>
+<!--显示阅读次数-->
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/07/%E6%A0%BC%E5%BC%8F%E5%8C%96%E7%A1%AC%E7%9B%98%E6%81%A2%E5%A4%8D/" class="archive-article-date">
-  	<time datetime="2020-01-07T10:50:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/07/%E6%A0%BC%E5%BC%8F%E5%8C%96%E7%A1%AC%E7%9B%98%E6%81%A2%E5%A4%8D/">格式化硬盘恢复</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">随手小记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/5/">&amp;laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/4/">4</a><a class="page-number" href="/archives/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/archives/page/7/">7</a><a class="extend next" rel="next" href="/archives/page/7/">Next &amp;raquo;</a>
-    </nav>
-  
+  <br/>
+  <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+  <span class="icon-sort"></span>
+  <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+            阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+  </span>
+  </a>
 
 
           </div>
@@ -569,8 +418,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
