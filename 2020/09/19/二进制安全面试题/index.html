@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://yd0ng.github.io">
-  <title>Archives: 2020 | 不知名网络安全选手的博客</title>
+  <title>二进制安全面试题 | 不知名网络安全选手的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="不知名网络安全选手的博客">
-<meta property="og:url" content="https://yd0ng.github.io/archives/2020/page/6/index.html">
+  <meta name="description" content="其实不应该在这个分类的，但因为还没有开二进制的分类，所以暂时放这">
+<meta property="og:type" content="article">
+<meta property="og:title" content="二进制安全面试题">
+<meta property="og:url" content="https://yd0ng.github.io/2020/09/19/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E5%85%A8%E9%9D%A2%E8%AF%95%E9%A2%98/index.html">
 <meta property="og:site_name" content="不知名网络安全选手的博客">
+<meta property="og:description" content="其实不应该在这个分类的，但因为还没有开二进制的分类，所以暂时放这">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-09-19T12:30:52.000Z">
+<meta property="article:modified_time" content="2020-09-19T14:21:02.825Z">
 <meta property="article:author" content="yd0ng">
+<meta property="article:tag" content="Web安全">
 <meta name="twitter:card" content="summary">
   
   
@@ -130,340 +135,281 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-二进制安全面试题" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      二进制安全面试题
+    </h1>
+  
+
+        
+        <a href="/2020/09/19/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E5%85%A8%E9%9D%A2%E8%AF%95%E9%A2%98/" class="archive-article-date">
+  	<time datetime="2020-09-19T12:30:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-19</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>其实不应该在这个分类的，但因为还没有开二进制的分类，所以暂时放这</p>
+<a id="more"></a>
+
+<h1 id="编程-语言特性相关"><a href="#编程-语言特性相关" class="headerlink" title="编程/语言特性相关"></a>编程/语言特性相关</h1><ul>
+<li>free的时候报错,为什么</li>
+<li><ul>
+<li>如果他没问你具体场景或更详细的信息的话，期望答:”可能是缓冲区溢出，检查是否存在越界写”</li>
+</ul>
+</li>
+<li><ul>
+<li>如果这样问了，给出场景:”在错误信息中发现double free”，期望答:”有一个堆块被释放了两次”</li>
+</ul>
+</li>
+<li>new delete 和 malloc free 有什么区别</li>
+<li><ul>
+<li>期望答:“位置、类型安全、返回值、内存大小、构造/析构”，从以上几点进行展开分析</li>
+</ul>
+</li>
+<li>64位下， 一个结构体有 double 和 int 两个成员 ，请问占用的空间有多少?</li>
+<li><ul>
+<li>期望答:”16字节”</li>
+</ul>
+</li>
+</ul>
+<h1 id="逆向相关"><a href="#逆向相关" class="headerlink" title="逆向相关"></a>逆向相关</h1><ul>
+<li>如何用IDA分析一个加UPX壳的程序</li>
+<li><ul>
+<li>期望答:“脱壳后载入分析”。 </li>
+</ul>
+</li>
+<li><ul>
+<li>可追问:“如何脱壳”，期望答:”找到入口点，dump程序，修复OEP，重建IAT“。 </li>
+</ul>
+</li>
+<li><ul>
+<li>也接受“使用UPX脱壳工具脱壳”，可追问:“如果工具用不了呢”，期望答同上</li>
+</ul>
+</li>
+<li>(接上一题)符号问题如何解决</li>
+<li><ul>
+<li>期望答:“制作并导入sig文件”</li>
+</ul>
+</li>
+<li>x86平台下的test指令影响到了哪些elfags位</li>
+<li><ul>
+<li>期望答:”使CF，OF为0，并且还影响SF，ZF，PF“，答出后三者说明基础很不错</li>
+</ul>
+</li>
+<li>(和上题是同一组，看简历中是不是有说了解arm架构的)、arm有几组寄存器</li>
+<li><ul>
+<li>期望答:“37个，其中通用31个，6个状态”</li>
+</ul>
+</li>
+<li>switch-case通常会被优化成什么结构?</li>
+<li><ul>
+<li>期望答:“被优化成跳转表，密集+稀疏两种策略。”后半句不答也没什么大关系</li>
+</ul>
+</li>
+<li>(同上一组)乘除法通常会被优化成什么</li>
+<li><ul>
+<li>移位</li>
+</ul>
+</li>
+<li>反编译器的原理</li>
+<li><ul>
+<li>期望答:”文件装载，指令解码，语义映射，相关图(控制流图)构造，过程分析，类型分析<br>和结果输出“</li>
+</ul>
+</li>
+<li>在windbg中用什么按键来显示调用栈</li>
+<li><ul>
+<li>期望答:“k”</li>
+</ul>
+</li>
+<li>gdb是如何设置断点的</li>
+<li><ul>
+<li>期望答:“将指令修改成0xcc(INT3)触发中断”</li>
+</ul>
+</li>
+<li>简述一下C++逆向的经验，遇到的问题</li>
+<li>说说有哪些种反静态分析的技术</li>
+<li><ul>
+<li>加壳，破坏堆栈平衡、Stack pivoting(栈翻转)劫持流程、滥用noreturn、加花<br>指令</li>
+</ul>
+</li>
+<li>反动态调试技术(Windows下)</li>
+<li><ul>
+<li>进程名查找，系统API与标志(NtGlobalFlag、IsDebuggerPresent)</li>
+</ul>
+</li>
+</ul>
+<h1 id="Pwn相关"><a href="#Pwn相关" class="headerlink" title="Pwn相关"></a>Pwn相关</h1><ul>
+<li>综合描述一下栈溢出漏洞</li>
+<li><ul>
+<li>这个真没什么好期望的，把成因(缺少边界检查等)、后果(程序崩溃，劫持控制流)答出<br>来就好</li>
+</ul>
+</li>
+<li>栈溢出之后的利用方式，比如ret2libc</li>
+<li><ul>
+<li>就ret2libc来说期望答:“控制程序执行 libc 中的函数，通常是返回至某个函数的 plt 处或者函<br>数的具体位置”，其他的参照ctfwiki就好</li>
+</ul>
+</li>
+<li>格式化字符串的漏洞原理</li>
+<li><ul>
+<li>同样参照ctfwiki就好。主要答出:“格式化字符串函数所接收的参数是由格式化字符串所控制<br>的”</li>
+</ul>
+</li>
+<li>Canary的值存储在具体的哪里</li>
+<li><ul>
+<li>期望答:“把高地址作为上面的话，canary存放在EBP/RBP下面”</li>
+</ul>
+</li>
+<li>描述一下你对堆漏洞的理解，列举一下堆漏洞的常⻅攻击方式</li>
+<li><ul>
+<li>期望答:”通过溢出或任意写的方式修改chunk信息，进而利用堆管理器在某些方面特性实现<br>控制流劫持。Unlink、UAF、House of Spirit等等“</li>
+</ul>
+</li>
+<li>描述一下FastBins的细节</li>
+<li><ul>
+<li>期望答:“inuse位始终被置为1，数据结构为单链表，LIFO策略，最多为10个”，还有些没写 的参考ctfwiki</li>
+</ul>
+</li>
+</ul>
+<h1 id="花指令"><a href="#花指令" class="headerlink" title="花指令"></a>花指令</h1><ul>
+<li>讲一下什么是花指令</li>
+<li>产生花指令的根本原因</li>
+<li>常见的花指令</li>
+</ul>
+<h1 id="ELF文件格式"><a href="#ELF文件格式" class="headerlink" title="ELF文件格式"></a>ELF文件格式</h1><ul>
+<li>什么是ELF文件</li>
+<li>ELF文件四种类型</li>
+<li>ELF文件结构</li>
+</ul>
+<h1 id="壳"><a href="#壳" class="headerlink" title="壳"></a>壳</h1><ul>
+<li>什么是壳</li>
+<li>壳的种类</li>
+<li>讲讲外壳输入表中重要的API函数</li>
+<li>壳的加载过程</li>
+<li>知道UPX壳吗？UPX加壳原理</li>
+</ul>
+<h1 id="汇编"><a href="#汇编" class="headerlink" title="汇编"></a>汇编</h1><ul>
+<li>随便说三个重要的标志位寄存器</li>
+<li>讲一下CPU执行call指令时的流程</li>
+<li>call相当于哪两个指令</li>
+</ul>
+<h1 id="PE文件格式"><a href="#PE文件格式" class="headerlink" title="PE文件格式"></a>PE文件格式</h1><ul>
+<li>怎么判断PE是DLL，还是exe</li>
+<li>怎么判断PE文件是32位还是64位</li>
+<li>PE加载过程</li>
+</ul>
+<h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><ul>
+<li>windows下的调用约定</li>
+<li>通用寄存器有哪些</li>
+<li>怎么找到函数地址</li>
+</ul>
+<h1 id="调试与反调试"><a href="#调试与反调试" class="headerlink" title="调试与反调试"></a>调试与反调试</h1><ul>
+<li>INT 3指令、INT3中断调试处理流程是什么</li>
+<li>反调试技术总结</li>
+<li><ul>
+<li>探测windows调试器(使用windows API、手动检测数据结构、系统痕迹检测)</li>
+</ul>
+</li>
+<li><ul>
+<li>识别调试器行为(软件断点检查、硬件断点检查、执行代码校验和检查、时钟检测、判断父进程是否是explorer.exe、判断STARTUPINFO信息、判断是否具有SeDebugPrivilege权限)</li>
+</ul>
+</li>
+<li><ul>
+<li>干扰调试器的功能(使用TLS回调、中断、陷阱标志位、异常)</li>
+</ul>
+</li>
+<li><ul>
+<li>调试器漏洞(PE头漏洞、OutputDebugString漏洞)</li>
+</ul>
+</li>
+</ul>
+<h1 id="HOOK"><a href="#HOOK" class="headerlink" title="HOOK"></a>HOOK</h1><ul>
+<li>什么是Hook</li>
+<li>Hook原理</li>
+<li>有哪些HOOK</li>
+</ul>
+<h1 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h1><ul>
+<li><p>windows注入方式有哪些</p>
+</li>
+<li><p>dll注入</p>
+</li>
+<li><ul>
+<li>(修改注册表、全局消息钩子注入、手工修改导入表、远程线程注入DLL、APC注入、DLL劫持、输入法注入)</li>
+</ul>
+</li>
+<li><p>代码注入</p>
+</li>
+<li><ul>
+<li>(手工修改起始地址、挂起进程注入、挂起线程注入、调试器注入)</li>
+</ul>
+</li>
+<li><p>调试器原理、异常分发流程、反调试及反反调试</p>
+</li>
+<li><p>病毒木马原理、常见隐藏以及通讯方法</p>
+</li>
+<li><p>ida、od、windbg等用法，及对应的脚本</p>
+</li>
+<li><p>常见的壳原理，以及脱壳方法和平时操作心得</p>
+</li>
+<li><p>windows编程了解吗</p>
+</li>
+</ul>
+<h1 id="权限维持"><a href="#权限维持" class="headerlink" title="权限维持"></a>权限维持</h1><ul>
+<li>windows</li>
+<li>linux</li>
+</ul>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><ul>
+<li>污点分析的作用</li>
+<li>静态分析的缺点</li>
+</ul>
+
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/26/%E5%AE%89%E6%81%922020%E5%B9%B41%E6%9C%88%E6%9C%88%E8%B5%9B/" class="archive-article-date">
-  	<time datetime="2020-02-26T13:21:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/26/%E5%AE%89%E6%81%922020%E5%B9%B41%E6%9C%88%E6%9C%88%E8%B5%9B/">安恒2020年2月月赛</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CTF</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
+      <div class="declare" hidden="hidden"></div>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/25/i%E6%98%A5%E7%A7%8B%E6%96%B0%E6%98%A5%E6%88%98%E5%BD%B9%E5%85%AC%E7%9B%8A%E8%B5%9B%E5%A4%8D%E7%8E%B0/" class="archive-article-date">
-  	<time datetime="2020-02-25T07:06:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-25</time>
-</a>
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢您的打赏，大家一起加油喔~<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/asserts/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/asserts/weixin.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/25/i%E6%98%A5%E7%A7%8B%E6%96%B0%E6%98%A5%E6%88%98%E5%BD%B9%E5%85%AC%E7%9B%8A%E8%B5%9B%E5%A4%8D%E7%8E%B0/">GYCTF2020</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CTF</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" class="archive-article-date">
-  	<time datetime="2020-02-25T01:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">计算机网络基础</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术文档</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/13/HGAME-2020/" class="archive-article-date">
-  	<time datetime="2020-02-13T06:27:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/13/HGAME-2020/">HGAME 2020</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CTF</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/11/Python%E7%BC%96%E7%A8%8B%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" class="archive-article-date">
-  	<time datetime="2020-02-11T06:53:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/11/Python%E7%BC%96%E7%A8%8B%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">Python编程快速入门</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术文档</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/04/%E5%AE%89%E6%81%92%E6%9D%AF%E6%96%B0%E6%98%A5%E7%A5%88%E7%A6%8F%E8%B5%9B/" class="archive-article-date">
-  	<time datetime="2020-02-04T06:19:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/04/%E5%AE%89%E6%81%92%E6%9D%AF%E6%96%B0%E6%98%A5%E7%A5%88%E7%A6%8F%E8%B5%9B/">安恒杯新春祈福赛</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CTF</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/02/CTF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%8F%90%E9%AB%98/" class="archive-article-date">
-  	<time datetime="2020-02-02T14:43:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/02/CTF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%8F%90%E9%AB%98/">CTF从入门到提高</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CTF</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/02/CTF%E9%A2%98%E7%9B%AE%E9%9D%B6%E6%9C%BA%E7%BB%83%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2020-02-02T05:13:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/02/CTF%E9%A2%98%E7%9B%AE%E9%9D%B6%E6%9C%BA%E7%BB%83%E4%B9%A0/">CTF题目靶机练习</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CTF</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/01/sqli-labs-WriteUps/" class="archive-article-date">
-  	<time datetime="2020-02-01T15:32:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/01/sqli-labs-WriteUps/">sqli-labs WriteUps</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -475,61 +421,129 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://yd0ng.github.io/2020/09/19/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E5%85%A8%E9%9D%A2%E8%AF%95%E9%A2%98/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/01/Upload-labs-WriteUps/" class="archive-article-date">
-  	<time datetime="2020-02-01T14:42:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-01</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/09/16/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3XSS%E6%BC%8F%E6%B4%9E/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">深入理解XSS漏洞</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/01/Upload-labs-WriteUps/">Upload-labs刷题记录</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Web安全</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#编程-语言特性相关"><span class="toc-number">1.</span> <span class="toc-text">编程&#x2F;语言特性相关</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#逆向相关"><span class="toc-number">2.</span> <span class="toc-text">逆向相关</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Pwn相关"><span class="toc-number">3.</span> <span class="toc-text">Pwn相关</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#花指令"><span class="toc-number">4.</span> <span class="toc-text">花指令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ELF文件格式"><span class="toc-number">5.</span> <span class="toc-text">ELF文件格式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#壳"><span class="toc-number">6.</span> <span class="toc-text">壳</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#汇编"><span class="toc-number">7.</span> <span class="toc-text">汇编</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PE文件格式"><span class="toc-number">8.</span> <span class="toc-text">PE文件格式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#基础"><span class="toc-number">9.</span> <span class="toc-text">基础</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#调试与反调试"><span class="toc-number">10.</span> <span class="toc-text">调试与反调试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HOOK"><span class="toc-number">11.</span> <span class="toc-text">HOOK</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#windows"><span class="toc-number">12.</span> <span class="toc-text">windows</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#权限维持"><span class="toc-number">13.</span> <span class="toc-text">权限维持</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#其他"><span class="toc-number">14.</span> <span class="toc-text">其他</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2020/page/5/">&amp;laquo; Prev</a><a class="page-number" href="/archives/2020/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2020/page/4/">4</a><a class="page-number" href="/archives/2020/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/archives/2020/page/7/">7</a><a class="page-number" href="/archives/2020/page/8/">8</a><a class="extend next" rel="next" href="/archives/2020/page/7/">Next &amp;raquo;</a>
-    </nav>
   
+
+  
+
+  
+
+<!--显示阅读次数-->
+
+  <br/>
+  <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+  <span class="icon-sort"></span>
+  <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+            阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+  </span>
+  </a>
 
 
           </div>
@@ -569,8 +583,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
