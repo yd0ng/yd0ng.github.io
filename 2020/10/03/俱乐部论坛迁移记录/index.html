@@ -6,15 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://yd0ng.github.io">
-  <title>不知名网络安全选手的博客</title>
+  <title>俱乐部论坛迁移记录 | 不知名网络安全选手的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="不知名网络安全选手的博客">
-<meta property="og:url" content="https://yd0ng.github.io/page/4/index.html">
+  <meta name="description" content="俱乐部论坛迁移记录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="俱乐部论坛迁移记录">
+<meta property="og:url" content="https://yd0ng.github.io/2020/10/03/%E4%BF%B1%E4%B9%90%E9%83%A8%E8%AE%BA%E5%9D%9B%E8%BF%81%E7%A7%BB%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="不知名网络安全选手的博客">
+<meta property="og:description" content="俱乐部论坛迁移记录">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://yd0ng.github.io/2020/10/03/%E4%BF%B1%E4%B9%90%E9%83%A8%E8%AE%BA%E5%9D%9B%E8%BF%81%E7%A7%BB%E8%AE%B0%E5%BD%95/1.png">
+<meta property="article:published_time" content="2020-10-03T07:21:05.000Z">
+<meta property="article:modified_time" content="2020-10-03T11:46:43.311Z">
 <meta property="article:author" content="yd0ng">
+<meta property="article:tag" content="随手小记">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yd0ng.github.io/2020/10/03/%E4%BF%B1%E4%B9%90%E9%83%A8%E8%AE%BA%E5%9D%9B%E8%BF%81%E7%A7%BB%E8%AE%B0%E5%BD%95/1.png">
   
   
     <link rel="icon" href="/themes/yilia/source/">
@@ -130,37 +137,103 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-apereo-cas-4-x反序列化复现" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-俱乐部论坛迁移记录" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/31/apereo-cas-4-x%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%A4%8D%E7%8E%B0/">apereo-cas 4.x反序列化复现</a>
+    <h1 class="article-title" itemprop="name">
+      俱乐部论坛迁移记录
     </h1>
   
 
         
-        <a href="/2020/07/31/apereo-cas-4-x%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%A4%8D%E7%8E%B0/" class="archive-article-date">
-  	<time datetime="2020-07-31T11:59:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-31</time>
+        <a href="/2020/10/03/%E4%BF%B1%E4%B9%90%E9%83%A8%E8%AE%BA%E5%9D%9B%E8%BF%81%E7%A7%BB%E8%AE%B0%E5%BD%95/" class="archive-article-date">
+  	<time datetime="2020-10-03T07:21:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-03</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>apereo-cas 4.x反序列化复现过程</p>
-        
-          <a class="article-more-a" href="/2020/07/31/apereo-cas-4-x%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%A4%8D%E7%8E%B0/#more">more >></a>
-        
+        <p>俱乐部论坛迁移记录</p>
+<a id="more"></a>
+
+<h1 id="原有服务器"><a href="#原有服务器" class="headerlink" title="原有服务器"></a>原有服务器</h1><h2 id="备份数据库文件"><a href="#备份数据库文件" class="headerlink" title="备份数据库文件"></a>备份数据库文件</h2><p>容器内执行，密码懂得都懂</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p --all-databases &gt; sqlfile.sql</span><br></pre></td></tr></table></figure>
+<p>退出容器执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp contain_id:&#x2F;var&#x2F;www&#x2F;bbs&#x2F;sqlfile.sql .</span><br></pre></td></tr></table></figure>
+
+<h2 id="备份图片文件"><a href="#备份图片文件" class="headerlink" title="备份图片文件"></a>备份图片文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp contain_id:&#x2F;var&#x2F;www&#x2F;bbs&#x2F;public .</span><br></pre></td></tr></table></figure>
+<h2 id="docker仓库打包"><a href="#docker仓库打包" class="headerlink" title="docker仓库打包"></a>docker仓库打包</h2><p>停止仓库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker stop contain_id</span><br></pre></td></tr></table></figure>
+<p>存储容器为镜像</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker commit contain_id jnsecbbs:1.0</span><br></pre></td></tr></table></figure>
+<p>导出镜像文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker save -o jnsecbbs.tar jnsecbbs:1.0</span><br></pre></td></tr></table></figure>
+
+<p>将public文件夹、sqlfile.sql、jnsecbbs.tar传输至新服务器</p>
+<h1 id="新服务器"><a href="#新服务器" class="headerlink" title="新服务器"></a>新服务器</h1><h2 id="论坛恢复"><a href="#论坛恢复" class="headerlink" title="论坛恢复"></a>论坛恢复</h2><p>导入镜像</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker load -i jnsecbbs.tar</span><br></pre></td></tr></table></figure>
+<p>恢复容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 80:80 jnsecbbs:1.0</span><br></pre></td></tr></table></figure>
+<p>开启论坛服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it contain_id bash </span><br><span class="line">service apache2 start</span><br></pre></td></tr></table></figure>
+<p>创建初始数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p</span><br><span class="line">create database flarum;</span><br></pre></td></tr></table></figure>
+<p>访问服务器的80端口，初始化论坛配置信息(一定别输错，否则无法导入数据)</p>
+<img src="/2020/10/03/%E4%BF%B1%E4%B9%90%E9%83%A8%E8%AE%BA%E5%9D%9B%E8%BF%81%E7%A7%BB%E8%AE%B0%E5%BD%95/1.png" height="600" weight="400"> 
+
+<p>初始化论坛完成，后台开启中文插件</p>
+<h2 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h2><p>进入容器内,执行以下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">composer require oe800&#x2F;flarum-ext-bbcode-tables</span><br><span class="line">composer require kevid&#x2F;flarum-pipetables</span><br><span class="line">composer require flagrow&#x2F;upload</span><br><span class="line">composer require fof&#x2F;user-directory</span><br></pre></td></tr></table></figure>
+
+<h2 id="恢复数据"><a href="#恢复数据" class="headerlink" title="恢复数据"></a>恢复数据</h2><p>恢复文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zvxf public.tar.gz -C .</span><br></pre></td></tr></table></figure>
+<p>进入mysql，恢复数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source &#x2F;var&#x2F;www&#x2F;bbs&#x2F;sqlfile.sql</span><br></pre></td></tr></table></figure>
+
+<h2 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h2><ul>
+<li>这个坑坑了我三四天了草(我的汇编呜呜呜)，开插件先开upload，再开那俩tables</li>
+</ul>
+
       
       
     
       <div class="declare" hidden="hidden"></div>
     
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢您的打赏，大家一起加油喔~<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/asserts/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/asserts/weixin.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -171,7 +244,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">漏洞复现</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">随手小记</a>
         		</li>
       		
 		</ul>
@@ -180,16 +253,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/07/31/apereo-cas-4-x%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%A4%8D%E7%8E%B0/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://yd0ng.github.io/2020/10/03/%E4%BF%B1%E4%B9%90%E9%83%A8%E8%AE%BA%E5%9D%9B%E8%BF%81%E7%A7%BB%E8%AE%B0%E5%BD%95/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2020/09/26/%E6%89%80%E8%B0%93%E9%80%89%E6%8B%A9/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">所谓选择</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -204,749 +336,43 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-<!--显示阅读次数-->
-
-
-  
-    <article id="post-邮箱信息收集" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/31/%E9%82%AE%E7%AE%B1%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">邮箱信息收集</a>
-    </h1>
-  
-
-        
-        <a href="/2020/07/31/%E9%82%AE%E7%AE%B1%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" class="archive-article-date">
-  	<time datetime="2020-07-31T02:33:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>记录一下邮箱信息的收集思路~</p>
-        
-          <a class="article-more-a" href="/2020/07/31/%E9%82%AE%E7%AE%B1%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/#more">more >></a>
-        
-      
-      
-    
-      <div class="declare" hidden="hidden"></div>
-    
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">信息收集</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/07/31/%E9%82%AE%E7%AE%B1%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#原有服务器"><span class="toc-number">1.</span> <span class="toc-text">原有服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#备份数据库文件"><span class="toc-number">1.1.</span> <span class="toc-text">备份数据库文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#备份图片文件"><span class="toc-number">1.2.</span> <span class="toc-text">备份图片文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#docker仓库打包"><span class="toc-number">1.3.</span> <span class="toc-text">docker仓库打包</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#新服务器"><span class="toc-number">2.</span> <span class="toc-text">新服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#论坛恢复"><span class="toc-number">2.1.</span> <span class="toc-text">论坛恢复</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装插件"><span class="toc-number">2.2.</span> <span class="toc-text">安装插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#恢复数据"><span class="toc-number">2.3.</span> <span class="toc-text">恢复数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#坑"><span class="toc-number">2.4.</span> <span class="toc-text">坑</span></a></li></ol></li></ol>
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
-<!--显示阅读次数-->
-
-
   
-    <article id="post-记一次出题不当导致的服务器沦陷" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/26/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%87%BA%E9%A2%98%E4%B8%8D%E5%BD%93%E5%AF%BC%E8%87%B4%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%B2%A6%E9%99%B7/">记一次出题不当导致的服务器沦陷</a>
-    </h1>
   
 
-        
-        <a href="/2020/07/26/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%87%BA%E9%A2%98%E4%B8%8D%E5%BD%93%E5%AF%BC%E8%87%B4%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%B2%A6%E9%99%B7/" class="archive-article-date">
-  	<time datetime="2020-07-26T06:46:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>记一次出题翻车导致的服务器沦陷</p>
-        
-          <a class="article-more-a" href="/2020/07/26/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%87%BA%E9%A2%98%E4%B8%8D%E5%BD%93%E5%AF%BC%E8%87%B4%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%B2%A6%E9%99%B7/#more">more >></a>
-        
-      
-      
-    
-      <div class="declare" hidden="hidden"></div>
-    
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Web安全</a>
-        		</li>
-      		
-		</ul>
-	</div>
+  
 
-      
+  
 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/07/26/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%87%BA%E9%A2%98%E4%B8%8D%E5%BD%93%E5%AF%BC%E8%87%B4%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%B2%A6%E9%99%B7/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
+  
 
 <!--显示阅读次数-->
 
-
-  
-    <article id="post-搜索引擎收集" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/24/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%94%B6%E9%9B%86/">搜索引擎收集</a>
-    </h1>
-  
-
-        
-        <a href="/2020/07/24/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%94%B6%E9%9B%86/" class="archive-article-date">
-  	<time datetime="2020-07-24T01:44:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>利用搜索引擎收集信息~</p>
-        
-          <a class="article-more-a" href="/2020/07/24/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%94%B6%E9%9B%86/#more">more >></a>
-        
-      
-      
-    
-      <div class="declare" hidden="hidden"></div>
-    
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">信息收集</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/07/24/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%94%B6%E9%9B%86/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-<!--显示阅读次数-->
-
-
-  
-    <article id="post-公开信息收集" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/23/%E5%85%AC%E5%BC%80%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">公开信息收集</a>
-    </h1>
-  
-
-        
-        <a href="/2020/07/23/%E5%85%AC%E5%BC%80%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" class="archive-article-date">
-  	<time datetime="2020-07-23T03:29:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>众所周知，信息收集是渗透测试的基础~</p>
-        
-          <a class="article-more-a" href="/2020/07/23/%E5%85%AC%E5%BC%80%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/#more">more >></a>
-        
-      
-      
-    
-      <div class="declare" hidden="hidden"></div>
-    
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">信息收集</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/07/23/%E5%85%AC%E5%BC%80%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-<!--显示阅读次数-->
-
-
-  
-    <article id="post-Java基础概念" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/22/Java%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/">Java基础概念</a>
-    </h1>
-  
-
-        
-        <a href="/2020/07/22/Java%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/" class="archive-article-date">
-  	<time datetime="2020-07-22T12:25:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>记录一下java简单的基础概念，不会很仔细，大同小异</p>
-        
-          <a class="article-more-a" href="/2020/07/22/Java%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/#more">more >></a>
-        
-      
-      
-    
-      <div class="declare" hidden="hidden"></div>
-    
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Java安全</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/07/22/Java%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-<!--显示阅读次数-->
-
-
-  
-    <article id="post-github信息收集" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/16/github%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">github信息收集</a>
-    </h1>
-  
-
-        
-        <a href="/2020/07/16/github%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" class="archive-article-date">
-  	<time datetime="2020-07-16T08:42:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>红蓝的案例中，大佬们老说从github找到xx企业的账号密码啥的，今天就来学习一下怎么利用github敏感文件……</p>
-        
-          <a class="article-more-a" href="/2020/07/16/github%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/#more">more >></a>
-        
-      
-      
-    
-      <div class="declare" hidden="hidden"></div>
-    
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">信息收集</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/07/16/github%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-<!--显示阅读次数-->
-
-
-  
-    <article id="post-DNS信息收集" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/16/DNS%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">DNS信息收集</a>
-    </h1>
-  
-
-        
-        <a href="/2020/07/16/DNS%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" class="archive-article-date">
-  	<time datetime="2020-07-16T07:30:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>学习如何借助于DNS收集信息~</p>
-        
-          <a class="article-more-a" href="/2020/07/16/DNS%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/#more">more >></a>
-        
-      
-      
-    
-      <div class="declare" hidden="hidden"></div>
-    
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">信息收集</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/07/16/DNS%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-<!--显示阅读次数-->
-
-
-  
-    <article id="post-nmap与masscan的使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/16/nmap%E4%B8%8Emasscan%E7%9A%84%E4%BD%BF%E7%94%A8/">nmap与masscan的使用</a>
-    </h1>
-  
-
-        
-        <a href="/2020/07/16/nmap%E4%B8%8Emasscan%E7%9A%84%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2020-07-16T06:39:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>多次被笑不会用nmap(其实会……),就简单记录一下nmap和masscan(这个真没用过)吧……</p>
-        
-          <a class="article-more-a" href="/2020/07/16/nmap%E4%B8%8Emasscan%E7%9A%84%E4%BD%BF%E7%94%A8/#more">more >></a>
-        
-      
-      
-    
-      <div class="declare" hidden="hidden"></div>
-    
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">信息收集</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/07/16/nmap%E4%B8%8Emasscan%E7%9A%84%E4%BD%BF%E7%94%A8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-<!--显示阅读次数-->
-
-
-  
-    <article id="post-lcx内网转发端口" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/14/lcx%E5%86%85%E7%BD%91%E8%BD%AC%E5%8F%91%E7%AB%AF%E5%8F%A3/">lcx内网转发端口</a>
-    </h1>
-  
-
-        
-        <a href="/2020/07/14/lcx%E5%86%85%E7%BD%91%E8%BD%AC%E5%8F%91%E7%AB%AF%E5%8F%A3/" class="archive-article-date">
-  	<time datetime="2020-07-14T11:26:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>lcx内网转发端口</p>
-        
-          <a class="article-more-a" href="/2020/07/14/lcx%E5%86%85%E7%BD%91%E8%BD%AC%E5%8F%91%E7%AB%AF%E5%8F%A3/#more">more >></a>
-        
-      
-      
-    
-      <div class="declare" hidden="hidden"></div>
-    
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">内网渗透</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/07/14/lcx%E5%86%85%E7%BD%91%E8%BD%AC%E5%8F%91%E7%AB%AF%E5%8F%A3/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-<!--显示阅读次数-->
-
-
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/5/">Next &amp;raquo;</a>
-    </nav>
-  
+  <br/>
+  <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+  <span class="icon-sort"></span>
+  <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+            阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+  </span>
+  </a>
 
 
           </div>
@@ -985,8 +411,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
