@@ -15,11 +15,13 @@
 <meta property="og:site_name" content="不知名网络安全选手的博客">
 <meta property="og:description" content="顶级鸽子，零零碎碎的秋招时间，用来一个月才算慢慢的把8086汇编看了一遍，更新笔记">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://yd0ng.github.io/2020/10/29/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/1.png">
 <meta property="article:published_time" content="2020-10-29T13:21:16.000Z">
-<meta property="article:modified_time" content="2020-10-30T03:26:10.461Z">
+<meta property="article:modified_time" content="2020-10-30T08:18:53.174Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="技术文档">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yd0ng.github.io/2020/10/29/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/1.png">
   
   
     <link rel="icon" href="/themes/yilia/source/">
@@ -350,7 +352,159 @@
 <li>9.9 根据位移进行转移的意义：机器码只包含位移而不包含地址，是为了方便程序段在内存中的浮动转配，位移是可以计算出来的</li>
 <li>9.10 编译器会对转移位移超界进行检测</li>
 </ul>
-<h1 id="10-call和ret指令"><a href="#10-call和ret指令" class="headerlink" title="10. call和ret指令"></a>10. call和ret指令</h1><h1 id="11-标志寄存器"><a href="#11-标志寄存器" class="headerlink" title="11. 标志寄存器"></a>11. 标志寄存器</h1><h1 id="12-内中断"><a href="#12-内中断" class="headerlink" title="12. 内中断"></a>12. 内中断</h1>
+<h1 id="10-call和ret指令"><a href="#10-call和ret指令" class="headerlink" title="10. call和ret指令"></a>10. call和ret指令</h1><ul>
+<li>10.1 ret和retf</li>
+<li><ul>
+<li>ret指令用栈中数据修改IP的内容，实现近转移，执行ret时，(IP)=((SS)*16+(SP))，SP=SP+2</li>
+</ul>
+</li>
+<li><ul>
+<li>retf用栈中数据修改CS和IP，实现远转移，执行retf时，(IP)=((SS)*16+(SP)),SP=SP+2</li>
+</ul>
+</li>
+<li><ul>
+<li>以汇编语言解决，ret相当于POP IP，retf相对于POP IP，POP CS</li>
+</ul>
+</li>
+<li>10.2 call指令，call指令经常和ret配合使用，执行call指令时，进行两步操作，首先将当前IP或CS:IP压栈，转移(jmp)，call指令除了不能实现短转移，其他方法原理与jmp相同。</li>
+<li><ul>
+<li>格式：call 标号；具体为(SP)=(SP)-2、((SS)*16+SP)=(IP)、(IP)=(IP)+16</li>
+</ul>
+</li>
+<li>10.3 根据位移进行的call指令：以汇编解释call指令时，即push IP；jmp near ptr 标号；</li>
+<li>10.4 转移的目的地址在指令中的call指令，格式为call far ptr 标号，实现的是段间转移，即(SP)=(SP)-2，(CS)=((SS)<em>16+(SP))，(SP)=(SP)-2，(IP)=((SS)</em>16+(SP))，CS为标号所在的段地址，IP为标号所在的偏移地址。从汇编的角度看，即push CS、push IP、jmp for ptr 标号</li>
+<li>10.5 转移地址在寄存器中的call指令：指令格式：call 16位寄存器，即(SP)=(SP)-2、(IP)=((SS)*16+(SP))、(IP)=16位寄存器，以汇编角度解释，即push IP和jmp 16位寄存器</li>
+<li>10.6 转移地址在内存中的call指令</li>
+<li><ul>
+<li>call word ptr 内存单元地址：push IP、jmp word ptr 内存单元地址</li>
+</ul>
+</li>
+<li><ul>
+<li>call dword ptr 内存单元地址：push CS、push IP、jmp dword ptr 内存单元地址</li>
+</ul>
+</li>
+<li>10.7 call和ret指令配合使用实现子程序机制</li>
+<li>10.8 mul指令：乘法指令，要么8位乘8位，要么16位乘16位，8位存储在AL中和8位寄存器或内存单元中，16位存储在AX中和16位寄存器或内存字单元中，结果：8位存储在AX中，16位存储在DX(高位)和AX(低位)中。使用格式为：mul reg/内存单元</li>
+<li>10.9 模块化程序设计：利用call和ret指令，我们可以用简洁方法实现多个互相联系，功能独立的子程序来解决一个复杂的问题。</li>
+<li>10.10 参数和结果传递的问题：如何存储子程序需要的参数和产生的返回值：用寄存器bx存储/用栈存储。调用者和子程序对于参数寄存器与结果寄存器读写顺序相反</li>
+<li>10.11 批量数据的传递：将批量数据放到内存中，然后将它们所在内存空间的首地址放在寄存器中，传递给需要的子程序，除此之外，也可以通过栈来实现。</li>
+<li>10.12 寄存器冲突的问题：暂时保存寄存器值，子程序完成后进行恢复</li>
+</ul>
+<h1 id="11-标志寄存器"><a href="#11-标志寄存器" class="headerlink" title="11. 标志寄存器"></a>11. 标志寄存器</h1><ul>
+<li>8086CPU的标志寄存器有16位，存储的信息通过叫作程序状态字(PSW)。</li>
+<li>8086CPU的flag寄存器的结构：<br><img src="/2020/10/29/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/1.png" alt></li>
+<li>11.1 ZF标志：零标志位：结果为0，ZF=1;结果不为0，ZF=0;</li>
+<li>11.2 PF标志：奇偶标志位：结果二进制位1的个数为偶数时PF=1,奇数时PF=0</li>
+<li>11.3 SF标志：符号标志位：结果为负，SF=1;结果为正，SF=0;</li>
+<li>11.4 CF标志：进位标志位：进位CF=1；不进位CF=0(无符号数)</li>
+<li>11.5 OF标志：溢出标志位：溢出OF=1；不溢出OF=0(有符号数)</li>
+<li>11.6 几种常见的影响标志寄存器的指令</li>
+<li><ul>
+<li>指令adc标志：带进位加法指令，利用了CF位上记录的进位值，格式：adc 操作对象1，操作对象2；即adc ax,bx为(ax)=(ax)+(bx)+CF</li>
+</ul>
+</li>
+<li><ul>
+<li>指令sbb标志：带借位减法指令，利用了CF位上记录的借位值，格式：sbb<br>操作对象1，操作对象2；即sbb ax,bx为(ax)=(ax)-(bx)-CF</li>
+</ul>
+</li>
+<li><ul>
+<li>指令cmp标志：比较指令，功能相当于减法指令，只是不保存结果，格式：cmp 操作对象1，操作对象2，只关注cmp操作后标志寄存器的值，计算时要先看OF，再看SF/ZF</li>
+</ul>
+</li>
+<li>11.7 检测比较结果的条件转移指令：</li>
+<li><ul>
+<li>je：等于则跳转：ZF=1</li>
+</ul>
+</li>
+<li><ul>
+<li>jne：不等于则跳转：ZF=0</li>
+</ul>
+</li>
+<li><ul>
+<li>jb：低于则转移：CF=1</li>
+</ul>
+</li>
+<li><ul>
+<li>jnb：不低于则转移：CF=0</li>
+</ul>
+</li>
+<li><ul>
+<li>ja：高于则转移：CF=0,ZF=0</li>
+</ul>
+</li>
+<li><ul>
+<li>jna：不高于则转移：CF=1或ZF=1</li>
+</ul>
+</li>
+<li>11.8 DF：方向标志位，控制SI和DI的增减，当DF=0时，SI和DI加一，当DF=1，SI和DI减一</li>
+<li>11.9 串传送指令：movsb,即</li>
+<li><ul>
+<li>((es)<em>16+(di))=((ds)</em>16+(si))</li>
+</ul>
+</li>
+<li><ul>
+<li>若DF=0,则(SI)=(SI)+1,(DI)=(DI)+1；若DF=1,则(SI)=(SI)-1，(DI)=(DI)-1</li>
+</ul>
+</li>
+<li><ul>
+<li>movsw与其类似，只不过偏移量为2</li>
+</ul>
+</li>
+<li><ul>
+<li>cld指令将DF置0，std指令将DF置1</li>
+</ul>
+</li>
+<li><ul>
+<li>rep movsb/movsw：根据cx的值重复移动</li>
+</ul>
+</li>
+<li>11.10：pushf将标志寄存器的值压栈，popf将栈中弹出数据，送入标志寄存器中</li>
+</ul>
+<h1 id="12-内中断"><a href="#12-内中断" class="headerlink" title="12. 内中断"></a>12. 内中断</h1><ul>
+<li>12.1 中断是CPU处理外部突发事件的一个重要技术</li>
+<li>12.2 中断优先权从高到低：除法错/溢出中断/软件中断、不可屏蔽中断、可屏蔽中断、单步中断</li>
+<li>12.3 CPU通过中断类型码(8位)来定位中断处理程序，通过中断向量表来得到中断处理程序的段地址和偏移地址</li>
+<li>12.4 中断向量表即中断向量的列表，用于索引，8086CPU的中断向量表放在地址0处，0000:0000-0000:03FF的1024个单元中，1024=4*2<sup>8</sup>(安全内存)</li>
+<li>12.5 中断过程：CPU硬件遇到中断时用中断类型码找到中断向量，并用其设置CS:IP,并执行中断处理程序，过程如下：</li>
+<li><ul>
+<li>从中断信息中取得中断类型码</li>
+</ul>
+</li>
+<li><ul>
+<li>标志寄存器的值入栈(保护标志位)</li>
+</ul>
+</li>
+<li><ul>
+<li>设置标志寄存器的第8位TF和第9位IF为0</li>
+</ul>
+</li>
+<li><ul>
+<li>CS的内容入栈、IP的内容入栈</li>
+</ul>
+</li>
+<li><ul>
+<li>从内存地址为4×中断类型码和4×中断类型码+2的两个字单元中读取中断处理程序的入口地址设置IP和CS</li>
+</ul>
+</li>
+<li>12.6 单步中断：类似debug的T，每执行一条指令中断一次，条件：TF=1，产生单步中断，过程如下</li>
+<li><ul>
+<li>取得中断类型码为1</li>
+</ul>
+</li>
+<li><ul>
+<li>flag入栈，设置TF、IF=0</li>
+</ul>
+</li>
+<li><ul>
+<li>CS、IP入栈</li>
+</ul>
+</li>
+<li><ul>
+<li>IP=1×4,CS=1×4+2</li>
+</ul>
+</li>
+</ul>
+
       
       
     
