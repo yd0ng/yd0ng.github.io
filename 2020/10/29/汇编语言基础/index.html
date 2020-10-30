@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://yd0ng.github.io">
-  <title>Archives: 2020 | 不知名网络安全选手的博客</title>
+  <title>汇编语言基础 | 不知名网络安全选手的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="不知名网络安全选手的博客">
-<meta property="og:url" content="https://yd0ng.github.io/archives/2020/page/3/index.html">
+  <meta name="description" content="顶级鸽子，零零碎碎的秋招时间，用来一个月才算慢慢的把8086汇编看了一遍，更新笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="汇编语言基础">
+<meta property="og:url" content="https://yd0ng.github.io/2020/10/29/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="不知名网络安全选手的博客">
+<meta property="og:description" content="顶级鸽子，零零碎碎的秋招时间，用来一个月才算慢慢的把8086汇编看了一遍，更新笔记">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-10-29T13:21:16.000Z">
+<meta property="article:modified_time" content="2020-10-30T03:26:10.461Z">
 <meta property="article:author" content="yd0ng">
+<meta property="article:tag" content="技术文档">
 <meta name="twitter:card" content="summary">
   
   
@@ -130,406 +135,397 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-汇编语言基础" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      汇编语言基础
+    </h1>
+  
+
+        
+        <a href="/2020/10/29/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" class="archive-article-date">
+  	<time datetime="2020-10-29T13:21:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-29</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>顶级鸽子，零零碎碎的秋招时间，用来一个月才算慢慢的把8086汇编看了一遍，更新笔记</p>
+<a id="more"></a>
+
+<h1 id="1-基础知识"><a href="#1-基础知识" class="headerlink" title="1. 基础知识"></a>1. 基础知识</h1><ul>
+<li>1.1 机器语言：机器指令的集合，机器可以正确执行的指令</li>
+<li>1.2 汇编语言是机器指令便于记忆的书写形式，寄存器是CPU中存储数据的器件</li>
+<li>1.3 汇编语言的组成：汇编指令+伪指令+其他符号；汇编语言的核心是汇编指令，其决定了汇编语言的特性</li>
+<li>1.4 存储器：存储指令与数据、即所谓内存；数据或程序不读入内存就无法被CPU使用</li>
+<li>1.5 指令和数据：没有区别，只是应用上的概念不同</li>
+<li>1.6 存储单元：存储器被划分为若干个存储单元（0~n-1)</li>
+<li>1.7 CPU读写存储器需要得知三个信息，即存储单元的地址(地址信息)、器件选择和读写命令(控制信息)、读或写的数据(数据信息)，分别由总线中的地址总线、数据总线、控制总线提供。</li>
+<li>1.8 地址总线：CPU通过地址总线指定存储单元，CPU有N根地址总线，即地址总线宽度为N，可寻址2<sup>n</sup>个内存单元</li>
+<li>1.9 数据总线：CPU通过数据总线传送数据，数据总线宽度决定了CPU和外界的数据传送速度</li>
+<li>1.10 控制总线：CPU通过控制总线控制外部器件、有几条控制总线就可以控制几个部件</li>
+<li>1.11 内存地址空间：2<sup>n</sup>可寻址的内存空间</li>
+<li>1.12 主板：PC上的主板</li>
+<li>1.13 接口卡：CPU通过接口控制设备</li>
+<li>1.14 各类存储器芯片：根据读写属性可分为随机存储器(RAM)和只读存储器(ROM)，根据功能和连接可分为随机存储器(RAM)、装有BIOS的ROM和接口卡的RAM</li>
+<li>1.15 内存地址空间在物理上各组件独立，但在逻辑上都与CPU总线相连，CPU通过控制线进行控制，对于8086CPU而言，00000-9FFFF为主存储器地址空间(RAM)、A0000-BFFFF为显存地址空间、C0000-FFFFF为各类ROM地址空间</li>
+</ul>
+<h1 id="2-寄存器-CPU工作原理"><a href="#2-寄存器-CPU工作原理" class="headerlink" title="2. 寄存器(CPU工作原理)"></a>2. 寄存器(CPU工作原理)</h1><p>CPU由运算器、控制器和寄存器等组成，8086CPU有14个寄存器：AX、BX、CX、DX、SI、DI、SP、BP、IP、CS、SS、DS、ES、PSW。8086CPU寄存器都是16位的，可存放两个字节</p>
+<ul>
+<li>2.1 通用寄存器：AX、BX、CX、DX，一个16位寄存器可以存储一个16位的数据，最大为2<sup>16</sup>-1，AX可分为AH(8-15)和AL(0-7),BX、CX、DX也是。</li>
+<li>2.2 字在寄存器中的存储：1word=2Byte=16bit</li>
+<li>2.3 汇编语言不区分大小写，能看懂简单的汇编语言</li>
+<li>2.4 物理地址：所有的内存单元构成的存储空间是一个一维的线性空间，即物理地址</li>
+<li>2.5 16位结构CPU：运算器一次最多可以处理16位的数据，寄存器的最大宽度为16位，寄存器与运算器之间的通路是16位</li>
+<li>2.6 8086给出物理地址：20位地址总线，传送20位地址，可寻址2<sup>20</sup>=1M；内部为16位结构，只能传送16位地址，寻址能力为2<sup>16</sup>=64K。解决此冲突的方式：合并两个16位为一个20位(段地址+偏移地址)，物理地址=段地址*16+偏移地址</li>
+<li>2.7 物理地址=段地址*16+偏移地址=基础地址+偏移地址</li>
+<li>2.8 段的概念：内存没有分段，段的划分来自于CPU，段就是连续的内存单元，注意以下几点，段的起始地址一定是16的倍数，一个段的最大长度为64，CPU可以用不同的段地址和偏移地址形成同一物理地址</li>
+<li>2.9 段寄存器：8086有4个段寄存器:CS、DS、SS、ES</li>
+<li>2.10 CS与IP：CS为代码段寄存器，IP为指令指针寄存器。</li>
+<li>2.11 CPU执行过程如下：(1)从CS:IP中所指内存单元读指令存入指令缓冲器(2)IP=IP+指令长度(3)执行指令并转入步骤(1)</li>
+<li>2.12 初始时，CS=FFFFH、IP=0000H;FFFF0H中的指令是8086PC开机后执行的第一条指令，CPU将CS和IP中的内容当作段地址和偏移地址合并为物理地址</li>
+<li>2.13 修改CS:IP的指令：MOV不能修改CS、IP的值，修改使用JMP指令</li>
+<li>2.14 代码段：将一组内存单元定义为一个段，CPU只认CS:IP指向的内存单元中的内容为指令</li>
+</ul>
+<h1 id="3-寄存器-内存访问"><a href="#3-寄存器-内存访问" class="headerlink" title="3. 寄存器(内存访问)"></a>3. 寄存器(内存访问)</h1><ul>
+<li>3.1 内存中字的存储：区分字和字节；大端序为高位低地址低位高地址，小端序为高位高地址低位低地址</li>
+<li>3.2 DS和[address]：CPU要读取内存单元，必须给出地址，DS通常存放要访问的数据的段地址；执行指令时，8086CPU会自动取DS中的数据为内存单元地址，8086CPU不支持将数据直接送入段寄存器</li>
+<li>3.3 字的传送：8086有16根数据线，可一次传送16位数据，即一次性传送一个字</li>
+<li>3.4 MOV、ADD、SUB指令的详细用法</li>
+<li>3.5 数据段：根据需要，将一组内存单元定义为一个段，数据段的起始地址为16的倍数，长度为n(n&lt;=64K)，数据段的访问需要借助DS来进行</li>
+<li>3.6 栈：先入后出，后入先出，基本操作是入栈和出栈</li>
+<li>3.7 CPU提供的栈机制：PUSH是压栈、POP是出栈，8086CPU的入栈和出栈都是以字为单位的，栈是从高地址(栈底)到低地址(栈顶)增长的，8086CPU中，段寄存器ss存放的是栈顶的段地址，sp存放的是栈顶的偏移地址。在任意时刻，SS:SP始终指向的是栈顶元素</li>
+<li>3.8 栈顶超界问题：栈满push或者栈空pop都会导致溢出，8086CPU未检查溢出问题</li>
+<li>3.9 push和pop：可以在寄存器和内存之间进行数据传送；push入栈，即改变sp，后向ss:sp传送；pop出栈，向ss:sp传送，改变sp</li>
+<li>3.10 栈段：将长度为n(n&lt;=64K)的一组地址连续、起始地址为16的倍数的内存单元当作栈使用，即栈段</li>
+</ul>
+<h1 id="4-第一个程序"><a href="#4-第一个程序" class="headerlink" title="4. 第一个程序"></a>4. 第一个程序</h1><ul>
+<li>4.1 一个源程序从写出到执行的过程：编写-&gt;编译链接-&gt;执行；可执行文件包含两部分：(1)程序和数据，(2)相关的描述信息</li>
+<li>4.2 源代码：汇编指令+伪指令<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">assume cs:codesg</span><br><span class="line">codesg segment</span><br><span class="line">start:  mov ax,0123H</span><br><span class="line">        mov bx,0456H</span><br><span class="line">        add ax,bx</span><br><span class="line">        add ax,ax</span><br><span class="line">        mov ax,4c00h</span><br><span class="line">        int 21h</span><br><span class="line">codesg ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure></li>
+<li>4.3 编写源程序</li>
+<li>4.4 编译：masm 1.asm</li>
+<li>4.5 连接：link 1.obj</li>
+<li>4.6 简化编译连接：ml 1.asm</li>
+<li>4.7 执行exe：1.exe或1</li>
+<li>4.8 可执行文件中的程序装入内存并运行的原理：(1)主进程将程序1.exe装入内存;(2)CS:IP指向程序1.exe的入口;(3)1.exe执行完成，返回主进程</li>
+<li>4.9 exe文件前面有一段PSP占用256字节</li>
+</ul>
+<h1 id="5-BX-和loop指令"><a href="#5-BX-和loop指令" class="headerlink" title="5. [BX]和loop指令"></a>5. [BX]和loop指令</h1><ul>
+<li>5.1 [bx]：bx中存放的数据作为偏移地址EA、段地址SA放在ds中，将SA:EA处的数据送入ax中</li>
+<li>5.2 loop：格式：loop 标号；执行过程为：(cx)=(cx)-1,判断cx的值，不为零则跳至标号处，为零则向下执行。循环要点如下：cx寄存器中存放循环次数，loop标号先定义后使用，循环执行的程序段，写在标号和loop指令之间<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov cx,循环次数</span><br><span class="line">s:循环执行的代码段</span><br><span class="line">loop s</span><br></pre></td></tr></table></figure></li>
+<li>5.3 Debug跟踪用loop指令实现循环</li>
+<li>5.4 debug与msam对指令处理的不同</li>
+<li>5.5 loop和[bx]联合使用来处理地址连续的内存单元</li>
+<li>5.6 段前缀：默认ds为段前缀，但也可进行显式指定</li>
+<li>5.7 一段安全的空间：8086直接写入数据有可能会破坏掉其他程序数据；检查方式：DOS模式下用debug查看0:200-0:2FF,如果数据为0则程序是安全的</li>
+<li>5.8 段前缀的使用：可以用于优化计算过程</li>
+</ul>
+<h1 id="6-包含多个段的程序"><a href="#6-包含多个段的程序" class="headerlink" title="6. 包含多个段的程序"></a>6. 包含多个段的程序</h1><ul>
+<li>6.1 在代码段中时使用数据：dw=defind word；end：通过编译器的结束位置及入口位置</li>
+<li>6.2 在代码段中使用栈：定义dw作为栈使用</li>
+<li>6.3 将数据、代码、栈放入不同段<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code,ds:date,ss:stack</span><br><span class="line">data segment</span><br><span class="line">    xxx</span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">stack segment</span><br><span class="line">    xxx</span><br><span class="line">stack ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">start:xxx</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="7-更灵活定位内存地址"><a href="#7-更灵活定位内存地址" class="headerlink" title="7. 更灵活定位内存地址"></a>7. 更灵活定位内存地址</h1><ul>
+<li>7.1 and和or指令：and全1才1，or有1则1；利用and和or可进行掩码操作，and用于置0，or用于置1</li>
+<li>7.2 ASCII码</li>
+<li>7.3 以字符形式给出数据：db ‘str’</li>
+<li>7.4 大小写转换的问题：大小写的ASCII码不同，相差32，即相差0X20H,可以通过掩码来实现大小写转换。</li>
+<li>7.5 [bx+idata]：[bx]可表示偏移地址，[bx+idata]=([bx])+idata=idata[bx]=[bx].idata</li>
+<li>7.6 [bx+idata]来处理数组问题：字符串看作数组来处理，如[bx+0],[bx+5]等</li>
+<li>7.7 SI和DI：功能类似于bx，但不能分为两个8位寄存器可用，SI和DI常用来拷贝字符串</li>
+<li>7.8 [bx+si]和[bx+di]：取得(bx的值+si/di中的值)作为地址，指明内存单元方式为[bx(si或di)]、[bx(si或di)+idata]或[bx+si或di]</li>
+<li>7.9 [bx+si/di+idata]：表示一个内存单元，偏移地址为(bx)+(si)+idata</li>
+<li>7.10 不同的寻址方式的灵活应用：[idata]、[bx]、[bx+idata]、[bx+si]、[bx+si+idata]</li>
+<li>7.11 可以用内存变量/栈解决变量冲突问题</li>
+</ul>
+<h1 id="8-数据处理的两个基本问题"><a href="#8-数据处理的两个基本问题" class="headerlink" title="8. 数据处理的两个基本问题"></a>8. 数据处理的两个基本问题</h1><ul>
+<li><p>8.1 (1)bx、si、di、bp：只有这4个寄存器可以用于[]中进行内存单元寻址 (2)四种组合方法：bx和si、bx和di、bp和si、bp和di (3)[]中使用bp，段地址默认在ss中</p>
+</li>
+<li><p>8.2 机器指令处理的数据所在位置：(1)处理分三类:读取、写入、运算 (2)数据存放在三个地方：CPU内部、内存、端口</p>
+</li>
+<li><p>8.3 汇编语言中数据位置的表述：立即数、寄存器、偏移地址和段地址</p>
+</li>
+<li><p>8.4 寻址方式：定位内存单元的方法</p>
+</li>
+<li><ul>
+<li>直接寻址：[idata]</li>
+</ul>
+</li>
+<li><ul>
+<li>寄存器间接寻址：[bx]、[si]、[di]、[bp]</li>
+</ul>
+</li>
+<li><ul>
+<li>寄存器相对寻址：[bx/si/di/bp+idata]</li>
+</ul>
+</li>
+<li><ul>
+<li>基址变址寻址：[bx/bp+si/di]</li>
+</ul>
+</li>
+<li><ul>
+<li>相对基址变址寻址：[bx/bp+si/di+idata]</li>
+</ul>
+</li>
+<li><p>8.5 指令要处理的数据有多长：8086CPU可以处理byte和word，因此要指明，进行的操作是字操作还是字节操作</p>
+</li>
+<li><ul>
+<li>通过寄存器名指明要处理的数据的尺寸</li>
+</ul>
+</li>
+<li><ul>
+<li>在没有寄存器名存在的情况下，用操作符x ptr指明内存单元长度，x在汇编指令中可以为word或byte</li>
+</ul>
+</li>
+<li><ul>
+<li>其他方法：有些指令默认了访问的是字单元还是字节单元，如push指令只进行字操作</li>
+</ul>
+</li>
+<li><p>8.6 寻址方式的综合利用：我们通常可以用[bx+idata+si]的方式来访问结构体中的数据,即用bx定位整个结构体，用idata定位结构体中的某一个数据项，用si定位数组项中的每个元素，如[bx].idata[si]</p>
+</li>
+<li><p>8.7 div：除法指令;</p>
+</li>
+<li><ul>
+<li>除数为8位或16位，存放在寄存器或内存单元中，被除数默认存放在AX或DX和AX中;</li>
+</ul>
+</li>
+<li><ul>
+<li>运算结果:8位运算商存于AL中、余数存于AH中；16位运算商存于AX，余数存于DX中</li>
+</ul>
+</li>
+<li><ul>
+<li>格式：div reg/内存单元</li>
+</ul>
+</li>
+<li><p>8.8 伪指令dd</p>
+</li>
+<li><ul>
+<li>db：定义字节型数据(8)</li>
+</ul>
+</li>
+<li><ul>
+<li>dw：定义字型数据(16)</li>
+</ul>
+</li>
+<li><ul>
+<li>dd：定义双字型数据(32)</li>
+</ul>
+</li>
+<li><p>8.9 dup：是一个操作符，同db、dw、dd一样，由编译器识别处理，配合db、dw、dd使用，用来进行数据重复，格式为db/dw/dd n dup(value)</p>
+</li>
+</ul>
+<h1 id="9-转移指令的原理"><a href="#9-转移指令的原理" class="headerlink" title="9. 转移指令的原理"></a>9. 转移指令的原理</h1><p>8086CPU的转移指令分为：无条件转移指令(jmp)、条件转移指令、循环指令、过程、中断</p>
+<ul>
+<li>9.1 offset 操作符：由编译器处理，取得符号的偏移地址</li>
+<li>9.2 jmp：无条件转移，可以只修改IP，也可以同时修改CS:IP，jmp指令要给出两种信息，即转移的目的地址和转移的距离(段间距离、段内短转移、段内近转移)</li>
+<li>9.3 根据位移进行转移的jmp指令</li>
+<li><ul>
+<li>(1)jmp short 标号：转到某标号处执行指令，指令实现的是段内短转移，它对IP的修改范围是-128~127(即1B范围),(IP)=(IP)+8，机器语言不需要知道偏移IP距离(标号S地址-jmp后第一字节地址)</li>
+</ul>
+</li>
+<li><ul>
+<li>(2)jmp near ptr 标号：实现的是段内近转移，功能为(IP)=(IP)+16位位移，范围为-32769~32767</li>
+</ul>
+</li>
+<li>9.4 转移的目的地址在指令中的jmp指令：jmp far ptr 标号，实现的是段间转移，又称为远转移</li>
+<li>9.5 转移地址在寄存器中的jmp指令：jmp 16位寄存器，实现的是段内近转移或段内短转移</li>
+<li>9.6 转移地址在内存中的jmp指令：</li>
+<li><ul>
+<li>jmp word ptr 内存单元地址，实现的是段内转移</li>
+</ul>
+</li>
+<li><ul>
+<li>jmp dword ptr 内存单元地址，实现的是段间转移</li>
+</ul>
+</li>
+<li>9.7 jxcz：有条件转移指令，短转移，机器码包含转移位移而不是目的地址，IP修改范围为-128~127，使用格式为jxcz 标号，若cx=0，则跳转到标号处执行并将IP值增加8，否则什么都不做</li>
+<li>9.8 loop指令：短转移，机器码包含转移的位移而不是地址，当cx不等于0时，cx=cx-1，(IP)=(IP)+8，执行循环，否则什么都不做。</li>
+<li>9.9 根据位移进行转移的意义：机器码只包含位移而不包含地址，是为了方便程序段在内存中的浮动转配，位移是可以计算出来的</li>
+<li>9.10 编译器会对转移位移超界进行检测</li>
+</ul>
+<h1 id="10-call和ret指令"><a href="#10-call和ret指令" class="headerlink" title="10. call和ret指令"></a>10. call和ret指令</h1><h1 id="11-标志寄存器"><a href="#11-标志寄存器" class="headerlink" title="11. 标志寄存器"></a>11. 标志寄存器</h1><h1 id="12-内中断"><a href="#12-内中断" class="headerlink" title="12. 内中断"></a>12. 内中断</h1>
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/31/ICMP%E9%9A%A7%E9%81%93%E6%90%AD%E5%BB%BA/" class="archive-article-date">
-  	<time datetime="2020-08-31T06:30:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-31</time>
-</a>
+      <div class="declare" hidden="hidden"></div>
+    
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢您的打赏，大家一起加油喔~<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/asserts/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/asserts/weixin.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/31/ICMP%E9%9A%A7%E9%81%93%E6%90%AD%E5%BB%BA/">ICMP隧道搭建</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">内网渗透</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术文档</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://yd0ng.github.io/2020/10/29/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/31/%E9%9A%90%E8%97%8F%E9%80%9A%E4%BF%A1%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/" class="archive-article-date">
-  	<time datetime="2020-08-31T02:49:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-31</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/10/18/%E8%BF%87%E6%8E%89qq%E4%BC%A0%E6%96%87%E4%BB%B6%E5%8D%B1%E9%99%A9%E6%A3%80%E6%9F%A5%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">过掉qq传文件危险检查的小技巧</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/31/%E9%9A%90%E8%97%8F%E9%80%9A%E4%BF%A1%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/">隐藏通信隧道技术</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">内网渗透</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-基础知识"><span class="toc-number">1.</span> <span class="toc-text">1. 基础知识</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-寄存器-CPU工作原理"><span class="toc-number">2.</span> <span class="toc-text">2. 寄存器(CPU工作原理)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-寄存器-内存访问"><span class="toc-number">3.</span> <span class="toc-text">3. 寄存器(内存访问)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-第一个程序"><span class="toc-number">4.</span> <span class="toc-text">4. 第一个程序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-BX-和loop指令"><span class="toc-number">5.</span> <span class="toc-text">5. [BX]和loop指令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-包含多个段的程序"><span class="toc-number">6.</span> <span class="toc-text">6. 包含多个段的程序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-更灵活定位内存地址"><span class="toc-number">7.</span> <span class="toc-text">7. 更灵活定位内存地址</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8-数据处理的两个基本问题"><span class="toc-number">8.</span> <span class="toc-text">8. 数据处理的两个基本问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9-转移指令的原理"><span class="toc-number">9.</span> <span class="toc-text">9. 转移指令的原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#10-call和ret指令"><span class="toc-number">10.</span> <span class="toc-text">10. call和ret指令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#11-标志寄存器"><span class="toc-number">11.</span> <span class="toc-text">11. 标志寄存器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#12-内中断"><span class="toc-number">12.</span> <span class="toc-text">12. 内中断</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/26/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E4%BA%8C/" class="archive-article-date">
-  	<time datetime="2020-08-26T09:32:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-26</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/26/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E4%BA%8C/">内网信息收集(二)</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">内网渗透</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/26/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E4%B8%80/" class="archive-article-date">
-  	<time datetime="2020-08-26T03:05:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/26/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E4%B8%80/">内网信息收集(一)</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">内网渗透</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/24/Powershell%E5%9F%BA%E7%A1%80/" class="archive-article-date">
-  	<time datetime="2020-08-24T08:52:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/24/Powershell%E5%9F%BA%E7%A1%80/">Powershell基础</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">内网渗透</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/19/BUUCTF%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" class="archive-article-date">
-  	<time datetime="2020-08-19T01:39:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/19/BUUCTF%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/">BUUCTF刷题记录</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CTF</a>
-        		</li>
-      		
-		</ul>
-	</div>
+<!--显示阅读次数-->
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/14/Java%E5%AE%89%E5%85%A8%E4%B9%8BRMI/" class="archive-article-date">
-  	<time datetime="2020-08-14T06:51:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/14/Java%E5%AE%89%E5%85%A8%E4%B9%8BRMI/">Java安全之RMI</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Java安全</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/11/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/" class="archive-article-date">
-  	<time datetime="2020-08-11T14:44:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/11/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80/">内网渗透测试基础</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">内网渗透</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/11/Flask-ssti%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" class="archive-article-date">
-  	<time datetime="2020-08-11T13:14:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/11/Flask-ssti%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">Flask-ssti漏洞复现</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">漏洞复现</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/10/JNCTF%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/" class="archive-article-date">
-  	<time datetime="2020-08-10T02:39:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/10/JNCTF%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/">JNCTF平台搭建指南</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CTF</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2020/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/archives/2020/">1</a><a class="page-number" href="/archives/2020/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/archives/2020/page/4/">4</a><a class="page-number" href="/archives/2020/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2020/page/9/">9</a><a class="extend next" rel="next" href="/archives/2020/page/4/">Next &amp;raquo;</a>
-    </nav>
-  
+  <br/>
+  <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+  <span class="icon-sort"></span>
+  <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+            阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+  </span>
+  </a>
 
 
           </div>
@@ -569,8 +565,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
