@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://yd0ng.github.io">
-  <title>Archives | 不知名网络安全选手的博客</title>
+  <title>解密系列-基础篇 | 不知名网络安全选手的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="不知名网络安全选手的博客">
-<meta property="og:url" content="https://yd0ng.github.io/archives/index.html">
+  <meta name="description" content="解密系列-基础篇学习笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="解密系列-基础篇">
+<meta property="og:url" content="https://yd0ng.github.io/2020/11/20/%E8%A7%A3%E5%AF%86%E7%B3%BB%E5%88%97-%E5%9F%BA%E7%A1%80%E7%AF%87/index.html">
 <meta property="og:site_name" content="不知名网络安全选手的博客">
+<meta property="og:description" content="解密系列-基础篇学习笔记">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-11-19T16:17:46.000Z">
+<meta property="article:modified_time" content="2020-11-20T06:19:05.700Z">
 <meta property="article:author" content="yd0ng">
+<meta property="article:tag" content="逆向工程">
 <meta name="twitter:card" content="summary">
   
   
@@ -130,36 +135,146 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-解密系列-基础篇" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      解密系列-基础篇
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/11/20/%E8%A7%A3%E5%AF%86%E7%B3%BB%E5%88%97-%E5%9F%BA%E7%A1%80%E7%AF%87/" class="archive-article-date">
+
+        
+        <a href="/2020/11/20/%E8%A7%A3%E5%AF%86%E7%B3%BB%E5%88%97-%E5%9F%BA%E7%A1%80%E7%AF%87/" class="archive-article-date">
   	<time datetime="2020-11-19T16:17:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-20</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/11/20/%E8%A7%A3%E5%AF%86%E7%B3%BB%E5%88%97-%E5%9F%BA%E7%A1%80%E7%AF%87/">解密系列-基础篇</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>解密系列-基础篇学习笔记</p>
+<a id="more"></a>
 
-        <div class="article-info info-on-right">
-          
+<h1 id="解密必备常识"><a href="#解密必备常识" class="headerlink" title="解密必备常识"></a>解密必备常识</h1><h2 id="多字节存储顺序"><a href="#多字节存储顺序" class="headerlink" title="多字节存储顺序"></a>多字节存储顺序</h2><ul>
+<li>多字节存储顺序与CPU有关，微处理器中的存放顺序有正序和逆序，即大端存储和小端存储；Intel系列为小端存储、RISC系列为大端存储。小端序为高位高地址低位低地址、大端序为高位低地址低位高地址。</li>
+</ul>
+<h2 id="ASCII和Unicode"><a href="#ASCII和Unicode" class="headerlink" title="ASCII和Unicode"></a>ASCII和Unicode</h2><ul>
+<li>ASCII以7位存储，ASCII是Unicode的一部分。Unicode编码范围为0~65535，以16位存储。</li>
+</ul>
+<h2 id="Windows-OS"><a href="#Windows-OS" class="headerlink" title="Windows_OS"></a>Windows_OS</h2><ul>
+<li>Windows API：Windows应用程序接口，是针对windowsOS家族的系统编程接口</li>
+<li>windows体系结构需要仔细了解</li>
+<li>动态链接：把一些经常会共用的代码制作为DLL文件，DLL文件本身的结构就是PE，如kernel32.dll、user32.dll、gdi32.dll</li>
+</ul>
+<h2 id="句柄"><a href="#句柄" class="headerlink" title="句柄"></a>句柄</h2><ul>
+<li>windows编程基础，一个句柄是指使用的唯一的整数值，用于标志应用程序中的不同对象和同一对象中的不同实例。windows使用大量句柄来标志很多对象。</li>
+</ul>
+<h2 id="Windows-NT-2000-XP与Unicode"><a href="#Windows-NT-2000-XP与Unicode" class="headerlink" title="Windows NT/2000/XP与Unicode"></a>Windows NT/2000/XP与Unicode</h2><ul>
+<li>可参考《windows程序设计》</li>
+<li>NT架构从内核到kernel32、user32、GDI32都是纯32位实现</li>
+<li>NT架构标准字符集从头开发，统一使用Unicode字符集，兼容ASCII字符集</li>
+</ul>
+<h2 id="Windows-API函数与stdcall约定"><a href="#Windows-API函数与stdcall约定" class="headerlink" title="Windows API函数与stdcall约定"></a>Windows API函数与stdcall约定</h2><ul>
+<li>windows API编程采用面向对象思想和消息机制</li>
+<li>API查询可参考《Windows程序设计》</li>
+<li>C语言标准使用cdecl、windows标准使用_stdcall，二者参数入栈顺序均为自右向左，不同的是调用函数完成后由谁来清空栈</li>
+</ul>
+<h2 id="匈牙利命名法"><a href="#匈牙利命名法" class="headerlink" title="匈牙利命名法"></a>匈牙利命名法</h2><ul>
+<li>Windows函数名以匈牙利命名法来命令</li>
+</ul>
+<h2 id="回调函数"><a href="#回调函数" class="headerlink" title="回调函数"></a>回调函数</h2><ul>
+<li>Don’t call me, I’ll call you!</li>
+<li>CALLBACK：定时器+设定好的clock程序来实现回调</li>
+</ul>
+<h1 id="Windows消息机制"><a href="#Windows消息机制" class="headerlink" title="Windows消息机制"></a>Windows消息机制</h1><ul>
+<li>图形化界面、多任务管理等都是建立在消息处理机制之上的。</li>
+<li>应用之间、应用与系统之间的通讯通过消息来触发，并通过对消息的相应和处理来完成。</li>
+<li>消息队列分为系统消息队列和应用程序消息队列</li>
+<li>Windows本身是消息驱动，所以我们调试程序时跟踪一个消息会得到相当底层的答案。</li>
+<li>Windows为当前执行的每个程序维护一个消息队列，事件发生后会转换为消息并投放入消息队列。程序通过执行一块叫消息循环的程序代码来从消息队列中取出消息并处理。</li>
+<li>MSG结构如下<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">typedef struct tagMSG&#123;</span><br><span class="line">    HWND hwnd;          &#x2F;&#x2F;消息对应的句柄</span><br><span class="line">    UINT message;       &#x2F;&#x2F;消息的类型</span><br><span class="line">    WPARAM wParam;      &#x2F;&#x2F;消息的第一个参数</span><br><span class="line">    LPARAM lParam;      &#x2F;&#x2F;消息的第二个参数</span><br><span class="line">    DWORD time;         &#x2F;&#x2F;发送消息的时间</span><br><span class="line">    POINT pt;           &#x2F;&#x2F;发送消息时鼠标所在的位置</span><br><span class="line">&#125;MSG;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="Windows保护机制"><a href="#Windows保护机制" class="headerlink" title="Windows保护机制"></a>Windows保护机制</h1><h2 id="实模式"><a href="#实模式" class="headerlink" title="实模式"></a>实模式</h2><ul>
+<li>程序运行的实质是指令的执行</li>
+<li>CPU通过CS:IP寻址找到指令所在地方</li>
+<li>x86通过(段地址+偏移地址=物理地址)来寻址</li>
+<li>x86通过CS、DS、ES、FS、SS等存储数据</li>
+<li>x86系列使用中断机制来实现系统服务</li>
+<li>寄存器的扩展之路：AL(8bit)-&gt;AX(16bit)-&gt;EAX(32bit)-&gt;RAX(64bit)</li>
+</ul>
+<h2 id="保护模式"><a href="#保护模式" class="headerlink" title="保护模式"></a>保护模式</h2><p>程序运行的实质仍然是CPU执行指令操作数据，主要改变的是寻址的方式，以起到保护作用，主要体现在以下两点。</p>
+<ul>
+<li>不同任务之间的虚拟地址隔离保护</li>
+<li>同一任务之内的不同保护级别(0&gt;1&gt;2&gt;3，一般系统只使用环0和环3)</li>
+</ul>
+<h2 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h2><ul>
+<li>通过MAP映射，使可用虚拟内存达到4G(32位EIP索引范围最大范围为4GB)</li>
+<li>CPU通过时间切片分时机制来达到虚拟效果</li>
+<li>应用程序不会直接访问物理地址</li>
+<li>虚拟内存管理器通过虚拟地址访问请求，控制所有的物理地址访问</li>
+<li>每个程序都有自己独立的4GB寻址空间，不同程序相互隔离</li>
+<li>DLL和EXE在虚拟模式下的机制是不同的，DLL程序没有自己的”私有空间”</li>
+</ul>
+<h1 id="初步识别PE格式"><a href="#初步识别PE格式" class="headerlink" title="初步识别PE格式"></a>初步识别PE格式</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ol>
+<li>PE，portable executable(可移动的执行体)，是windows环境自身所带的执行体文件格式，其部分特性继承自Unix的coff文件格式，支持跨win32平台。</li>
+<li>除了VxD和16位dll，其他大部分win32执行体都使用PE文件格式，包括NT的内核模式驱动程序</li>
+<li>PE文件使用的是一个平面地址k空间，所有代码和数据都合并在一起，组成一个很大的结构</li>
+<li>文件内容被分割为不同的区块(section，又称为区段、节等)，块中包含代码或数据，每个区块都有不同名字以用来表示区块的内容。</li>
+<li>PE文件在磁盘上的数据结构与在内存中的结构一致，系统装载PE到内存中,，即PE文件某一部分映射到地址空间</li>
+</ol>
+<h2 id="相关名词"><a href="#相关名词" class="headerlink" title="相关名词"></a>相关名词</h2><ol>
+<li>入口点(Entry Point)：OEP，PE文件执行的入口点</li>
+<li>文件偏移地址(File Offset)：PE文件存储在磁盘上的时候，各数据的地址称作文件的偏移地址，文件偏移地址从PE文件的第一个字节开始计数，起始值为0</li>
+<li>虚拟地址(Virtual Address)：windows保护模式下，应用程序访问存储器所使用的逻辑地址称为虚拟地址，又称为内存偏移地址</li>
+<li>基地址：文件执行时将被映射到指定内存地址中，这个初始内存地址称为基地址，这个值由PE文件本身来进行设定</li>
+</ol>
+
+      
+      
+    
+      <div class="declare" hidden="hidden"></div>
+    
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢您的打赏，大家一起加油喔~<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/asserts/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/asserts/weixin.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -171,365 +286,129 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://yd0ng.github.io/2020/11/20/%E8%A7%A3%E5%AF%86%E7%B3%BB%E5%88%97-%E5%9F%BA%E7%A1%80%E7%AF%87/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/11/10/%E7%94%B5%E8%84%91%E6%97%A0%E6%B3%95%E5%BC%80%E6%9C%BA%E6%80%A5%E6%95%91%E8%AE%B0%E5%BD%95/" class="archive-article-date">
-  	<time datetime="2020-11-10T14:08:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-10</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/11/10/%E7%94%B5%E8%84%91%E6%97%A0%E6%B3%95%E5%BC%80%E6%9C%BA%E6%80%A5%E6%95%91%E8%AE%B0%E5%BD%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">电脑无法开机急救记录</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/11/10/%E7%94%B5%E8%84%91%E6%97%A0%E6%B3%95%E5%BC%80%E6%9C%BA%E6%80%A5%E6%95%91%E8%AE%B0%E5%BD%95/">电脑无法开机急救记录</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">随手小记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#解密必备常识"><span class="toc-number">1.</span> <span class="toc-text">解密必备常识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#多字节存储顺序"><span class="toc-number">1.1.</span> <span class="toc-text">多字节存储顺序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ASCII和Unicode"><span class="toc-number">1.2.</span> <span class="toc-text">ASCII和Unicode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows-OS"><span class="toc-number">1.3.</span> <span class="toc-text">Windows_OS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#句柄"><span class="toc-number">1.4.</span> <span class="toc-text">句柄</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows-NT-2000-XP与Unicode"><span class="toc-number">1.5.</span> <span class="toc-text">Windows NT&#x2F;2000&#x2F;XP与Unicode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows-API函数与stdcall约定"><span class="toc-number">1.6.</span> <span class="toc-text">Windows API函数与stdcall约定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#匈牙利命名法"><span class="toc-number">1.7.</span> <span class="toc-text">匈牙利命名法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#回调函数"><span class="toc-number">1.8.</span> <span class="toc-text">回调函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Windows消息机制"><span class="toc-number">2.</span> <span class="toc-text">Windows消息机制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Windows保护机制"><span class="toc-number">3.</span> <span class="toc-text">Windows保护机制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#实模式"><span class="toc-number">3.1.</span> <span class="toc-text">实模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#保护模式"><span class="toc-number">3.2.</span> <span class="toc-text">保护模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#虚拟内存"><span class="toc-number">3.3.</span> <span class="toc-text">虚拟内存</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#初步识别PE格式"><span class="toc-number">4.</span> <span class="toc-text">初步识别PE格式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本概念"><span class="toc-number">4.1.</span> <span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相关名词"><span class="toc-number">4.2.</span> <span class="toc-text">相关名词</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/11/08/%E5%9C%A8%E7%BA%BF%E6%96%87%E4%BB%B6%E5%88%86%E6%9E%90%E5%B9%B3%E5%8F%B0/" class="archive-article-date">
-  	<time datetime="2020-11-08T14:55:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-08</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/11/08/%E5%9C%A8%E7%BA%BF%E6%96%87%E4%BB%B6%E5%88%86%E6%9E%90%E5%B9%B3%E5%8F%B0/">在线文件分析平台</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">威胁情报</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/11/03/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8B%E9%80%86%E5%90%91%E5%8C%BA%E9%A2%98%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2020-11-03T05:50:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/11/03/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8B%E9%80%86%E5%90%91%E5%8C%BA%E9%A2%98%E8%A7%A3/">攻防世界新手逆向区题解</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CTF</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/10/29/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" class="archive-article-date">
-  	<time datetime="2020-10-29T13:21:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/10/29/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">汇编语言基础</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">逆向工程</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/10/18/%E8%BF%87%E6%8E%89qq%E4%BC%A0%E6%96%87%E4%BB%B6%E5%8D%B1%E9%99%A9%E6%A3%80%E6%9F%A5%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/" class="archive-article-date">
-  	<time datetime="2020-10-18T12:18:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/10/18/%E8%BF%87%E6%8E%89qq%E4%BC%A0%E6%96%87%E4%BB%B6%E5%8D%B1%E9%99%A9%E6%A3%80%E6%9F%A5%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/">过掉qq传文件危险检查的小技巧</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">随手小记</a>
-        		</li>
-      		
-		</ul>
-	</div>
+<!--显示阅读次数-->
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/10/03/HR%E9%9D%A2%E9%9C%80%E8%A6%81%E5%85%B3%E6%B3%A8%E7%9A%84%E9%97%AE%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2020-10-03T13:34:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/10/03/HR%E9%9D%A2%E9%9C%80%E8%A6%81%E5%85%B3%E6%B3%A8%E7%9A%84%E9%97%AE%E9%A2%98/">HR面需要关注的问题</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">随手小记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/10/03/%E4%BF%B1%E4%B9%90%E9%83%A8%E8%AE%BA%E5%9D%9B%E8%BF%81%E7%A7%BB%E8%AE%B0%E5%BD%95/" class="archive-article-date">
-  	<time datetime="2020-10-03T07:21:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/10/03/%E4%BF%B1%E4%B9%90%E9%83%A8%E8%AE%BA%E5%9D%9B%E8%BF%81%E7%A7%BB%E8%AE%B0%E5%BD%95/">俱乐部论坛迁移记录</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">随手小记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/09/26/%E6%89%80%E8%B0%93%E9%80%89%E6%8B%A9/" class="archive-article-date">
-  	<time datetime="2020-09-25T21:13:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/09/26/%E6%89%80%E8%B0%93%E9%80%89%E6%8B%A9/">所谓选择</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">随手小记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/09/24/WAF%E7%BB%95%E8%BF%87%E5%AF%B9%E6%8A%97/" class="archive-article-date">
-  	<time datetime="2020-09-24T06:42:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/09/24/WAF%E7%BB%95%E8%BF%87%E5%AF%B9%E6%8A%97/">WAF绕过对抗</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Web安全</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/9/">9</a><a class="extend next" rel="next" href="/archives/page/2/">Next &amp;raquo;</a>
-    </nav>
-  
+  <br/>
+  <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+  <span class="icon-sort"></span>
+  <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+            阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+  </span>
+  </a>
 
 
           </div>
@@ -569,8 +448,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
