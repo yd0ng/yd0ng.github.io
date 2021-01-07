@@ -16,7 +16,7 @@
 <meta property="og:description" content="lxd提权复现记录">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-01-07T08:04:02.000Z">
-<meta property="article:modified_time" content="2021-01-07T08:16:15.384Z">
+<meta property="article:modified_time" content="2021-01-07T08:21:11.113Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="权限提升">
 <meta name="twitter:card" content="summary">
@@ -164,7 +164,7 @@
 
 
 <h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><p>这里直接使用的vulnhub里ai-web2的靶机环境，链接为<a href="https://www.vulnhub.com/entry/ai-web-2,357/" target="_blank" rel="noopener">https://www.vulnhub.com/entry/ai-web-2,357/</a></p>
-<h1 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h1><p>下载lxd提权shell脚本至提权靶机，链接如下：<a href="./lxd提权/lxd.sh" target="_blank">lxd.sh</a></p>
+<h1 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h1><p>下载lxd提权shell脚本至提权靶机，链接如下：<a href="./lxd.sh" target="_blank">lxd.sh</a></p>
 <p>在其他拥有sudo权限的机器以管理员权限运行build-alpine脚本<br>下载辅助脚本，链接如下</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;saghul&#x2F;lxd-alpine-builder.git</span><br><span class="line">cd lxd-alpine-builder</span><br><span class="line">sudo .&#x2F;build-alpine</span><br></pre></td></tr></table></figure>
 
