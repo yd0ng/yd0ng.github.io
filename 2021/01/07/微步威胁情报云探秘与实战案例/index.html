@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://yd0ng.github.io">
-  <title>内网信息收集(一) | 不知名网络安全选手的博客</title>
+  <title>微步威胁情报云探秘与实战案例 | 不知名网络安全选手的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="内网渗透信息收集方法第一篇文章">
+  <meta name="description" content="微步威胁情报云探秘与实战案例学习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="内网信息收集(一)">
-<meta property="og:url" content="https://yd0ng.github.io/2020/08/26/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E4%B8%80/index.html">
+<meta property="og:title" content="微步威胁情报云探秘与实战案例">
+<meta property="og:url" content="https://yd0ng.github.io/2021/01/07/%E5%BE%AE%E6%AD%A5%E5%A8%81%E8%83%81%E6%83%85%E6%8A%A5%E4%BA%91%E6%8E%A2%E7%A7%98%E4%B8%8E%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B/index.html">
 <meta property="og:site_name" content="不知名网络安全选手的博客">
-<meta property="og:description" content="内网渗透信息收集方法第一篇文章">
+<meta property="og:description" content="微步威胁情报云探秘与实战案例学习">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-08-26T03:05:19.000Z">
-<meta property="article:modified_time" content="2020-12-10T03:49:12.014Z">
+<meta property="article:published_time" content="2021-01-07T10:03:57.000Z">
+<meta property="article:modified_time" content="2021-01-07T10:33:26.108Z">
 <meta property="article:author" content="yd0ng">
-<meta property="article:tag" content="Web安全">
+<meta property="article:tag" content="安全会议">
 <meta name="twitter:card" content="summary">
   
   
@@ -139,110 +139,82 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-内网信息收集-一" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-微步威胁情报云探秘与实战案例" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      内网信息收集(一)
+      微步威胁情报云探秘与实战案例
     </h1>
   
 
         
-        <a href="/2020/08/26/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E4%B8%80/" class="archive-article-date">
-  	<time datetime="2020-08-26T03:05:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-26</time>
+        <a href="/2021/01/07/%E5%BE%AE%E6%AD%A5%E5%A8%81%E8%83%81%E6%83%85%E6%8A%A5%E4%BA%91%E6%8E%A2%E7%A7%98%E4%B8%8E%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B/" class="archive-article-date">
+  	<time datetime="2021-01-07T10:03:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-07</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>内网渗透信息收集方法第一篇文章</p>
+        <p>微步威胁情报云探秘与实战案例学习</p>
 <a id="more"></a>
 
-<h1 id="1-内网信息收集概述"><a href="#1-内网信息收集概述" class="headerlink" title="1. 内网信息收集概述"></a>1. 内网信息收集概述</h1><p>首先要明确的是，此时的我们应该已经拿下了内网的一台主机，即我们已经完成了所谓的”打点”的过程，那么我们接下来要摸清一下三点：</p>
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>了解不是很多，但感觉微步是国内威胁情报做的不错的公司，给下面两个链接吧</p>
 <ul>
-<li>当前主机的机器类型及权限</li>
-<li>当前网络的完整拓扑结构</li>
-<li>我们处于当前网络中的哪个位置</li>
+<li><a href="https://threatbook.cn/" target="_blank" rel="noopener">https://threatbook.cn/</a></li>
+<li><a href="https://x.threatbook.cn/" target="_blank" rel="noopener">https://x.threatbook.cn/</a></li>
 </ul>
-<p>对于信息的收集，一定是越全面越好，收集的信息越多，就越有可能发现目标的脆弱资产，就更有利于我们攻击的进行。所有与目标有关的数据都可以算作信息，包含但不限于以下几点：操作系统、权限、网络拓扑及IP段、杀软、端口、服务、补丁信息、网络连接、共享文件夹、当前会话。</p>
-<h1 id="2-内网信息收集常用命令"><a href="#2-内网信息收集常用命令" class="headerlink" title="2. 内网信息收集常用命令"></a>2. 内网信息收集常用命令</h1><h2 id="2-1-查询网络配置信息"><a href="#2-1-查询网络配置信息" class="headerlink" title="2.1 查询网络配置信息"></a>2.1 查询网络配置信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipconfig &#x2F;all</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-2-查询操作系统及软件信息"><a href="#2-2-查询操作系统及软件信息" class="headerlink" title="2.2 查询操作系统及软件信息"></a>2.2 查询操作系统及软件信息</h2><h3 id="查询操作系统和版本信息"><a href="#查询操作系统和版本信息" class="headerlink" title="查询操作系统和版本信息"></a>查询操作系统和版本信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systeminfo | findstr &#x2F;B &#x2F;C:&quot;OS&quot;</span><br></pre></td></tr></table></figure>
-
-<h3 id="查询系统体系结构"><a href="#查询系统体系结构" class="headerlink" title="查询系统体系结构"></a>查询系统体系结构</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo %processor_architecture%</span><br></pre></td></tr></table></figure>
-
-<h3 id="查询软件版本及路径"><a href="#查询软件版本及路径" class="headerlink" title="查询软件版本及路径"></a>查询软件版本及路径</h3><p>通过wmic查询</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wmic product get name,version</span><br></pre></td></tr></table></figure>
-<p>通过powershell查询</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell &quot;Get-wmiobject -class win32_product | select-object -property name,version&quot;</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-3-查询本机服务信息"><a href="#2-3-查询本机服务信息" class="headerlink" title="2.3 查询本机服务信息"></a>2.3 查询本机服务信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wmic service list brief</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-4-查询进程列表"><a href="#2-4-查询进程列表" class="headerlink" title="2.4 查询进程列表"></a>2.4 查询进程列表</h2><p>查看进程信息和进程用户</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tasklist</span><br></pre></td></tr></table></figure>
-<p>查看进程信息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wmic process list brief</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-5-查看启动程序信息"><a href="#2-5-查看启动程序信息" class="headerlink" title="2.5 查看启动程序信息"></a>2.5 查看启动程序信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wmic startup get command,caption</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-6-查看计划任务"><a href="#2-6-查看计划任务" class="headerlink" title="2.6 查看计划任务"></a>2.6 查看计划任务</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">schtasks &#x2F;query &#x2F;fo LIST &#x2F;v</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-7-查看主机开机时间"><a href="#2-7-查看主机开机时间" class="headerlink" title="2.7 查看主机开机时间"></a>2.7 查看主机开机时间</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net statistics workstation</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-8-查询用户列表"><a href="#2-8-查询用户列表" class="headerlink" title="2.8 查询用户列表"></a>2.8 查询用户列表</h2><p>查询本机用户列表</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net user</span><br></pre></td></tr></table></figure>
-<p>查询本地管理员信息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net localgroup administrators</span><br></pre></td></tr></table></figure>
-
-<p>查询当前在线用户</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">query user || qwinsta</span><br></pre></td></tr></table></figure>
-<h2 id="2-9-查询当前连接会话"><a href="#2-9-查询当前连接会话" class="headerlink" title="2.9 查询当前连接会话"></a>2.9 查询当前连接会话</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net session</span><br></pre></td></tr></table></figure>
-<h2 id="2-10-查询端口列表"><a href="#2-10-查询端口列表" class="headerlink" title="2.10 查询端口列表"></a>2.10 查询端口列表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -ano</span><br></pre></td></tr></table></figure>
-<h2 id="2-11-查看补丁列表"><a href="#2-11-查看补丁列表" class="headerlink" title="2.11 查看补丁列表"></a>2.11 查看补丁列表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systeminfo</span><br></pre></td></tr></table></figure>
-<h2 id="2-12-查询本机共享列表"><a href="#2-12-查询本机共享列表" class="headerlink" title="2.12 查询本机共享列表"></a>2.12 查询本机共享列表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net share</span><br></pre></td></tr></table></figure>
-<h2 id="2-13-查看路由表和可用arp缓存表"><a href="#2-13-查看路由表和可用arp缓存表" class="headerlink" title="2.13 查看路由表和可用arp缓存表"></a>2.13 查看路由表和可用arp缓存表</h2><p>查看路由表</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">route print</span><br></pre></td></tr></table></figure>
-<p>查看可用的arp缓存表</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arp -a</span><br></pre></td></tr></table></figure>
-<h2 id="2-14-查询防火墙相关配置"><a href="#2-14-查询防火墙相关配置" class="headerlink" title="2.14 查询防火墙相关配置"></a>2.14 查询防火墙相关配置</h2><h3 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h3><p>windows server 2003及以下版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh firewall set opmode disable</span><br></pre></td></tr></table></figure>
-<p>windows server 2003以上版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh advfirewall set allprofiles state off</span><br></pre></td></tr></table></figure>
-<h3 id="查看防火墙配置"><a href="#查看防火墙配置" class="headerlink" title="查看防火墙配置"></a>查看防火墙配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh firewall show config</span><br></pre></td></tr></table></figure>
-<h3 id="修改防火墙配置"><a href="#修改防火墙配置" class="headerlink" title="修改防火墙配置"></a>修改防火墙配置</h3><p>win2003及之前版本，允许指定程序全部流量入站出站</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh firewall add allowedprogram c:\nc.exe &quot;allow nc&quot; enable</span><br></pre></td></tr></table></figure>
-<p>win2003之后的版本，允许指定程序流量入站</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh advfirewall firewall add rule name&#x3D;&quot;pass nc&quot; dir&#x3D;in action&#x3D;allow program&#x3D;&quot;C:\nc.exe&quot;</span><br></pre></td></tr></table></figure>
-<p>win2003之后的版本，允许指定程序流量出站</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh advfirewall firewall add rule name&#x3D;&quot;allow nc&quot; dir&#x3D;out action&#x3D;allow program&#x3D;&quot;C:\nc.exe&quot;</span><br></pre></td></tr></table></figure>
-
-<p>win2003之后的版本，允许3389端口流量入站</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh advfirewall firewall add rule name&#x3D;&quot;RDP&quot; protocol&#x3D;TCP dir&#x3D;in localport&#x3D;3389 action&#x3D;allow</span><br></pre></td></tr></table></figure>
-
-<h3 id="自定义防火墙日志存储位置"><a href="#自定义防火墙日志存储位置" class="headerlink" title="自定义防火墙日志存储位置"></a>自定义防火墙日志存储位置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh advfirewall set currentprofile logging filename &quot;C:\windows\temp\fw.log&quot;</span><br></pre></td></tr></table></figure>
-<h2 id="2-15-查看代理相关配置情况"><a href="#2-15-查看代理相关配置情况" class="headerlink" title="2.15 查看代理相关配置情况"></a>2.15 查看代理相关配置情况</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg query &quot;HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings&quot;</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-16-查看并开启远程连接服务"><a href="#2-16-查看并开启远程连接服务" class="headerlink" title="2.16 查看并开启远程连接服务"></a>2.16 查看并开启远程连接服务</h2><h3 id="查看远程连接端口"><a href="#查看远程连接端口" class="headerlink" title="查看远程连接端口"></a>查看远程连接端口</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg query &quot;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp&quot; &#x2F;V PortNumber</span><br></pre></td></tr></table></figure>
-<h3 id="开启3389端口"><a href="#开启3389端口" class="headerlink" title="开启3389端口"></a>开启3389端口</h3><p>winserver2003开启3389端口</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wmic path win32_terminalservicesetting where (__CLASS !&#x3D;&quot;&quot;) call setallowtsconnections 1</span><br></pre></td></tr></table></figure>
-<p>winsever2008及winserver2012开启3389端口</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wmic &#x2F;namespace:\\root\cimv2\terminalservices path win32_terminalservicesetting where (__CLASS !&#x3D;&quot;&quot;) call setallowtsconnections 1</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wmic &#x2F;namespace:\\root\cimv2\terminalservices path win32_terminalservicesetting where (TerminalName&#x3D;&#39;RDP-Tcp&#39;) call setuserauthenticationrequired 1</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg add &quot;HKLM\SYSTEM\CURRENT\CONTROLSET\CONTROL\TERMINAL SERVER&quot; &#x2F;v fSingleSessionPerUser &#x2F;t REG_DWORD &#x2F;d 0 &#x2F;f</span><br></pre></td></tr></table></figure>
-
-<h1 id="3-自动化内网信息收集工具"><a href="#3-自动化内网信息收集工具" class="headerlink" title="3. 自动化内网信息收集工具"></a>3. 自动化内网信息收集工具</h1><h2 id="wmic-info-bat"><a href="#wmic-info-bat" class="headerlink" title="wmic_info.bat"></a>wmic_info.bat</h2><p>可以直接搜集内网信息并生成html，代码如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">for &#x2F;f &quot;delims&#x3D;&quot; %%A in (&#39;dir &#x2F;s &#x2F;b %WINDIR%\system32\*htable.xsl&#39;) do set &quot;var&#x3D;%%A&quot;</span><br><span class="line"></span><br><span class="line">wmic process get CSName,Description,ExecutablePath,ProcessId &#x2F;format:&quot;%var%&quot; &gt;&gt; out.html</span><br><span class="line">wmic service get Caption,Name,PathName,ServiceType,Started,StartMode,StartName &#x2F;format:&quot;%var%&quot; &gt;&gt; out.html</span><br><span class="line">wmic USERACCOUNT list full &#x2F;format:&quot;%var%&quot; &gt;&gt; out.html</span><br><span class="line">wmic group list full &#x2F;format:&quot;%var%&quot; &gt;&gt; out.html</span><br><span class="line">wmic nicconfig where IPEnabled&#x3D;&#39;true&#39; get Caption,DefaultIPGateway,Description,DHCPEnabled,DHCPServer,IPAddress,IPSubnet,MACAddress &#x2F;format:&quot;%var%&quot; &gt;&gt; out.html</span><br><span class="line">wmic volume get Label,DeviceID,DriveLetter,FileSystem,Capacity,FreeSpace &#x2F;format:&quot;%var%&quot; &gt;&gt; out.html</span><br><span class="line">wmic netuse list full &#x2F;format:&quot;%var%&quot; &gt;&gt; out.html</span><br><span class="line">wmic qfe get Caption,Description,HotFixID,InstalledOn &#x2F;format:&quot;%var%&quot; &gt;&gt; out.html</span><br><span class="line">wmic startup get Caption,Command,Location,User &#x2F;format:&quot;%var%&quot; &gt;&gt; out.html</span><br><span class="line">wmic PRODUCT get Description,InstallDate,InstallLocation,PackageCache,Vendor,Version &#x2F;format:&quot;%var%&quot; &gt;&gt; out.html</span><br><span class="line">wmic os get name,version,InstallDate,LastBootUpTime,LocalDateTime,Manufacturer,RegisteredUser,ServicePackMajorVersion,SystemDirectory &#x2F;format:&quot;%var%&quot; &gt;&gt; out.html</span><br><span class="line">wmic Timezone get DaylightName,Description,StandardName &#x2F;format:&quot;%var%&quot; &gt;&gt; out.html</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="Empire"><a href="#Empire" class="headerlink" title="Empire"></a>Empire</h2><p>Empire是基于powershell的后渗透利器，基于debian系实现，可实现诸多后渗透功能，下载链接如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:&#x2F;&#x2F;github.com&#x2F;EmpireProject&#x2F;Empire</span><br></pre></td></tr></table></figure>
-
-<p>执行以下命令，可自动搜集主机信息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">usemodule situational_awareness&#x2F;host&#x2F;winenum</span><br><span class="line">usemodele situational_awareness&#x2F;host&#x2F;computerdetails</span><br></pre></td></tr></table></figure>
+<h1 id="SWEED团伙揭秘"><a href="#SWEED团伙揭秘" class="headerlink" title="SWEED团伙揭秘"></a>SWEED团伙揭秘</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><ul>
+<li>尼日利亚的黑产团队，通过BEC攻击(Business-Email-Compromise)，也就是所谓的CEO诈骗，通过攻陷目标企业的邮箱，来进行财务欺骗。</li>
+<li>使用商业木马AgentTesla来监控受害机器并窃取数据，最终达到窃取资金的目的</li>
+</ul>
+<h2 id="攻击手法"><a href="#攻击手法" class="headerlink" title="攻击手法"></a>攻击手法</h2><ul>
+<li>信息收集并准备攻击（准备仿冒域名、制作AgentTesla木马、准备洗钱账号）</li>
+<li>鱼叉钓鱼邮件攻击利用office的CVE-2017-11882加载AgentTesla木马</li>
+<li>控制机器并不断回传数据（截屏、主机账号、截切数据）</li>
+<li>在数据中查货交易邮件等敏感信息</li>
+<li>仿冒交易身份来发送虚假邮件更换收罚款账号实施诈骗</li>
+</ul>
+<h2 id="微步应对手段"><a href="#微步应对手段" class="headerlink" title="微步应对手段"></a>微步应对手段</h2><ul>
+<li>构建PB级威胁云情报，涵盖常见的威胁情报数据（包括SWEED的相关网络资产）</li>
+<li>生成该威胁情报的关联关系，通过模型来找到更多SWEED的资产、</li>
+</ul>
+<h1 id="微步在线威胁云情报"><a href="#微步在线威胁云情报" class="headerlink" title="微步在线威胁云情报"></a>微步在线威胁云情报</h1><h2 id="体系构建及相应规模"><a href="#体系构建及相应规模" class="headerlink" title="体系构建及相应规模"></a>体系构建及相应规模</h2><ul>
+<li>PDNS：8年的PDNS数据，记录任意一次域名和IP的变化数据</li>
+<li>历史whois：17年的whois记录，记录域名每一次注册信息变更数据</li>
+<li>域名：每日新增诸多的域名，累积数百亿域名</li>
+<li>沙箱样本：每日新增百万级样本，累积数十亿样本</li>
+<li>SSL证书、开放端口、DNS、NetFlow数据：全球42忆IP信誉分钟级更新<h2 id="观点"><a href="#观点" class="headerlink" title="观点"></a>观点</h2></li>
+<li>黑客资产往往存在复用、聚集等特点</li>
+<li>从人或团队的视角来看待攻击</li>
+<li>通过网络层面的关联关系也可以感知威胁，不仅仅依赖于终端</li>
+<li>通过对黑客所有资产的掌握和发现，分析最新的攻击动向</li>
+</ul>
+<h2 id="价值"><a href="#价值" class="headerlink" title="价值"></a>价值</h2><ul>
+<li>发现未知团伙：已知情报聚类、图的异常节点发现</li>
+<li>预测新攻击：监控相关团队资产变动、提前发现攻击</li>
+<li>溯源攻击事件：通过对已知恶意域名关联关系进行溯源</li>
+<li>资产风险值计算：包括但不限于域名、IP和文件的Hash</li>
+</ul>
+<h1 id="威胁情报云实战场景及案例"><a href="#威胁情报云实战场景及案例" class="headerlink" title="威胁情报云实战场景及案例"></a>威胁情报云实战场景及案例</h1><h2 id="未知团伙发现"><a href="#未知团伙发现" class="headerlink" title="未知团伙发现"></a>未知团伙发现</h2><ul>
+<li>对掌握的CC进行团的聚类分析，发现相关指数很高</li>
+<li>样本节点特别比较集中，为DDOS家族</li>
+<li>CC节点明显，为已知的僵尸网络主控，一定比例域名带有feifan</li>
+</ul>
+<h2 id="团伙追踪溯源"><a href="#团伙追踪溯源" class="headerlink" title="团伙追踪溯源"></a>团伙追踪溯源</h2><ul>
+<li>检测全年的挖矿事件</li>
+<li>发现挖矿事件TOP2在威胁情报云相关指数很高</li>
+<li>挖矿传播手法相似、传播漏洞相似、均为挖掘门罗币</li>
+</ul>
+<h2 id="基于API的应急响应"><a href="#基于API的应急响应" class="headerlink" title="基于API的应急响应"></a>基于API的应急响应</h2><ul>
+<li>提取相关机器24h内的DNS请求日志，提取有效域名1000+</li>
+<li>将提取的域名调用威胁情报云接口进行识别，发现风险程度为100的<a href="http://www.acsewle.com" target="_blank" rel="noopener">www.acsewle.com</a></li>
+<li>分析确定该域名为此次应急事件的恶意主控域名</li>
+<li>进一步分析确定该事件为暗云三代木马攻击</li>
+</ul>
 
       
       
@@ -254,7 +226,7 @@
         
         <br>
         <strong>本文链接：</strong>
-        https://yd0ng.github.io/2020/08/26/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E4%B8%80/
+        https://yd0ng.github.io/2021/01/07/%E5%BE%AE%E6%AD%A5%E5%A8%81%E8%83%81%E6%83%85%E6%8A%A5%E4%BA%91%E6%8E%A2%E7%A7%98%E4%B8%8E%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B/
         <br>
         <strong>版权声明：</strong>
         本作品采用
@@ -304,7 +276,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Web安全</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">安全会议</a>
         		</li>
       		
 		</ul>
@@ -360,7 +332,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://yd0ng.github.io/2020/08/26/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E4%B8%80/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://yd0ng.github.io/2021/01/07/%E5%BE%AE%E6%AD%A5%E5%A8%81%E8%83%81%E6%83%85%E6%8A%A5%E4%BA%91%E6%8E%A2%E7%A7%98%E4%B8%8E%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -374,18 +346,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/08/26/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E4%BA%8C/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          内网信息收集(二)
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/08/24/Powershell%E5%9F%BA%E7%A1%80/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Powershell基础</div>
+    <a href="/2021/01/07/lxd%E6%8F%90%E6%9D%83/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">lxd提权复现</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -412,7 +375,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-内网信息收集概述"><span class="toc-number">1.</span> <span class="toc-text">1. 内网信息收集概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-内网信息收集常用命令"><span class="toc-number">2.</span> <span class="toc-text">2. 内网信息收集常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-查询网络配置信息"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 查询网络配置信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-查询操作系统及软件信息"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 查询操作系统及软件信息</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#查询操作系统和版本信息"><span class="toc-number">2.2.1.</span> <span class="toc-text">查询操作系统和版本信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询系统体系结构"><span class="toc-number">2.2.2.</span> <span class="toc-text">查询系统体系结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询软件版本及路径"><span class="toc-number">2.2.3.</span> <span class="toc-text">查询软件版本及路径</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-查询本机服务信息"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 查询本机服务信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-查询进程列表"><span class="toc-number">2.4.</span> <span class="toc-text">2.4 查询进程列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5-查看启动程序信息"><span class="toc-number">2.5.</span> <span class="toc-text">2.5 查看启动程序信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-6-查看计划任务"><span class="toc-number">2.6.</span> <span class="toc-text">2.6 查看计划任务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-7-查看主机开机时间"><span class="toc-number">2.7.</span> <span class="toc-text">2.7 查看主机开机时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-8-查询用户列表"><span class="toc-number">2.8.</span> <span class="toc-text">2.8 查询用户列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-9-查询当前连接会话"><span class="toc-number">2.9.</span> <span class="toc-text">2.9 查询当前连接会话</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-10-查询端口列表"><span class="toc-number">2.10.</span> <span class="toc-text">2.10 查询端口列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-11-查看补丁列表"><span class="toc-number">2.11.</span> <span class="toc-text">2.11 查看补丁列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-12-查询本机共享列表"><span class="toc-number">2.12.</span> <span class="toc-text">2.12 查询本机共享列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-13-查看路由表和可用arp缓存表"><span class="toc-number">2.13.</span> <span class="toc-text">2.13 查看路由表和可用arp缓存表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-14-查询防火墙相关配置"><span class="toc-number">2.14.</span> <span class="toc-text">2.14 查询防火墙相关配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#关闭防火墙"><span class="toc-number">2.14.1.</span> <span class="toc-text">关闭防火墙</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看防火墙配置"><span class="toc-number">2.14.2.</span> <span class="toc-text">查看防火墙配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改防火墙配置"><span class="toc-number">2.14.3.</span> <span class="toc-text">修改防火墙配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义防火墙日志存储位置"><span class="toc-number">2.14.4.</span> <span class="toc-text">自定义防火墙日志存储位置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-15-查看代理相关配置情况"><span class="toc-number">2.15.</span> <span class="toc-text">2.15 查看代理相关配置情况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-16-查看并开启远程连接服务"><span class="toc-number">2.16.</span> <span class="toc-text">2.16 查看并开启远程连接服务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#查看远程连接端口"><span class="toc-number">2.16.1.</span> <span class="toc-text">查看远程连接端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开启3389端口"><span class="toc-number">2.16.2.</span> <span class="toc-text">开启3389端口</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-自动化内网信息收集工具"><span class="toc-number">3.</span> <span class="toc-text">3. 自动化内网信息收集工具</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#wmic-info-bat"><span class="toc-number">3.1.</span> <span class="toc-text">wmic_info.bat</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Empire"><span class="toc-number">3.2.</span> <span class="toc-text">Empire</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#介绍"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SWEED团伙揭秘"><span class="toc-number">2.</span> <span class="toc-text">SWEED团伙揭秘</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">2.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#攻击手法"><span class="toc-number">2.2.</span> <span class="toc-text">攻击手法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#微步应对手段"><span class="toc-number">2.3.</span> <span class="toc-text">微步应对手段</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#微步在线威胁云情报"><span class="toc-number">3.</span> <span class="toc-text">微步在线威胁云情报</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#体系构建及相应规模"><span class="toc-number">3.1.</span> <span class="toc-text">体系构建及相应规模</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#观点"><span class="toc-number">3.2.</span> <span class="toc-text">观点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#价值"><span class="toc-number">3.3.</span> <span class="toc-text">价值</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#威胁情报云实战场景及案例"><span class="toc-number">4.</span> <span class="toc-text">威胁情报云实战场景及案例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#未知团伙发现"><span class="toc-number">4.1.</span> <span class="toc-text">未知团伙发现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#团伙追踪溯源"><span class="toc-number">4.2.</span> <span class="toc-text">团伙追踪溯源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基于API的应急响应"><span class="toc-number">4.3.</span> <span class="toc-text">基于API的应急响应</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -437,7 +400,7 @@ if(true){
   	repo: 'yd0ng.github.io',
   	owner: 'yd0ng',
   	admin: ['yd0ng'],
-  	id: 'Wed Aug 26 2020 11:05:19 GMT+0800',
+  	id: 'Thu Jan 07 2021 18:03:57 GMT+0800',
   	distractionFreeMode: 'true'
 })
 gitalk.render('gitalk-container') 
