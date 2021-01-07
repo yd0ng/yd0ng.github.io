@@ -15,11 +15,14 @@
 <meta property="og:site_name" content="不知名网络安全选手的博客">
 <meta property="og:description" content="vulnhub靶机渗透-AIWeb2.0">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://yd0ng.github.io/2021/01/07/vulnhub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F-AIWeb2-0/1.png">
+<meta property="og:image" content="https://yd0ng.github.io/2021/01/07/vulnhub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F-AIWeb2-0/2.png">
 <meta property="article:published_time" content="2021-01-07T05:48:44.000Z">
-<meta property="article:modified_time" content="2021-01-07T08:17:47.605Z">
+<meta property="article:modified_time" content="2021-01-07T08:31:07.770Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="靶机渗透">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yd0ng.github.io/2021/01/07/vulnhub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F-AIWeb2-0/1.png">
   
   
     <link rel="icon" href="/themes/yilia/source/">
@@ -201,7 +204,8 @@
 <p>ssh登录后，尝试提权，存在git，直接下载辅助提权脚本</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;rebootuser&#x2F;LinEnum.git</span><br><span class="line">cd LinEnum</span><br><span class="line">chmod 777 LinEnum.sh</span><br><span class="line">.&#x2F;LinEnum.sh &gt; levelup.txt</span><br></pre></td></tr></table></figure>
 
-<p>最终使用lxd提权，提升到root权限，得到flag</p>
+<p>最终使用lxd提权，可参考lxd提权文章提升到root权限<br><img src="/2021/01/07/vulnhub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F-AIWeb2-0/1.png" alt></p>
+<p>得到flag<br><img src="/2021/01/07/vulnhub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F-AIWeb2-0/2.png" alt></p>
 <h1 id="反思"><a href="#反思" class="headerlink" title="反思"></a>反思</h1><ul>
 <li>getshell就卡住了，没有想到使用文件包含来读取apache的密码文件（盲区</li>
 <li>学到了apache的密码文件和john爆破密码</li>
