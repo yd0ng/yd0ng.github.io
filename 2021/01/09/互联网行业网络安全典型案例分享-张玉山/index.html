@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://yd0ng.github.io">
-  <title>JNCTF平台出题规范 | 不知名网络安全选手的博客</title>
+  <title>互联网行业网络安全典型案例分享-张玉山 | 不知名网络安全选手的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="JNCTF平台出题规范1.0">
+  <meta name="description" content="互联网行业网络安全典型案例分享">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JNCTF平台出题规范">
-<meta property="og:url" content="https://yd0ng.github.io/2020/08/10/JNCTF%E5%B9%B3%E5%8F%B0%E5%87%BA%E9%A2%98%E8%A7%84%E8%8C%83/index.html">
+<meta property="og:title" content="互联网行业网络安全典型案例分享-张玉山">
+<meta property="og:url" content="https://yd0ng.github.io/2021/01/09/%E4%BA%92%E8%81%94%E7%BD%91%E8%A1%8C%E4%B8%9A%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%85%B8%E5%9E%8B%E6%A1%88%E4%BE%8B%E5%88%86%E4%BA%AB-%E5%BC%A0%E7%8E%89%E5%B1%B1/index.html">
 <meta property="og:site_name" content="不知名网络安全选手的博客">
-<meta property="og:description" content="JNCTF平台出题规范1.0">
+<meta property="og:description" content="互联网行业网络安全典型案例分享">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-08-10T00:40:19.000Z">
-<meta property="article:modified_time" content="2020-08-10T01:32:39.204Z">
+<meta property="article:published_time" content="2021-01-09T12:34:27.000Z">
+<meta property="article:modified_time" content="2021-01-09T13:46:51.817Z">
 <meta property="article:author" content="yd0ng">
-<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="安全会议">
 <meta name="twitter:card" content="summary">
   
   
@@ -139,97 +139,138 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-JNCTF平台出题规范" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-互联网行业网络安全典型案例分享-张玉山" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      JNCTF平台出题规范
+      互联网行业网络安全典型案例分享-张玉山
     </h1>
   
 
         
-        <a href="/2020/08/10/JNCTF%E5%B9%B3%E5%8F%B0%E5%87%BA%E9%A2%98%E8%A7%84%E8%8C%83/" class="archive-article-date">
-  	<time datetime="2020-08-10T00:40:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-10</time>
+        <a href="/2021/01/09/%E4%BA%92%E8%81%94%E7%BD%91%E8%A1%8C%E4%B8%9A%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%85%B8%E5%9E%8B%E6%A1%88%E4%BE%8B%E5%88%86%E4%BA%AB-%E5%BC%A0%E7%8E%89%E5%B1%B1/" class="archive-article-date">
+  	<time datetime="2021-01-09T12:34:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-09</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>JNCTF平台出题规范1.0</p>
+        <p>互联网行业网络安全典型案例分享</p>
 <a id="more"></a>
 
-<h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><p>此文仅用于江南大学网络空间俱乐部CTF平台出题参考，请各位出题人务必仔细认真阅读，并按照出题规范给出题目，出题不规范，运维两行泪。</p>
-<h1 id="常见问题说明"><a href="#常见问题说明" class="headerlink" title="常见问题说明"></a>常见问题说明</h1><p>以下问题是历史出题过程中出现的不好的地方，希望以后不要出现</p>
-<ul>
-<li>拖拖拉拉，不按时交付题目(提前出题，不要指望自己一天能出好)</li>
-<li>docker很不熟练，Web与Pwn无法构建Dockerfile(比着葫芦画瓢)</li>
-<li>出题不写题目描述(认真且真实的描写与题目相关的题目描述)</li>
-<li>flag格式比较乱(静态flag统一为JNCTF{***}、动态flag统一填写flag{zheshiflag},平台会自动进行替换)</li>
-<li>data.yml不给flag和wp(老实给出flag和writeup)</li>
+<h1 id="互联网行业特点及需求分析"><a href="#互联网行业特点及需求分析" class="headerlink" title="互联网行业特点及需求分析"></a>互联网行业特点及需求分析</h1><h2 id="业务流量大"><a href="#业务流量大" class="headerlink" title="业务流量大"></a>业务流量大</h2><ul>
+<li>OA人员多，开放式管理，网络环境复杂</li>
+<li>IDC业务流量大，小包多/长连接</li>
+<li>出海需求普遍，多海外出口</li>
 </ul>
-<h1 id="交付说明"><a href="#交付说明" class="headerlink" title="交付说明"></a>交付说明</h1><h2 id="小题出题人"><a href="#小题出题人" class="headerlink" title="小题出题人"></a>小题出题人</h2><p>如果你是出题人，应该保证完成如下任务</p>
-<ul>
-<li>路径及题目文件附件等不含有中文</li>
-<li>严格按照文件夹结构出题，可参照历年JNCTF校赛题目环境</li>
-<li>自己做一遍题目，确保自己能解出题目</li>
-<li>提供详细且完整的WriteUp，有解题脚本的请在wp中提供脚本</li>
-<li>Web题与Pwn题确保docker-compose up -d 命令可以直接启动环境</li>
-<li>确保data.yml格式无误(一个空格也不行，网上有检查格式的网站)</li>
+<h2 id="分支多，网络复杂"><a href="#分支多，网络复杂" class="headerlink" title="分支多，网络复杂"></a>分支多，网络复杂</h2><ul>
+<li>大规模迅速的业务扩张，面临着多分支安全接入的挑战</li>
+<li>分支机构众多，需要成熟、稳定便于管理的VPN(GPCS)/SDWAN互联技术</li>
+<li>企业内部安全灵活互联</li>
+<li>双活数据中心，避免单点故障，解决异步路由</li>
 </ul>
-<p>如果你是出题人，应该保证交付以下文件</p>
-<ul>
-<li>相应小题的文件夹(参照文件夹结构说明)</li>
-<li>该题目的data.yml文件</li>
+<h2 id="云化"><a href="#云化" class="headerlink" title="云化"></a>云化</h2><ul>
+<li>私有云/Contain Security</li>
+<li>公有云/GPC AWS Azure Ali Cloud</li>
+<li>SaaS应用</li>
 </ul>
-<h2 id="分方向负责人"><a href="#分方向负责人" class="headerlink" title="分方向负责人"></a>分方向负责人</h2><p>如果你是分方向负责人，请搭建比赛平台，并确保完成如下任务</p>
-<ul>
-<li>整合该方向出题人提供的所有题目的data.yml(一个空格也不行，网上有检查格式的网站)</li>
-<li>确保python import2chal data.yml命令可以启动该方向整个题目环境</li>
+<h2 id="运维挑战"><a href="#运维挑战" class="headerlink" title="运维挑战"></a>运维挑战</h2><ul>
+<li>自动化运维护，API自动化脚本</li>
+<li>分支设备”0”维护</li>
+<li>大规模、分散的分支给统一管理带来难题</li>
 </ul>
-<p>如果你是分方向负责人，应该保证交付以下文件(参照文件夹结构说明)</p>
-<ul>
-<li>相应方向的题目文件夹，比如Web的整个题目文件夹</li>
-<li>Web题目的data.yml</li>
+<h1 id="出海及多分支部署-SDWAN-amp-SASE"><a href="#出海及多分支部署-SDWAN-amp-SASE" class="headerlink" title="出海及多分支部署-SDWAN &amp; SASE"></a>出海及多分支部署-SDWAN &amp; SASE</h1><h2 id="传统SD-WAN面临的挑战"><a href="#传统SD-WAN面临的挑战" class="headerlink" title="传统SD-WAN面临的挑战"></a>传统SD-WAN面临的挑战</h2><ul>
+<li>安全性的降低：安全性低于标准或未集成，降低了安全性</li>
+<li>性能不可靠：将互联网用作WAN骨干并不可靠</li>
+<li>增加了复杂性 ：多品牌多厂商的集成非常复杂</li>
 </ul>
-<h2 id="比赛负责人"><a href="#比赛负责人" class="headerlink" title="比赛负责人"></a>比赛负责人</h2><p>如果你是比赛负责人，请搭建比赛平台，并确保完成如下任务</p>
-<ul>
-<li>整合所有方向出题人提供的data.yml(一个空格也不行，网上有检查格式的网站)</li>
-<li>与分方向负责人及出题人协商题目分数</li>
-<li>确保python import2chal data.yml可以启动整个比赛环境</li>
-<li>提前部署比赛环境，并确保比赛时间无误和赛前题目不可见</li>
-<li>随时准备比赛环境中的突发事故处理</li>
+<h2 id="来自Palo-Alto-Networks的安全SD-WAN"><a href="#来自Palo-Alto-Networks的安全SD-WAN" class="headerlink" title="来自Palo Alto Networks的安全SD-WAN"></a>来自Palo Alto Networks的安全SD-WAN</h2><ul>
+<li>业界领先的安全，一致的分支核心政策</li>
+<li>端到端的高性能</li>
+<li>简单的管理和要应用</li>
 </ul>
-<h1 id="规范说明"><a href="#规范说明" class="headerlink" title="规范说明"></a>规范说明</h1><h2 id="文件夹结构说明"><a href="#文件夹结构说明" class="headerlink" title="文件夹结构说明"></a>文件夹结构说明</h2><p>各方向文件夹目录结构相同，以Pwn题为例给出题目文件夹结构</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">challenges----|--Pwn--------easyPwn |---source          # 文件夹,用于放置题目源代码</span><br><span class="line">              |                     |---deploy          # 文件夹,部署文件,需提供题目代码、Dockerfile及docker-composed.yml</span><br><span class="line">              |                     |---attachments     # 文件夹,用于向参赛选手提供赛题相关压缩文件</span><br><span class="line">              |                     |---Write-up.md     # 题解过程          </span><br><span class="line">              |--Web（Web安全）</span><br><span class="line">              |--Reverse（逆向分析）</span><br><span class="line">              |--Misc（杂项）</span><br><span class="line">              |--Crypto（密码学）</span><br><span class="line">              |--data.yml</span><br></pre></td></tr></table></figure>
-<h2 id="data-yml规范"><a href="#data-yml规范" class="headerlink" title="data.yml规范"></a>data.yml规范</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">match_name:</span><br><span class="line">    _meta_:</span><br><span class="line">      - max_score: 500</span><br><span class="line">      - name: &quot;match_name&quot;</span><br><span class="line">    Pwn:</span><br><span class="line">      - easy_stack:</span><br><span class="line">        - score: 100</span><br><span class="line">        - flag:</span><br><span class="line">          - random</span><br><span class="line">        - pushflag: .&#x2F;Pwn&#x2F;easy_stack&#x2F;deploy&#x2F;pushflag.sh</span><br><span class="line">        - env: .&#x2F;Pwn&#x2F;easy_stack&#x2F;deploy&#x2F;docker-compose.yml</span><br><span class="line">        - attachment:</span><br><span class="line">          - .&#x2F;Pwn&#x2F;easy_stack&#x2F;attachments&#x2F;easy_stack.tar.gz</span><br><span class="line">        - writeup-cn:</span><br><span class="line">          - .&#x2F;Pwn&#x2F;easy_stack&#x2F;Write-up.md</span><br><span class="line">        - writeup-en: NULL</span><br><span class="line">        - description-cn: &quot;这是这道pwn题的题目描述&quot;</span><br><span class="line">        - description-en: NULL</span><br><span class="line">        - origin: NULL</span><br><span class="line">        - tag: NULL</span><br><span class="line">        - hint: NULL</span><br></pre></td></tr></table></figure>
-
+<h2 id="SD-WAN部署架构"><a href="#SD-WAN部署架构" class="headerlink" title="SD-WAN部署架构"></a>SD-WAN部署架构</h2><p>可单独部署以下三种方式，也可以混合部署</p>
 <ul>
-<li>为防止部署出错，路径及文件请不要带有中文</li>
-<li>origin请明确指明出题人(ID即可,中文ID请使用拼音)</li>
-<li>有docker环境的题目flag必须全为动态，flag字段填写random，pushflag: xxx/xxx.sh，脚本参照出题样例，动态flag格式为flag{zheshiflag},静态flag格式为JNCTF{XXXXXXX}</li>
-<li>分值可设置为100，比赛负责人会考虑题目难度重新给分</li>
+<li>Full Mesh区域规模：不需要Hub</li>
+<li>DIY Hub and Spoke分布式组织：建立自己的Hub</li>
+<li>Cloud 全球组织：SD-WAN Prisma Access服务</li>
 </ul>
-<h2 id="Dockerfile规范"><a href="#Dockerfile规范" class="headerlink" title="Dockerfile规范"></a>Dockerfile规范</h2><p>Dockerfile编写参照官方教程，俱乐部现有的dockerfile如下</p>
-<ul>
-<li>Web:apache+php</li>
-<li>Web:apache+php+mysql</li>
-<li>Pwn题dockerfile<br>可自行根据需要去gitlab历史比赛题目寻找，欢迎大家完善dockerfile</li>
+<h2 id="Zero-Trust-amp-SASE"><a href="#Zero-Trust-amp-SASE" class="headerlink" title="Zero Trust &amp; SASE"></a>Zero Trust &amp; SASE</h2><ul>
+<li>Beyond Corp提供移动化接入架构理念</li>
+<li>ZTX提供零信任安全模型理念</li>
+<li>安全访问服务边界，即Secure、Access、Service、Edge</li>
 </ul>
-<h2 id="docker-compose-yml规范"><a href="#docker-compose-yml规范" class="headerlink" title="docker-compose.yml规范"></a>docker-compose.yml规范</h2><h3 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">services:</span><br><span class="line">  name:</span><br><span class="line">    build: .</span><br><span class="line">    image: docker_register_host:5000&#x2F;name</span><br><span class="line">    ports: [&#39;80&#39;]</span><br><span class="line">    tty: true</span><br><span class="line">version: &#39;3&#39;</span><br></pre></td></tr></table></figure>
-<h3 id="Pwn"><a href="#Pwn" class="headerlink" title="Pwn"></a>Pwn</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">services:</span><br><span class="line">  name:</span><br><span class="line">    build: .</span><br><span class="line">    image: docker_register_host:5000&#x2F;name</span><br><span class="line">    ports: [&#39;9999&#39;]</span><br><span class="line">    restart: unless-stopped</span><br><span class="line">version: &#39;3&#39;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>name填写题目名，严禁使用easypwn、easyphp、pwn1、web1等容易重复的名字</li>
-<li>docker_register_host填写docker仓库服务器IP地址，若不清楚，可询问俱乐部当年度负责人</li>
+<h2 id="Prisma-Access-基于Zero-Trust的SASE解决方案"><a href="#Prisma-Access-基于Zero-Trust的SASE解决方案" class="headerlink" title="Prisma Access-基于Zero Trust的SASE解决方案"></a>Prisma Access-基于Zero Trust的SASE解决方案</h2><ul>
+<li>基于Zero Trust方法论对接入的边缘设备总是验证识别，并实现边缘设备和服务之间的无缝安全访问</li>
+<li>实现分支机构、办公人员弹性、安全的就近接入</li>
+<li>通过Panaroma集中的管理，提供一致的安全策略</li>
 </ul>
-<h1 id="题目部署失败问题排查"><a href="#题目部署失败问题排查" class="headerlink" title="题目部署失败问题排查"></a>题目部署失败问题排查</h1><ul>
-<li>文件夹是否含有中文</li>
-<li>data.yml所指向的文件及附件是否存在</li>
-<li>data.yml格式错误(空格也不行)</li>
-<li>docker-compose.yml中的仓库ip地址是否正确</li>
+<h1 id="多出口，异地双活数据中心"><a href="#多出口，异地双活数据中心" class="headerlink" title="多出口，异地双活数据中心"></a>多出口，异地双活数据中心</h1><h2 id="多OA机房区域出口"><a href="#多OA机房区域出口" class="headerlink" title="多OA机房区域出口"></a>多OA机房区域出口</h2><ul>
+<li>机房异地，PA NGFW相连路由器采用ECMP，在PA端解决异步路由问题，HA1、HA2、HA3跨区域互联(HA1和HA2做session同步，HA3传输异步流量)</li>
+<li>采用4台设备做成Cluster来解决(每个机房部署2台PA设备，4台做session同步)</li>
+<li>公共NAT IP需要能够通过两个DC进行路由</li>
+</ul>
+<h2 id="安全能力平行扩展-HA扩展"><a href="#安全能力平行扩展-HA扩展" class="headerlink" title="安全能力平行扩展-HA扩展"></a>安全能力平行扩展-HA扩展</h2><h3 id="同城异地数据中心"><a href="#同城异地数据中心" class="headerlink" title="同城异地数据中心"></a>同城异地数据中心</h3><ul>
+<li>跨数据中心会话保持</li>
+<li>DC扩展及冗余</li>
+</ul>
+<h3 id="厂商中心的会话分发机制"><a href="#厂商中心的会话分发机制" class="headerlink" title="厂商中心的会话分发机制"></a>厂商中心的会话分发机制</h3><ul>
+<li>性能平行扩展，突破传统集群的性能瓶颈</li>
+<li>三层或者透明模式、物理机和虚拟机</li>
+<li>所有故障场景下都可实现会话保持(L3-4层会话同步)，通过专用HA4链路同步会话</li>
+</ul>
+<h2 id="IPsec职场互联作为专线备份"><a href="#IPsec职场互联作为专线备份" class="headerlink" title="IPsec职场互联作为专线备份"></a>IPsec职场互联作为专线备份</h2><ul>
+<li>多职场，内部通过专线互联(Inside)</li>
+<li>IPsec作为备份链路(Internet)</li>
+<li>通过PBR+Path Monitoring实现链路探测功能(自动探测相邻交换机链路状态和远端路径上的变化情况)，在PA NGFW上自动切换路由</li>
+</ul>
+<h2 id="多线路出口"><a href="#多线路出口" class="headerlink" title="多线路出口"></a>多线路出口</h2><ol>
+<li>正常业务流量去往联通(流量大，性价比高)</li>
+<li>特殊流量去往电信(延迟小，质量要求高)</li>
+<li>IPv6去往XXX(满足不同业务需求)</li>
+<li>联通 电信 双联路互备(保证业务的连续性)</li>
+<li>自动链路探测，路由自动删除</li>
+</ol>
+<h1 id="自动化防御和自动化运维"><a href="#自动化防御和自动化运维" class="headerlink" title="自动化防御和自动化运维"></a>自动化防御和自动化运维</h1><h2 id="自动化防御-拿来即用"><a href="#自动化防御-拿来即用" class="headerlink" title="自动化防御(拿来即用)"></a>自动化防御(拿来即用)</h2><ul>
+<li>和威胁情报系统(AF或第三方)联动</li>
+<li>主要通过外部动态列表(EDL)实现</li>
+<li>安全策略不变，但动态对象在变</li>
+<li>支持STIX/TAXII行业标准</li>
+</ul>
+<h2 id="自动化运维-需要开发"><a href="#自动化运维-需要开发" class="headerlink" title="自动化运维(需要开发)"></a>自动化运维(需要开发)</h2><ul>
+<li>通过API进行底层协同</li>
+<li>Network、Application等对象变更</li>
+<li>安全策略变更</li>
+<li>防护功能联动</li>
+</ul>
+<h2 id="安全情报及自动化防御"><a href="#安全情报及自动化防御" class="headerlink" title="安全情报及自动化防御"></a>安全情报及自动化防御</h2><ul>
+<li>沙箱/动态分析的结果自动生成攻击签名，5分钟反病毒，C2、恶意DNS、URL库更新</li>
+<li>API用动态黑名单的方式更新恶意IP、URL、域名</li>
+<li>采用API更新动态黑名单或者添加白名单</li>
+</ul>
+<h2 id="借助XSOAR平台进行安全自动化运维"><a href="#借助XSOAR平台进行安全自动化运维" class="headerlink" title="借助XSOAR平台进行安全自动化运维"></a>借助XSOAR平台进行安全自动化运维</h2><h3 id="挑战"><a href="#挑战" class="headerlink" title="挑战"></a>挑战</h3><ul>
+<li>每周处理大量防火墙策略变更请求</li>
+<li>实施规范的创建原则，保持防火墙策略的组织性</li>
+<li>审核审批流程和变更管理的跟踪</li>
+<li>跨多个防火墙协调更改</li>
+</ul>
+<h3 id="某司真实使用场景-XSOAR"><a href="#某司真实使用场景-XSOAR" class="headerlink" title="某司真实使用场景(XSOAR)"></a>某司真实使用场景(XSOAR)</h3><ul>
+<li>针对随时出现的恶意网址和钓鱼网站进行自动化防火墙屏蔽</li>
+<li>针对用户因工作目的需要访问的已被防火墙屏蔽的威胁网址做自动化加白</li>
+<li>针对随时出现的攻击，自动化的通过防火墙进行防御</li>
+<li>针对误报误拦的签名自动化的加白修改</li>
+<li>办公职场带宽拥挤后自动启用NGFW带宽控制功能，保障企业远程办公等核心业务可用性</li>
+</ul>
+<h3 id="计划"><a href="#计划" class="headerlink" title="计划"></a>计划</h3><ul>
+<li>变更记录与管理，变更可查可回溯</li>
+<li>与企业内部沟通工具飞书整合</li>
+<li>针对防火墙策略自动化配置</li>
+<li>对于其他安全工具产生的报警，可自动化的配置防火墙进行防御</li>
+<li>与其它安全工具整合(如Splunk，赛门铁克)</li>
 </ul>
 
       
@@ -242,7 +283,7 @@
         
         <br>
         <strong>本文链接：</strong>
-        https://yd0ng.github.io/2020/08/10/JNCTF%E5%B9%B3%E5%8F%B0%E5%87%BA%E9%A2%98%E8%A7%84%E8%8C%83/
+        https://yd0ng.github.io/2021/01/09/%E4%BA%92%E8%81%94%E7%BD%91%E8%A1%8C%E4%B8%9A%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%85%B8%E5%9E%8B%E6%A1%88%E4%BE%8B%E5%88%86%E4%BA%AB-%E5%BC%A0%E7%8E%89%E5%B1%B1/
         <br>
         <strong>版权声明：</strong>
         本作品采用
@@ -292,7 +333,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CTF</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">安全会议</a>
         		</li>
       		
 		</ul>
@@ -348,7 +389,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://yd0ng.github.io/2020/08/10/JNCTF%E5%B9%B3%E5%8F%B0%E5%87%BA%E9%A2%98%E8%A7%84%E8%8C%83/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://yd0ng.github.io/2021/01/09/%E4%BA%92%E8%81%94%E7%BD%91%E8%A1%8C%E4%B8%9A%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%85%B8%E5%9E%8B%E6%A1%88%E4%BE%8B%E5%88%86%E4%BA%AB-%E5%BC%A0%E7%8E%89%E5%B1%B1/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -362,18 +403,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/08/10/JNCTF%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          JNCTF平台搭建指南
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/08/07/Java%E5%8F%8D%E5%B0%84%E5%AD%A6%E4%B9%A0/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Java反射学习</div>
+    <a href="/2021/01/08/APP%E9%9A%90%E7%A7%81%E5%90%88%E8%A7%84%E5%AE%9E%E8%B7%B5-%E6%AD%A3%E4%BF%9D%E8%BF%9C%E7%A8%8B%E6%95%99%E8%82%B2-%E6%9D%8E%E6%99%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">APP隐私合规实践-正保远程教育</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -400,7 +432,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#说明"><span class="toc-number">1.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常见问题说明"><span class="toc-number">2.</span> <span class="toc-text">常见问题说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#交付说明"><span class="toc-number">3.</span> <span class="toc-text">交付说明</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#小题出题人"><span class="toc-number">3.1.</span> <span class="toc-text">小题出题人</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分方向负责人"><span class="toc-number">3.2.</span> <span class="toc-text">分方向负责人</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#比赛负责人"><span class="toc-number">3.3.</span> <span class="toc-text">比赛负责人</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#规范说明"><span class="toc-number">4.</span> <span class="toc-text">规范说明</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#文件夹结构说明"><span class="toc-number">4.1.</span> <span class="toc-text">文件夹结构说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#data-yml规范"><span class="toc-number">4.2.</span> <span class="toc-text">data.yml规范</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dockerfile规范"><span class="toc-number">4.3.</span> <span class="toc-text">Dockerfile规范</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#docker-compose-yml规范"><span class="toc-number">4.4.</span> <span class="toc-text">docker-compose.yml规范</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Web"><span class="toc-number">4.4.1.</span> <span class="toc-text">Web</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pwn"><span class="toc-number">4.4.2.</span> <span class="toc-text">Pwn</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#题目部署失败问题排查"><span class="toc-number">5.</span> <span class="toc-text">题目部署失败问题排查</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#互联网行业特点及需求分析"><span class="toc-number">1.</span> <span class="toc-text">互联网行业特点及需求分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#业务流量大"><span class="toc-number">1.1.</span> <span class="toc-text">业务流量大</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分支多，网络复杂"><span class="toc-number">1.2.</span> <span class="toc-text">分支多，网络复杂</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#云化"><span class="toc-number">1.3.</span> <span class="toc-text">云化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运维挑战"><span class="toc-number">1.4.</span> <span class="toc-text">运维挑战</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#出海及多分支部署-SDWAN-amp-SASE"><span class="toc-number">2.</span> <span class="toc-text">出海及多分支部署-SDWAN &amp; SASE</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#传统SD-WAN面临的挑战"><span class="toc-number">2.1.</span> <span class="toc-text">传统SD-WAN面临的挑战</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#来自Palo-Alto-Networks的安全SD-WAN"><span class="toc-number">2.2.</span> <span class="toc-text">来自Palo Alto Networks的安全SD-WAN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SD-WAN部署架构"><span class="toc-number">2.3.</span> <span class="toc-text">SD-WAN部署架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Zero-Trust-amp-SASE"><span class="toc-number">2.4.</span> <span class="toc-text">Zero Trust &amp; SASE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Prisma-Access-基于Zero-Trust的SASE解决方案"><span class="toc-number">2.5.</span> <span class="toc-text">Prisma Access-基于Zero Trust的SASE解决方案</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#多出口，异地双活数据中心"><span class="toc-number">3.</span> <span class="toc-text">多出口，异地双活数据中心</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#多OA机房区域出口"><span class="toc-number">3.1.</span> <span class="toc-text">多OA机房区域出口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安全能力平行扩展-HA扩展"><span class="toc-number">3.2.</span> <span class="toc-text">安全能力平行扩展-HA扩展</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#同城异地数据中心"><span class="toc-number">3.2.1.</span> <span class="toc-text">同城异地数据中心</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#厂商中心的会话分发机制"><span class="toc-number">3.2.2.</span> <span class="toc-text">厂商中心的会话分发机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IPsec职场互联作为专线备份"><span class="toc-number">3.3.</span> <span class="toc-text">IPsec职场互联作为专线备份</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多线路出口"><span class="toc-number">3.4.</span> <span class="toc-text">多线路出口</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#自动化防御和自动化运维"><span class="toc-number">4.</span> <span class="toc-text">自动化防御和自动化运维</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#自动化防御-拿来即用"><span class="toc-number">4.1.</span> <span class="toc-text">自动化防御(拿来即用)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自动化运维-需要开发"><span class="toc-number">4.2.</span> <span class="toc-text">自动化运维(需要开发)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安全情报及自动化防御"><span class="toc-number">4.3.</span> <span class="toc-text">安全情报及自动化防御</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#借助XSOAR平台进行安全自动化运维"><span class="toc-number">4.4.</span> <span class="toc-text">借助XSOAR平台进行安全自动化运维</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#挑战"><span class="toc-number">4.4.1.</span> <span class="toc-text">挑战</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#某司真实使用场景-XSOAR"><span class="toc-number">4.4.2.</span> <span class="toc-text">某司真实使用场景(XSOAR)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计划"><span class="toc-number">4.4.3.</span> <span class="toc-text">计划</span></a></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -425,7 +457,7 @@ if(true){
   	repo: 'yd0ng.github.io',
   	owner: 'yd0ng',
   	admin: ['yd0ng'],
-  	id: 'Mon Aug 10 2020 08:40:19 GMT+0800',
+  	id: 'Sat Jan 09 2021 20:34:27 GMT+0800',
   	distractionFreeMode: 'true'
 })
 gitalk.render('gitalk-container') 
