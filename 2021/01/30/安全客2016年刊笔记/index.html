@@ -16,7 +16,7 @@
 <meta property="og:description" content="1月份翻读安全客2016年刊笔记，记一下有用的知识点">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-01-30T07:22:11.000Z">
-<meta property="article:modified_time" content="2021-01-23T05:51:23.265Z">
+<meta property="article:modified_time" content="2021-01-23T07:59:40.392Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="安全会议">
 <meta name="twitter:card" content="summary">
@@ -209,8 +209,28 @@
 <li>find查询时，可以使用mangodb的比较运算符和数组造成注入，比如id[$ne]=2；使用implode()来修复</li>
 <li>findone查询时，可以打破原有语句来造成注入，如name’});return{something:1,something:2}}//&amp;pass=pass，something替换为相应字段即可，1和2替换为相应的查询语句；使用addslashes和preg_replace来修复</li>
 </ul>
-<h1 id="谈一谈如何在Python开发中拒绝SSRF漏洞"><a href="#谈一谈如何在Python开发中拒绝SSRF漏洞" class="headerlink" title="谈一谈如何在Python开发中拒绝SSRF漏洞"></a>谈一谈如何在Python开发中拒绝SSRF漏洞</h1><p>未完待续</p>
+<h1 id="谈一谈如何在Python开发中拒绝SSRF漏洞"><a href="#谈一谈如何在Python开发中拒绝SSRF漏洞" class="headerlink" title="谈一谈如何在Python开发中拒绝SSRF漏洞"></a>谈一谈如何在Python开发中拒绝SSRF漏洞</h1><h2 id="如何检测IP为内网IP"><a href="#如何检测IP为内网IP" class="headerlink" title="如何检测IP为内网IP"></a>如何检测IP为内网IP</h2><ul>
+<li>检查三个内网特定IP段，192.168.0.0/16、10.0.0.0/8、172.16.0.0/12</li>
+<li>检测127.0.0.0/8的本地环回IP段</li>
+<li>正则匹配法匹配上述内网地址</li>
+<li>IP地址规范化，然后判断part[0]和part[1]</li>
+<li>IP地址转换为整数然后判断</li>
+<li>掩码比较</li>
+</ul>
+<h2 id="绕过正则匹配内网方式"><a href="#绕过正则匹配内网方式" class="headerlink" title="绕过正则匹配内网方式"></a>绕过正则匹配内网方式</h2><ul>
+<li>八进制绕过</li>
+<li>十六进制绕过</li>
+<li>十进制绕过</li>
+<li>IP地址省略写法绕过</li>
+</ul>
+<h2 id="host获取与绕过"><a href="#host获取与绕过" class="headerlink" title="host获取与绕过"></a>host获取与绕过</h2><h3 id="正确的获取用户输入的URL的host"><a href="#正确的获取用户输入的URL的host" class="headerlink" title="正确的获取用户输入的URL的host"></a>正确的获取用户输入的URL的host</h3><p>常见的错误获取如下，实际获取的是233.233.233.233</p>
+<ul>
+<li><a href="http://233.233.233.233@10.0.0.1:8080" target="_blank" rel="noopener">http://233.233.233.233@10.0.0.1:8080</a></li>
+<li><a href="http://10.0.0.1#233.233.233.233" target="_blank" rel="noopener">http://10.0.0.1#233.233.233.233</a></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">from urllib.parse import urlparse</span><br><span class="line">url&#x3D;&quot;https:&#x2F;&#x2F;10.0.0.1&#x2F;index.php&quot;</span><br><span class="line">urlparse(url).hostname</span><br></pre></td></tr></table></figure>
 
+<h3 id="只要host不是内网IP就可以吗"><a href="#只要host不是内网IP就可以吗" class="headerlink" title="只要host不是内网IP就可以吗"></a>只要host不是内网IP就可以吗</h3>
       
       
     
@@ -370,7 +390,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#甲方安全日常之一场反击灰色产业链的暗战"><span class="toc-number">1.</span> <span class="toc-text">甲方安全日常之一场反击灰色产业链的暗战</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DiscuzX系列门户文章功能SSRF漏洞挖掘与分析"><span class="toc-number">2.</span> <span class="toc-text">DiscuzX系列门户文章功能SSRF漏洞挖掘与分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#前端防御XSS及XSS报警机制"><span class="toc-number">3.</span> <span class="toc-text">前端防御XSS及XSS报警机制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#从白帽子角度谈Flash安全"><span class="toc-number">4.</span> <span class="toc-text">从白帽子角度谈Flash安全</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#现代浏览器中的新型JSON劫持技术"><span class="toc-number">5.</span> <span class="toc-text">现代浏览器中的新型JSON劫持技术</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#某大型网络社区传播性XSS分析"><span class="toc-number">6.</span> <span class="toc-text">某大型网络社区传播性XSS分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ImageMagick命令执行漏洞分析"><span class="toc-number">7.</span> <span class="toc-text">ImageMagick命令执行漏洞分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MongoDB安全，PHP中的注入攻击"><span class="toc-number">8.</span> <span class="toc-text">MongoDB安全，PHP中的注入攻击</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#谈一谈如何在Python开发中拒绝SSRF漏洞"><span class="toc-number">9.</span> <span class="toc-text">谈一谈如何在Python开发中拒绝SSRF漏洞</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#甲方安全日常之一场反击灰色产业链的暗战"><span class="toc-number">1.</span> <span class="toc-text">甲方安全日常之一场反击灰色产业链的暗战</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DiscuzX系列门户文章功能SSRF漏洞挖掘与分析"><span class="toc-number">2.</span> <span class="toc-text">DiscuzX系列门户文章功能SSRF漏洞挖掘与分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#前端防御XSS及XSS报警机制"><span class="toc-number">3.</span> <span class="toc-text">前端防御XSS及XSS报警机制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#从白帽子角度谈Flash安全"><span class="toc-number">4.</span> <span class="toc-text">从白帽子角度谈Flash安全</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#现代浏览器中的新型JSON劫持技术"><span class="toc-number">5.</span> <span class="toc-text">现代浏览器中的新型JSON劫持技术</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#某大型网络社区传播性XSS分析"><span class="toc-number">6.</span> <span class="toc-text">某大型网络社区传播性XSS分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ImageMagick命令执行漏洞分析"><span class="toc-number">7.</span> <span class="toc-text">ImageMagick命令执行漏洞分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MongoDB安全，PHP中的注入攻击"><span class="toc-number">8.</span> <span class="toc-text">MongoDB安全，PHP中的注入攻击</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#谈一谈如何在Python开发中拒绝SSRF漏洞"><span class="toc-number">9.</span> <span class="toc-text">谈一谈如何在Python开发中拒绝SSRF漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#如何检测IP为内网IP"><span class="toc-number">9.1.</span> <span class="toc-text">如何检测IP为内网IP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#绕过正则匹配内网方式"><span class="toc-number">9.2.</span> <span class="toc-text">绕过正则匹配内网方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#host获取与绕过"><span class="toc-number">9.3.</span> <span class="toc-text">host获取与绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#正确的获取用户输入的URL的host"><span class="toc-number">9.3.1.</span> <span class="toc-text">正确的获取用户输入的URL的host</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#只要host不是内网IP就可以吗"><span class="toc-number">9.3.2.</span> <span class="toc-text">只要host不是内网IP就可以吗</span></a></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>
