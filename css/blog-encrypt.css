@@ -14,6 +14,7 @@
     align-items: flex-start;
     margin: 100px auto;
 }
+
 .hbe-input-container input {
     -webkit-box-ordinal-group: 11;
     order: 10;
@@ -26,19 +27,24 @@
     border-bottom: 1px solid #d5d5d5;
     text-indent: 10px;
 }
+
 .hbe-input-container input::-moz-placeholder {
     opacity: 0;
 }
+
 .hbe-input-container input::-webkit-input-placeholder {
     opacity: 0;
 }
+
 .hbe-input-container input:-ms-input-placeholder {
     opacity: 0;
 }
+
 .hbe-input-container input,
 .hbe-input-container label {
     transition: all 0.3s;
 }
+
 .hbe-input-container label {
     -webkit-box-ordinal-group: 101;
     -ms-flex-order: 100;
@@ -50,6 +56,7 @@
     -webkit-transform: translate(10px, 40px);
     transform: translate(0px, 40px);
 }
+
 .hbe-input-container .bottom-line {
     order: 2;
     width: 0;
@@ -57,13 +64,16 @@
     background: #658db5;
     transition: all 0.3s;
 }
+
 .hbe-input-container input:focus {
     border-bottom-color: #fff;
 }
+
 .hbe-input-container input:focus ~ div,
 .hbe-input-container input:not(:placeholder-shown) ~ div {
     width: 100%;
 }
+
 .hbe-input-container input:focus + label,
 .hbe-input-container input:not(:placeholder-shown) + label {
     color: #52616c;
