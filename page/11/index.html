@@ -57,7 +57,7 @@
 		</nav>
 		
 		<nav>
-			总文章数 138
+			总文章数 139
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -135,6 +135,87 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-Linux学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/31/Linux%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Linux学习笔记</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/31/Linux%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2020-03-31T15:07:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Linux学习笔记</p>
+        
+          <a class="article-more-a" href="/2020/03/31/Linux%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more">more >></a>
+        
+      
+      
+    
+      <div class="declare" hidden="hidden"></div>
+    
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术文档</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/31/Linux%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+<!--显示阅读次数-->
+
+
   
     <article id="post-Windows10专业版激活" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -865,96 +946,6 @@
 
 
   
-    <article id="post-kali爆破WiFi密码" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/25/kali%E7%88%86%E7%A0%B4WiFi%E5%AF%86%E7%A0%81/">kali爆破WiFi密码</a>
-    </h1>
-  
-
-        
-        <a href="/2020/02/25/kali%E7%88%86%E7%A0%B4WiFi%E5%AF%86%E7%A0%81/" class="archive-article-date">
-  	<time datetime="2020-02-25T11:45:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <a id="more"></a>
-<ol>
-<li>ifconfig                 查看网卡信息 显示有wlan0即为无线网卡</li>
-<li>airmon-ng start wlan0         启动网卡监听模式</li>
-<li>ifconfig                 看看网卡名是不是变成了wlan0mon，是则启动成功</li>
-<li>airodump-ng wlan0mon             扫描附近wifi后，出现要破解的wifi，ctrl+C停止扫描<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">BSSID：MAC地址（记录1）</span><br><span class="line">PWR：信号强度</span><br><span class="line">#Data：传输的数据</span><br><span class="line">CH：信号频道（记录2）</span><br><span class="line">ESSID:wifi名称</span><br></pre></td></tr></table></figure></li>
-<li>airodump-ng -c 记录2 –bssid 记录1 -w 握手包存放路径  </li>
-<li>aireplay-ng -0 0 -a 记录1 wlan0mon 攻击wifi使连接用户其重新连接，记得及时关闭 </li>
-<li>抓包界面右上角出现  WPA handshake：XX:XX:XX:XX:XX：XX 即为抓包成功，可关闭转包界面</li>
-<li>airmon-ng stop  wlan0mon 关闭网卡监听状态</li>
-<li>破解密码<br>aircrack-ng -w 字典路径 /握手包路径</li>
-</ol>
-
-      
-      
-    
-      <div class="declare" hidden="hidden"></div>
-    
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术文档</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/02/25/kali%E7%88%86%E7%A0%B4WiFi%E5%AF%86%E7%A0%81/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-<!--显示阅读次数-->
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/10/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/12/">Next &amp;raquo;</a>
@@ -1094,7 +1085,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">静态代码分析</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">信息收集</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">研发工程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">DAST</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1115,18 +1118,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">逆向工程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">研发工程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">静态代码分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DAST</a>
               </li>
             
             <div class="clearfix"></div>
