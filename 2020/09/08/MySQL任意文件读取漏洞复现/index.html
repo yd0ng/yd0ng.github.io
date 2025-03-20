@@ -5,23 +5,23 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="https://yd0ng.github.io">
+  <link rel="dns-prefetch" href="https://blog.yd0ng.top">
   <title>MySQL任意文件读取漏洞复现 | 不知名网络安全选手的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="MySQL任意文件读取漏洞复现">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL任意文件读取漏洞复现">
-<meta property="og:url" content="https://yd0ng.github.io/2020/09/08/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/index.html">
+<meta property="og:url" content="https://blog.yd0ng.top/2020/09/08/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/index.html">
 <meta property="og:site_name" content="不知名网络安全选手的博客">
 <meta property="og:description" content="MySQL任意文件读取漏洞复现">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://yd0ng.github.io/2020/09/08/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0.png">
+<meta property="og:image" content="https://blog.yd0ng.top/2020/09/08/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0.png">
 <meta property="article:published_time" content="2020-09-08T14:40:56.000Z">
 <meta property="article:modified_time" content="2020-09-08T14:47:39.000Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="漏洞复现">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://yd0ng.github.io/2020/09/08/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0.png">
+<meta name="twitter:image" content="https://blog.yd0ng.top/2020/09/08/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0.png">
   
   
     <link rel="icon" href="/themes/yilia/source/">
@@ -188,7 +188,7 @@
         
         <br>
         <strong>本文链接：</strong>
-        https://yd0ng.github.io/2020/09/08/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/
+        https://blog.yd0ng.top/2020/09/08/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/
         <br>
         <strong>版权声明：</strong>
         本作品采用
@@ -294,7 +294,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://yd0ng.github.io/2020/09/08/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://blog.yd0ng.top/2020/09/08/MySQL%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" alt="微信分享二维码">
     </div>
 </div>
 

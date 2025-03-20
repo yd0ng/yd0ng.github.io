@@ -5,31 +5,31 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="https://yd0ng.github.io">
+  <link rel="dns-prefetch" href="https://blog.yd0ng.top">
   <title>计组复习 | 不知名网络安全选手的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="大三上计组上课也没好好听课，老师给划的重点也和没划差不太多，只能硬着头皮来看书理解。这学期用的是还没出版的新教材，用的RISCV指令集。简单记录一下自己复习计组觉得重要的知识点。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计组复习">
-<meta property="og:url" content="https://yd0ng.github.io/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/index.html">
+<meta property="og:url" content="https://blog.yd0ng.top/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/index.html">
 <meta property="og:site_name" content="不知名网络安全选手的博客">
 <meta property="og:description" content="大三上计组上课也没好好听课，老师给划的重点也和没划差不太多，只能硬着头皮来看书理解。这学期用的是还没出版的新教材，用的RISCV指令集。简单记录一下自己复习计组觉得重要的知识点。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://yd0ng.github.io/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/%E5%85%A8%E5%8A%A0%E5%99%A8%E7%AC%A6%E5%8F%B7.png">
-<meta property="og:image" content="https://yd0ng.github.io/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/%E5%85%A8%E5%8A%A0%E5%99%A8%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF.png">
-<meta property="og:image" content="https://yd0ng.github.io/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/%E5%8A%A0%E6%B3%95%E5%99%A8%E7%AC%A6%E5%8F%B7.png">
-<meta property="og:image" content="https://yd0ng.github.io/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/%E5%8A%A0%E6%B3%95%E5%99%A8%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF.png">
-<meta property="og:image" content="https://yd0ng.github.io/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/%E5%B8%A6%E6%A0%87%E5%BF%97%E5%8A%A0%E6%B3%95%E5%99%A8%E7%AC%A6%E5%8F%B7.png">
-<meta property="og:image" content="https://yd0ng.github.io/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/%E5%B8%A6%E6%A0%87%E5%BF%97%E5%8A%A0%E6%B3%95%E5%99%A8%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF.png">
-<meta property="og:image" content="https://yd0ng.github.io/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/ALU%E7%AC%A6%E5%8F%B7.png">
-<meta property="og:image" content="https://yd0ng.github.io/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/32%E4%BD%8DRISC-V%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F.png">
-<meta property="og:image" content="https://yd0ng.github.io/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/32%E4%BD%8DRISC-V%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F.png">
+<meta property="og:image" content="https://blog.yd0ng.top/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/%E5%85%A8%E5%8A%A0%E5%99%A8%E7%AC%A6%E5%8F%B7.png">
+<meta property="og:image" content="https://blog.yd0ng.top/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/%E5%85%A8%E5%8A%A0%E5%99%A8%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF.png">
+<meta property="og:image" content="https://blog.yd0ng.top/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/%E5%8A%A0%E6%B3%95%E5%99%A8%E7%AC%A6%E5%8F%B7.png">
+<meta property="og:image" content="https://blog.yd0ng.top/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/%E5%8A%A0%E6%B3%95%E5%99%A8%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF.png">
+<meta property="og:image" content="https://blog.yd0ng.top/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/%E5%B8%A6%E6%A0%87%E5%BF%97%E5%8A%A0%E6%B3%95%E5%99%A8%E7%AC%A6%E5%8F%B7.png">
+<meta property="og:image" content="https://blog.yd0ng.top/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/%E5%B8%A6%E6%A0%87%E5%BF%97%E5%8A%A0%E6%B3%95%E5%99%A8%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF.png">
+<meta property="og:image" content="https://blog.yd0ng.top/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/ALU%E7%AC%A6%E5%8F%B7.png">
+<meta property="og:image" content="https://blog.yd0ng.top/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/32%E4%BD%8DRISC-V%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F.png">
+<meta property="og:image" content="https://blog.yd0ng.top/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/32%E4%BD%8DRISC-V%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F.png">
 <meta property="article:published_time" content="2020-01-02T13:07:27.000Z">
 <meta property="article:modified_time" content="2022-03-13T12:38:48.000Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="技术文档">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://yd0ng.github.io/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/%E5%85%A8%E5%8A%A0%E5%99%A8%E7%AC%A6%E5%8F%B7.png">
+<meta name="twitter:image" content="https://blog.yd0ng.top/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/%E5%85%A8%E5%8A%A0%E5%99%A8%E7%AC%A6%E5%8F%B7.png">
   
   
     <link rel="icon" href="/themes/yilia/source/">
@@ -499,7 +499,7 @@
         
         <br>
         <strong>本文链接：</strong>
-        https://yd0ng.github.io/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/
+        https://blog.yd0ng.top/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/
         <br>
         <strong>版权声明：</strong>
         本作品采用
@@ -605,7 +605,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://yd0ng.github.io/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://blog.yd0ng.top/2020/01/02/%E8%AE%A1%E7%BB%84%E5%A4%8D%E4%B9%A0/" alt="微信分享二维码">
     </div>
 </div>
 
