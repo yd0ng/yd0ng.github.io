@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://blog.yd0ng.top/2025/04/08/JAVA%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0-%E4%B8%8B/4.png">
 <meta property="og:image" content="https://blog.yd0ng.top/2025/04/08/JAVA%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0-%E4%B8%8B/5.png">
 <meta property="article:published_time" content="2025-04-08T04:47:46.000Z">
-<meta property="article:modified_time" content="2025-04-08T06:17:24.597Z">
+<meta property="article:modified_time" content="2025-04-08T12:09:12.829Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="JAVA开发">
 <meta name="twitter:card" content="summary">
@@ -624,7 +624,8 @@
 <li>空参的read方法执行读取+转码，有参的read方法执行读取+转码+强转</li>
 </ul>
 </li>
-<li>字符输出流原理<pre><code>* 在创建输出流对象时，创建一个8192的字节数组，作为缓冲区，输出数据先写入缓冲区</code></pre><ul>
+<li>字符输出流原理<ul>
+<li>在创建输出流对象时，创建一个8192的字节数组，作为缓冲区，输出数据先写入缓冲区</li>
 <li>情况<ul>
 <li>装满了：将缓冲区的内容直接保存到文件中 </li>
 <li>flush：将缓冲区中的数据，刷新到本地文件中</li>
@@ -681,9 +682,11 @@
 <li>构造方法：ObjectOutputStream()：把基本流包装为序列化流</li>
 <li>成员方法：writeObject(Object obj)：把对象序列化(写出)到文件中去</li>
 <li>使用方法(注意javabean类需要实现Serializable接口)：<ul>
-<li>创建对象、创建文件输出流、创建序列化流、序列化对象到文件中。<h3 id="反序列化"><a href="#反序列化" class="headerlink" title="反序列化"></a>反序列化</h3></li>
+<li>创建对象、创建文件输出流、创建序列化流、序列化对象到文件中。</li>
 </ul>
 </li>
+</ul>
+<h3 id="反序列化"><a href="#反序列化" class="headerlink" title="反序列化"></a>反序列化</h3><ul>
 <li>反序列化可以把序列化到本地文件中的对象，读取到程序中来</li>
 <li>构造方法：ObjectInputStream()：把基本流包装为反序列化流</li>
 <li>成员方法：readObject()把序列化到本地文件中的对象，读取到程序中来</li>
@@ -805,10 +808,8 @@
 </ul>
 <h2 id="线程优先级"><a href="#线程优先级" class="headerlink" title="线程优先级"></a>线程优先级</h2><ul>
 <li>线程调度模式 <ul>
-<li>抢占式调度（随机性）：Java采用此类调度，数值越大抢占到CPU的概念越高<ul>
+<li>抢占式调度（随机性）：Java采用此类调度，数值越大抢占到CPU的概念越高</li>
 <li>非抢占式调度</li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -820,10 +821,14 @@
 <li>死亡：线程死亡，变成垃圾（run执行完毕）</li>
 </ul>
 <h2 id="线程安全问题"><a href="#线程安全问题" class="headerlink" title="线程安全问题"></a>线程安全问题</h2><ul>
-<li>多个线程操作一个共享资源时，会出现并发写导致的非预期问题，比如卖票卖超问题。<h3 id="同步代码块"><a href="#同步代码块" class="headerlink" title="同步代码块"></a>同步代码块</h3></li>
-<li>把操作共享数据的代码锁起来</li>
-<li>格式：synchronized(锁){操作共享数据的代码}，锁需要是唯一的对象（比如ClassName）。</li>
-<li>特点：<ul>
+<li><p>多个线程操作一个共享资源时，会出现并发写导致的非预期问题，比如卖票卖超问题。</p>
+<h3 id="同步代码块"><a href="#同步代码块" class="headerlink" title="同步代码块"></a>同步代码块</h3></li>
+<li><p>把操作共享数据的代码锁起来</p>
+</li>
+<li><p>格式：synchronized(锁){操作共享数据的代码}，锁需要是唯一的对象（比如ClassName）。</p>
+</li>
+<li><p>特点：</p>
+<ul>
 <li>锁默认打开，有一个线程进去了，锁自动关闭</li>
 <li>里面的代码全部执行完毕，线程出来，锁自动打开</li>
 <li>使用注意点：<ul>
@@ -834,10 +839,14 @@
 </li>
 </ul>
 </li>
-<li>格式：修饰符 synchronized 返回值类型 方法名(方法参数){……}</li>
-<li>特点<ul>
-<li>同步方法时锁住方法里面所有的代码<ul>
-<li>锁对象不能自己指定<ul>
+<li><p>格式：修饰符 synchronized 返回值类型 方法名(方法参数){……}</p>
+</li>
+<li><p>特点</p>
+<ul>
+<li><p>同步方法时锁住方法里面所有的代码</p>
+<ul>
+<li><p>锁对象不能自己指定</p>
+<ul>
 <li>非静态方法锁的是this</li>
 <li>静态方法锁的是当前类的字节码对象文件</li>
 </ul>
@@ -846,10 +855,13 @@
 </li>
 </ul>
 </li>
-<li>其他:<ul>
-<li>StringBuilder线程不安全，StringBuffer线程安全<h3 id="Lock锁"><a href="#Lock锁" class="headerlink" title="Lock锁"></a>Lock锁</h3></li>
+<li><p>其他:</p>
+<ul>
+<li>StringBuilder线程不安全，StringBuffer线程安全</li>
 </ul>
 </li>
+</ul>
+<h3 id="Lock锁"><a href="#Lock锁" class="headerlink" title="Lock锁"></a>Lock锁</h3><ul>
 <li>JDK5后新增锁对象Lock锁，可以更清晰的表达加锁和释放锁</li>
 <li>Lock是接口不能直接实例化，这里采用它的实现类ReentrantLock来进行实例化。<ul>
 <li>构造方法：ReentrantLock()</li>
@@ -964,9 +976,12 @@
 </ul>
 </li>
 <li><p>原子性</p>
-<pre><code>* volatile
-* AtomicInteger
-* CAS、Synchronized、悲观锁、乐观锁</code></pre></li>
+<ul>
+<li>volatile</li>
+<li>AtomicInteger</li>
+<li>CAS、Synchronized、悲观锁、乐观锁</li>
+</ul>
+</li>
 <li><p>并发工具类</p>
 <ul>
 <li>ConcurrentHashMap：</li>
