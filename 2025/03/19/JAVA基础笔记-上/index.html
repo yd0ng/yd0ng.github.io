@@ -16,7 +16,7 @@
 <meta property="og:description" content="JAVA开发学习笔记-上">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-03-19T07:30:24.000Z">
-<meta property="article:modified_time" content="2025-04-08T04:48:07.752Z">
+<meta property="article:modified_time" content="2025-04-29T09:22:40.405Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="JAVA开发">
 <meta name="twitter:card" content="summary">
@@ -35,7 +35,7 @@
 
   
 
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
   <div id="container" q-class="show:isCtnShow">
@@ -62,7 +62,7 @@
 		</nav>
 		
 		<nav>
-			总文章数 144
+			总文章数 146
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -1154,30 +1154,51 @@
 </ul>
 </li>
 </ul>
-<h4 id="泛型类、泛型方法、泛型接口"><a href="#泛型类、泛型方法、泛型接口" class="headerlink" title="泛型类、泛型方法、泛型接口"></a>泛型类、泛型方法、泛型接口</h4><pre><code>* 泛型
-    * 泛型是JDK5中引入的特性，可以在编译阶段约束的数据类型，并进行检查。
-    * 泛型的类型： &lt;数据类型&gt;，但仅支持引用数据类型，支持该类及子类传递
-    * 集合在没有指定泛型时，可以给集合中添加任意数据类型，但存在调用时无法使用特有行为的缺点，建议是通过泛型约束统一数据类型。而且在运行时期可以存在的问题提前到了编译器，可以提前发现异常。
-    * Java中的泛型其实是伪泛型，仅在编译时期有效，目的是为了向下兼容
-* 泛型类：当一个类中，某个变量的数据类型不确定时，就可以定义带有泛型的类
-    * 格式：修饰符 class 类名&lt;类型&gt;{}, 类型可以写为E、T、K、V等
-* 泛型方法：当方法中形参的类型不确定时：
-    * 可以使用类名后面定义的泛型&lt;E&gt;，所有方法都适用
-    * 也可以在方法声明上定义自己的泛型，只有本方法能用
-    * 格式 修饰符&lt;类型&gt; 返回值类型 方法名(类型 变量名){}，
-    * 如public static&lt;T&gt; void show(){};
-* 泛型接口
-    * 格式： 修饰符 interface 接口名&lt;类型&gt; {}，如public interface List&lt;E&gt;{}
-    * 使用方式
-        * 实现类给出具体类型: public class 类名 implements 接口名&lt;具体类型&gt;{}
-        * 实现类延续泛型，创建对象时再确定:格式如下：
-            * public class 类名&lt;类型&gt; implements 接口名&lt;类型&gt;{}
-            * 类名&lt;具体类型&gt; = new 类名&lt;具体类型&gt;（）;
-* 泛型的继承和统配符：
-    * 泛型不具备继承性，但是数据具备继承性
-    * 泛型通配符？:可以在传参不确定时，限制泛型可接受的参数类型
-        * ？extends E：表示可以传递E或者E所有子类类型
-        * ? super E： 表示可以传递E或者E所有的父类类型</code></pre><h4 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h4><ul>
+<h4 id="泛型类、泛型方法、泛型接口"><a href="#泛型类、泛型方法、泛型接口" class="headerlink" title="泛型类、泛型方法、泛型接口"></a>泛型类、泛型方法、泛型接口</h4><ul>
+<li><p>泛型</p>
+<ul>
+<li>泛型是JDK5中引入的特性，可以在编译阶段约束的数据类型，并进行检查。</li>
+<li>泛型的类型： &lt;数据类型&gt;，但仅支持引用数据类型，支持该类及子类传递</li>
+<li>集合在没有指定泛型时，可以给集合中添加任意数据类型，但存在调用时无法使用特有行为的缺点，建议是通过泛型约束统一数据类型。而且在运行时期可以存在的问题提前到了编译器，可以提前发现异常。</li>
+<li>Java中的泛型其实是伪泛型，仅在编译时期有效，目的是为了向下兼容</li>
+</ul>
+</li>
+<li><p>泛型类：当一个类中，某个变量的数据类型不确定时，就可以定义带有泛型的类</p>
+<ul>
+<li>格式：修饰符 class 类名&lt;类型&gt;{}, 类型可以写为E、T、K、V等</li>
+</ul>
+</li>
+<li><p>泛型方法：当方法中形参的类型不确定时：</p>
+<ul>
+<li>可以使用类名后面定义的泛型<E>，所有方法适用</E></li>
+<li>也可以在方法声明上定义自己的泛型，只有本法能用</li>
+<li>格式 修饰符&lt;类型&gt; 返回值类型 方法名(类型变量名){}，</li>
+<li>如public static<T> void show(){};</T></li>
+</ul>
+</li>
+<li><p>泛型接口</p>
+<ul>
+<li>格式： 修饰符 interface 接口名&lt;类型&gt; {}，如public interface List<E>{}</E></li>
+<li>使用方式<ul>
+<li>实现类给出具体类型: public class 类名 implements 接口名&lt;具体类型&gt;{}</li>
+<li>实现类延续泛型，创建对象时再确定:格式如下：  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public class 类名&lt;类型&gt; implements 接口名&lt;类型&gt;&#123;&#125;</span><br><span class="line">类名&lt;具体类型&gt; &#x3D; new 类名&lt;具体类型&gt;（）;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>泛型的继承和统配符：</p>
+<ul>
+<li>泛型不具备继承性，但是数据具备继承性</li>
+<li>泛型通配符？:可以在传参不确定时，限制泛型可接受的参数类型<ul>
+<li>？extends E：表示可以传递E或者E所有子类类型</li>
+<li>? super E： 表示可以传递E或者E所有的父类类型</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h4><ul>
 <li>Set系列特点：<ul>
 <li>无序：存取顺序不一致</li>
 <li>不重复：可以去除重复</li>
@@ -1618,11 +1639,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">信息收集</a>
+                <a href="javascript:void(0)" class="js-tag color5">DAST</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DAST</a>
+                <a href="javascript:void(0)" class="js-tag color5">信息收集</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1630,11 +1651,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Java开发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java安全</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">JAVA开发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Reverse</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">前端开发</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1655,10 +1688,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">留学</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JAVA开发</a>
               </li>
             
             <div class="clearfix"></div>
