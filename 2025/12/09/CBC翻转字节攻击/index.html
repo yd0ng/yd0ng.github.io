@@ -16,7 +16,7 @@
 <meta property="og:description" content="CBC翻转字节攻击">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-12-09T04:50:11.000Z">
-<meta property="article:modified_time" content="2025-12-09T05:39:06.431Z">
+<meta property="article:modified_time" content="2025-12-09T06:14:11.179Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="密码学">
 <meta name="twitter:card" content="summary">
@@ -186,8 +186,17 @@
 <li>输入2执行解密，需要用户输入iv+密文，控制明文输出为AdminAdmin______，得到flag</li>
 <li>很明显已知iv、P和P1，只要修改IV为IV’即可，给出解密脚本<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">def strxor(a1, a2):</span><br><span class="line">    return bytes([b1 ^ b2 for b1,b2 in zip(a1,a2)])</span><br><span class="line">authcode &#x3D; &quot;f6ba55e71e855cc335be3731b4ec4b175c43472435505016500648a5f653fffc&quot;</span><br><span class="line"></span><br><span class="line">iv  &#x3D; bytes.fromhex(authcode)[:16]</span><br><span class="line">c_origin &#x3D; bytes.fromhex(authcode)[16:]</span><br><span class="line">p_origin &#x3D; b&#39;NewStarCTFer____&#39;</span><br><span class="line">p_target &#x3D; b&#39;AdminAdmin______&#39;</span><br><span class="line">iv_modified &#x3D;  strxor(strxor(iv,p_origin),p_target)</span><br><span class="line">authcode&#x3D;iv_modified.hex()+c_origin.hex()</span><br><span class="line">print(authcode)</span><br></pre></td></tr></table></figure>
 
+
 </li>
 </ul>
+<h2 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h2><ul>
+<li>密文长度小于单block长度时，仅控制iv即可控制整个明文输出</li>
+<li>密文长度大于单block长度时，无法像单block长度那样完全自由控制整个明文，核心限制是 “控制后一块明文必须牺牲前一块明文”，仅靠CBC字节反转攻击无法实现整体控制。</li>
+</ul>
+<h2 id="防护建议"><a href="#防护建议" class="headerlink" title="防护建议"></a>防护建议</h2><ol>
+<li>纯CBC只保证机密性，不保证完整性，可以放弃纯 CBC 模式，改用支持 机密性 + 完整性 + 真实性 的 AEAD（Authenticated Encryption with Associated Data）算法，AEAD 会自动对密文 + IV + 附加数据（AD）计算认证标签，篡改任何部分都会导致解密失败，直接杜绝字节翻转攻击。</li>
+<li>CBC 模式 + 独立完整性校验,MAC 计算范围必须覆盖 IV + 密文, 来保证IV和密文均不被篡改</li>
+</ol>
 
       
       
@@ -348,7 +357,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CBC加解密回顾"><span class="toc-number">1.</span> <span class="toc-text">CBC加解密回顾</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#加密"><span class="toc-number">1.1.</span> <span class="toc-text">加密</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解密"><span class="toc-number">1.2.</span> <span class="toc-text">解密</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#字节反转攻击"><span class="toc-number">2.</span> <span class="toc-text">字节反转攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#核心原理"><span class="toc-number">2.1.</span> <span class="toc-text">核心原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#公式推导"><span class="toc-number">2.2.</span> <span class="toc-text">公式推导</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#例题-flip-flop"><span class="toc-number">3.</span> <span class="toc-text">例题(flip-flop)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目分析"><span class="toc-number">3.1.</span> <span class="toc-text">题目分析</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CBC加解密回顾"><span class="toc-number">1.</span> <span class="toc-text">CBC加解密回顾</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#加密"><span class="toc-number">1.1.</span> <span class="toc-text">加密</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解密"><span class="toc-number">1.2.</span> <span class="toc-text">解密</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#字节反转攻击"><span class="toc-number">2.</span> <span class="toc-text">字节反转攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#核心原理"><span class="toc-number">2.1.</span> <span class="toc-text">核心原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#公式推导"><span class="toc-number">2.2.</span> <span class="toc-text">公式推导</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#例题-flip-flop"><span class="toc-number">3.</span> <span class="toc-text">例题(flip-flop)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目分析"><span class="toc-number">3.1.</span> <span class="toc-text">题目分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#局限性"><span class="toc-number">3.2.</span> <span class="toc-text">局限性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#防护建议"><span class="toc-number">3.3.</span> <span class="toc-text">防护建议</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
