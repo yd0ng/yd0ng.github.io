@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://blog.yd0ng.top">
-  <title>XSS-labs WriteUp | 不知名网络安全选手的博客</title>
+  <title>CBC翻转字节攻击 | 不知名网络安全选手的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="XSS靶场学习记录">
+  <meta name="description" content="CBC翻转字节攻击">
 <meta property="og:type" content="article">
-<meta property="og:title" content="XSS-labs WriteUp">
-<meta property="og:url" content="https://blog.yd0ng.top/2020/02/25/XSS%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:title" content="CBC翻转字节攻击">
+<meta property="og:url" content="https://blog.yd0ng.top/2025/12/09/CBC%E7%BF%BB%E8%BD%AC%E5%AD%97%E8%8A%82%E6%94%BB%E5%87%BB/index.html">
 <meta property="og:site_name" content="不知名网络安全选手的博客">
-<meta property="og:description" content="XSS靶场学习记录">
+<meta property="og:description" content="CBC翻转字节攻击">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-02-25T09:09:32.000Z">
-<meta property="article:modified_time" content="2020-12-25T09:14:01.000Z">
+<meta property="article:published_time" content="2025-12-09T04:50:11.000Z">
+<meta property="article:modified_time" content="2025-12-09T05:39:06.431Z">
 <meta property="article:author" content="yd0ng">
-<meta property="article:tag" content="Web安全">
+<meta property="article:tag" content="密码学">
 <meta name="twitter:card" content="summary">
   
   
@@ -139,71 +139,55 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-XSS靶场记录" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-CBC翻转字节攻击" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      XSS-labs WriteUp
+      CBC翻转字节攻击
     </h1>
   
 
         
-        <a href="/2020/02/25/XSS%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/" class="archive-article-date">
-  	<time datetime="2020-02-25T09:09:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-25</time>
+        <a href="/2025/12/09/CBC%E7%BF%BB%E8%BD%AC%E5%AD%97%E8%8A%82%E6%94%BB%E5%87%BB/" class="archive-article-date">
+  	<time datetime="2025-12-09T04:50:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-12-09</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>XSS靶场学习记录</p>
+        <p>CBC翻转字节攻击</p>
 <a id="more"></a>
 
+<h1 id="CBC加解密回顾"><a href="#CBC加解密回顾" class="headerlink" title="CBC加解密回顾"></a>CBC加解密回顾</h1><h2 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h2><ul>
+<li>第一块明文在加密前需要先和IV异或，再进行加密得到密文1；</li>
+<li>后续明文块需要先和前一块密文异或，再进行加密得到密文i</li>
+</ul>
+<h2 id="解密"><a href="#解密" class="headerlink" title="解密"></a>解密</h2><ul>
+<li>第一块密文解密后需要先和IV异或，才能得到明文1</li>
+<li>后续密文块解密后需要先和前一块密文异或，才能得到得到明文i</li>
+</ul>
+<h1 id="字节反转攻击"><a href="#字节反转攻击" class="headerlink" title="字节反转攻击"></a>字节反转攻击</h1><h2 id="核心原理"><a href="#核心原理" class="headerlink" title="核心原理"></a>核心原理</h2><p>由公式可以看到明文是由iv和密文共同决定的，因此可以通过控制iv或者上一块密文来控制密文输出</p>
+<ul>
+<li>改iv可以控制第一块明文输出</li>
+<li>改密文可以控制第i块明文输出</li>
+</ul>
+<h2 id="公式推导"><a href="#公式推导" class="headerlink" title="公式推导"></a>公式推导</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">已知IV ⊕ D(C1,K) &#x3D; P1</span><br><span class="line">如果想让P1变为P1&#39;, P1&#39; &#x3D; IV&#39; ⊕ D(C1,K)，需要求解IV&#39;</span><br><span class="line"></span><br><span class="line">P1&#39; &#x3D; P1 ⊕ P1 ⊕ P1&#39;</span><br><span class="line">    &#x3D; IV ⊕ D(C1,K) * ⊕P1 ⊕ P1&#39;</span><br><span class="line"></span><br><span class="line">IV&#39;⊕ D(C1,K) &#x3D; IV ⊕ D(C1,K) * ⊕P1 ⊕ P1&#39;</span><br><span class="line">IV&#39; &#x3D; IV ⊕ P1 ⊕ P1&#39;</span><br></pre></td></tr></table></figure>
+<p>所以如果想将明文从P1改为P1’，只需要将IV变为IV’，IV’的值可由已知条件按位异或得到：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">IV&#39; &#x3D; IV ⊕ P1 ⊕ P1&#39;</span><br></pre></td></tr></table></figure>
 
-<h1 id="level-1"><a href="#level-1" class="headerlink" title="level-1"></a>level-1</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(1)&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="例题-flip-flop"><a href="#例题-flip-flop" class="headerlink" title="例题(flip-flop)"></a>例题(flip-flop)</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;python3 </span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">@file: Question.py</span><br><span class="line">@author: yd0ng</span><br><span class="line">@description: xxx</span><br><span class="line">@time: 2025&#x2F;12&#x2F;08</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">import os</span><br><span class="line">from Crypto.Cipher import AES</span><br><span class="line">auth_major_key &#x3D; os.urandom(16)</span><br><span class="line"># from flag import secret</span><br><span class="line">BANNER &#x3D; &quot;&quot;&quot;</span><br><span class="line">Login as admin to get the flag ! </span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">MENU &#x3D; &quot;&quot;&quot;</span><br><span class="line">Enter your choice</span><br><span class="line">[1] Create NewStarCTF Account</span><br><span class="line">[2] Create Admin Account</span><br><span class="line">[3] Login</span><br><span class="line">[4] Exit</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">print(BANNER)</span><br><span class="line">def bxor(b1, b2): # use xor for bytes</span><br><span class="line">    result &#x3D; b&quot;&quot;</span><br><span class="line">    for b1, b2 in zip(b1, b2):</span><br><span class="line">        result +&#x3D; bytes([b1 ^ b2])</span><br><span class="line">    return result</span><br><span class="line">while True:</span><br><span class="line">    print(MENU)</span><br><span class="line"></span><br><span class="line">    option &#x3D; int(input(&#39;&gt; &#39;))</span><br><span class="line">    if option &#x3D;&#x3D; 1:</span><br><span class="line">        auth_pt &#x3D; b&#39;NewStarCTFer____&#39;</span><br><span class="line">        user_key &#x3D; os.urandom(16)</span><br><span class="line">        cipher &#x3D; AES.new(auth_major_key, AES.MODE_CBC, user_key)</span><br><span class="line">        code &#x3D; cipher.encrypt(auth_pt)</span><br><span class="line">        print(f&#39;here is your authcode: &#123;user_key.hex() + code.hex()&#125;&#39;)</span><br><span class="line">    elif option &#x3D;&#x3D; 2:</span><br><span class="line">        print(&#39;GET OUT !!!!!!&#39;)</span><br><span class="line">    elif option &#x3D;&#x3D; 3:</span><br><span class="line">        authcode &#x3D; input(&#39;Enter your authcode &gt; &#39;)</span><br><span class="line">        user_key &#x3D; bytes.fromhex(authcode)[:16]</span><br><span class="line">        code &#x3D; bytes.fromhex(authcode)[16:]</span><br><span class="line">        cipher &#x3D; AES.new(auth_major_key, AES.MODE_CBC, user_key)</span><br><span class="line">        auth_pt &#x3D; cipher.decrypt(code)</span><br><span class="line">        print(auth_pt)</span><br><span class="line">        if auth_pt &#x3D;&#x3D; b&#39;AdminAdmin______&#39;:</span><br><span class="line">            a &#x3D; user_key.hex() + code.hex()</span><br><span class="line">            print(&quot;hacker success !&quot;)</span><br><span class="line">            break</span><br><span class="line">        elif auth_pt &#x3D;&#x3D; b&#39;NewStarCTFer____&#39;:</span><br><span class="line">            print(&#39;Have fun!!&#39;)</span><br><span class="line">        else:</span><br><span class="line">            print(&#39;Who are you?&#39;)</span><br><span class="line">    elif option &#x3D;&#x3D; 4:</span><br><span class="line">        print(&#39;ByeBye&#39;)</span><br><span class="line">        exit(0)</span><br><span class="line">    else:</span><br><span class="line">        print(&quot;WTF&quot;)</span><br></pre></td></tr></table></figure>
 
-<h1 id="level-2"><a href="#level-2" class="headerlink" title="level-2"></a>level-2</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;script&gt;alert(1)&lt;&#x2F;script&gt;&lt;&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h2><ul>
+<li>输入1执行加密，已知明文为NewStarCTFer____，会输出对应的iv+密文</li>
+<li>输入2执行解密，需要用户输入iv+密文，控制明文输出为AdminAdmin______，得到flag</li>
+<li>很明显已知iv、P和P1，只要修改IV为IV’即可，给出解密脚本<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">def strxor(a1, a2):</span><br><span class="line">    return bytes([b1 ^ b2 for b1,b2 in zip(a1,a2)])</span><br><span class="line">authcode &#x3D; &quot;f6ba55e71e855cc335be3731b4ec4b175c43472435505016500648a5f653fffc&quot;</span><br><span class="line"></span><br><span class="line">iv  &#x3D; bytes.fromhex(authcode)[:16]</span><br><span class="line">c_origin &#x3D; bytes.fromhex(authcode)[16:]</span><br><span class="line">p_origin &#x3D; b&#39;NewStarCTFer____&#39;</span><br><span class="line">p_target &#x3D; b&#39;AdminAdmin______&#39;</span><br><span class="line">iv_modified &#x3D;  strxor(strxor(iv,p_origin),p_target)</span><br><span class="line">authcode&#x3D;iv_modified.hex()+c_origin.hex()</span><br><span class="line">print(authcode)</span><br></pre></td></tr></table></figure>
 
-<h1 id="level-3"><a href="#level-3" class="headerlink" title="level-3"></a>level-3</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#39; onmousemove&#x3D;&#39;alert(1)&#39;</span><br></pre></td></tr></table></figure>
-
-<h1 id="level-4"><a href="#level-4" class="headerlink" title="level-4"></a>level-4</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot; onmouseover&#x3D;&#39;alert(1)&#39;</span><br></pre></td></tr></table></figure>
-
-<h1 id="level-5"><a href="#level-5" class="headerlink" title="level-5"></a>level-5</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;a href&#x3D;&quot;javascript:alert(1);&quot;&gt;XSS&lt;&#x2F;a</span><br></pre></td></tr></table></figure>
-
-<h1 id="level-6"><a href="#level-6" class="headerlink" title="level-6"></a>level-6</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;a Href&#x3D;&quot;javascript:alert(1);&quot;&gt;XSS&lt;&#x2F;a</span><br></pre></td></tr></table></figure>
-
-<h1 id="level-7"><a href="#level-7" class="headerlink" title="level-7"></a>level-7</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;scrscriptipt&gt;alert(1)&lt;&#x2F;scrscriptipt&gt;&lt;&quot;</span><br></pre></td></tr></table></figure>
-
-<h1 id="level-8"><a href="#level-8" class="headerlink" title="level-8"></a>level-8</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javascrip&amp;#116;:alert(1)</span><br></pre></td></tr></table></figure>
-
-<h1 id="level-9"><a href="#level-9" class="headerlink" title="level-9"></a>level-9</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javascrip&amp;#116;:alert(1)&#x2F;&#x2F;http:&#x2F;&#x2F;www.baidu.com</span><br></pre></td></tr></table></figure>
-
-<h1 id="level-10"><a href="#level-10" class="headerlink" title="level-10"></a>level-10</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&amp;t_sort&#x3D;1&quot; type&#x3D;&quot;text&quot; onmousemove&#x3D;&#39;alert(1)&#39;&amp;t_history&#x3D;1&amp;t_link&#x3D;1</span><br></pre></td></tr></table></figure>
-
-<h1 id="level-11"><a href="#level-11" class="headerlink" title="level-11"></a>level-11</h1><p>第十关结束后抓包改ref请求头</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot; type&#x3D;&#39;text&#39; onmouseover&#x3D;&#39;alert(1)&#39;</span><br></pre></td></tr></table></figure>
-
-<h1 id="level-12"><a href="#level-12" class="headerlink" title="level-12"></a>level-12</h1><p>第十一关结束后改User-Agent请求头</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot; type&#x3D;&#39;text&#39; onmouseover&#x3D;&#39;alert(1)&#39;</span><br></pre></td></tr></table></figure>
-
-<h1 id="level-13"><a href="#level-13" class="headerlink" title="level-13"></a>level-13</h1><p>第十二关结束后改cookie请求头</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot; type&#x3D;&quot;text&quot; onmousemove&#x3D;&#39;alert(1)&#39;</span><br></pre></td></tr></table></figure>
-
-<h1 id="level-14"><a href="#level-14" class="headerlink" title="level-14"></a>level-14</h1><p>exifXSS</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">利用exif信息触发xss即可</span><br></pre></td></tr></table></figure>
-
-
-<h1 id="level-15"><a href="#level-15" class="headerlink" title="level-15"></a>level-15</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#39;level1.php?name&#x3D;&lt;script&gt;alert(1)&lt;&#x2F;script&gt;&#39;</span><br></pre></td></tr></table></figure>
-
-<h1 id="level-16"><a href="#level-16" class="headerlink" title="level-16"></a>level-16</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img%0Asrc&#x3D;x%0Aonerror&#x3D;alert(1)&gt;</span><br></pre></td></tr></table></figure>
-
-<h1 id="level-17"><a href="#level-17" class="headerlink" title="level-17"></a>level-17</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">onmousemove&#x3D;&#39;alert(1)&#39;</span><br></pre></td></tr></table></figure>
-
-<h1 id="level-18"><a href="#level-18" class="headerlink" title="level-18"></a>level-18</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">onmousemove&#x3D;&#39;alert(1)&#39;</span><br></pre></td></tr></table></figure>
-
+</li>
+</ul>
 
       
       
@@ -215,7 +199,7 @@
         
         <br>
         <strong>本文链接：</strong>
-        https://blog.yd0ng.top/2020/02/25/XSS%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/
+        https://blog.yd0ng.top/2025/12/09/CBC%E7%BF%BB%E8%BD%AC%E5%AD%97%E8%8A%82%E6%94%BB%E5%87%BB/
         <br>
         <strong>版权声明：</strong>
         本作品采用
@@ -265,7 +249,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Web安全</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">密码学</a>
         		</li>
       		
 		</ul>
@@ -321,7 +305,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://blog.yd0ng.top/2020/02/25/XSS%E9%9D%B6%E5%9C%BA%E8%AE%B0%E5%BD%95/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://blog.yd0ng.top/2025/12/09/CBC%E7%BF%BB%E8%BD%AC%E5%AD%97%E8%8A%82%E6%94%BB%E5%87%BB/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -335,18 +319,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/02/25/kali%E7%88%86%E7%A0%B4WiFi%E5%AF%86%E7%A0%81/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          kali爆破WiFi密码
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/02/25/i%E6%98%A5%E7%A7%8B%E6%96%B0%E6%98%A5%E6%88%98%E5%BD%B9%E5%85%AC%E7%9B%8A%E8%B5%9B%E5%A4%8D%E7%8E%B0/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">GYCTF2020</div>
+    <a href="/2025/12/07/Kerberos%E5%8D%8F%E8%AE%AE/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Kerberos协议</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -373,7 +348,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#level-1"><span class="toc-number">1.</span> <span class="toc-text">level-1</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#level-2"><span class="toc-number">2.</span> <span class="toc-text">level-2</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#level-3"><span class="toc-number">3.</span> <span class="toc-text">level-3</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#level-4"><span class="toc-number">4.</span> <span class="toc-text">level-4</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#level-5"><span class="toc-number">5.</span> <span class="toc-text">level-5</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#level-6"><span class="toc-number">6.</span> <span class="toc-text">level-6</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#level-7"><span class="toc-number">7.</span> <span class="toc-text">level-7</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#level-8"><span class="toc-number">8.</span> <span class="toc-text">level-8</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#level-9"><span class="toc-number">9.</span> <span class="toc-text">level-9</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#level-10"><span class="toc-number">10.</span> <span class="toc-text">level-10</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#level-11"><span class="toc-number">11.</span> <span class="toc-text">level-11</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#level-12"><span class="toc-number">12.</span> <span class="toc-text">level-12</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#level-13"><span class="toc-number">13.</span> <span class="toc-text">level-13</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#level-14"><span class="toc-number">14.</span> <span class="toc-text">level-14</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#level-15"><span class="toc-number">15.</span> <span class="toc-text">level-15</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#level-16"><span class="toc-number">16.</span> <span class="toc-text">level-16</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#level-17"><span class="toc-number">17.</span> <span class="toc-text">level-17</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#level-18"><span class="toc-number">18.</span> <span class="toc-text">level-18</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CBC加解密回顾"><span class="toc-number">1.</span> <span class="toc-text">CBC加解密回顾</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#加密"><span class="toc-number">1.1.</span> <span class="toc-text">加密</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解密"><span class="toc-number">1.2.</span> <span class="toc-text">解密</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#字节反转攻击"><span class="toc-number">2.</span> <span class="toc-text">字节反转攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#核心原理"><span class="toc-number">2.1.</span> <span class="toc-text">核心原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#公式推导"><span class="toc-number">2.2.</span> <span class="toc-text">公式推导</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#例题-flip-flop"><span class="toc-number">3.</span> <span class="toc-text">例题(flip-flop)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目分析"><span class="toc-number">3.1.</span> <span class="toc-text">题目分析</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -398,7 +373,7 @@ if(true){
   	repo: 'yd0ng.github.io',
   	owner: 'yd0ng',
   	admin: ['yd0ng'],
-  	id: 'Tue Feb 25 2020 17:09:32 GMT+0800',
+  	id: 'Tue Dec 09 2025 12:50:11 GMT+0800',
   	distractionFreeMode: 'true'
 })
 gitalk.render('gitalk-container') 
