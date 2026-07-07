@@ -6,20 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://blog.yd0ng.top">
-  <title>transform架构理解 | 不知名网络安全选手的博客</title>
+  <title>transformer架构理解 | 不知名网络安全选手的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="记录 transform 架构理解。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="transform架构理解">
-<meta property="og:url" content="https://blog.yd0ng.top/2026/07/07/transform%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/index.html">
+<meta property="og:title" content="transformer架构理解">
+<meta property="og:url" content="https://blog.yd0ng.top/2026/07/07/transformer%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/index.html">
 <meta property="og:site_name" content="不知名网络安全选手的博客">
 <meta property="og:description" content="记录 transform 架构理解。">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://blog.yd0ng.top/2026/07/07/transformer%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/FNN.png">
+<meta property="og:image" content="https://blog.yd0ng.top/2026/07/07/transformer%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/RNN.png">
+<meta property="og:image" content="https://blog.yd0ng.top/2026/07/07/transformer%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/EDncoder.png">
+<meta property="og:image" content="https://blog.yd0ng.top/2026/07/07/transformer%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/Transformer.png">
+<meta property="og:image" content="https://blog.yd0ng.top/2026/07/07/transformer%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/QKV%E5%85%AC%E5%BC%8F.png">
 <meta property="article:published_time" content="2026-07-07T12:50:00.000Z">
-<meta property="article:modified_time" content="2026-07-07T12:50:39.569Z">
+<meta property="article:modified_time" content="2026-07-07T14:01:23.004Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="AI">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.yd0ng.top/2026/07/07/transformer%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/FNN.png">
   
   
     <link rel="icon" href="/themes/yilia/source/">
@@ -139,19 +145,19 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-transform架构理解" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-transformer架构理解" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      transform架构理解
+      transformer架构理解
     </h1>
   
 
         
-        <a href="/2026/07/07/transform%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/" class="archive-article-date">
+        <a href="/2026/07/07/transformer%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/" class="archive-article-date">
   	<time datetime="2026-07-07T12:50:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-07-07</time>
 </a>
         
@@ -163,6 +169,92 @@
 <a id="more"></a>
 
 
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h2 id="序列转导模型特点与tansformer架构的创新"><a href="#序列转导模型特点与tansformer架构的创新" class="headerlink" title="序列转导模型特点与tansformer架构的创新"></a>序列转导模型特点与tansformer架构的创新</h2><p>Transformer之前，主要架构为主流序列转导模型，是处理顺序关系数据的模型，这种模型有如下特点：</p>
+<ol>
+<li>基于RNN（循环神经网络）/CNN（卷积神经网络）</li>
+<li>使用编码器-解码器结构</li>
+<li>使用注意力增强机制。</li>
+</ol>
+<p>Transformer特点为：</p>
+<ol>
+<li>完全放弃了RNN和CNN</li>
+<li>仍然使用编码器-解码器结构</li>
+<li>完全基于注意力机制</li>
+</ol>
+<h2 id="FNN前馈神经网络"><a href="#FNN前馈神经网络" class="headerlink" title="FNN前馈神经网络"></a>FNN前馈神经网络</h2><img src="/2026/07/07/transformer%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/FNN.png">
+
+<ul>
+<li>结构为输入层-&gt;隐藏层-&gt;输出层，但是不适合序列转导任务</li>
+<li>分词（Tokenization）-&gt;词向量表示（Embedding）-&gt;合并词向量（平均或拼接）<ul>
+<li>平均（把词的每一个维度直接相加）：会丢掉词语的顺序关系</li>
+<li>拼接：<ol>
+<li>FNN需要固定维度输入，对不同长度的句子处理效率低下</li>
+<li>FNN将句子试做整体处理，无法理解句子中谁先谁后的关系</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="RNN循环神经网络"><a href="#RNN循环神经网络" class="headerlink" title="RNN循环神经网络"></a>RNN循环神经网络</h2><img src="/2026/07/07/transformer%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/RNN.png">
+
+<p>结构为输入层-&gt;隐藏层（循环模式）-&gt;输出层，解决了如下问题：</p>
+<ol>
+<li>能够建模词序，RNN是按照时间顺序(token顺序)逐个处理输入</li>
+<li>能够建模上下文依赖，逐个喂入词语，并且会有记忆机制</li>
+<li>支持不定长输入，不再需要FNN类似的固定长度的输入格式，句子多长都行</li>
+</ol>
+<h3 id="编码器与解码器"><a href="#编码器与解码器" class="headerlink" title="编码器与解码器"></a>编码器与解码器</h3><p>纯RNN要求输入和输出等长，编码器和解码器分离用于解决这个问题：<br><img src="/2026/07/07/transformer%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/EDncoder.png"></p>
+<ol>
+<li>编码器只管输入，通过输入给到c（上下文向量context vector）</li>
+<li>解码器拿着上下文向量c来构造输出</li>
+<li>上下文向量是输入序列的语义编码，是一个固定长度的向量，涵盖了输入的文本信息。</li>
+</ol>
+<h3 id="注意力增强机制"><a href="#注意力增强机制" class="headerlink" title="注意力增强机制"></a>注意力增强机制</h3><p>编码器和解码器还有两个缺陷，是注意力增强机制要解决的问题</p>
+<ol>
+<li>即存储长序列遗忘问题，c的信息永远和最后一个token[-1]比较相关,对token[0]相关的信息有所稀释。</li>
+<li>不同时间步输入对当前时刻的重要性问题，所有输入被同等对待，丢失了时序信息的重要性差异。</li>
+</ol>
+<p>解法：C中的Ci不再相同，而是调整Ci对Si的权重，以优化上述两点。</p>
+<p>至此，还剩下一个问题是传统RNN无法根本解决的问题，并RNN是串行计算的，有先后递归关系，无法并行计算。</p>
+<h1 id="Transformer架构"><a href="#Transformer架构" class="headerlink" title="Transformer架构"></a>Transformer架构</h1><img src="/2026/07/07/transformer%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/Transformer.png">
+
+<h2 id="编码器"><a href="#编码器" class="headerlink" title="编码器"></a>编码器</h2><ol>
+<li><p>输入序列首先经过Input Embedding变为1*512的token向量（携带语义编码）</p>
+</li>
+<li><p>在Input Embedding的输出基础上，进行position Embedding，增加位置编码。位置编码同样为1*512的距离向量，直接加到上一步的输出上。位置编码不采用算术运算的原因是算术信息所带的信息有限，这一步的向量由sin、cos、傅里叶变换等得出。</p>
+</li>
+<li><p>单头注意力机制：为了在语义编码和位置编码的基础上，增加上下文编码</p>
+<ul>
+<li><p>三个权重矩阵（由训练过程得出），wq、wk、wv，三个512*512的矩阵。</p>
+</li>
+<li><p>q是query（问题），k是key（答案），v是value（值）。</p>
+</li>
+<li><p>对于每个词，生成这个词对于这三个矩阵的3个1*512的向量。</p>
+<img src="/2026/07/07/transformer%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/QKV公式.png">
+</li>
+<li><p>softmax函数带上了所有token对于每个词的重要性影响的权重矩阵，再乘V就带上了上下文编码信息。此时仍然为n*512的矩阵</p>
+</li>
+</ul>
+</li>
+<li><p>多头注意力机制，wq、wk、wv不再是512 * 512，变成了512 * 64，通过类似的计算过程，降维最终得到8组n*64的向量，然后进行线性变化，再得到n * 512的矩阵。降维（维度代表特征）的意义在于抽取一类子特征，统一计算，本质是实现一类特征的归类。</p>
+</li>
+<li><p>自注意力机制，输入的QKV来自token自身，在上面做自己的注意力的计算。</p>
+</li>
+<li><p>残差连接：把输入和第一个模块的计算结果进行连接，避免第一个模块计算不足导致整个数据稀释。</p>
+</li>
+<li><p>归一化：让数值趋于稳定，方便模型训练</p>
+</li>
+</ol>
+<h2 id="解码器"><a href="#解码器" class="headerlink" title="解码器"></a>解码器</h2><ol>
+<li>解码器的Q来自输出的输入掩码，K和V来自编码器编码好的结果。</li>
+<li>带掩码的的多头注意力机制，进行矩阵掩码（上三角掩码），只用下三角计算，即所谓的训练过程的防作弊机制。</li>
+</ol>
+<h2 id="创新点"><a href="#创新点" class="headerlink" title="创新点"></a>创新点</h2><ul>
+<li>每层的计算总复杂度低，低于CNN和RNN</li>
+<li>解决并行计算的瓶颈（重要）</li>
+<li>模型内部学习长距离依赖的能力，n方的空间存储换来了内部token序列的关联关系。</li>
+</ul>
+
       
       
     
@@ -173,7 +265,7 @@
         
         <br>
         <strong>本文链接：</strong>
-        https://blog.yd0ng.top/2026/07/07/transform%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/
+        https://blog.yd0ng.top/2026/07/07/transformer%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/
         <br>
         <strong>版权声明：</strong>
         本作品采用
@@ -279,7 +371,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://blog.yd0ng.top/2026/07/07/transform%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://blog.yd0ng.top/2026/07/07/transformer%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -322,7 +414,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    目录，不存在的…
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#序列转导模型特点与tansformer架构的创新"><span class="toc-number">1.1.</span> <span class="toc-text">序列转导模型特点与tansformer架构的创新</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FNN前馈神经网络"><span class="toc-number">1.2.</span> <span class="toc-text">FNN前馈神经网络</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RNN循环神经网络"><span class="toc-number">1.3.</span> <span class="toc-text">RNN循环神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#编码器与解码器"><span class="toc-number">1.3.1.</span> <span class="toc-text">编码器与解码器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注意力增强机制"><span class="toc-number">1.3.2.</span> <span class="toc-text">注意力增强机制</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Transformer架构"><span class="toc-number">2.</span> <span class="toc-text">Transformer架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#编码器"><span class="toc-number">2.1.</span> <span class="toc-text">编码器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解码器"><span class="toc-number">2.2.</span> <span class="toc-text">解码器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创新点"><span class="toc-number">2.3.</span> <span class="toc-text">创新点</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -502,6 +594,22 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">技术文档</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">密码学</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">逆向工程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Java开发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CTF</a>
               </li>
              
@@ -510,11 +618,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java开发</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">备考求职</a>
+                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -522,23 +626,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">密码学</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">技术文档</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">应用安全</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">开发工程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">投资理财</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -546,11 +634,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
+                <a href="javascript:void(0)" class="js-tag color5">投资理财</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">逆向工程</a>
+                <a href="javascript:void(0)" class="js-tag color5">备考求职</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">应用安全</a>
               </li>
             
             <div class="clearfix"></div>
