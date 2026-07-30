@@ -6,26 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://blog.yd0ng.top">
-  <title>transformer架构理解 | 不知名网络安全选手的博客</title>
+  <title>Harness学习笔记 | 不知名网络安全选手的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="记录 transform 架构理解。">
+  <meta name="description" content="记录 Harness 学习笔记，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="transformer架构理解">
-<meta property="og:url" content="https://blog.yd0ng.top/2026/07/07/transformer%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/index.html">
+<meta property="og:title" content="Harness学习笔记">
+<meta property="og:url" content="https://blog.yd0ng.top/2026/07/30/AI/Harness%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="不知名网络安全选手的博客">
-<meta property="og:description" content="记录 transform 架构理解。">
+<meta property="og:description" content="记录 Harness 学习笔记，">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://blog.yd0ng.top/2026/07/07/transformer%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/FNN.png">
-<meta property="og:image" content="https://blog.yd0ng.top/2026/07/07/transformer%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/RNN.png">
-<meta property="og:image" content="https://blog.yd0ng.top/2026/07/07/transformer%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/EDncoder.png">
-<meta property="og:image" content="https://blog.yd0ng.top/2026/07/07/transformer%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/Transformer.png">
-<meta property="og:image" content="https://blog.yd0ng.top/2026/07/07/transformer%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/QKV%E5%85%AC%E5%BC%8F.png">
-<meta property="article:published_time" content="2026-07-07T12:50:00.000Z">
-<meta property="article:modified_time" content="2026-07-07T14:06:33.404Z">
+<meta property="article:published_time" content="2026-07-30T15:15:00.000Z">
+<meta property="article:modified_time" content="2026-07-30T15:59:48.246Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="AI">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog.yd0ng.top/2026/07/07/transformer%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/FNN.png">
   
   
     <link rel="icon" href="/themes/yilia/source/">
@@ -69,7 +63,7 @@
 		</nav>
 		
 		<nav>
-			总文章数 162
+			总文章数 163
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -146,104 +140,47 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-transformer架构理解" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-AI/Harness学习笔记" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      transformer架构理解
+      Harness学习笔记
     </h1>
   
 
         
-        <a href="/2026/07/07/transformer%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2026-07-07T12:50:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-07-07</time>
+        <a href="/2026/07/30/AI/Harness%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2026-07-30T15:15:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-07-30</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>记录 transform 架构理解。</p>
+        <p>记录 Harness 学习笔记，</p>
 <a id="more"></a>
 
-
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h2 id="序列转导模型特点与tansformer架构的创新"><a href="#序列转导模型特点与tansformer架构的创新" class="headerlink" title="序列转导模型特点与tansformer架构的创新"></a>序列转导模型特点与tansformer架构的创新</h2><p>Transformer之前，主要架构为主流序列转导模型，是处理顺序关系数据的模型，这种模型有如下特点：</p>
-<ol>
-<li>基于RNN（循环神经网络）/CNN（卷积神经网络）</li>
-<li>使用编码器-解码器结构</li>
-<li>使用注意力增强机制。</li>
-</ol>
-<p>Transformer特点为：</p>
-<ol>
-<li>完全放弃了RNN和CNN</li>
-<li>仍然使用编码器-解码器结构</li>
-<li>完全基于注意力机制</li>
-</ol>
-<h2 id="FNN前馈神经网络"><a href="#FNN前馈神经网络" class="headerlink" title="FNN前馈神经网络"></a>FNN前馈神经网络</h2><img src="/2026/07/07/transformer%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/FNN.png">
-
-<ul>
-<li>结构为输入层-&gt;隐藏层-&gt;输出层，但是不适合序列转导任务</li>
-<li>分词（Tokenization）-&gt;词向量表示（Embedding）-&gt;合并词向量（平均或拼接）<ul>
-<li>平均（把词的每一个维度直接相加）：会丢掉词语的顺序关系</li>
-<li>拼接：<ol>
-<li>FNN需要固定维度输入，对不同长度的句子处理效率低下</li>
-<li>FNN将句子试做整体处理，无法理解句子中谁先谁后的关系</li>
-</ol>
-</li>
+<h1 id="S01"><a href="#S01" class="headerlink" title="S01"></a>S01</h1><h2 id="教学版"><a href="#教学版" class="headerlink" title="教学版"></a>教学版</h2><ul>
+<li>agent = llm + harmness，我们的重点是构建harness。</li>
+<li>system prompt、user prompt、tools、messages一同发送给llm</li>
+<li>agent loop的过程要理解，本质是调用LLM并循环实现其决策所需要的tool calls的结果，直到输出答案</li>
 </ul>
-</li>
+<h2 id="Claude-code-源码层"><a href="#Claude-code-源码层" class="headerlink" title="Claude code 源码层"></a>Claude code 源码层</h2><ul>
+<li>cc的agent loop依赖于needsFollowUp标志，存在tool_use时，这个标志设为true；cc的stop_reason用于上报与诊断，不控制循环逻辑</li>
+<li>cc的agent loop的核心是State对象，messages只是对象属性之一（算是核心对象），还有其他9个字段，用于loop的其他状态流转</li>
+<li>cc有多条退出和继续路径，包括提示词太长、api限流、服务报错、用户主动中断、hook中断、循环超限、token不足、context压缩等</li>
+<li>cc的流式工具执行和tool blocks执行优化，大大提高了执行效率。</li>
+<li>cc除了mcp之外的工具都是预制好的二进制文件，mcp是启动时注册，运行时动态加载</li>
 </ul>
-<h2 id="RNN循环神经网络"><a href="#RNN循环神经网络" class="headerlink" title="RNN循环神经网络"></a>RNN循环神经网络</h2><img src="/2026/07/07/transformer%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/RNN.png">
-
-<p>结构为输入层-&gt;隐藏层（循环模式）-&gt;输出层，解决了如下问题：</p>
-<ol>
-<li>能够建模词序，RNN是按照时间顺序(token顺序)逐个处理输入</li>
-<li>能够建模上下文依赖，逐个喂入词语，并且会有记忆机制</li>
-<li>支持不定长输入，不再需要FNN类似的固定长度的输入格式，句子多长都行</li>
-</ol>
-<h3 id="编码器与解码器"><a href="#编码器与解码器" class="headerlink" title="编码器与解码器"></a>编码器与解码器</h3><p>纯RNN要求输入和输出等长，编码器和解码器分离用于解决这个问题：<br><img src="/2026/07/07/transformer%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/EDncoder.png"></p>
-<ol>
-<li>编码器只管输入，通过输入给到c（上下文向量context vector）</li>
-<li>解码器拿着上下文向量c来构造输出</li>
-<li>上下文向量是输入序列的语义编码，是一个固定长度的向量，涵盖了输入的文本信息。</li>
-</ol>
-<h3 id="注意力增强机制"><a href="#注意力增强机制" class="headerlink" title="注意力增强机制"></a>注意力增强机制</h3><p>编码器和解码器还有两个缺陷，是注意力增强机制要解决的问题</p>
-<ol>
-<li>即存储长序列遗忘问题，c的信息永远和最后一个token[-1]比较相关,对token[0]相关的信息有所稀释。</li>
-<li>不同时间步输入对当前时刻的重要性问题，所有输入被同等对待，丢失了时序信息的重要性差异。</li>
-</ol>
-<p>解法：C中的Ci不再相同，而是调整Ci对Si的权重，以优化上述两点。</p>
-<p>至此，还剩下一个问题是传统RNN无法根本解决的问题，并RNN是串行计算的，有先后递归关系，无法并行计算。</p>
-<h1 id="Transformer架构"><a href="#Transformer架构" class="headerlink" title="Transformer架构"></a>Transformer架构</h1><img src="/2026/07/07/transformer%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/Transformer.png">
-
-<h2 id="编码器"><a href="#编码器" class="headerlink" title="编码器"></a>编码器</h2><img src="/2026/07/07/transformer%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/QKV公式.png">
-
-<ol>
-<li>输入序列首先经过Input Embedding变为1*512的token向量（携带语义编码）</li>
-<li>在Input Embedding的输出基础上，进行position Embedding，增加位置编码。位置编码同样为1*512的距离向量，直接加到上一步的输出上。位置编码不采用算术运算的原因是算术信息所带的信息有限，这一步的向量由sin、cos、傅里叶变换等得出。</li>
-<li>单头注意力机制：为了在语义编码和位置编码的基础上，增加上下文编码<ul>
-<li>三个权重矩阵（由训练过程得出），wq、wk、wv，三个512*512的矩阵。</li>
-<li>q是query（问题），k是key（答案），v是value（值）。</li>
-<li>对于每个词，生成这个词对于这三个矩阵的3个1*512的向量。</li>
-<li>softmax函数带上了所有token对于每个词的重要性影响的权重矩阵，再乘V就带上了上下文编码信息。此时仍然为n*512的矩阵</li>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
+<li>agent的tools调用机制是自己解析，可能是各种命令执行的函数或者代码体</li>
+<li>tools的基本三要素为：name、description、input_schema，其中input_schema为声明返回的tool call格式</li>
 </ul>
-</li>
-<li>多头注意力机制，wq、wk、wv不再是512 * 512，变成了512 * 64，通过类似的计算过程，降维最终得到8组n*64的向量，然后进行线性变化，再得到n * 512的矩阵。降维（维度代表特征）的意义在于抽取一类子特征，统一计算，本质是实现一类特征的归类。</li>
-<li>自注意力机制，输入的QKV来自token自身，在上面做自己的注意力的计算。</li>
-<li>残差连接：把输入和第一个模块的计算结果进行连接，避免第一个模块计算不足导致整个数据稀释。</li>
-<li>归一化：让数值趋于稳定，方便模型训练</li>
-</ol>
-<h2 id="解码器"><a href="#解码器" class="headerlink" title="解码器"></a>解码器</h2><ol>
-<li>解码器的Q来自输出的输入掩码，K和V来自编码器编码好的结果。</li>
-<li>带掩码的的多头注意力机制，进行矩阵掩码（上三角掩码），只用下三角计算，即所谓的训练过程的防作弊机制。</li>
-</ol>
-<h2 id="创新点"><a href="#创新点" class="headerlink" title="创新点"></a>创新点</h2><ul>
-<li>每层的计算总复杂度低，低于CNN和RNN</li>
-<li>解决并行计算的瓶颈（重要）</li>
-<li>模型内部学习长距离依赖的能力，n方的空间存储换来了内部token序列的关联关系。</li>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><ul>
+<li><a href="https://github.com/shareAI-lab/learn-claude-code/blob/main/README-zh.md" target="_blank" rel="noopener">https://github.com/shareAI-lab/learn-claude-code/blob/main/README-zh.md</a></li>
 </ul>
 
       
@@ -256,7 +193,7 @@
         
         <br>
         <strong>本文链接：</strong>
-        https://blog.yd0ng.top/2026/07/07/transformer%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/
+        https://blog.yd0ng.top/2026/07/30/AI/Harness%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/
         <br>
         <strong>版权声明：</strong>
         本作品采用
@@ -362,7 +299,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://blog.yd0ng.top/2026/07/07/transformer%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://blog.yd0ng.top/2026/07/30/AI/Harness%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -376,18 +313,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2026/07/12/AI/%E6%A8%A1%E5%9E%8B%E5%BE%AE%E8%B0%83-%E6%89%AB%E7%9B%B2/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          模型微调-扫盲
-        
-      </div>
-    </a>
   
-  
-    <a href="/2026/06/11/skills%E5%AD%A6%E4%B9%A0/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">skills学习</div>
+    <a href="/2026/07/12/AI/%E6%A8%A1%E5%9E%8B%E5%BE%AE%E8%B0%83-%E6%89%AB%E7%9B%B2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">模型微调-扫盲</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -414,7 +342,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#序列转导模型特点与tansformer架构的创新"><span class="toc-number">1.1.</span> <span class="toc-text">序列转导模型特点与tansformer架构的创新</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FNN前馈神经网络"><span class="toc-number">1.2.</span> <span class="toc-text">FNN前馈神经网络</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RNN循环神经网络"><span class="toc-number">1.3.</span> <span class="toc-text">RNN循环神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#编码器与解码器"><span class="toc-number">1.3.1.</span> <span class="toc-text">编码器与解码器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注意力增强机制"><span class="toc-number">1.3.2.</span> <span class="toc-text">注意力增强机制</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Transformer架构"><span class="toc-number">2.</span> <span class="toc-text">Transformer架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#编码器"><span class="toc-number">2.1.</span> <span class="toc-text">编码器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解码器"><span class="toc-number">2.2.</span> <span class="toc-text">解码器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创新点"><span class="toc-number">2.3.</span> <span class="toc-text">创新点</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#S01"><span class="toc-number">1.</span> <span class="toc-text">S01</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#教学版"><span class="toc-number">1.1.</span> <span class="toc-text">教学版</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Claude-code-源码层"><span class="toc-number">1.2.</span> <span class="toc-text">Claude code 源码层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他"><span class="toc-number">1.3.</span> <span class="toc-text">其他</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#附录"><span class="toc-number">2.</span> <span class="toc-text">附录</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -439,7 +367,7 @@ if(true){
   	repo: 'yd0ng.github.io',
   	owner: 'yd0ng',
   	admin: ['yd0ng'],
-  	id: 'Tue Jul 07 2026 20:50:00 GMT+0800',
+  	id: 'Thu Jul 30 2026 23:15:00 GMT+0800',
   	distractionFreeMode: 'true'
 })
 gitalk.render('gitalk-container') 
