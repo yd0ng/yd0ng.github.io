@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="https://blog.yd0ng.top">
   <title>Harness学习笔记 | 不知名网络安全选手的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="记录 Harness 学习笔记，">
+  <meta name="description" content="记录 Harness 学习笔记，教程来自于github的learn-claude-code，教学版只是抽象入门，更多的东西可能还需要去看cc的源码">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Harness学习笔记">
 <meta property="og:url" content="https://blog.yd0ng.top/2026/07/30/AI/Harness%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="不知名网络安全选手的博客">
-<meta property="og:description" content="记录 Harness 学习笔记，">
+<meta property="og:description" content="记录 Harness 学习笔记，教程来自于github的learn-claude-code，教学版只是抽象入门，更多的东西可能还需要去看cc的源码">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2026-07-30T15:15:00.000Z">
-<meta property="article:modified_time" content="2026-07-30T15:59:48.246Z">
+<meta property="article:modified_time" content="2026-08-17T06:27:43.030Z">
 <meta property="article:author" content="yd0ng">
 <meta property="article:tag" content="AI">
 <meta name="twitter:card" content="summary">
@@ -160,29 +160,105 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>记录 Harness 学习笔记，</p>
+        <p>记录 Harness 学习笔记，教程来自于github的learn-claude-code，教学版只是抽象入门，更多的东西可能还需要去看cc的源码</p>
 <a id="more"></a>
 
-<h1 id="S01"><a href="#S01" class="headerlink" title="S01"></a>S01</h1><h2 id="教学版"><a href="#教学版" class="headerlink" title="教学版"></a>教学版</h2><ul>
-<li>agent = llm + harmness，我们的重点是构建harness。</li>
-<li>system prompt、user prompt、tools、messages一同发送给llm</li>
-<li>agent loop的过程要理解，本质是调用LLM并循环实现其决策所需要的tool calls的结果，直到输出答案</li>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
+<li>agent = llm + harmness，我们的重点是构建harness，llm由专业的模型训练团队负责。</li>
 </ul>
-<h2 id="Claude-code-源码层"><a href="#Claude-code-源码层" class="headerlink" title="Claude code 源码层"></a>Claude code 源码层</h2><ul>
-<li>cc的agent loop依赖于needsFollowUp标志，存在tool_use时，这个标志设为true；cc的stop_reason用于上报与诊断，不控制循环逻辑</li>
-<li>cc的agent loop的核心是State对象，messages只是对象属性之一（算是核心对象），还有其他9个字段，用于loop的其他状态流转</li>
-<li>cc有多条退出和继续路径，包括提示词太长、api限流、服务报错、用户主动中断、hook中断、循环超限、token不足、context压缩等</li>
-<li>cc的流式工具执行和tool blocks执行优化，大大提高了执行效率。</li>
-<li>cc除了mcp之外的工具都是预制好的二进制文件，mcp是启动时注册，运行时动态加载</li>
+<h1 id="Agent-loop"><a href="#Agent-loop" class="headerlink" title="Agent loop"></a>Agent loop</h1><ul>
+<li>最小的Agent loop就是发送初始信息（包含system prompt、user prompt、tools、messages）给llm，由llm判断是否需要获取进一步的信息（依赖tool-use）直到回答问题或完成任务，本质是调用LLM并循环实现其决策所需要的tool calls的结果，直到输出答案</li>
+<li>LLM是无状态的，所谓的有状态LLM，都是由客户端构建的，每次累计messages发送</li>
 </ul>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
+<h1 id="Tool-use-Function-call"><a href="#Tool-use-Function-call" class="headerlink" title="Tool use/Function call"></a>Tool use/Function call</h1><ul>
+<li>工具可以实现从主Agent loop分离，通过tool_handler来注册与分发机制来增删修改</li>
 <li>agent的tools调用机制是自己解析，可能是各种命令执行的函数或者代码体</li>
 <li>tools的基本三要素为：name、description、input_schema，其中input_schema为声明返回的tool call格式</li>
+<li>tool调用的权限控制:<ol>
+<li>绝对禁止：命中黑名单关键词的直接拒绝。</li>
+<li>规则匹配：命中匹配规则的上报，由用户决策</li>
+</ol>
+</li>
+</ul>
+<h1 id="Hooks"><a href="#Hooks" class="headerlink" title="Hooks"></a>Hooks</h1><ul>
+<li>同一阶段的各种机制，可以统一抽象为hooks并自动调用，避免了主循环的不断膨胀。</li>
+<li>hooks可以根据执行阶段来注册和执行，有点类似于tool的注册于分发机制</li>
+<li>hooks的机制有点像拦截器，可以对提示词，上下文，调用过程等进行拦截与处理</li>
+</ul>
+<h1 id="任务系统"><a href="#任务系统" class="headerlink" title="任务系统"></a>任务系统</h1><ul>
+<li>Agent需要对复杂任务进行拆解，先规划再执行。</li>
+<li>harness侧可以注入特定提醒来提示Agent及时更新任务状态</li>
+<li>任务需要持久化，逻辑层面需要有DAG依赖图来控制依赖关系</li>
+<li>任务需要有状态流转，并需要根据状态来更新下游任务状态</li>
+</ul>
+<h1 id="子Agent并行执行"><a href="#子Agent并行执行" class="headerlink" title="子Agent并行执行"></a>子Agent并行执行</h1><ul>
+<li>可并行执行的任务可以交给子Agent来执行</li>
+<li>子Agent执行可以规避主Agent上下文窗口保障问题</li>
+<li>父Agent可子Agent可共用代码，只是完全的任务不一致</li>
+<li>子Agent不允许再派生孙agent</li>
+</ul>
+<h1 id="Skills注入"><a href="#Skills注入" class="headerlink" title="Skills注入"></a>Skills注入</h1><ul>
+<li>启动时扫描metadata，并注入系统提示词</li>
+<li>使用时才读取所需要的skills全文</li>
+</ul>
+<h1 id="上下文压缩"><a href="#上下文压缩" class="headerlink" title="上下文压缩"></a>上下文压缩</h1><ul>
+<li>tool_result_budget：某一轮次的工具执行结果过大时直接落盘，messages注入落盘文件占位符</li>
+<li>snip_compact：消息大于50条时进行剪裁，只保留开头（用户提示词）和结尾（最新的工具调用），中间裁剪的过程持久化落盘</li>
+<li>micro_compact：对tool-use进行单独压缩，已落盘的跳过，保留最新的3条，其他没落盘的占位抹除</li>
+<li>compact_histroy：调用llm对messages理解，压缩为1条messages，messages中包含用户初始要求，以及对话摘要，决定与剩余工作</li>
+<li>reactive_compact：api返回提示词超长时触发，被动触发，进行一次压缩补救</li>
+<li>注册compact，注入压缩工具，可以在每轮结束后提示llm主动触发压缩。</li>
+</ul>
+<h1 id="memory机制"><a href="#memory机制" class="headerlink" title="memory机制"></a>memory机制</h1><ul>
+<li>格式与skills类似，机制也与skills类似</li>
+<li>skills是通用型描述，memory机制是针对于项目或者user维度的适配</li>
+<li>存储：一个memory一个文件，新生成memory后会重建全局memory索引</li>
+<li>召回：用户发起请求前，召回相关的memory供llm和关键词匹配逻辑选择</li>
+<li>提取：本轮回答完成后，llm提取么memory并落盘，只有persistent才落</li>
+<li>整理：达到一定数量后进行去重，合并</li>
+</ul>
+<h1 id="后台任务"><a href="#后台任务" class="headerlink" title="后台任务"></a>后台任务</h1><ul>
+<li>时间敏感的阻塞型任务可以放到后台执行并进行占位</li>
+<li>后续轮次主Agent主动收集任务执行结果成注入task_notification到messages中</li>
+<li>任务是否在后台执行，由llm决定，提供run_in_bg参数</li>
+<li>BackgroundManeger来控制后台执行与生命周期，需要有互斥锁来保证线程安全</li>
+</ul>
+<h1 id="定时任务"><a href="#定时任务" class="headerlink" title="定时任务"></a>定时任务</h1><ul>
+<li>可实现定时任务机制来重复执行某些任务</li>
+<li>需要进行任务去重入队检查与任务补偿机制</li>
+<li>Agent loop的入口变为定时任务和用户输入两部分</li>
+</ul>
+<h1 id="Agent-Teams"><a href="#Agent-Teams" class="headerlink" title="Agent Teams"></a>Agent Teams</h1><ul>
+<li>适用于大型复杂任务</li>
+<li>由lead接受用户对话，创建任务并规划团队，完成后用户确认</li>
+<li>lead可以根据任务类型让队友提交执行计划、并审批计划；或者简单任务队友自己执行即可</li>
+<li>lead与队友的双向通信通过mailbox进行实现，跨机器的通信则需要通过网络实现，发送与收信都由运行时来控制，这也是harness的体现</li>
+<li>队友状态有Work 和 IDLE和shutdown，并可以切换</li>
+<li>lead进行创建队友时，会初始化队友的taskid来认领任务，认领失败后不会启动队友</li>
+<li>后续队友的任务运行时来帮队友认领（避免任务已经被别的队友领走了），认领需要原子级别</li>
+<li>result的上报和IDLE的状态上报是分开的，这是两码事</li>
+<li>工作目录基于git worktree来实现，可以做到多Agent执行隔离的效果，worktree只能用户或者宿主来清除</li>
+<li>关闭队友和审批需要结构化的消息协议，并需要对应的requestid来进行关联</li>
+<li>计划的审批是严格且约束的，工具调用需要队友满足特定条件（比如已经有任务在执行）</li>
+</ul>
+<h1 id="MCP"><a href="#MCP" class="headerlink" title="MCP"></a>MCP</h1><ul>
+<li>支持外部工具调用的能力，mcp不多说了，没太多新东西</li>
+</ul>
+<h1 id="WorkFLow"><a href="#WorkFLow" class="headerlink" title="WorkFLow"></a>WorkFLow</h1><ul>
+<li>本质还是ai工作流编排，不多说了，没太多新东西</li>
+</ul>
+<h1 id="Goal-Loop"><a href="#Goal-Loop" class="headerlink" title="Goal Loop"></a>Goal Loop</h1><ul>
+<li>通过设定goal来实现Agent的任务完成状态检查与返工，从而达到持续闭环的效果，有点像最近新出的loop Engineering，这里不展开说，后面看下loop Engineering。</li>
 </ul>
 <h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><ul>
 <li><a href="https://github.com/shareAI-lab/learn-claude-code/blob/main/README-zh.md" target="_blank" rel="noopener">https://github.com/shareAI-lab/learn-claude-code/blob/main/README-zh.md</a></li>
 </ul>
-
+<!-- ##  Claude code 源码层
+* cc的agent loop依赖于needsFollowUp标志，存在tool_use时，这个标志设为true；cc的stop_reason用于上报与诊断，不控制循环逻辑
+* cc的agent loop的核心是State对象，messages只是对象属性之一（算是核心对象），还有其他9个字段，用于loop的其他状态流转
+* cc有多条退出和继续路径，包括提示词太长、api限流、服务报错、用户主动中断、hook中断、循环超限、token不足、context压缩等
+* cc的流式工具执行和tool blocks执行优化，大大提高了执行效率。
+* cc除了mcp之外的工具都是预制好的二进制文件，mcp是启动时注册，运行时动态加载 -->
       
       
     
@@ -342,7 +418,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#S01"><span class="toc-number">1.</span> <span class="toc-text">S01</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#教学版"><span class="toc-number">1.1.</span> <span class="toc-text">教学版</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Claude-code-源码层"><span class="toc-number">1.2.</span> <span class="toc-text">Claude code 源码层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他"><span class="toc-number">1.3.</span> <span class="toc-text">其他</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#附录"><span class="toc-number">2.</span> <span class="toc-text">附录</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Agent-loop"><span class="toc-number">2.</span> <span class="toc-text">Agent loop</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Tool-use-Function-call"><span class="toc-number">3.</span> <span class="toc-text">Tool use&#x2F;Function call</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Hooks"><span class="toc-number">4.</span> <span class="toc-text">Hooks</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#任务系统"><span class="toc-number">5.</span> <span class="toc-text">任务系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#子Agent并行执行"><span class="toc-number">6.</span> <span class="toc-text">子Agent并行执行</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Skills注入"><span class="toc-number">7.</span> <span class="toc-text">Skills注入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#上下文压缩"><span class="toc-number">8.</span> <span class="toc-text">上下文压缩</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#memory机制"><span class="toc-number">9.</span> <span class="toc-text">memory机制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#后台任务"><span class="toc-number">10.</span> <span class="toc-text">后台任务</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#定时任务"><span class="toc-number">11.</span> <span class="toc-text">定时任务</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Agent-Teams"><span class="toc-number">12.</span> <span class="toc-text">Agent Teams</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MCP"><span class="toc-number">13.</span> <span class="toc-text">MCP</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#WorkFLow"><span class="toc-number">14.</span> <span class="toc-text">WorkFLow</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Goal-Loop"><span class="toc-number">15.</span> <span class="toc-text">Goal Loop</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#附录"><span class="toc-number">16.</span> <span class="toc-text">附录</span></a></li></ol>
                     </div>
                 </span>
             </div>
